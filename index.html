@@ -40,121 +40,6 @@
         .lang-en {
             display: none; /* Hide English content by default to prevent flash and provide a no-JS fallback */
         }
-
-        /* Styles from cuga.html */
-        #language-selection, #filter-controls {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #fff; /* Changed from #f4f4f4 to #fff for better contrast on potentially dark bg */
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            color: #333; /* Ensure text color is dark for readability on light background */
-        }
-
-        #language-selection button,
-        #filter-controls select,
-        #filter-controls label {
-            padding: 8px 12px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #fff;
-            cursor: pointer;
-            font-size: 14px;
-            color: #333; /* Ensure text color for controls */
-        }
-
-        #language-selection button:hover,
-        #filter-controls select:hover {
-            background-color: #e9e9e9;
-        }
-
-        #filter-controls label {
-            border: none; /* Labels shouldn't look like buttons */
-            cursor: default;
-            padding-left: 0;
-        }
-
-        #clubs-container table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            color: #333; /* Ensure text color for table content */
-        }
-
-        #clubs-container th, #clubs-container td {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            text-align: left;
-            vertical-align: top;
-        }
-
-        #clubs-container th {
-            background-color: #2c3e50; /* Dark blue-gray for header */
-            color: #fff;
-            font-weight: bold;
-        }
-
-        #clubs-container tr:hover {
-            background-color: #f0f0f0; /* Light gray for row hover */
-        }
-
-        #clubs-container td.no-clubs-message {
-            text-align: center;
-            font-style: italic;
-            padding: 20px;
-            background-color: #fff;
-        }
-
-        #clubs-container .ics-button {
-            padding: 5px 8px;
-            background-color: #27ae60; /* Green for ICS button */
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 18px;
-            line-height: 1;
-            min-width: 30px;
-            text-align: center;
-            margin-right: 8px;
-            margin-bottom: 4px;
-            vertical-align: middle;
-        }
-
-        #clubs-container .ics-button:disabled {
-            background-color: #bdc3c7; /* Gray for disabled ICS button */
-            cursor: not-allowed;
-        }
-
-        #clubs-container .ics-button:hover:not(:disabled) {
-            background-color: #229954; /* Darker green on hover */
-        }
-
-        .link-icon {
-            vertical-align: middle;
-        }
-
-        .link-icon i {
-            color: inherit;
-            font-size: 18px;
-            vertical-align: middle;
-        }
-
-        a.link-icon-anchor {
-            display: inline-block;
-            text-decoration: none;
-            color: #337ab7; /* Standard link blue */
-            margin-right: 8px;
-            margin-bottom: 4px;
-            padding: 2px;
-        }
-
-        a.link-icon-anchor:hover {
-            color: #23527c; /* Darker blue on hover */
-        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -212,6 +97,12 @@
         </button>
     </div>
 
+    <div class="text-center py-3 bg-yellow-300 text-black text-sm">
+        This is an experimental website for CUGA. The official CUGA website can be found at <a href="https://cuga.org/" target="_blank" rel="noopener noreferrer" class="underline font-semibold hover:text-blue-700">https://cuga.org/</a>.
+        <br>
+        Ceci est un site web expérimental pour CUGA. Le site officiel de CUGA se trouve à <a href="https://cuga.org/" target="_blank" rel="noopener noreferrer" class="underline font-semibold hover:text-blue-700">https://cuga.org/</a>.
+    </div>
+
     <div class="lang-fr">
         <header class="bg-[#386DC0] text-white py-8 text-center shadow-lg">
             <div class="mx-auto text-2xl font-bold">CUGA</div>
@@ -227,7 +118,6 @@
                     <h3 class="text-2xl font-bold mb-4 text-blue-800 flex items-center text-center">
                         Hockey Subaquatique
                     </h3>
-                    <img src="images/logos/uwh-logo.jpg" alt="Logo Hockey Subaquatique Pleine Taille" class="w-full max-w-xs mx-auto mb-6 rounded bg-white shadow" />
                     <img src="images/hockey.jpg" alt="Image de joueurs de Hockey Subaquatique" class="rounded-lg mb-6 w-full h-auto object-cover">
                     <p class="text-gray-700 leading-relaxed mb-6">
                         Le hockey subaquatique est un sport d'équipe non-contact pratiqué au fond d'une piscine. Deux équipes de six joueurs s'affrontent pour pousser un palet lourd à l'aide d'une crosse dans le but adverse. C'est un sport intense qui demande apnée, endurance et stratégie.
@@ -242,7 +132,6 @@
                     <h3 class="text-2xl font-bold mb-4 text-green-800 flex items-center text-center">
                         Rugby Subaquatique
                     </h3>
-                    <img src="images/logos/uwr-logo.jpg" alt="Logo Rugby Subaquatique Pleine Taille" class="w-full max-w-xs mx-auto mb-6 rounded bg-white shadow" />
                     <img src="images/rugby.jpg" alt="Image de joueurs de Rugby Subaquatique" class="rounded-lg mb-6 w-full h-auto object-cover">
                     <p class="text-gray-700 leading-relaxed mb-6">
                         Le rugby subaquatique est un sport d'équipe en trois dimensions joué au fond d'une piscine profonde. Deux équipes tentent de placer un ballon rempli d'eau salée (qui coule) dans le panier adverse. Les contacts sont autorisés pour prendre le ballon au porteur.
@@ -252,9 +141,33 @@
                     <p class="text-lg font-semibold text-gray-900 mt-4">Des clubs existent à travers le Canada.</p>
                     <a href="#entrainement-rugby" class="mt-6 inline-block bg-green-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-800 transition duration-300 shadow-lg">Voir l'entraînement d'initiation</a>
                 </div>
+
+                <div class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/2 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold mb-4 text-purple-800 flex items-center text-center">
+                        Football Subaquatique
+                    </h3>
+                    <!-- Placeholder for a logo if available in future -->
+                    <!-- <img src="images/logos/uwf-logo.jpg" alt="Logo Football Subaquatique" class="w-full max-w-xs mx-auto mb-6 rounded bg-white shadow" /> -->
+                    <!-- Placeholder for an action image if available in future -->
+                    <!-- <img src="images/football-action.jpg" alt="Image de joueurs de Football Subaquatique" class="rounded-lg mb-6 w-full h-auto object-cover"> -->
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        Le football subaquatique est un sport subaquatique pratiqué par deux équipes de 5 joueurs. Le football subaquatique partage des règles et des éléments de jeu communs avec le hockey subaquatique et le rugby subaquatique. Comme pour ces jeux, il se pratique dans la partie profonde d’une piscine avec un équipement de snorkeling (masque, tuba et palmes).
+                        <br><br>
+                        Le but du jeu est de marquer un point en plaçant le ballon du côté adverse d’une piscine. Le ballon ne peut être possédé que par des joueurs complètement immergés sous l’eau en apnée. Le ballon doit être passé ou lâché en remontant à la surface pour respirer.
+                    </p>
+                    <p class="text-lg font-semibold text-gray-900 mt-4">Pour en savoir plus :</p>
+                    <a href="https://www.uwfootball.ca/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block bg-purple-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-800 transition duration-300 shadow-lg">
+                        Visitez uwfootball.ca
+                    </a>
+                </div>
             </div>
         </section>
 
+        <section class="container mx-auto px-4 py-8 text-center" data-aos="fade-up">
+            <a href="cuga.html" class="inline-block bg-yellow-500 text-gray-900 px-10 py-4 rounded-full font-bold text-xl hover:bg-yellow-600 transition duration-300 shadow-lg">
+                Voir la liste des clubs CUGA
+            </a>
+        </section>
 
         <section id="entrainement" class="bg-gray-200 px-4 py-16" data-aos="fade-up">
             <div class="container mx-auto">
@@ -299,16 +212,18 @@
             <div class="container mx-auto text-center">
                 <h2 class="text-3xl md:text-4xl font-semibold mb-8">Contactez CUGA</h2>
                 <p class="text-lg mb-8">
-                    Prêt(e) à plonger ? Contactez-nous pour plus d'informations ou pour vous inscrire à des cours d'initiation !
+                    Pour toute question ou information, n'hésitez pas à nous contacter via les adresses ci-dessous.
                 </p>
                 <div class="flex flex-col items-center space-y-4">
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Email Général :</span> <a href="mailto:info@cuga.ca" class="text-blue-400 hover:underline">info@cuga.ca</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Email Hockey Subaquatique :</span> <a href="mailto:cuga_uwh@example.com" class="text-blue-400 hover:underline">cuga_uwh@example.com</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Email Rugby Subaquatique :</span> <a href="mailto:cuga_uwr@example.com" class="text-blue-400 hover:underline">cuga_uwr@example.com</a></p>
-                     <p class="text-xl"><span class="font-semibold"><i class="fa fa-facebook"></i> Facebook Hockey Subaquatique :</span> <a href="https://www.facebook.com/CUGAhockeysousmarin/" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">CUGAhockeysousmarin</a></p>
-                     <p class="text-xl"><span class="font-semibold"><i class="fa fa-facebook"></i> Facebook Rugby Subaquatique :</span> <a href="https://www.facebook.com/uwr.cuga/" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">uwr.cuga</a></p>
-                     <p class="text-xl"><span class="font-semibold"><i class="fa fa-instagram"></i> Instagram Rugby Subaquatique :</span> <a href="https://www.instagram.com/uwr.cuga/" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">uwr.cuga</a></p>
-                     <p class="text-xl"><span class="font-semibold"><i class="fa fa-instagram"></i> Instagram Hockey Subaquatique :</span> <a href="https://www.instagram.com/cuga.underwater/" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">cuga.underwater</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Info:</span> <a href="mailto:info@cuga.org" class="text-blue-400 hover:underline">info@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Plaintes:</span> <a href="mailto:complaints@cuga.org" class="text-blue-400 hover:underline">complaints@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Finance:</span> <a href="mailto:finance@cuga.org" class="text-blue-400 hover:underline">finance@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Tech:</span> <a href="mailto:tech@cuga.org" class="text-blue-400 hover:underline">tech@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Football Subaquatique:</span> <a href="mailto:uwfootball@cuga.org" class="text-blue-400 hover:underline">uwfootball@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Hockey Subaquatique:</span> <a href="mailto:uwhockey@cuga.org" class="text-blue-400 hover:underline">uwhockey@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Rugby Subaquatique:</span> <a href="mailto:uwrugby@cuga.org" class="text-blue-400 hover:underline">uwrugby@cuga.org</a></p>
+                    <p class="text-xl mt-4"><span class="font-semibold"><i class="fa fa-map-marker"></i> Adresse Postale:</span><br>482 Connaught Drive, Delta BC V4M 3V8</p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-facebook"></i> Facebook :</span> <a href="https://www.facebook.com/cuga.org" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">CUGA.org</a></p>
                 </div>
             </div>
         </section>
@@ -370,10 +285,8 @@
 
                 <div class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/2 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="100">
                     <h3 class="text-2xl font-bold mb-4 text-blue-800 flex items-center">
-                        <img src="images/logos/uwh-logo.jpg" alt="Underwater Hockey Logo" class="w-8 h-8 rounded bg-white shadow mr-2" />
                         Underwater Hockey
                     </h3>
-                    <img src="images/logos/uwh-logo.jpg" alt="Underwater Hockey Full Logo" class="w-full max-w-xs mx-auto mb-6 rounded bg-white shadow" />
                     <img src="images/hockey.jpg" alt="Image of Underwater Hockey players" class="rounded-lg mb-6 w-full h-auto object-cover">
                     <p class="text-gray-700 leading-relaxed mb-6">
                         Underwater hockey is a non-contact team sport played on the bottom of a swimming pool. Two teams of six players compete to push a heavy puck using a stick into the opponent's goal. It's an intense sport that requires breath-holding, endurance, and strategy.
@@ -386,10 +299,8 @@
 
                 <div class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/2 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="200">
                     <h3 class="text-2xl font-bold mb-4 text-green-800 flex items-center">
-                        <img src="images/logos/uwr-logo.jpg" alt="Underwater Rugby Logo" class="w-8 h-8 rounded bg-white shadow mr-2" />
                         Underwater Rugby
                     </h3>
-                    <img src="images/logos/uwr-logo.jpg" alt="Underwater Rugby Full Logo" class="w-full max-w-xs mx-auto mb-6 rounded bg-white shadow" />
                     <img src="images/rugby.jpg" alt="Image of Underwater Rugby players" class="rounded-lg mb-6 w-full h-auto object-cover">
                     <p class="text-gray-700 leading-relaxed mb-6">
                         Underwater rugby is a three-dimensional team sport played at the bottom of a deep pool. Two teams try to place a saltwater-filled ball (which sinks) into the opponent's basket. Contact is allowed to take the ball from the ball carrier.
@@ -400,9 +311,33 @@
                      <a href="#entrainement-rugby-en" class="mt-6 inline-block bg-green-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-800 transition duration-300 shadow-lg">See introductory training</a>
                 </div>
 
+                <div class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/2 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold mb-4 text-purple-800 flex items-center">
+                        <!-- Icon placeholder if one exists, e.g., <img src="images/logos/uwf-icon.png" alt="Underwater Football Icon" class="w-8 h-8 rounded bg-white shadow mr-2" /> -->
+                        Underwater Football
+                    </h3>
+                    <!-- Placeholder for a logo if available in future -->
+                    <!-- <img src="images/logos/uwf-logo.jpg" alt="Underwater Football Full Logo" class="w-full max-w-xs mx-auto mb-6 rounded bg-white shadow" /> -->
+                    <!-- Placeholder for an action image if available in future -->
+                    <!-- <img src="images/football-action.jpg" alt="Image of Underwater Football players" class="rounded-lg mb-6 w-full h-auto object-cover"> -->
+                    <p class="text-gray-700 leading-relaxed mb-6">
+                        Underwater football is an underwater sport played with two 5 player teams. Underwater Football shares some common rules and play elements with Underwater Hockey and Underwater rugby. As with those games, it is played in the deep end of a swimming pool with snorkeling equipment (mask, snorkel, and fins).
+                        <br><br>
+                        The goal of the game is to score a point by placing a the ball on the opponents side of a pool. The ball can only be possessed by players who are completely submerged underwater holding their breath. The ball must be passed or dropped when going to the surface for air.
+                    </p>
+                    <p class="text-lg font-semibold text-gray-900 mt-4">To learn more:</p>
+                    <a href="https://www.uwfootball.ca/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block bg-purple-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-800 transition duration-300 shadow-lg">
+                        Visit uwfootball.ca
+                    </a>
+                </div>
             </div>
         </section>
 
+        <section class="container mx-auto px-4 py-8 text-center" data-aos="fade-up">
+            <a href="cuga.html" class="inline-block bg-yellow-500 text-gray-900 px-10 py-4 rounded-full font-bold text-xl hover:bg-yellow-600 transition duration-300 shadow-lg">
+                View CUGA Clubs List
+            </a>
+        </section>
 
         <section id="entrainement-en" class="bg-gray-200 px-4 py-16" data-aos="fade-up">
             <div class="container mx-auto">
@@ -447,16 +382,18 @@
             <div class="container mx-auto text-center">
                 <h2 class="text-3xl md:text-4xl font-semibold mb-8">Contact CUGA</h2>
                 <p class="text-lg mb-8">
-                    Ready to dive in? Contact us for more information or to register for introductory courses!
+                    For any questions or information, feel free to contact us using the addresses below.
                 </p>
                 <div class="flex flex-col items-center space-y-4">
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> General Email:</span> <a href="mailto:info@cuga.ca" class="text-blue-400 hover:underline">info@cuga.ca</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Underwater Hockey Email:</span> <a href="mailto:cuga_uwh@example.com" class="text-blue-400 hover:underline">cuga_uwh@example.com</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Underwater Rugby Email:</span> <a href="mailto:cuga_uwr@example.com" class="text-blue-400 hover:underline">cuga_uwr@example.com</a></p>
-                     <p class="text-xl"><span class="font-semibold"><i class="fa fa-facebook"></i> Underwater Hockey Facebook:</span> <a href="https://www.facebook.com/CUGAhockeysousmarin/" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">CUGAhockeysousmarin</a></p>
-                     <p class="text-xl"><span class="font-semibold"><i class="fa fa-facebook"></i> Underwater Rugby Facebook:</span> <a href="https://www.facebook.com/uwr.cuga/" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">uwr.cuga</a></p>
-                     <p class="text-xl"><span class="font-semibold"><i class="fa fa-instagram"></i> Underwater Rugby Instagram:</span> <a href="https://www.instagram.com/uwr.cuga/" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">uwr.cuga</a></p>
-                     <p class="text-xl"><span class="font-semibold"><i class="fa fa-instagram"></i> Underwater Hockey Instagram:</span> <a href="https://www.instagram.com/cuga.underwater/" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">cuga.underwater</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Info:</span> <a href="mailto:info@cuga.org" class="text-blue-400 hover:underline">info@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Complaints:</span> <a href="mailto:complaints@cuga.org" class="text-blue-400 hover:underline">complaints@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Finance:</span> <a href="mailto:finance@cuga.org" class="text-blue-400 hover:underline">finance@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Tech:</span> <a href="mailto:tech@cuga.org" class="text-blue-400 hover:underline">tech@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Underwater Football:</span> <a href="mailto:uwfootball@cuga.org" class="text-blue-400 hover:underline">uwfootball@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Underwater Hockey:</span> <a href="mailto:uwhockey@cuga.org" class="text-blue-400 hover:underline">uwhockey@cuga.org</a></p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Underwater Rugby:</span> <a href="mailto:uwrugby@cuga.org" class="text-blue-400 hover:underline">uwrugby@cuga.org</a></p>
+                    <p class="text-xl mt-4"><span class="font-semibold"><i class="fa fa-map-marker"></i> Mailing Address:</span><br>482 Connaught Drive, Delta BC V4M 3V8</p>
+                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-facebook"></i> Facebook:</span> <a href="https://www.facebook.com/cuga.org" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">CUGA.org</a></p>
                 </div>
             </div>
         </section>
@@ -503,20 +440,6 @@
             </div>
         </footer>
     </div>
-
-    <section id="cuga-club-list" class="container mx-auto px-4 py-16 bg-gray-100 text-gray-800">
-        <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">CUGA Clubs</h2>
-        <div id="language-selection" class="text-center mb-4">
-            <button id="lang-en-clubs" class="lang-button-clubs px-4 py-2 mr-2 rounded bg-blue-500 text-white">English</button>
-            <button id="lang-fr-clubs" class="lang-button-clubs px-4 py-2 rounded bg-gray-400 text-gray-800">Français</button>
-        </div>
-        <div id="filter-controls" class="text-center mb-4">
-            <!-- Filter controls will be added here by JS -->
-        </div>
-        <div id="clubs-container">
-            <!-- Club listings will be displayed here by JS -->
-        </div>
-    </section>
 
     <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -633,647 +556,6 @@ if (browserLang === 'en') {
             }
 
             setInterval(createBubble, 500); // Create a new bubble every 500ms
-        });
-    </script>
-    <script>
-        // --- App Logging Configuration (with defaults, will be updated from config.json) ---
-        let AppLoggerConfig = {
-            enabled: false, // Default to false or a less verbose state like 'warn'
-            logLevel: 'warn',
-        };
-
-        /**
-         * Application logging function.
-         * Must be defined after the initial AppLoggerConfig.
-         * Logs messages to the console if AppLoggerConfig.enabled is true and the message's
-         * level is at or above AppLoggerConfig.logLevel.
-         * @param {string} level - The log level (e.g., 'debug', 'info', 'warn', 'error').
-         * @param {...any} args - Messages or objects to log.
-         */
-        function appLog(level, ...args) {
-            if (!AppLoggerConfig.enabled) {
-                return;
-            }
-
-            const levels = ['debug', 'info', 'warn', 'error'];
-            const configLevelIndex = levels.indexOf(AppLoggerConfig.logLevel.toLowerCase());
-            const messageLevelIndex = levels.indexOf(level.toLowerCase());
-
-            // If the level is not recognized, or if the message level is below the config level, don't log.
-            if (messageLevelIndex === -1 || messageLevelIndex < configLevelIndex) {
-                return;
-            }
-
-            const timestamp = new Date().toISOString();
-            let consoleMethod = console.log; // Default to console.log
-
-            // Use specific console methods if they exist (e.g., console.error, console.warn)
-            // This also helps them appear with different styling in some browser consoles.
-            if (console[level.toLowerCase()] && typeof console[level.toLowerCase()] === 'function') {
-                consoleMethod = console[level.toLowerCase()];
-            }
-
-            // Prepend timestamp and level to the log arguments
-            consoleMethod(`[\${timestamp}] [\${level.toUpperCase()}]`, ...args); // Corrected to use backticks
-        }
-        // --- End App Logging ---
-
-        async function loadAppConfig() {
-            try {
-                const response = await fetch('config.json'); // Assuming config.json is in the same directory or accessible via this path
-                if (!response.ok) {
-                    console.error('Failed to fetch config.json. Status:', response.status, 'Using default AppLoggerConfig.');
-                    return;
-                }
-                const fetchedConfig = await response.json();
-
-                // Update AppLoggerConfig, merging fetched settings with defaults
-                if (fetchedConfig.logging) {
-                    AppLoggerConfig.enabled = typeof fetchedConfig.logging.enabled === 'boolean' ? fetchedConfig.logging.enabled : AppLoggerConfig.enabled;
-                    AppLoggerConfig.logLevel = fetchedConfig.logging.logLevel || AppLoggerConfig.logLevel;
-                }
-
-                // Example for other settings (if any were defined in AppLoggerConfig defaults or elsewhere)
-                // if (fetchedConfig.otherSettings) { ... }
-
-                // Use console.log here for reliable feedback on what config was loaded,
-                // as appLog's behavior depends on this loaded config.
-                console.log("AppLoggerConfig after attempting to load config.json:", JSON.parse(JSON.stringify(AppLoggerConfig)));
-
-            } catch (error) {
-                console.error('Error loading or parsing config.json:', error, 'Using default AppLoggerConfig.');
-            }
-        }
-
-        let allClubs = [];
-        let currentLanguageClubs = 'en'; // Default language for clubs section
-        let selectedSport = 'All';
-        let selectedProvince = 'All';
-
-        const provinceTimezones = {
-            "Alberta": "America/Edmonton",
-            "British Columbia": "America/Vancouver",
-            "Manitoba": "America/Winnipeg",
-            "New Brunswick": "America/Moncton",
-            "Newfoundland and Labrador": "America/St_Johns",
-            "Nova Scotia": "America/Halifax",
-            "Ontario": "America/Toronto",
-            "Prince Edward Island": "America/Halifax",
-            "Quebec": "America/Montreal",
-            "Saskatchewan": "America/Regina",
-            "Northwest Territories": "America/Yellowknife",
-            "Nunavut": "America/Iqaluit", // Note: Nunavut has multiple timezones
-            "Yukon": "America/Whitehorse"
-        };
-        const defaultTimezone = "America/Toronto";
-
-        const headersMapClubs = { // Renamed from headersMap to avoid conflict if index.html had similar
-            'en': {
-                sportType: "Sport Type",
-                clubName: "Club Name",
-                city: "City",
-                practiceTimes: "Practice Times",
-                practiceLocationColumn: "Practice Location",
-                linksColumn: "Links",
-                filterSportTypeLabel: "Filter by Sport Type:",
-                filterProvinceLabel: "Filter by Province:",
-                allOption: "All",
-                AriaDownloadICS: "Download schedule as ICS",
-                AriaEmailLink: "Email",
-                AriaWebsiteLink: "Visit website",
-                AriaFacebookLink: "Visit Facebook page",
-                AriaInstagramLink: "Visit Instagram page",
-                NotesPrefix: "Notes:"
-            },
-            'fr': {
-                sportType: "Type de sport",
-                clubName: "Nom du club",
-                city: "Ville",
-                practiceTimes: "Heures de pratique",
-                practiceLocationColumn: "Lieu de pratique",
-                linksColumn: "Liens",
-                filterSportTypeLabel: "Filtrer par type de sport :",
-                filterProvinceLabel: "Filtrer par province :",
-                allOption: "Tous",
-                AriaDownloadICS: "Télécharger l'horaire en ICS",
-                AriaEmailLink: "Courriel",
-                AriaWebsiteLink: "Visiter le site web",
-                AriaFacebookLink: "Visiter la page Facebook",
-                AriaInstagramLink: "Visiter la page Instagram",
-                NotesPrefix: "Remarques:"
-            }
-        };
-
-        function populateFilterDropdownsClubs(language) { // Renamed
-            const filterControlsContainer = document.getElementById('filter-controls');
-            if (!filterControlsContainer) {
-                console.error('Filter controls container not found!');
-                return;
-            }
-            filterControlsContainer.innerHTML = '';
-
-            const langStrings = headersMapClubs[language];
-
-            const sportTypeLabel = document.createElement('label');
-            sportTypeLabel.setAttribute('for', 'sport-type-filter');
-            sportTypeLabel.textContent = langStrings.filterSportTypeLabel + ' ';
-            filterControlsContainer.appendChild(sportTypeLabel);
-
-            const sportTypeFilter = document.createElement('select');
-            sportTypeFilter.id = 'sport-type-filter';
-            sportTypeFilter.className = 'text-gray-800'; // Added for visibility on light bg
-
-            const defaultSportOption = document.createElement('option');
-            defaultSportOption.value = 'All';
-            defaultSportOption.textContent = langStrings.allOption;
-            sportTypeFilter.appendChild(defaultSportOption);
-
-            let uniqueSportTypes = [...new Set(allClubs.map(club => club.SportType).filter(st => st))].sort();
-
-            uniqueSportTypes.forEach(sportType => {
-                const option = document.createElement('option');
-                option.value = sportType;
-                const representativeClub = allClubs.find(club => club.SportType === sportType);
-                option.textContent = (language === 'fr' && representativeClub && representativeClub.SportTypeFR) ? representativeClub.SportTypeFR : sportType;
-                sportTypeFilter.appendChild(option);
-            });
-            sportTypeFilter.value = selectedSport;
-            sportTypeFilter.addEventListener('change', (e) => {
-                selectedSport = e.target.value;
-                displayClubs(currentLanguageClubs);
-            });
-            filterControlsContainer.appendChild(sportTypeFilter);
-            filterControlsContainer.appendChild(document.createTextNode(' '));
-
-            const provinceLabel = document.createElement('label');
-            provinceLabel.setAttribute('for', 'province-filter');
-            provinceLabel.textContent = langStrings.filterProvinceLabel + ' ';
-            filterControlsContainer.appendChild(provinceLabel);
-
-            const provinceFilter = document.createElement('select');
-            provinceFilter.id = 'province-filter';
-            provinceFilter.className = 'text-gray-800'; // Added for visibility on light bg
-            provinceFilter.innerHTML = '';
-
-            const defaultProvinceOption = document.createElement('option');
-            defaultProvinceOption.value = 'All';
-            defaultProvinceOption.textContent = langStrings.allOption;
-            provinceFilter.appendChild(defaultProvinceOption);
-
-            let uniqueProvinces = [...new Set(allClubs.map(club => club.Province).filter(p => p))].sort();
-
-            uniqueProvinces.forEach(province => {
-                const option = document.createElement('option');
-                option.value = province;
-                const representativeClub = allClubs.find(club => club.Province === province);
-                option.textContent = (language === 'fr' && representativeClub && representativeClub.ProvinceFR) ? representativeClub.ProvinceFR : province;
-                provinceFilter.appendChild(option);
-            });
-            provinceFilter.value = selectedProvince;
-            provinceFilter.addEventListener('change', (e) => {
-                selectedProvince = e.target.value;
-                displayClubs(currentLanguageClubs);
-            });
-            filterControlsContainer.appendChild(provinceFilter);
-        }
-
-        async function fetchClubData() {
-            const url = 'https://docs.google.com/spreadsheets/d/1Lk8Lq5gu-nI1dwZjWZqYM05-x4E-5kD_huPsW-28AMo/gviz/tq';
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const text = await response.text();
-                const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
-                let parsedData;
-                try {
-                    parsedData = JSON.parse(jsonString);
-                } catch (e) {
-                    console.error("Error parsing JSON:", e);
-                    return;
-                }
-
-                const actualHeaders = parsedData.table.rows[0].c.map(cell => (cell && cell.v) ? cell.v : '');
-                const headerKeyToIndex = {};
-                actualHeaders.forEach((header, index) => {
-                    if (header === 'Sport Type') headerKeyToIndex['SportType'] = index;
-                    if (header === 'Sport Type FR') headerKeyToIndex['SportTypeFR'] = index;
-                    if (header === 'Province') headerKeyToIndex['Province'] = index;
-                    if (header === 'Province FR') headerKeyToIndex['ProvinceFR'] = index;
-                    if (header === 'Club Name') headerKeyToIndex['ClubName'] = index;
-                    if (header === 'Club Name FR') headerKeyToIndex['ClubNameFR'] = index;
-                    if (header === 'City') headerKeyToIndex['City'] = index;
-                    if (header === 'City FR') headerKeyToIndex['CityFR'] = index;
-                    if (header === 'Practice Location') headerKeyToIndex['PracticeLocation'] = index;
-                    if (header === 'Practice Location FR') headerKeyToIndex['PracticeLocationFR'] = index;
-                    if (header === 'Practice Times') headerKeyToIndex['PracticeTimes'] = index;
-                    if (header === 'Contact Email') headerKeyToIndex['ContactEmail'] = index;
-                    if (header === 'Website URL') headerKeyToIndex['WebsiteURL'] = index;
-                    if (header === 'Facebook URL') headerKeyToIndex['FacebookURL'] = index;
-                    if (header === 'Instagram URL') headerKeyToIndex['InstagramURL'] = index;
-                    if (header === 'Notes') headerKeyToIndex['Notes'] = index;
-                    if (header === 'Notes FR') headerKeyToIndex['NotesFR'] = index;
-                    if (header === 'RRULE') headerKeyToIndex['RRULE'] = index;
-                    if (header === 'Practice Times FR') headerKeyToIndex['PracticeTimesFR'] = index;
-                });
-
-                allClubs = parsedData.table.rows.slice(1).map(row => {
-                    const club = {};
-                    if (!row || !row.c) return null;
-                    for (const key in headerKeyToIndex) {
-                        const cell = row.c[headerKeyToIndex[key]];
-                        club[key] = (cell && cell.v !== null && cell.v !== undefined) ? cell.v : "";
-                    }
-                    return club;
-                }).filter(club => club !== null);
-
-                console.log("Processed club data:", allClubs);
-                displayClubs(currentLanguageClubs);
-
-            } catch (error) {
-                console.error("Error fetching club data:", error);
-                const clubsContainer = document.getElementById('clubs-container');
-                if (clubsContainer) clubsContainer.innerHTML = '<p>Error loading club data. Please try again later.</p>';
-                const filterControlsContainer = document.getElementById('filter-controls');
-                if (filterControlsContainer) filterControlsContainer.innerHTML = '<p>Could not load filters due to data error.</p>';
-            }
-        }
-
-        function displayClubs(language) { // Parameter renamed for clarity
-            currentLanguageClubs = language; // Use the specific variable for club language
-
-            if (allClubs.length > 0) {
-                populateFilterDropdownsClubs(language); // Use renamed function
-            } else if (document.getElementById('filter-controls')) {
-                 document.getElementById('filter-controls').innerHTML = '';
-            }
-
-            const clubsContainer = document.getElementById('clubs-container');
-            if (!clubsContainer) {
-                console.error('Clubs container not found!');
-                return;
-            }
-            clubsContainer.innerHTML = '';
-
-            const langHeaders = headersMapClubs[language]; // Use renamed map
-
-            const table = document.createElement('table');
-            table.innerHTML = `
-                <thead>
-                    <tr>
-                        <th>${langHeaders.clubName}</th>
-                        <th>${langHeaders.sportType}</th>
-                        <th>${langHeaders.city}</th>
-                        <th>${langHeaders.practiceTimes}</th>
-                        <th>${langHeaders.practiceLocationColumn}</th>
-                        <th>${langHeaders.linksColumn}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            `;
-            const tbody = table.querySelector('tbody');
-
-            let filteredClubs = allClubs;
-            if (selectedSport !== 'All') {
-                filteredClubs = filteredClubs.filter(club => club.SportType === selectedSport);
-            }
-            if (selectedProvince !== 'All') {
-                filteredClubs = filteredClubs.filter(club => club.Province === selectedProvince);
-            }
-
-            if (filteredClubs.length === 0) {
-                const colspanCount = table.querySelector('thead tr').children.length;
-                tbody.innerHTML = `<tr><td colspan="${colspanCount}" class="no-clubs-message">No clubs match the current filters.</td></tr>`;
-                 if (allClubs.length === 0 && !document.getElementById('filter-controls').innerHTML.includes('Could not load filters')) {
-                    tbody.innerHTML = `<tr><td colspan="${colspanCount}" class="no-clubs-message">No club data available.</td></tr>`;
-                }
-            } else {
-                filteredClubs.forEach(club => {
-                    const tr = document.createElement('tr');
-
-                    const clubName = language === 'fr' ? (club.ClubNameFR || club.ClubName) : club.ClubName;
-                    const sportType = language === 'fr' ? (club.SportTypeFR || club.SportType) : club.SportType;
-                    const city = language === 'fr' ? (club.CityFR || club.City) : club.City;
-
-                    tr.insertCell().textContent = clubName;
-                    tr.insertCell().textContent = sportType;
-                    tr.insertCell().textContent = city;
-
-                    const practiceTimesCell = tr.insertCell();
-                    let practiceTimeText = club.PracticeTimes;
-                    if (language === 'fr' && club.PracticeTimesFR && club.PracticeTimesFR.trim() !== "" && club.PracticeTimesFR.toLowerCase() !== 'na') {
-                        practiceTimeText = club.PracticeTimesFR;
-                    } else if (!practiceTimeText || practiceTimeText.trim() === "" || practiceTimeText.toLowerCase() === 'na') {
-                        practiceTimeText = "NA";
-                    }
-                    practiceTimesCell.textContent = practiceTimeText;
-
-                    const practiceLocationCell = tr.insertCell();
-                    let locationContent = club.PracticeLocation;
-                    if (language === 'fr' && club.PracticeLocationFR && club.PracticeLocationFR.trim() !== "" && club.PracticeLocationFR.toLowerCase() !== 'na') {
-                        locationContent = club.PracticeLocationFR;
-                    } else if (!locationContent || locationContent.trim() === "" || locationContent.toLowerCase() === 'na') {
-                        locationContent = "NA";
-                    }
-                    practiceLocationCell.innerHTML = locationContent;
-
-                    const linksCell = tr.insertCell();
-                    const currentClubHeaders = headersMapClubs[currentLanguageClubs]; // Use specific club language
-
-                    const createIconLink = (href, ariaLabelKey, iconClass, isMailto = false) => {
-                        const anchor = document.createElement('a');
-                        anchor.className = 'link-icon-anchor';
-                        if (!isMailto) {
-                            anchor.target = '_blank';
-                            anchor.rel = 'noopener noreferrer';
-                        }
-                        anchor.href = href;
-                        const ariaLabelText = currentClubHeaders[ariaLabelKey] || "";
-                        const fullAriaLabel = href ? `${ariaLabelText} ${href}` : ariaLabelText;
-                        anchor.setAttribute('aria-label', fullAriaLabel);
-
-                        const span = document.createElement('span');
-                        span.className = 'link-icon';
-                        const iconTag = document.createElement('i');
-                        iconTag.className = `fa ${iconClass}`;
-                        iconTag.setAttribute('aria-hidden', 'true');
-                        span.appendChild(iconTag);
-                        anchor.appendChild(span);
-                        return anchor;
-                    };
-
-                    if (club.ContactEmail && club.ContactEmail !== "NA") {
-                        linksCell.appendChild(createIconLink(`mailto:${club.ContactEmail}`, 'AriaEmailLink', 'fa-envelope', true));
-                    }
-                    if (club.WebsiteURL && club.WebsiteURL !== "NA") {
-                        linksCell.appendChild(createIconLink(club.WebsiteURL, 'AriaWebsiteLink', 'fa-globe'));
-                    }
-                    if (club.FacebookURL && club.FacebookURL !== "NA") {
-                        linksCell.appendChild(createIconLink(club.FacebookURL, 'AriaFacebookLink', 'fa-facebook-square'));
-                    }
-                    if (club.InstagramURL && club.InstagramURL !== "NA") {
-                        linksCell.appendChild(createIconLink(club.InstagramURL, 'AriaInstagramLink', 'fa-instagram'));
-                    }
-
-                    const scheduleButton = document.createElement('button');
-                    scheduleButton.className = 'ics-button';
-                    scheduleButton.innerHTML = '<i class="fa fa-calendar" aria-hidden="true"></i>';
-                    const ariaLabelICS = currentClubHeaders.AriaDownloadICS || "Download schedule as ICS";
-                    scheduleButton.setAttribute('aria-label', ariaLabelICS);
-
-                    if (!club.RRULE || club.RRULE.trim() === "" || club.RRULE.toLowerCase() === "na (contact for times)") {
-                        scheduleButton.disabled = true;
-                        appLog('debug', `ICS button disabled for club: ${club.ClubName || 'Unnamed Club'} due to missing/invalid RRULE.`);
-                    } else {
-                        scheduleButton.disabled = false;
-                        const currentClub = club;
-
-                        scheduleButton.addEventListener("click", () => {
-                            appLog('debug', 'ICS button clicked for club (via addEventListener):', currentClub.ClubName);
-                            generateICS(currentClub);
-                        });
-
-                        appLog('debug', `Attached generateICS listener via addEventListener for club: ${currentClub.ClubName || 'Unnamed Club'}`);
-                    }
-                    linksCell.appendChild(scheduleButton);
-
-                    if (linksCell.children.length === 0) {
-                        linksCell.textContent = "NA";
-                    }
-
-                    tbody.appendChild(tr);
-                });
-            }
-            clubsContainer.appendChild(table);
-        }
-
-        function formatUTCDate(date) {
-            return date.getUTCFullYear() +
-                ('0' + (date.getUTCMonth() + 1)).slice(-2) +
-                ('0' + date.getUTCDate()).slice(-2) + 'T' +
-                ('0' + date.getUTCHours()).slice(-2) +
-                ('0' + date.getUTCMinutes()).slice(-2) +
-                ('0' + date.getUTCSeconds()).slice(-2) + 'Z';
-        }
-
-        function calculateNextDtFromRrule(rruleString, clubPracticeTimeString) {
-            const now = new Date();
-            let eventDate = new Date(now);
-
-            const dayMap = { 'SU': 0, 'MO': 1, 'TU': 2, 'WE': 3, 'TH': 4, 'FR': 5, 'SA': 6 };
-
-            let targetDay = -1, targetHour = -1, targetMinute = -1;
-
-            const rruleParts = rruleString.split(';');
-            rruleParts.forEach(part => {
-                const [key, value] = part.split('=');
-                if (key === 'BYDAY' && value.length === 2) targetDay = dayMap[value];
-                if (key === 'BYHOUR') targetHour = parseInt(value, 10);
-                if (key === 'BYMINUTE') targetMinute = parseInt(value, 10);
-            });
-
-            if (targetDay === -1 || targetHour === -1 || targetMinute === -1) {
-                if (clubPracticeTimeString) {
-                    const timeMatch = clubPracticeTimeString.match(/(\d{1,2})[:h](\d{2})?/i);
-                    if (timeMatch) {
-                        targetHour = parseInt(timeMatch[1], 10);
-                        targetMinute = timeMatch[2] ? parseInt(timeMatch[2], 10) : 0;
-                        for (const dayKey in dayMap) {
-                            if (clubPracticeTimeString.toLowerCase().includes(dayKey.toLowerCase())) {
-                                targetDay = dayMap[dayKey];
-                                break;
-                            }
-                        }
-                         if (targetDay === -1) targetDay = now.getDay();
-                    } else {
-                         return null;
-                    }
-                } else {
-                    return null;
-                }
-            }
-
-            eventDate.setHours(targetHour, targetMinute, 0, 0);
-
-            let daysToAdd = (targetDay - eventDate.getDay() + 7) % 7;
-            if (daysToAdd === 0 && eventDate.getTime() < now.getTime()) {
-                daysToAdd = 7;
-            }
-            eventDate.setDate(eventDate.getDate() + daysToAdd);
-
-            const dtstart = new Date(eventDate);
-            const dtend = new Date(eventDate);
-            dtend.setHours(dtend.getHours() + 1);
-
-            const formatDateForICS = (d) => {
-                return d.getFullYear() +
-                       ('0' + (d.getMonth() + 1)).slice(-2) +
-                       ('0' + d.getDate()).slice(-2) + 'T' +
-                       ('0' + d.getHours()).slice(-2) +
-                       ('0' + d.getMinutes()).slice(-2) +
-                       ('0' + d.getSeconds()).slice(-2);
-            };
-
-            return {
-                dtstart: formatDateForICS(dtstart),
-                dtend: formatDateForICS(dtend)
-            };
-        }
-
-
-        function generateICS(club) {
-            appLog('debug', 'generateICS called for club:', club);
-            const lang = currentLanguageClubs;
-            const clubName = lang === 'fr' ? (club.ClubNameFR || club.ClubName) : club.ClubName;
-            const sportType = lang === 'fr' ? (club.SportTypeFR || club.SportType) : club.SportType;
-
-            let locationForICS = club.PracticeLocation || "";
-            if (currentLanguageClubs === 'fr' && club.PracticeLocationFR && club.PracticeLocationFR.trim() !== "" && club.PracticeLocationFR.toLowerCase() !== "na") {
-                locationForICS = club.PracticeLocationFR;
-            } else if (!locationForICS || locationForICS.trim() === "" || locationForICS.toLowerCase() === "na") {
-                locationForICS = "";
-            }
-
-            let practiceTimesForDesc = club.PracticeTimes || "";
-            if (currentLanguageClubs === 'fr' && club.PracticeTimesFR && club.PracticeTimesFR.trim() !== "" && club.PracticeTimesFR.toLowerCase() !== "na") {
-                practiceTimesForDesc = club.PracticeTimesFR;
-            }
-
-            let notesForDesc = club.Notes || "";
-            if (currentLanguageClubs === 'fr' && club.NotesFR && club.NotesFR.trim() !== "" && club.NotesFR.toLowerCase() !== "na") {
-                notesForDesc = club.NotesFR;
-            }
-
-            const currentClubHeaders = headersMapClubs[currentLanguageClubs];
-            let description = practiceTimesForDesc.replace(/\r\n|\r|\n/g, "\\n");
-            if (notesForDesc) {
-                description += `\\n\\n${currentClubHeaders.NotesPrefix} ${notesForDesc.replace(/\r\n|\r|\n/g, "\\n")}`;
-            }
-
-            const summary = `${clubName} - ${sportType}`;
-
-            const rruleString = club.RRULE || "";
-            if (!rruleString.trim() || rruleString.toLowerCase() === "na (contact for times)") {
-                appLog('debug', 'No RRULE found or RRULE is "NA (contact for times)" for club:', clubName);
-                alert("No valid recurrence rule found for this club (RRULE is empty or NA).");
-                return;
-            }
-            const individualRrules = rruleString
-                .replace(/<br\s*\/?>|&lt;br\s*\/?>/gi, '|')
-                .split('|')
-                .map(rule => rule.trim())
-                .filter(rule => rule.length > 0);
-
-            if (individualRrules.length === 0) {
-                appLog('debug', 'No valid individual RRULEs found after parsing for club:', clubName, 'Original RRULE:', club.RRULE);
-                alert("No valid individual recurrence rules could be parsed for this club.");
-                return;
-            }
-            appLog('debug', 'About to process individual RRULEs. Count:', individualRrules.length, 'Rules:', individualRrules);
-
-
-            let icsEvents = [];
-            const dtstamp = formatUTCDate(new Date());
-
-            let resolvedTzid = defaultTimezone;
-            if (club.Province && provinceTimezones[club.Province]) {
-                resolvedTzid = provinceTimezones[club.Province];
-            } else if (club.Province) {
-                console.warn(`No specific timezone mapping for province: ${club.Province}. Using default: ${defaultTimezone}`);
-            }
-
-            for (const rrule of individualRrules) {
-                if (rrule.toLowerCase() === "na (contact for times)") continue;
-
-                const dtTimes = calculateNextDtFromRrule(rrule, club.PracticeTimes);
-                if (!dtTimes) {
-                    console.warn(`Could not calculate DTSTART/DTEND for RRULE: ${rrule}. Skipping this event.`);
-                    continue;
-                }
-
-                const uid = `${club.ClubName.replace(/[^a-zA-Z0-9]/g, "")}${Date.now()}${Math.random().toString(36).substring(2,5)}@cuga.ca`;
-
-                let eventStr = [
-                    'BEGIN:VEVENT',
-                    `UID:${uid}`,
-                    `DTSTAMP:${dtstamp}`,
-                    `SUMMARY:${summary}`,
-                    `LOCATION:${locationForICS.replace(/([,;\\])/g, '\\$1').replace(/\r\n|\r|\n/g, "\\n")}`,
-                    `DESCRIPTION:${description}`,
-                    `RRULE:${rrule}`,
-                    `DTSTART;TZID=${resolvedTzid}:${dtTimes.dtstart}`,
-                    `DTEND;TZID=${resolvedTzid}:${dtTimes.dtend}`,
-                    'END:VEVENT'
-                ].join('\r\n');
-                icsEvents.push(eventStr);
-            }
-
-            if (icsEvents.length === 0) {
-                appLog('debug', 'No VEVENTs were created for club:', clubName);
-                alert("Could not generate any valid events for this club's schedule (no valid VEVENTs created).");
-                return;
-            }
-
-            const icsContent = [
-                'BEGIN:VCALENDAR',
-                'VERSION:2.0',
-                'PRODID:-//CUGA//ClubSchedule//EN',
-                ...icsEvents,
-                'END:VCALENDAR'
-            ].join('\r\n');
-
-            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8;' });
-            appLog('debug', 'Blob created:', blob);
-            const objectURL = URL.createObjectURL(blob);
-            appLog('debug', 'Object URL created:', objectURL);
-
-            const link = document.createElement("a");
-            link.href = objectURL;
-            const fileName = `${clubName.replace(/[^a-zA-Z0-9]/g, "_")}_schedule.ics`;
-            link.setAttribute("download", fileName);
-
-            document.body.appendChild(link);
-            appLog('debug', 'Link appended to body. About to click download link. Href:', link.href, 'Download attr:', link.download);
-            link.click();
-
-            setTimeout(() => {
-                appLog('debug', 'link.click() executed for file:', fileName);
-                document.body.removeChild(link);
-                URL.revokeObjectURL(objectURL);
-                appLog('debug', 'Cleanup: Removed temporary link and revoked object URL for club:', clubName);
-            }, 100);
-        }
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                await loadAppConfig();
-                appLog('info', 'Application configuration loaded successfully.');
-            } catch (error) {
-                console.error("Critical error during app configuration loading sequence:", error);
-                appLog('error', 'Critical error during app configuration loading sequence. Proceeding with default logging.', error);
-            }
-
-            fetchClubData();
-
-            const langEnButtonClubs = document.getElementById('lang-en-clubs'); // Updated ID
-            const langFrButtonClubs = document.getElementById('lang-fr-clubs'); // Updated ID
-
-            if (langEnButtonClubs) {
-                langEnButtonClubs.addEventListener('click', () => {
-                    selectedSport = 'All'; // Reset filters
-                    selectedProvince = 'All';
-                    displayClubs('en');
-                });
-            }
-            if (langFrButtonClubs) {
-                langFrButtonClubs.addEventListener('click', () => {
-                    selectedSport = 'All'; // Reset filters
-                    selectedProvince = 'All';
-                    displayClubs('fr');
-                });
-            }
         });
     </script>
 </body>
