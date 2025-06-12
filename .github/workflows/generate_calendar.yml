@@ -4,6 +4,13 @@ on:
   schedule:
     - cron: '0 0 * * *' # Run daily at midnight UTC
   workflow_dispatch: # Allows manual triggering
+  push:
+    branches:
+      - main # Or master, depending on the default branch. Assuming 'main'.
+    paths:
+      - 'event_generator.py'
+      - '.github/workflows/generate_calendar.yml'
+      - 'requirements.txt'
 
 jobs:
   build_and_commit_calendar:
