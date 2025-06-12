@@ -33,6 +33,9 @@
         <button class="lang-button px-4 py-2 rounded bg-gray-400 text-gray-800" data-lang="en">
             <i class="fa fa-canadian-maple-leaf"></i> English
         </button>
+        <button id="testDataButton" class="px-4 py-2 rounded bg-green-500 text-white" title="Fill form with test data">
+            <i class="fa fa-flask"></i> Test Data
+        </button>
     </div>
 
     <div class="text-center py-3 bg-yellow-300 text-black text-sm">
@@ -396,6 +399,94 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             AOS.init({ duration: 1000, once: true });
+
+            function fillWithTestData() {
+                console.log("Attempting to fill form with test data...");
+
+                // Populate Text Inputs
+                const fullNameEl = document.getElementById('fullName');
+                if (fullNameEl) fullNameEl.value = "John Doe Test";
+
+                const emailEl = document.getElementById('email');
+                if (emailEl) emailEl.value = "john.doe.test@example.com";
+
+                const dobEl = document.getElementById('dob');
+                if (dobEl) dobEl.value = "1990-01-15";
+
+                const phoneEl = document.getElementById('phone');
+                if (phoneEl) phoneEl.value = "555-123-4567";
+
+                const addressEl = document.getElementById('address');
+                if (addressEl) addressEl.value = "123 Test Street";
+
+                const cityEl = document.getElementById('city');
+                if (cityEl) cityEl.value = "Testville";
+
+                const provinceEl = document.getElementById('province');
+                if (provinceEl) provinceEl.value = "Ontario";
+
+                const postalCodeEl = document.getElementById('postalCode');
+                if (postalCodeEl) postalCodeEl.value = "K1A 0B1";
+
+                const emergencyContactNameEl = document.getElementById('emergencyContactName');
+                if (emergencyContactNameEl) emergencyContactNameEl.value = "Jane Doe Test";
+
+                const emergencyContactPhoneEl = document.getElementById('emergencyContactPhone');
+                if (emergencyContactPhoneEl) emergencyContactPhoneEl.value = "555-987-6543";
+
+                const clubNameEl = document.getElementById('clubName');
+                if (clubNameEl) clubNameEl.value = "Test Club Aqua";
+
+                const waiverInitialsEl = document.getElementById('waiverInitials');
+                if (waiverInitialsEl) waiverInitialsEl.value = "JDT";
+
+                const digitalSignatureEl = document.getElementById('digitalSignature');
+                if (digitalSignatureEl) digitalSignatureEl.value = "John Doe Test";
+
+                const signatureDateEl = document.getElementById('signatureDate');
+                if (signatureDateEl) signatureDateEl.value = new Date().toISOString().split('T')[0];
+
+                // Select Checkboxes
+                const sportUWHCheckbox = document.getElementById('sportUWH');
+                if (sportUWHCheckbox) sportUWHCheckbox.checked = true;
+
+                const agreeCodeOfConductCheckbox = document.getElementById('agreeCodeOfConduct');
+                if (agreeCodeOfConductCheckbox) agreeCodeOfConductCheckbox.checked = true;
+
+                const agreeWaiverTermsCheckbox = document.getElementById('agreeWaiverTerms');
+                if (agreeWaiverTermsCheckbox) agreeWaiverTermsCheckbox.checked = true;
+
+                // Select Dropdown
+                const membershipTypeSelectEl = document.getElementById('membershipType');
+                if (membershipTypeSelectEl) {
+                    membershipTypeSelectEl.value = "adult";
+                    // Trigger fee calculation
+                    if (typeof calculateFee === 'function') {
+                        calculateFee();
+                    } else {
+                        // Fallback if calculateFee is not directly callable
+                        const event = new Event('change', { bubbles: true });
+                        membershipTypeSelectEl.dispatchEvent(event);
+                    }
+                }
+
+                // Handle Signature Pad Fallback
+                const typedSignatureEl = document.getElementById('typedSignature');
+                if (typedSignatureEl) {
+                    typedSignatureEl.value = "John Doe Test Typed";
+                }
+
+                console.log("Form filled with test data.");
+            }
+
+            const testDataButton = document.getElementById('testDataButton');
+            if (testDataButton) {
+                testDataButton.addEventListener('click', () => {
+                    fillWithTestData();
+                });
+            } else {
+                console.error('Test Data button (testDataButton) not found.');
+            }
 
             const langButtons = document.querySelectorAll('.lang-button');
             const htmlTag = document.documentElement;
