@@ -391,6 +391,33 @@ def main():
 
     print(f"Info: Successfully parsed {len(club_events)} potential events from the sheet.")
 
+    processed_club_data_for_json = []
+    for entry in club_events:
+        current_club_name = entry.get('ClubName', entry.get('Club Name', 'UnknownClub'))
+        # Fallbacks ensure that if a mapped key (e.g., 'ClubName') is empty but the original (e.g., 'Club Name') exists,
+        # the original is used. If neither, it defaults to an empty string or a specified default.
+        club_info = {
+            'ClubName': entry.get('ClubName', entry.get('Club Name', 'UnknownClub')),
+            'ClubNameFR': entry.get('ClubNameFR', entry.get('Club Name FR', '')),
+            'Province': entry.get('Province', entry.get('Province', '')),
+            'City': entry.get('City', entry.get('City', '')),
+            'PracticeLocation': entry.get('PracticeLocation', entry.get('Practice Location', '')),
+            'PracticeLocationFR': entry.get('PracticeLocationFR', entry.get('Practice Location FR', '')),
+            'PracticeTimes': entry.get('PracticeTimes', entry.get('Practice Times', '')),
+            'PracticeTimesFR': entry.get('PracticeTimesFR', entry.get('Practice Times FR', '')),
+            'Notes': entry.get('Notes', entry.get('Notes', '')),
+            'NotesFR': entry.get('NotesFR', entry.get('Notes FR', '')),
+            'SportType': entry.get('SportType', entry.get('Sport Type', '')),
+            'ContactEmail': entry.get('ContactEmail', ''), # Assumes 'ContactEmail' is the direct key from sheet if not mapped differently
+            'WebsiteURL': entry.get('WebsiteURL', ''),     # Assumes 'WebsiteURL' is direct
+            'FacebookURL': entry.get('FacebookURL', ''),   # Assumes 'FacebookURL' is direct
+            'InstagramURL': entry.get('InstagramURL', ''), # Assumes 'InstagramURL' is direct
+            'ics_file_path': None # Default, might be updated later if ICS is generated
+        }
+        sanitized_club_name_for_file = sanitize_filename(current_club_name)
+        club_info['ics_file_path'] = os.path.join(CLUB_SCHEDULES_DIR, f"{sanitized_club_name_for_file}.ics")
+        processed_club_data_for_json.append(club_info)
+
     processed_event_fingerprints = load_processed_prompts(PROCESSED_PROMPTS_FILE)
     print(f"Info: Loaded {len(processed_event_fingerprints)} previously processed event fingerprints.")
 
@@ -477,7 +504,7 @@ def main():
     print(f"Aggregated events for {len(aggregated_events_by_club)} unique clubs.")
 
     # --- Generate Per-Club ICS Files ---
-    processed_club_data_for_json = [] # To store data for cuga_club_data.json
+    # processed_club_data_for_json = [] # This line is removed
 
     for club_name, data in aggregated_events_by_club.items():
         club_vevents = data['vevents']
@@ -512,8 +539,18 @@ def main():
         club_ics_filepath = os.path.join(CLUB_SCHEDULES_DIR, club_ics_filename)
 
         write_ics_file_from_vevents(club_vevents, club_ics_filepath)
-        club_info_for_json['ics_file_path'] = club_ics_filepath
-        processed_club_data_for_json.append(club_info_for_json)
+        # club_info_for_json['ics_file_path'] = club_ics_filepath # This was for the local dict, not needed here anymore for this purpose.
+
+        # Update the ics_file_path in the main list for the current club
+        for club_entry in processed_club_data_for_json:
+            # Match based on the ClubName used for aggregation, which should be reliable
+            # Need to handle cases where original_data might not have 'ClubName' but 'Club Name'
+            # The club_name variable is the key from aggregated_events_by_club
+            if club_entry.get('ClubName') == club_name or \
+               (not club_entry.get('ClubName') and club_entry.get('Club Name') == club_name): # Check original if mapped is missing
+                club_entry['ics_file_path'] = club_ics_filepath
+                break
+        # processed_club_data_for_json.append(club_info_for_json) # This line is removed
 
     # --- Generate Master ICS File ---
     master_ics_filepath = 'master_cuga_schedule.ics'
