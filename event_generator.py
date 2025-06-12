@@ -244,7 +244,7 @@ def call_gemini_api(prompt, api_key):
     try:
         print(f"--- Calling Gemini API ---")
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-pro') # Using gemini-pro, ensure this model is available/correct
+        model = genai.GenerativeModel('models/gemini-2.0-flash')
 
         # Safety settings to try and prevent Gemini from refusing to answer
         # These are quite permissive, adjust as needed based on observed refusals
