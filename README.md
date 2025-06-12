@@ -37,4 +37,8 @@ This website includes the following key pages:
         *   Member data is **not** actually sent to a Google Drive sheet. Instead, the collected data is logged to the browser's developer console. This data includes all form fields: personal details, club name, selected sports (as a comma-separated string if multiple), membership type, calculated fee, waiver initials, the signature (as a Base64 data URL from the canvas, or typed text if fallback was used), the printed name for the signature, and a timestamp of the submission. The form is then reset.
     *   *Note on Waiver Presentation*: The signature is captured against the waiver text displayed as HTML content within a scrollable section. The stretch goal to render the full waiver text onto a single, combined image canvas with the signature for download was not implemented due to its complexity.
 
+**Common Elements:**
+*   **Language Selector**: All main pages (`index.html`, `join.html`, `waiver.html`) feature a language selector allowing users to switch between English and French content. The site also attempts to auto-detect and set the language based on browser preference on initial load.
+*   **Prototype Disclaimer**: The prototype disclaimer banner, providing a link to the official `cuga.org` website, is consistently displayed at the top of `index.html`, `join.html`, and `waiver.html`. It is positioned after the language selector and before the main page header for site-wide visibility.
+
 **Important Note on Simulations:** The payment and data submission functionalities on `waiver.html` are currently client-side simulations. No real payments are processed, and no data is transmitted to a live backend or cloud storage. These features are implemented to showcase the intended user workflow.
