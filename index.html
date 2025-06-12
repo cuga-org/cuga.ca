@@ -525,6 +525,25 @@
                 button.addEventListener('click', () => setLanguage(button.dataset.lang));
             });
         });
+
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) { // True if page is from bfcache
+                console.log('index.html: Page shown from bfcache'); // Optional: for debugging
+                const storedLang = localStorage.getItem('language');
+                if (storedLang) {
+                    setLanguage(storedLang);
+                } else {
+                    // Fallback logic if no language is in localStorage
+                    // This mirrors the original default logic in DOMContentLoaded
+                    const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+                    if (browserLang === 'en') {
+                        setLanguage('en');
+                    } else {
+                        setLanguage('fr'); // Default to French
+                    }
+                }
+            }
+        });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

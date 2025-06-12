@@ -685,6 +685,21 @@
             langButtons.forEach(button => {
                 button.addEventListener('click', () => setLanguage(button.dataset.lang));
             });
+
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted) { // True if page is from bfcache
+                    console.log('cuga.html: Page shown from bfcache'); // Optional: for debugging
+                    const storedLang = localStorage.getItem('language');
+                    if (storedLang) {
+                        setLanguage(storedLang); // setLanguage is accessible here
+                    } else {
+                        // Fallback logic if no language is in localStorage
+                        const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+                        const initialLang = (browserLang === 'en' || browserLang === 'fr') ? browserLang : 'fr';
+                        setLanguage(initialLang);
+                    }
+                }
+            });
         });
     </script>
     <script>

@@ -270,6 +270,22 @@
             langButtons.forEach(button => {
                 button.addEventListener('click', () => setLanguage(button.dataset.lang));
             });
+
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted) { // True if page is from bfcache
+                    console.log('join.html: Page shown from bfcache'); // Optional: for debugging
+                    const storedLang = localStorage.getItem('language');
+                    if (storedLang) {
+                        setLanguage(storedLang); // setLanguage is accessible here
+                    } else {
+                        // Fallback logic if no language is in localStorage
+                        // This mirrors the original default logic in DOMContentLoaded
+                        const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+                        const initialLang = browserLang === 'en' ? 'en' : 'fr';
+                        setLanguage(initialLang);
+                    }
+                }
+            });
         });
     </script>
 </body>
