@@ -40,6 +40,10 @@
         .lang-en {
             display: none; /* Hide English content by default to prevent flash and provide a no-JS fallback */
         }
+        .active-nav-link {
+            color: #FACC15; /* Corresponds to Tailwind's yellow-400 */
+            font-weight: bold;
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -87,6 +91,26 @@
 <body class="bg-blue-700 text-white">
     <div class="bubbles">
     </div>
+
+    <nav class="lang-fr fixed top-1/2 right-4 transform -translate-y-1/2 bg-opacity-75 bg-blue-800 text-white p-3 rounded-lg z-50 shadow-md hidden md:block">
+        <ul class="flex flex-col space-y-2">
+            <li class="py-1"><a href="#about-us-fr" class="hover:text-yellow-300">À propos</a></li>
+            <li class="py-1"><a href="#executive-fr" class="hover:text-yellow-300">Exécutif</a></li>
+            <li class="py-1"><a href="#sports" class="hover:text-yellow-300">Disciplines</a></li>
+            <li class="py-1"><a href="#nationals" class="hover:text-yellow-300">Championnats</a></li>
+            <li class="py-1"><a href="#contact" class="hover:text-yellow-300">Contact</a></li>
+        </ul>
+    </nav>
+
+    <nav class="lang-en fixed top-1/2 right-4 transform -translate-y-1/2 bg-opacity-75 bg-blue-800 text-white p-3 rounded-lg z-50 shadow-md hidden md:block">
+        <ul class="flex flex-col space-y-2">
+            <li class="py-1"><a href="#about-us-en" class="hover:text-yellow-300">About Us</a></li>
+            <li class="py-1"><a href="#executive-en" class="hover:text-yellow-300">Executive</a></li>
+            <li class="py-1"><a href="#sports-en" class="hover:text-yellow-300">Disciplines</a></li>
+            <li class="py-1"><a href="#nationals-en" class="hover:text-yellow-300">Nationals</a></li>
+            <li class="py-1"><a href="#contact-en" class="hover:text-yellow-300">Contact</a></li>
+        </ul>
+    </nav>
 
     <div class="text-center py-4 bg-gray-200">
         <button class="lang-button px-4 py-2 mr-2 rounded bg-blue-500 text-white" data-lang="fr">
@@ -166,12 +190,37 @@
             </a>
         </div>
 
-        <section class="container mx-auto px-4 py-16 text-center bg-gray-100 rounded-xl mb-16" data-aos="fade-up">
+        <section id="nationals" class="container mx-auto px-4 py-16 text-center bg-gray-100 rounded-xl mb-16" data-aos="fade-up">
             <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-900">Championnats Canadiens de Hockey Subaquatique 2025</h2>
             <img src="competitions/2025-Canadian-Underwater-Hockey-Nationals.jpeg" alt="Affiche des Championnats Canadiens de Hockey Subaquatique 2025" class="rounded-lg mb-6 mx-auto shadow-xl w-full md:w-2/3 lg:w-1/2">
             <p class="text-xl text-gray-900 mb-2"><strong>Date :</strong> Vendredi 13 juin 2025 - Dimanche 15 juin 2025</p>
             <p class="text-xl text-gray-900 mb-2"><strong>Lieu :</strong> Centre Sportif de Gatineau, 850 Bd de la Gappe, Gatineau, QC J8T 7T7</p>
             <p class="text-lg text-gray-900 mt-4 leading-relaxed">CUGA est ravi d'organiser les Championnats Canadiens de Hockey Subaquatique 2025 à Gatineau! Venez encourager les meilleures équipes du pays.</p>
+        </section>
+
+        <section id="about-us-fr" class="container mx-auto px-4 py-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">À propos de nous</h2>
+            <div class="bg-white rounded-xl shadow-xl p-8 text-gray-700 leading-relaxed">
+                <p class="mb-4">L'Association Canadienne des Jeux Subaquatiques (CUGA) supervise les sports subaquatiques au Canada. CUGA a été fondée en 1984 et est devenue l'unique représentante canadienne pour les sports subaquatiques auprès de la CMAS, l'organisme international régissant les jeux subaquatiques.</p>
+                <p class="mb-4">CUGA est enregistrée comme une association athlétique amateur auprès de Revenu Canada et est strictement une organisation à but non lucratif, gérée par des bénévoles de partout au Canada.</p>
+                <p class="mb-4">CUGA travaille à réglementer et à promouvoir tous les jeux subaquatiques reconnus par la fédération internationale des sports subaquatiques (CMAS) au Canada. Ceux-ci incluent le hockey subaquatique, le rugby/football subaquatique, l'orientation subaquatique, la nage avec palmes et le tir sur cible.</p>
+                <p class="mb-4">Actuellement, le hockey subaquatique et le rugby/football subaquatique sont les seuls sports actifs au Canada avec des équipes participantes en Colombie-Britannique, Alberta, Saskatchewan, Ontario, Québec, Nouvelle-Écosse et au Yukon.</p>
+                <p class="mb-4">L'organisation soutient également les équipes nationales représentatives canadiennes qui participent aux championnats du monde et aux tournois sur invitation. CUGA offre une voix et un vote aux sports subaquatiques canadiens au niveau international pour la CMAS et/ou d'autres organismes internationaux régissant ces sports.</p>
+                <p>La mission de CUGA est de promouvoir et de développer les sports subaquatiques au Canada.</p>
+            </div>
+        </section>
+
+        <section id="executive-fr" class="container mx-auto px-4 py-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">Exécutif actuel de CUGA (juin 2025) :</h2>
+            <div class="bg-white rounded-xl shadow-xl p-8 text-gray-700 leading-relaxed">
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Président(e)</strong> (<a href="mailto:president@cuga.org" class="text-blue-600 hover:underline">president@cuga.org</a>): Alita Krickan</li>
+                    <li><strong>Vice-président(e)</strong> (<a href="mailto:vicepresident@cuga.org" class="text-blue-600 hover:underline">vicepresident@cuga.org</a>): Gillian Parker</li>
+                    <li><strong>Trésorier(-ière)</strong> (<a href="mailto:finance@cuga.org" class="text-blue-600 hover:underline">finance@cuga.org</a>): Emmanuel Martin</li>
+                    <li><strong>Secrétaire</strong> (<a href="mailto:info@cuga.org" class="text-blue-600 hover:underline">info@cuga.org</a>): Ben Lee</li>
+                    <li><strong>Membre du conseil - Technologie</strong> (<a href="mailto:tech@cuga.org" class="text-blue-600 hover:underline">tech@cuga.org</a>): Ricky Ng-Adam</li>
+                </ul>
+            </div>
         </section>
 
          <section id="contact" class="bg-gray-800 text-white px-4 py-16">
@@ -294,12 +343,37 @@
             </a>
         </div>
 
-        <section class="container mx-auto px-4 py-16 text-center bg-gray-100 rounded-xl mb-16" data-aos="fade-up">
+        <section id="nationals-en" class="container mx-auto px-4 py-16 text-center bg-gray-100 rounded-xl mb-16" data-aos="fade-up">
             <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-900">2025 Canadian Underwater Hockey Nationals</h2>
             <img src="competitions/2025-Canadian-Underwater-Hockey-Nationals.jpeg" alt="2025 Canadian Underwater Hockey Nationals Poster" class="rounded-lg mb-6 mx-auto shadow-xl w-full md:w-2/3 lg:w-1/2">
             <p class="text-xl text-gray-900 mb-2"><strong>Date:</strong> Friday, June 13, 2025 - Sunday, June 15, 2025</p>
             <p class="text-xl text-gray-900 mb-2"><strong>Location:</strong> Gatineau Sports Centre, 850 Bd de la Gappe, Gatineau, QC J8T 7T7</p>
             <p class="text-lg text-gray-900 mt-4 leading-relaxed">CUGA is thrilled to host the 2025 Canadian Underwater Hockey Nationals in Gatineau! Come and support the best teams in the country.</p>
+        </section>
+
+        <section id="about-us-en" class="container mx-auto px-4 py-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">About Us</h2>
+            <div class="bg-white rounded-xl shadow-xl p-8 text-gray-700 leading-relaxed">
+                <p class="mb-4">The Canadian Underwater Games Association (CUGA) oversees underwater sports in Canada. CUGA was founded in 1984 and became the sole Canadian representative for underwater sports to CMAS, the international underwater games governing body.</p>
+                <p class="mb-4">CUGA is registered as an amateur athletic association with Revenue Canada and is strictly a non-profit organization, manned by volunteers from across Canada.</p>
+                <p class="mb-4">CUGA works to regulate and promote all underwater games recognized by the international underwater sport federation(CMAS) in Canada. These include underwater hockey, underwater rugby/football, underwater orienteering, fin swimming and target shooting.</p>
+                <p class="mb-4">At this time underwater hockey and underwater rugby/football are the only active sports in Canada with participating teams in British Columbia, Alberta, Saskatchewan, Ontario, Quebec, Nova Scotia and the Yukon.</p>
+                <p class="mb-4">The organization also supports Canadian national representative teams who compete at the world championships and invitational tournaments. CUGA provides a voice and a vote for Canadian Underwater Sports at the International Level for CMAS and/or other International bodies governing these sports.</p>
+                <p>CUGA’s mission is to promote and grow underwater sports in Canada.</p>
+            </div>
+        </section>
+
+        <section id="executive-en" class="container mx-auto px-4 py-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">Current CUGA Executive (June 2025):</h2>
+            <div class="bg-white rounded-xl shadow-xl p-8 text-gray-700 leading-relaxed">
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>President</strong> (<a href="mailto:president@cuga.org" class="text-blue-600 hover:underline">president@cuga.org</a>): Alita Krickan</li>
+                    <li><strong>Vice President</strong> (<a href="mailto:vicepresident@cuga.org" class="text-blue-600 hover:underline">vicepresident@cuga.org</a>): Gillian Parker</li>
+                    <li><strong>Treasurer</strong> (<a href="mailto:finance@cuga.org" class="text-blue-600 hover:underline">finance@cuga.org</a>): Emmanuel Martin</li>
+                    <li><strong>Secretary</strong> (<a href="mailto:info@cuga.org" class="text-blue-600 hover:underline">info@cuga.org</a>): Ben Lee</li>
+                    <li><strong>Board member - Technology</strong> (<a href="mailto:tech@cuga.org" class="text-blue-600 hover:underline">tech@cuga.org</a>): Ricky Ng-Adam</li>
+                </ul>
+            </div>
         </section>
 
          <section id="contact-en" class="bg-gray-800 text-white px-4 py-16">
@@ -473,6 +547,65 @@ if (browserLang === 'en') {
             }
 
             setInterval(createBubble, 500); // Create a new bubble every 500ms
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sectionsFr = [
+                document.getElementById('about-us-fr'),
+                document.getElementById('executive-fr'),
+                document.getElementById('sports'),
+                document.getElementById('nationals'),
+                document.getElementById('contact')
+            ];
+            const navLinksFr = document.querySelectorAll('nav.lang-fr a[href^="#"]');
+
+            const sectionsEn = [
+                document.getElementById('about-us-en'),
+                document.getElementById('executive-en'),
+                document.getElementById('sports-en'),
+                document.getElementById('nationals-en'),
+                document.getElementById('contact-en')
+            ];
+            const navLinksEn = document.querySelectorAll('nav.lang-en a[href^="#"]');
+
+            const activeLinkClass = 'active-nav-link';
+
+            function onScroll() {
+                let currentSections, currentNavLinks;
+
+                // Determine active language and corresponding elements
+                const frNavIsVisible = window.getComputedStyle(document.querySelector('nav.lang-fr')).display !== 'none';
+                if (frNavIsVisible) {
+                    currentSections = sectionsFr.filter(s => s); // Filter out null if an ID is missing
+                    currentNavLinks = navLinksFr;
+                } else {
+                    currentSections = sectionsEn.filter(s => s); // Filter out null
+                    currentNavLinks = navLinksEn;
+                }
+
+                if (!currentSections || currentSections.length === 0) return;
+
+                let activeSectionId = '';
+                const scrollPosition = window.scrollY + window.innerHeight / 2; // Consider middle of viewport
+
+                currentSections.forEach(section => {
+                    if (section.offsetTop <= scrollPosition && (section.offsetTop + section.offsetHeight) > scrollPosition) {
+                        activeSectionId = section.id;
+                    }
+                });
+
+                currentNavLinks.forEach(link => {
+                    link.classList.remove(activeLinkClass);
+                    // Ensure the href attribute matches the section ID (e.g., href="#sports" for id="sports")
+                    if (link.getAttribute('href').substring(1) === activeSectionId) {
+                        link.classList.add(activeLinkClass);
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', onScroll);
+            onScroll(); // Initial check in case the page loads on a scrolled position
         });
     </script>
 </body>
