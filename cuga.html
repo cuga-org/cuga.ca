@@ -639,8 +639,13 @@
             const bannerEn = document.getElementById('lang-en-banner');
 
             const setLanguage = (lang) => {
+                try {
+                    localStorage.setItem('preferredLanguage', lang);
+                } catch (e) {
+                    console.warn('Could not save language preference to localStorage:', e);
+                }
                 currentLanguage = lang;
-                selectedSport = 'All';
+                selectedSport = 'All'; // Reset filters on language change for simplicity
                 selectedProvince = 'All';
 
                 if (siteContent.header[lang]) {
@@ -669,12 +674,24 @@
                 });
 
                 document.documentElement.lang = lang;
-                displayClubs(lang);
+                displayClubs(lang); // This will also repopulate filters in the new language
             };
 
-            const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
-            const initialLang = (browserLang === 'en' || browserLang === 'fr') ? browserLang : 'fr';
-            setLanguage(initialLang);
+            // Initial Language Determination Logic
+            let preferredLang = null;
+            try {
+                preferredLang = localStorage.getItem('preferredLanguage');
+            } catch (e) {
+                console.warn('Could not retrieve language preference from localStorage:', e);
+            }
+
+            if (preferredLang && (preferredLang === 'en' || preferredLang === 'fr')) {
+                setLanguage(preferredLang);
+            } else {
+                const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+                const initialDefaultLang = (browserLang === 'en' || browserLang === 'fr') ? browserLang : 'fr';
+                setLanguage(initialDefaultLang); // This call will now also store the preference
+            }
 
             langButtons.forEach(button => {
                 button.addEventListener('click', () => setLanguage(button.dataset.lang));
