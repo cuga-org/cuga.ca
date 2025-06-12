@@ -121,19 +121,24 @@ def save_processed_prompt(filepath, fingerprint):
 
 def get_event_fingerprint(event_data):
     # Use standardized keys for fingerprinting
-    club_name = event_data.get('ClubName', '') # From header_map
-    rrule = event_data.get('RRULE', '')         # From header_map
-    practice_times = event_data.get('PracticeTimes', '') # From header_map
-    location = event_data.get('PracticeLocation', '')   # From header_map
+    # Use standardized keys for fingerprinting
+    club_name = event_data.get('ClubName', '')
+    rrule = event_data.get('RRULE', '') # This is the RRULE from the sheet
+    practice_times = event_data.get('PracticeTimes', '')
+    location = event_data.get('PracticeLocation', '')
+    notes = event_data.get('Notes', '')
+    notes_fr = event_data.get('NotesFR', '')
 
     # Fallback to original headers if mapped ones are empty and original exists
-    # This should ideally be handled by parse_club_data ensuring mapped keys are populated
     if not club_name and 'Club Name' in event_data: club_name = event_data['Club Name']
-    if not rrule and 'RRULE' in event_data: rrule = event_data['RRULE'] # RRULE is usually just RRULE
+    # RRULE from sheet is intentionally kept in fingerprint to detect sheet changes
+    if not rrule and 'RRULE' in event_data: rrule = event_data['RRULE']
     if not practice_times and 'Practice Times' in event_data: practice_times = event_data['Practice Times']
     if not location and 'Practice Location' in event_data: location = event_data['Practice Location']
+    if not notes and 'Notes' in event_data: notes = event_data['Notes'] # Check original 'Notes'
+    if not notes_fr and 'Notes FR' in event_data: notes_fr = event_data['Notes FR'] # Check original 'Notes FR'
 
-    fingerprint_str = f"{club_name}|{rrule}|{practice_times}|{location}"
+    fingerprint_str = f"{club_name}|{rrule}|{practice_times}|{location}|{notes}|{notes_fr}"
     return hashlib.sha256(fingerprint_str.encode('utf-8')).hexdigest()
 
 def generate_gemini_prompt(event_data):
@@ -161,14 +166,16 @@ def generate_gemini_prompt(event_data):
     final_description_en = full_description_en if full_description_en else "No specific details provided."
     final_description_fr = full_description_fr if full_description_fr else "Aucun détail spécifique fourni."
 
-    rrule = event_data.get('RRULE', event_data.get('RRULE', '')) # RRULE should be consistent
     province = event_data.get('Province', event_data.get('Province', ''))
     timezone = PROVINCE_TIMEZONES.get(province, DEFAULT_TIMEZONE)
 
+    # The 'rrule' variable from the sheet is intentionally not used in this prompt template anymore.
+    # Gemini is expected to infer recurrence from the descriptive text.
+
     prompt = f"""
 Please generate one or more valid iCalendar VEVENT components based on the following details.
-If the RRULE suggests multiple distinct schedules (e.g., different days or times), create a separate VEVENT for each.
-If the RRULE is complex but describes a single repeating event, create one VEVENT.
+If the event details suggest multiple distinct schedules (e.g., different days or times for different activities under the same club, if clearly specified as separate), create a separate VEVENT for each.
+If the details describe a single repeating event, create one VEVENT.
 
 Event Details:
 - Primary Language Name: {club_name}
@@ -177,19 +184,20 @@ Event Details:
 - French Location: {location_fr}
 - Primary Description: {final_description_en}
 - French Description: {final_description_fr}
-- Recurrence Rule (RRULE from sheet): {rrule}
 - Timezone: {timezone}
 
 Instructions for VEVENT generation:
 1.  SUMMARY: Use "{club_name}" as the primary summary. If French name is different and available ("{club_name_fr}"), consider it.
 2.  LOCATION: Use "{location}". If French location is different and available ("{location_fr}"), consider it.
 3.  DESCRIPTION: Combine English and French descriptions. Example: "EN: {final_description_en}\nFR: {final_description_fr}". If one is empty, use the other.
-4.  RRULE: Interpret the provided sheet RRULE string ("{rrule}") to create a valid iCalendar RRULE property.
-    - If the sheet RRULE is empty, "NA", or clearly invalid for recurrence (e.g., "contact for details"), DO NOT include an RRULE property. Instead, try to infer a single DTSTART and DTEND from practice time descriptions if possible for a one-time event today or in the near future. If not possible, omit event or respond with an error message.
-    - If the sheet RRULE implies specific days (e.g., "Tuesdays & Thursdays 7-9pm"), parse it.
+4.  RECURRENCE (RRULE): Based on the event details provided (such as practice times, descriptions, name), determine if the event is recurring.
+    - If recurrence can be clearly inferred (e.g., "Practices every Tuesday at 7pm", "Weekly club meeting"), generate the appropriate iCalendar RRULE property.
+    - If the event seems to be a one-time occurrence or if recurrence cannot be reliably determined from the provided text, DO NOT include an RRULE property. In such cases, generate a single event.
+    - Do NOT attempt to parse any RRULE string that might have been inadvertently included in the description fields; generate recurrence solely from the general event information.
 5.  DTSTART / DTEND: Must be in floating local time with a TZID parameter (e.g., DTSTART;TZID={timezone}:YYYYMMDDTHHMMSS).
-    - If RRULE is present, DTSTART should be the first occurrence of the event from today or in the near future.
-    - Duration is typically 1-2 hours for practices; if not specified, assume 1 hour.
+    - If an RRULE is generated, DTSTART should be the first occurrence of the event from today or in the near future.
+    - If no RRULE is generated (one-time event), DTSTART should be the specific date and time of the event. If only time is mentioned (e.g. "practice at 7pm tonight"), assume it's for today or the nearest upcoming day that matches description.
+    - Duration is typically 1-2 hours for practices; if not specified, assume 1 hour. Infer duration from text if possible (e.g., "7pm-9pm").
 6.  UID: Generate a unique UID for each VEVENT (e.g., using a UUID or a hash).
 7.  DTSTAMP: Set to the current UTC time when you generate this.
 8.  Output Format: Provide ONLY the VEVENT block(s), each starting with BEGIN:VEVENT and ending with END:VEVENT. If multiple VEVENTs, list them sequentially. Do not include any other text, explanations, or markdown.
@@ -206,7 +214,7 @@ LOCATION:Event Location
 DESCRIPTION:EN: English description.\nFR: French description.
 END:VEVENT
 
-If the RRULE is invalid or unusable to determine specific dates/times (e.g. "Contact us"), do not generate a VEVENT. Instead, output: "Error: Invalid or unusable RRULE for event '{club_name}'."
+If sufficient information (like practice times or clear event nature) is not available to determine specific dates/times or the general nature of the event, do not generate a VEVENT. Instead, output: "Error: Insufficient information to generate a calendar event for '{club_name}'."
 """
     return prompt.strip()
 
@@ -376,8 +384,9 @@ def main():
 
     for idx, event_data in enumerate(club_events):
         # Basic check for enough data to form a prompt
-        if not event_data.get('ClubName', event_data.get('Club Name')) and not event_data.get('RRULE'):
-            # print(f"Skipping event {idx+1} due to missing key information (Club Name and RRULE). Data: {event_data}")
+        if not event_data.get('ClubName', event_data.get('Club Name')) and \
+           not event_data.get('PracticeTimes', event_data.get('Practice Times')):
+            # print(f"Skipping event {idx+1} due to missing key information (Club Name and Practice Times). Data: {event_data}")
             continue
 
         fingerprint = get_event_fingerprint(event_data)

@@ -44,7 +44,7 @@ The script is designed to parse specific columns from this sheet, including but 
 *   `Practice Location` (and `Practice Location FR`)
 *   `Practice Times` (and `Practice Times FR`)
 *   `Notes` (and `Notes FR`)
-*   `RRULE` (for recurrence information)
+*   `RRULE` (this column is read by the script, but its content is not directly used to generate iCalendar recurrence rules; recurrence is now inferred by the AI from other fields like Practice Times and Notes)
 
 ### Gemini API Key Setup
 
