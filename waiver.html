@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="fr"> <!-- Default language set to French -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demande d'adhésion et décharge CUGA / CUGA Membership Application and Waiver</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T2BEK56YJ1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-T2BEK56YJ1');
+    </script>
+    <meta name="description" content="Formulaire de demande d'adhésion et de décharge CUGA. CUGA Membership Application and Waiver Form.">
+    <meta name="keywords" content="CUGA, waiver, décharge, membership, adhésion, application, demande, underwater sports, sports subaquatiques, Canada, Canadian Underwater Games Association">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .lang-en, .lang-fr-inline { display: none; } /* Hide English by default, and French inline for JS control */
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="bg-blue-700 text-white">
+
+    <div class="text-center py-4 bg-gray-200">
+        <button class="lang-button px-4 py-2 mr-2 rounded bg-blue-500 text-white" data-lang="fr">
+            <i class="fa fa-fleur-de-lis"></i> Français
+        </button>
+        <button class="lang-button px-4 py-2 rounded bg-gray-400 text-gray-800" data-lang="en">
+            <i class="fa fa-canadian-maple-leaf"></i> English
+        </button>
+    </div>
+
+    <div class="text-center py-3 bg-yellow-300 text-black text-sm">
+        This is an experimental website for CUGA. The official CUGA website can be found at <a href="https://cuga.org/" target="_blank" rel="noopener noreferrer" class="underline font-semibold hover:text-blue-700">https://cuga.org/</a>.
+        <br>
+        Ceci est un site web expérimental pour CUGA. Le site officiel de CUGA se trouve à <a href="https://cuga.org/" target="_blank" rel="noopener noreferrer" class="underline font-semibold hover:text-blue-700">https://cuga.org/</a>.
+    </div>
+
+    <header class="bg-[#386DC0] text-white py-8 text-center shadow-lg">
+        <img src="assets/logos/CUGA/Horizontal/EN/FullColor/CUGA-logo-h-en-fullColor-rgb.svg" alt="CUGA Logo" class="h-12 mx-auto">
+        <p class="mt-1 text-md md:text-lg italic">
+            <span class="lang-fr">Décharge d'adhésion CUGA</span>
+            <span class="lang-en">CUGA Membership Waiver</span>
+        </p>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+        <div class="bg-white text-gray-800 rounded-xl shadow-xl p-8 md:p-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-800">
+                <span class="lang-fr">Demande d'adhésion et décharge</span>
+                <span class="lang-en">Membership Application and Waiver</span>
+            </h1>
+            <form id="waiverForm">
+                <!-- Personal Information Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-700 mb-4">
+                        <span class="lang-fr">Informations personnelles</span>
+                        <span class="lang-en">Personal Information</span>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="fullName" class="block text-sm font-medium text-gray-700">
+                                <span class="lang-fr">Nom complet</span><span class="lang-en">Full Name</span>
+                            </label>
+                            <input type="text" name="fullName" id="fullName" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">
+                                <span class="lang-fr">Adresse courriel</span><span class="lang-en">Email Address</span>
+                            </label>
+                            <input type="email" name="email" id="email" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="dob" class="block text-sm font-medium text-gray-700">
+                                <span class="lang-fr">Date de naissance</span><span class="lang-en">Date of Birth</span>
+                            </label>
+                            <input type="date" name="dob" id="dob" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700">
+                                <span class="lang-fr">Numéro de téléphone</span><span class="lang-en">Phone Number</span>
+                            </label>
+                            <input type="tel" name="phone" id="phone" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label for="address" class="block text-sm font-medium text-gray-700">
+                            <span class="lang-fr">Adresse municipale</span><span class="lang-en">Street Address</span>
+                        </label>
+                        <input type="text" name="address" id="address" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-gray-700">
+                                <span class="lang-fr">Ville</span><span class="lang-en">City</span>
+                            </label>
+                            <input type="text" name="city" id="city" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="province" class="block text-sm font-medium text-gray-700">
+                                <span class="lang-fr">Province/Territoire</span><span class="lang-en">Province/Territory</span>
+                            </label>
+                            <input type="text" name="province" id="province" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="postalCode" class="block text-sm font-medium text-gray-700">
+                                <span class="lang-fr">Code postal</span><span class="lang-en">Postal Code</span>
+                            </label>
+                            <input type="text" name="postalCode" id="postalCode" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div>
+                            <label for="emergencyContactName" class="block text-sm font-medium text-gray-700">
+                                <span class="lang-fr">Nom du contact d'urgence</span><span class="lang-en">Emergency Contact Name</span>
+                            </label>
+                            <input type="text" name="emergencyContactName" id="emergencyContactName" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="emergencyContactPhone" class="block text-sm font-medium text-gray-700">
+                                <span class="lang-fr">Téléphone du contact d'urgence</span><span class="lang-en">Emergency Contact Phone</span>
+                            </label>
+                            <input type="tel" name="emergencyContactPhone" id="emergencyContactPhone" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Club and Sports Information Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-700 mb-4">
+                        <span class="lang-fr">Informations sur le club et les sports</span><span class="lang-en">Club and Sports Information</span>
+                    </h2>
+                    <div>
+                        <label for="clubName" class="block text-sm font-medium text-gray-700">
+                            <span class="lang-fr">Nom du club (si applicable)</span><span class="lang-en">Club Name (if applicable)</span>
+                        </label>
+                        <input type="text" name="clubName" id="clubName" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                    <div class="mt-6">
+                        <p class="block text-sm font-medium text-gray-700">
+                            <span class="lang-fr">Sport(s) pratiqué(s) (cochez tout ce qui s'applique)</span>
+                            <span class="lang-en">Sport(s) Played (check all that apply)</span>
+                        </p>
+                        <div class="mt-2 space-y-2">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="sportUWH" name="sportsPlayed" value="uwh" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="sportUWH" class="font-medium text-gray-700">
+                                        <span class="lang-fr">Hockey Subaquatique</span><span class="lang-en">Underwater Hockey</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="sportUWR" name="sportsPlayed" value="uwr" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="sportUWR" class="font-medium text-gray-700">
+                                        <span class="lang-fr">Rugby Subaquatique</span><span class="lang-en">Underwater Rugby</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="sportUWF" name="sportsPlayed" value="uwf" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="sportUWF" class="font-medium text-gray-700">
+                                        <span class="lang-fr">Football Subaquatique</span><span class="lang-en">Underwater Football</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Membership Type Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-700 mb-4">
+                        <span class="lang-fr">Type d'adhésion</span><span class="lang-en">Membership Type</span>
+                    </h2>
+                    <div>
+                        <label for="membershipType" class="block text-sm font-medium text-gray-700">
+                            <span class="lang-fr">Sélectionnez la catégorie d'adhésion</span><span class="lang-en">Select Membership Category</span>
+                        </label>
+                        <select id="membershipType" name="membershipType" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="">-- <span class="lang-fr">Veuillez choisir une option</span><span class="lang-en">Please choose an option</span> --</option>
+                            <option value="adult"><span class="lang-fr">Adulte</span><span class="lang-en">Adult</span></option>
+                            <option value="youth_u18"><span class="lang-fr">Jeune (-18 ans)</span><span class="lang-en">Youth (<18 years)</span></option>
+                            <option value="youth_18_24"><span class="lang-fr">Jeune (18-24 ans)</span><span class="lang-en">Youth (18-24 years)</span></option>
+                            <option value="new_player"><span class="lang-fr">Nouveau joueur (Première année)</span><span class="lang-en">New Player (First Year)</span></option>
+                        </select>
+                    </div>
+                    <div id="calculatedFee" class="mt-4 text-xl font-semibold text-gray-800">
+                        <span class="lang-fr-inline">Frais calculés :</span><span class="lang-en-inline">Calculated Fee:</span> $0.00
+                    </div>
+                </div>
+
+                <!-- Full Waiver Text Section -->
+                <div id="fullWaiverTextSection" class="mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-700 mb-4">
+                        <span class="lang-fr">Texte complet de la décharge (Anglais seulement pour le moment)</span>
+                        <span class="lang-en">Full Waiver Text (English only at this time)</span>
+                    </h2>
+                    <div id="waiverTextContainer" class="h-96 overflow-y-auto border border-gray-300 p-4 bg-gray-50 rounded-md text-sm text-gray-700">
+                        <h3>Canadian Underwater Games Association (“CUGA”)<br>The “Organizer”</h3>
+                        <p class="mt-2"><strong>RELEASE OF LIABILITY, WAIVER OF CLAIMS AND INDEMNITY AGREEMENT (the “Agreement”)</strong><br>To be executed by Participants over the age of majority</p>
+                        <p class="mt-2"><strong>WARNING: By signing this document, you will waive or give up certain legal rights, including the right to sue or claim compensation following an accident. Please read carefully.</strong></p>
+
+                        <p class="mt-4">In consideration of the opportunity to participate in underwater hockey, underwater rugby, underwater football, fin-swimming, underwater target shooting, spear fishing, free diving, and related activities, including but not limited to training, competitions, clinics, workshops, events, and travel associated therewith (collectively the “Activities”), organized, sanctioned, or approved by the Canadian Underwater Games Association (“CUGA”), its members, affiliated clubs, directors, officers, employees, volunteers, agents, and representatives (collectively referred to as the “Organization”).</p>
+
+                        <h4 class="font-semibold mt-4">Description and Assumption of Risks:</h4>
+                        <p class="mt-2">The Activities have both foreseeable and unforeseeable inherent risks, dangers and hazards, which Participants and their property may be exposed to or encounter. These risks are integral to the Activities and cannot be eliminated without altering the fundamental nature of the Activities. Participation in the Activities may result in property damage, personal injury, illness, or death.</p>
+                        <p class="mt-2">I, the Participant, understand and acknowledge that there are risks, dangers and hazards associated with my participation in the Activities and use of the equipment and facilities, which include without limitation (collectively, the “Risks”):</p>
+                        <ul class="list-disc pl-6 mt-2 space-y-1">
+                            <li>Collision or impact with equipment, the pool bottom or walls, other participants, or spectators.</li>
+                            <li>Inherent risks of drowning or near-drowning.</li>
+                            <li>Injuries resulting from breath-hold activities, including shallow water blackout or hypoxic events.</li>
+                            <li>Slips, trips, or falls on wet or slippery surfaces.</li>
+                            <li>Overexertion, dehydration, fatigue, or panic.</li>
+                            <li>Failure of equipment, whether owned by the Participant or provided by the Organization.</li>
+                            <li>Exposure to waterborne pathogens or pool chemicals.</li>
+                            <li>Sudden and unforeseeable medical conditions or emergencies.</li>
+                            <li>Travel to and from activity locations, which may involve various modes of transportation.</li>
+                            <li>And Negligence on the part of the Organization, including failure to take reasonable steps to safeguard or protect me from the Risks of the Activities.</li>
+                        </ul>
+                        <p class="mt-2">The Participant expressly and voluntarily assumes the Risks, accepting full responsibility for any and all property damage, personal injury, illness, or death sustained by the Participant which may arise out of or in connection with participation in the Activities or use of the Organization’s equipment or facilities, howsoever caused, even if caused in whole or part by the action, inaction or negligence of the Organization.</p>
+                        <p class="mt-2">I am aware of, freely accept and assume all risks, dangers, and hazards associated with the Activities or use of the facilities. <strong class="text-lg">________ (initial - placeholder for input)</strong></p>
+
+                        <h4 class="font-semibold mt-4">Terms and Attestation</h4>
+                        <p class="mt-2">The Participant attests, acknowledges and agrees:</p>
+                        <ul class="list-disc pl-6 mt-2 space-y-1">
+                            <li>The Participant is in good physical and mental condition and has no known medical conditions that would prevent or limit participation in the Activities.</li>
+                            <li>The Participant has been advised to consult with a physician before participating in the Activities if they have any health concerns.</li>
+                            <li>The Participant will abide by all rules and regulations of the Organization and will follow the instructions of the Organization’s personnel.</li>
+                            <li>That the Organizer and Organization does not undertake to provide health, accident, disability, life or other insurance coverage for any Participant in the Activities. The Participant has been advised to obtain their own personal insurance coverage as may be appropriate.</li>
+                            <li>The Participant consents to receive medical treatment deemed necessary in the event of injury, accident, or illness during the Activities.</li>
+                        </ul>
+
+                        <h4 class="font-semibold mt-4">Release of Liability and Waiver</h4>
+                        <p class="mt-2">The Participant waives any and all claims that the Participant has or may in the future have against the Organization and its directors, officers, employees, agents, volunteers, representatives, successors, and assigns (collectively, the “Releasees”).</p>
+                        <p class="mt-2">The Participant forever releases the Organization from any and all liability for any loss, damage, expense, or injury, including death, that the Participant may suffer or that the Participant’s next of kin may suffer, resulting from or arising out of any aspect of the Participant’s participation in the Activities, due to any cause whatsoever, including negligence, breach of contract, or breach of any statutory or other duty of care, on the part of the Organization.</p>
+                        <p class="mt-2">The Participant agrees that if, despite the Participant’s assumption of risk and waiver of liability, the Participant or anyone on the Participant’s behalf makes a claim against the Organization, this Agreement may be pleaded as a full defense to such claim.</p>
+
+                        <h4 class="font-semibold mt-4">Jurisdiction</h4>
+                        <p class="mt-2">The Participant agrees that this agreement is governed by the laws of the Province of British Columbia and the federal laws of Canada applicable therein. Any litigation involving the parties to this Agreement shall be brought within the Province of British Columbia.</p>
+                        <p class="mt-2">If any portion of this Agreement is found to be void or unenforceable, the remaining portions shall remain in full force and effect.</p>
+
+                        <h4 class="font-semibold mt-4">Acknowledgement</h4>
+                        <p class="mt-2"><strong>I CONFIRM I HAVE READ THIS AGREEMENT AND I AM AWARE THAT I AM WAIVING CERTAIN LEGAL RIGHTS WHICH I OR MY HEIRS, NEXT OF KIN, EXECUTORS, ADMINISTRATORS, ASSIGNS AND REPRESENTATIVES MAY HAVE AGAINST THE RELEASEES.</strong></p>
+                        <p class="mt-2"><strong>THIS AGREEMENT MAY BE EXECUTED AND DELIVERED BY ELECTRONIC MEANS AND SUCH ELECTRONIC EXECUTION AND DELIVERY SHALL BE DEEMED TO BE VALID AND BINDING EXECUTION AND DELIVERY.</strong></p>
+
+                        <div class="mt-6 text-xs">
+                            <p>PRINT NAME <span class="underline inline-block" style="width: 60%;"></span> AGE <span class="underline inline-block" style="width: 20%;"></span></p>
+                            <p class="mt-1"> <span class="inline-block text-center" style="width: 60%;"> (The “Participant”) </span> <span class="inline-block text-center" style="width: 20%;">(AGE)</span></p>
+                            <p class="mt-4">SIGNATURE <span class="underline inline-block" style="width: 58%;"></span> DATE <span class="underline inline-block" style="width: 18%;"></span></p>
+                            <p class="mt-1"><span class="inline-block text-center" style="width: 58%;">(Participant)</span> <span class="inline-block text-center" style="width: 18%;">(dd/mm/yyyy)</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Agreements Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-700 mb-4">
+                        <span class="lang-fr">Accords et décharges</span><span class="lang-en">Agreements and Waivers</span>
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="agreeCodeOfConduct" name="agreeCodeOfConduct" type="checkbox" required class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="agreeCodeOfConduct" class="font-medium text-gray-700">
+                                    <span class="lang-fr">J'ai lu et j'accepte le <a href="join.html#code-of-conduct-link-fr" target="_blank" class="text-blue-600 hover:underline">Code de conduite de CUGA</a>.</span>
+                                    <span class="lang-en">I have read and agree to the <a href="join.html#code-of-conduct-link-en" target="_blank" class="text-blue-600 hover:underline">CUGA Code of Conduct</a>.</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="agreeWaiverTerms" name="agreeWaiverTerms" type="checkbox" required class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="agreeWaiverTerms" class="font-medium text-gray-700">
+                                    <span class="lang-fr">J'ai lu et j'accepte les termes de la <a href="join.html#adult-waiver-link-fr" target="_blank" class="text-blue-600 hover:underline">décharge CUGA applicable</a> (texte complet ci-dessus).</span>
+                                    <span class="lang-en">I have read and agree to the terms of the <a href="join.html#adult-waiver-link-en" target="_blank" class="text-blue-600 hover:underline">applicable CUGA Waiver</a> (full text above).</span>
+                                </label>
+                            </div>
+                        </div>
+                         <p class="text-sm text-gray-500 pl-8">
+                            <span class="lang-fr">Des copies PDF des décharges sont également disponibles sur la page <a href="join.html" class="text-blue-600 hover:underline">Adhésion</a>.</span>
+                            <span class="lang-en">PDF copies of waivers are also available on the <a href="join.html" class="text-blue-600 hover:underline">Join page</a>.</span>
+                         </p>
+                    </div>
+                </div>
+
+                <div id="digitalSignatureSection" class="mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-700 mb-4">
+                        <span class="lang-fr">Attestation et Signature numérique</span><span class="lang-en">Attestation and Digital Signature</span>
+                    </h2>
+                     <p class="text-sm text-gray-600 mb-2">
+                        <span class="lang-fr">En fournissant vos initiales et votre signature ci-dessous, vous reconnaissez et acceptez tous les termes et conditions décrits dans cette demande et la décharge ci-dessus.</span>
+                        <span class="lang-en">By providing your initials and signature below, you acknowledge and agree to all terms and conditions outlined in this application and the waiver above.</span>
+                     </p>
+                    <p class="text-sm text-gray-600 mb-4"><strong>
+                        <span class="lang-fr">Pour les membres de moins de 18 ans :</span><span class="lang-en">For members under 18:</span></strong>
+                        <span class="lang-fr">Cette section doit être complétée par un parent ou tuteur légal.</span>
+                        <span class="lang-en">This section must be completed by a parent or legal guardian.</span>
+                    </p>
+                    <div class="mt-4">
+                        <label for="waiverInitials" class="block text-sm font-medium text-gray-700">
+                            <span class="lang-fr">Initiales (en lien avec la section "Description et Assomption des Risques" ci-dessus)</span>
+                            <span class="lang-en">Initials (referencing "Description and Assumption of Risks" section above)</span>
+                        </label>
+                        <input type="text" name="waiverInitials" id="waiverInitials" required
+                               placeholder-lang-fr="Vos initiales"
+                               placeholder-lang-en="Your initials"
+                               maxlength="3"
+                               class="mt-1 block w-1/4 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="mt-4">
+                        <label for="digitalSignature" class="block text-sm font-medium text-gray-700">
+                            <span class="lang-fr">Nom complet imprimé (Demandeur ou Parent/Tuteur)</span>
+                            <span class="lang-en">Printed Full Name (Applicant or Parent/Guardian)</span>
+                        </label>
+                        <input type="text" name="digitalSignature" id="digitalSignature" required
+                               placeholder-lang-fr="Tapez votre nom complet"
+                               placeholder-lang-en="Type your full name"
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium text-gray-700">
+                            <span class="lang-fr">Signature</span><span class="lang-en">Signature</span>
+                        </label>
+                        <div class="mt-1 relative">
+                            <canvas id="signaturePadCanvas" class="border border-gray-400 rounded-md w-full h-40 bg-white"></canvas>
+                            <button type="button" id="clearSignatureButton" class="absolute top-2 right-2 px-3 py-1 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300 text-xs">
+                                <span class="lang-fr">Effacer</span><span class="lang-en">Clear</span>
+                            </button>
+                        </div>
+                    </div>
+
+                     <div class="mt-4">
+                        <label for="signatureDate" class="block text-sm font-medium text-gray-700">
+                             <span class="lang-fr">Date de la signature</span><span class="lang-en">Signature Date</span>
+                        </label>
+                        <input type="date" name="signatureDate" id="signatureDate" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+
+                <button type="button" id="googlePayButton" class="mt-6 w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" class="mr-2"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm-1 14H5c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1z" fill="#fff"/><path d="M10.94 15.26c.14.44.54.74 1.06.74.62 0 1.08-.44 1.08-1.03 0-.66-.5-1.03-1.27-1.03h-.6v-1.36h.57c.58 0 .98-.34.98-.87 0-.52-.4-.84-.96-.84-.47 0-.83.28-.98.64l-1.27-.52c.25-.76.92-1.37 1.99-1.37.93 0 1.84.57 1.84 1.57 0 .6-.34 1.05-.84 1.32v.07c.57.17.98.67.98 1.41 0 1.06-.89 1.8-2.12 1.8-.94 0-1.66-.53-1.93-1.33l1.25-.5zM20.57 10h-2.48V9.18h2.48V10zm0 1.48h-2.48v2.71c0 .76-.54 1.08-1.18 1.08-.6 0-1.04-.31-1.04-.97V11.48H13.4v3.61c0 1.21.79 1.93 1.93 1.93.87 0 1.44-.39 1.72-.71h.07v.6h1.38V11.48zM7.36 13.16c0-.5.34-.76.76-.76s.76.26.76.76v3.12h1.43V12.4c0-1.08-.78-1.64-1.93-1.64s-1.94.56-1.94 1.64v3.88h1.43v-3.12z" fill="#fff"/></svg>
+                    <span class="lang-fr">Payer avec Google Pay</span><span class="lang-en">Pay with Google Pay</span>
+                </button>
+            </form>
+
+            <div id="submissionResult" class="hidden mt-8 p-6 bg-green-100 border border-green-400 text-green-700 rounded-md">
+                <p id="submissionMessageText" class="text-center text-lg"></p>
+                <div class="mt-6 text-center space-x-0 space-y-4 md:space-y-0 md:space-x-4">
+                    <button type="button" id="newApplicationButton" class="w-full md:w-auto px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <span class="lang-fr">Commencer une nouvelle demande</span>
+                        <span class="lang-en">Start New Application</span>
+                    </button>
+                    <a href="index.html" class="w-full md:w-auto inline-block px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">
+                        <span class="lang-fr">Aller à la page d'accueil</span>
+                        <span class="lang-en">Go to Homepage</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 CUGA. <span class="lang-fr">Tous droits réservés.</span><span class="lang-en">All rights reserved.</span></p>
+            <p class="mt-4">
+                <a href="privacy-policy.html" class="text-blue-400 hover:underline lang-fr">Politique de Confidentialité</a>
+                <a href="privacy-policy.html" class="text-blue-400 hover:underline lang-en">Privacy Policy</a> |
+                <a href="terms-of-use.html" class="text-blue-400 hover:underline lang-fr">Conditions d'Utilisation</a>
+                <a href="terms-of-use.html" class="text-blue-400 hover:underline lang-en">Terms of Use</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({ duration: 1000, once: true });
+
+            const langButtons = document.querySelectorAll('.lang-button');
+            const htmlTag = document.documentElement;
+
+            function updateDisplayedLanguage(lang) {
+                htmlTag.lang = lang;
+                document.querySelectorAll('.lang-fr, .lang-en, .lang-fr-inline, .lang-en-inline').forEach(el => {
+                    if (el.classList.contains(`lang-${lang}`) || el.classList.contains(`lang-${lang}-inline`)) {
+                        el.style.display = el.classList.contains('lang-fr-inline') || el.classList.contains('lang-en-inline') ? 'inline' : 'block';
+                    } else {
+                        el.style.display = 'none';
+                    }
+                });
+                langButtons.forEach(button => {
+                    button.classList.toggle('bg-blue-600', button.dataset.lang === lang);
+                    button.classList.toggle('text-white', button.dataset.lang === lang);
+                    button.classList.toggle('bg-gray-400', button.dataset.lang !== lang);
+                    button.classList.toggle('text-gray-800', button.dataset.lang !== lang);
+                });
+
+                const digitalSignatureInput = document.getElementById('digitalSignature');
+                if (digitalSignatureInput) {
+                    digitalSignatureInput.placeholder = lang === 'fr' ? digitalSignatureInput.getAttribute('placeholder-lang-fr') : digitalSignatureInput.getAttribute('placeholder-lang-en');
+                }
+                const waiverInitialsInput = document.getElementById('waiverInitials');
+                if (waiverInitialsInput) {
+                    waiverInitialsInput.placeholder = lang === 'fr' ? waiverInitialsInput.getAttribute('placeholder-lang-fr') : waiverInitialsInput.getAttribute('placeholder-lang-en');
+                }
+            }
+
+            const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+            const initialLang = browserLang === 'en' ? 'en' : 'fr';
+            updateDisplayedLanguage(initialLang);
+
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => updateDisplayedLanguage(button.dataset.lang));
+            });
+
+            const membershipTypeSelect = document.getElementById('membershipType');
+            const calculatedFeeDiv = document.getElementById('calculatedFee');
+            const googlePayButton = document.getElementById('googlePayButton');
+            const waiverForm = document.getElementById('waiverForm');
+            const submissionResultDiv = document.getElementById('submissionResult');
+            const submissionMessageText = document.getElementById('submissionMessageText');
+            const newApplicationButton = document.getElementById('newApplicationButton');
+
+            const canvas = document.getElementById('signaturePadCanvas');
+            const clearSignatureButton = document.getElementById('clearSignatureButton');
+            window.mySignaturePad = null;
+
+            let currentFee = 0;
+
+            const fees = {
+                adult: { early: 45, regular: 90 },
+                youth_u18: { early: 0, regular: 0 },
+                youth_18_24: { early: 15, regular: 30 },
+                new_player: { early: 0, regular: 0 }
+            };
+            const earlyBirdCutoff = new Date(new Date().getFullYear(), 2, 1);
+
+            const messages = {
+                validationError: {
+                    en: "Please fill out all required fields before proceeding.",
+                    fr: "Veuillez remplir tous les champs obligatoires avant de continuer."
+                },
+                signatureMissing: {
+                    en: "Please provide your signature.",
+                    fr: "Veuillez signer dans la zone de signature."
+                },
+                typedSignatureMissing: {
+                    en: "Please type your signature.",
+                    fr: "Veuillez taper votre signature."
+                },
+                zeroFeeSuccess: {
+                    en: "Membership fee is $0. Registration will now be completed (simulation)!",
+                    fr: "Les frais d'adhésion sont de 0 $. L'inscription va maintenant être complétée (simulation) !"
+                },
+                paymentSimulation: {
+                    en: "Simulating Google Pay... Payment of ${amount} successful (simulation)!",
+                    fr: "Simulation de Google Pay... Paiement de ${amount} $ réussi (simulation) !"
+                },
+                submissionSuccess: {
+                    en: "Your application has been submitted (simulated). Data logged to console. You will receive a confirmation email shortly.",
+                    fr: "Votre demande a été soumise (simulation). Données enregistrées dans la console. Vous recevrez un courriel de confirmation sous peu."
+                }
+            };
+
+            function calculateFee() {
+                const selectedType = membershipTypeSelect.value;
+                const currentDate = new Date();
+                let fee = 0;
+                if (selectedType && fees[selectedType]) {
+                    fee = (currentDate < earlyBirdCutoff) ? fees[selectedType].early : fees[selectedType].regular;
+                }
+                currentFee = fee;
+                const lang = htmlTag.lang || 'fr';
+                const feeText = lang === 'fr' ? 'Frais calculés :' : 'Calculated Fee:';
+                calculatedFeeDiv.innerHTML = `<span class="lang-${lang}-inline">${feeText}</span> $${currentFee.toFixed(2)}`;
+                document.querySelectorAll('#calculatedFee .lang-fr-inline, #calculatedFee .lang-en-inline').forEach(el => el.style.display = 'none');
+                document.querySelector(`#calculatedFee .lang-${lang}-inline`).style.display = 'inline';
+                return currentFee;
+            }
+
+            function handleFormSubmission(isZeroFee, paymentAmount) {
+                const formData = new FormData(waiverForm);
+                const data = {};
+
+                const sportsPlayed = [];
+                waiverForm.querySelectorAll('input[name="sportsPlayed"]:checked').forEach(checkbox => {
+                    sportsPlayed.push(checkbox.value);
+                });
+                data['sportsPlayed'] = sportsPlayed.join(', ');
+
+                formData.forEach((value, key) => {
+                    if (key !== 'sportsPlayed') {
+                       data[key] = value;
+                    }
+                });
+                if(sportsPlayed.length > 0 && !data['sportsPlayed']) data['sportsPlayed'] = sportsPlayed.join(', ');
+
+                data['calculatedFee'] = currentFee.toFixed(2);
+                data['timestamp'] = new Date().toISOString();
+
+                if (window.mySignaturePad && !window.mySignaturePad.isEmpty()) {
+                    data['signatureDataUrl'] = window.mySignaturePad.toDataURL();
+                } else if (document.getElementById('typedSignature')) {
+                    data['typedSignature'] = document.getElementById('typedSignature').value;
+                }
+
+                console.log("Simulating data submission to Google Drive:", data);
+
+                const lang = htmlTag.lang || 'fr';
+                let messageEn, messageFr;
+
+                if(isZeroFee) {
+                    messageEn = messages.zeroFeeSuccess.en;
+                    messageFr = messages.zeroFeeSuccess.fr;
+                } else if (paymentAmount > 0) {
+                    messageEn = messages.paymentSimulation.en.replace('${amount}', paymentAmount.toFixed(2));
+                    messageFr = messages.paymentSimulation.fr.replace('${amount}', paymentAmount.toFixed(2));
+                }
+
+                const finalMessageEn = (paymentAmount > 0 || isZeroFee ? messageEn + "<br><br>" : "") + messages.submissionSuccess.en;
+                const finalMessageFr = (paymentAmount > 0 || isZeroFee ? messageFr + "<br><br>" : "") + messages.submissionSuccess.fr;
+
+                submissionMessageText.innerHTML = `<span class="lang-en">${finalMessageEn}</span><span class="lang-fr">${finalMessageFr}</span>`;
+
+                updateDisplayedLanguage(lang);
+
+                submissionResultDiv.classList.remove('hidden');
+                googlePayButton.classList.add('hidden');
+
+                const formSectionsToHide = waiverForm.querySelectorAll('div.mb-8');
+                formSectionsToHide.forEach(section => section.classList.add('hidden'));
+                document.querySelector('h1').classList.add('hidden');
+
+                waiverForm.reset();
+                if(window.mySignaturePad) window.mySignaturePad.clear();
+                calculateFee();
+            }
+
+            if (typeof SignaturePad !== 'undefined' && canvas) {
+                window.mySignaturePad = new SignaturePad(canvas, {
+                    backgroundColor: 'rgb(255, 255, 255)',
+                    penColor: 'rgb(0, 0, 0)'
+                });
+                if (clearSignatureButton) {
+                    clearSignatureButton.addEventListener('click', () => {
+                        if(window.mySignaturePad) window.mySignaturePad.clear();
+                    });
+                }
+
+                function resizeCanvas() {
+                    const ratio =  Math.max(window.devicePixelRatio || 1, 1);
+                    canvas.width = canvas.offsetWidth * ratio;
+                    canvas.height = canvas.offsetHeight * ratio;
+                    canvas.getContext("2d").scale(ratio, ratio);
+                    if(window.mySignaturePad) {
+                        window.mySignaturePad.clear();
+                    }
+                }
+                window.addEventListener("resize", resizeCanvas);
+                resizeCanvas();
+
+            } else {
+                console.error("SignaturePad library not loaded or canvas element not found.");
+                if (canvas && canvas.parentNode) {
+                    const fallbackLabel = document.createElement('label');
+                    fallbackLabel.htmlFor = 'typedSignature';
+                    fallbackLabel.className = 'block text-sm font-medium text-gray-700 mt-2';
+                    fallbackLabel.innerHTML = '<span class="lang-fr">Signature (tapez votre nom - échec du chargement du pavé de signature) :</span><span class="lang-en">Signature (type name - signature pad failed to load):</span>';
+
+                    const fallbackInput = document.createElement('input');
+                    fallbackInput.type = 'text';
+                    fallbackInput.id = 'typedSignature';
+                    fallbackInput.name = 'typedSignature';
+                    fallbackInput.className = 'mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm';
+
+                    const canvasContainer = canvas.parentNode;
+
+                    if(canvasContainer){
+                         canvasContainer.insertBefore(fallbackLabel, canvas);
+                         canvasContainer.replaceChild(fallbackInput, canvas);
+                    }
+
+                    if (clearSignatureButton) clearSignatureButton.style.display = 'none';
+                    updateDisplayedLanguage(htmlTag.lang || 'fr');
+                }
+            }
+
+            if (membershipTypeSelect && calculatedFeeDiv && googlePayButton && waiverForm && submissionResultDiv && newApplicationButton) {
+                membershipTypeSelect.addEventListener('change', calculateFee);
+                calculateFee();
+
+                googlePayButton.addEventListener('click', () => {
+                    calculateFee();
+                    const lang = htmlTag.lang || 'fr';
+
+                    if (!waiverForm.checkValidity()) {
+                        alert(messages.validationError[lang]);
+                        waiverForm.reportValidity();
+                        return;
+                    }
+
+                    if (window.mySignaturePad && window.mySignaturePad.isEmpty() && !document.getElementById('typedSignature')) {
+                         alert(messages.signatureMissing[lang]);
+                         if(canvas) { canvas.classList.add('border-red-500'); setTimeout(()=> canvas.classList.remove('border-red-500'), 2000); }
+                         return;
+                    }
+                     if (document.getElementById('typedSignature') && document.getElementById('typedSignature').value.trim() === '') {
+                        alert(messages.typedSignatureMissing[lang]);
+                        return;
+                    }
+
+                    if (currentFee === 0) {
+                        console.log("Membership fee is $0. Proceeding with registration.");
+                        handleFormSubmission(true, 0);
+                    } else {
+                        console.log(`Simulating Google Pay for fee: $${currentFee.toFixed(2)}`);
+                        handleFormSubmission(false, currentFee);
+                    }
+                });
+
+                newApplicationButton.addEventListener('click', () => {
+                    submissionResultDiv.classList.add('hidden');
+                    googlePayButton.classList.remove('hidden');
+                    const formSectionsToShow = waiverForm.querySelectorAll('div.mb-8');
+                    formSectionsToShow.forEach(section => section.classList.remove('hidden'));
+                    document.querySelector('h1').classList.remove('hidden');
+
+                    waiverForm.reset();
+                    if(window.mySignaturePad) window.mySignaturePad.clear();
+                    else if (document.getElementById('typedSignature')) document.getElementById('typedSignature').value = '';
+
+                    calculateFee();
+                    updateDisplayedLanguage(htmlTag.lang || 'fr');
+                });
+            } else {
+                console.error("Required elements for waiver form, fee calculation, or submission process not found.");
+            }
+        });
+    </script>
+</body>
+</html>
