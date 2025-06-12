@@ -109,7 +109,7 @@
             <p class="mt-1 text-md md:text-lg italic">Association Canadienne des Jeux Subaquatiques</p>
             <p class="mt-1 text-md md:text-lg italic">Plongez dans l'action avec le Hockey et le Rugby Subaquatique !</p>
         </header>
-
+        <main>
         <section id="sports" class="container mx-auto px-4 py-16" data-aos="fade-up">
             <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">Découvrez Nos Disciplines</h2>
 
@@ -166,7 +166,7 @@
             </a>
         </div>
 
-        <section class="container mx-auto px-4 py-16 text-center bg-gray-100" data-aos="fade-up">
+        <section class="container mx-auto px-4 py-16 text-center bg-gray-100 rounded-xl mb-16" data-aos="fade-up">
             <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-900">Championnats Canadiens de Hockey Subaquatique 2025</h2>
             <img src="competitions/2025-Canadian-Underwater-Hockey-Nationals.jpeg" alt="Affiche des Championnats Canadiens de Hockey Subaquatique 2025" class="rounded-lg mb-6 mx-auto shadow-xl w-full md:w-2/3 lg:w-1/2">
             <p class="text-xl text-gray-900 mb-2"><strong>Date :</strong> Vendredi 13 juin 2025 - Dimanche 15 juin 2025</p>
@@ -194,7 +194,7 @@
             </div>
         </section>
 
-
+        </main>
         <footer class="bg-gray-900 text-gray-400 py-8 text-center">
             <div class="container mx-auto px-4">
                 <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
@@ -236,7 +236,7 @@
             <p class="mt-1 text-md md:text-lg italic">Canadian Underwater Games Association</p>
             <p class="mt-1 text-md md:text-lg italic">Dive into the action with Underwater Hockey and Underwater Rugby!</p>
         </header>
-
+        <main>
         <section id="sports-en" class="container mx-auto px-4 py-16" data-aos="fade-up">
             <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">Discover Our Disciplines</h2>
 
@@ -294,7 +294,7 @@
             </a>
         </div>
 
-        <section class="container mx-auto px-4 py-16 text-center bg-gray-100" data-aos="fade-up">
+        <section class="container mx-auto px-4 py-16 text-center bg-gray-100 rounded-xl mb-16" data-aos="fade-up">
             <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-900">2025 Canadian Underwater Hockey Nationals</h2>
             <img src="competitions/2025-Canadian-Underwater-Hockey-Nationals.jpeg" alt="2025 Canadian Underwater Hockey Nationals Poster" class="rounded-lg mb-6 mx-auto shadow-xl w-full md:w-2/3 lg:w-1/2">
             <p class="text-xl text-gray-900 mb-2"><strong>Date:</strong> Friday, June 13, 2025 - Sunday, June 15, 2025</p>
@@ -322,7 +322,7 @@
             </div>
         </section>
 
-
+        </main>
         <footer class="bg-gray-900 text-gray-400 py-8 text-center">
             <div class="container mx-auto px-4">
                 <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
@@ -422,7 +422,7 @@
                     section.style.display = section.classList.contains(`lang-${lang}`) ? 'block' : 'none';
                 });
                 langButtons.forEach(button => {
-                    button.classList.toggle('bg-blue-500', button.dataset.lang === lang);
+                    button.classList.toggle('bg-blue-600', button.dataset.lang === lang);
                     button.classList.toggle('text-white', button.dataset.lang === lang);
                     button.classList.toggle('bg-gray-400', button.dataset.lang !== lang);
                     button.classList.toggle('text-gray-800', button.dataset.lang !== lang);
