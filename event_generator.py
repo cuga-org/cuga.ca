@@ -8,7 +8,7 @@ from icalendar import Calendar, Event
 import google.generativeai as genai # Added for actual Gemini API calls
 # import pytz # Not in requirements, will remove for now
 
-SHEET_URL = 'https://docs.google.com/spreadsheets/d/1Lk8Lq5gu-nI1dwZjWZqYM05-x4E-5kD_huPsW-28AMo/gviz/tq'
+SHEET_URL = 'https://script.google.com/macros/s/AKfycbwLo2Q7VTdxvgQhYJquLBLMpLmyS73mpjh5ZTz0ykVY8Wtzt2Ax7MZ75tBE-2yOGNOViA/exec'
 PROCESSED_PROMPTS_FILE = 'processed_prompts.txt'
 OUTPUT_ICS_FILE = 'generated_events.ics' # Will be phased out for individual files
 CLUB_SCHEDULES_DIR = 'club_schedules'
@@ -25,49 +25,31 @@ def fetch_sheet_data(url):
     try:
         response = requests.get(url, timeout=30) # Increased timeout
         response.raise_for_status()
-        text = response.text
+        text = response.text # Get the full response text
+
+        # Debugging prints (still useful)
         print(f"Debug: Raw sheet response text (first 500 chars): {text[:500]}")
+        print(f"Debug: Complete json_string to be parsed:\n{text}") # Print the whole text as it's expected to be clean JSON
 
-        # Try to match the typical Google Sheets gviz response pattern
-        match = re.search(r"google\.visualization\.Query\.setResponse\s*\((.*)\)\s*;", text, re.DOTALL)
-        if match:
-            json_string = match.group(1)
-        else:
-            # Fallback for simpler JSON responses or if the main pattern isn't found
-            first_brace = text.find('{')
-            last_brace = text.rfind('}')
-            if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
-                json_string = text[first_brace : last_brace+1]
-            else:
-                print("Error: Could not find JSON object in response using regex or fallback.")
-                return None
-
-        json_string = json_string.strip() # Ensure no leading/trailing whitespace
-        return json.loads(json_string)
+        # Directly parse the text as JSON
+        # No need for regex or complex string manipulation anymore
+        return json.loads(text)
     except requests.exceptions.RequestException as e:
         print(f"Error fetching sheet data: {e}")
         return None
     except json.JSONDecodeError as e:
-        print(f"Error parsing JSON data: {e}")
+        # The existing enhanced error logging for JSONDecodeError can remain if it was already there,
+        # or simply print the message.
+        print(f"Error parsing JSON data: {e.msg} at position {e.pos} (context: '...{e.doc[max(0, e.pos-20):e.pos+20]}...')" if hasattr(e, 'doc') else f"Error parsing JSON data: {e}")
         return None
 
-def parse_club_data(raw_data):
-    if not raw_data or 'table' not in raw_data or 'rows' not in raw_data['table']['rows'] or not raw_data['table']['rows']:
-        print("Error: Invalid raw data structure or no rows found for parsing.")
-        return []
-
-    # Extract actual headers from the first row
-    first_row_cells = raw_data['table']['rows'][0].get('c', [])
-    sheet_headers = []
-    for cell in first_row_cells:
-        # Ensure that cell is not None before calling get, and default to empty string
-        sheet_headers.append(str(cell.get('v', '') if cell else '').strip())
-
-    if not sheet_headers or all(not h for h in sheet_headers): # Check if all headers are empty
-        print("Error: Extracted headers are empty or missing from the first row.")
+def parse_club_data(raw_data_list_of_dicts): # Parameter name changed for clarity
+    if not raw_data_list_of_dicts or not isinstance(raw_data_list_of_dicts, list):
+        print("Error: Invalid data structure received by parse_club_data. Expected a list of dictionaries.")
         return []
 
     # header_map definition (maps sheet headers like "Club Name" to conceptual keys like "ClubName")
+    # This map remains essential.
     header_map = {
         'Sport Type': 'SportType', 'Sport Type FR': 'SportTypeFR',
         'Province': 'Province', 'Province FR': 'ProvinceFR',
@@ -79,37 +61,31 @@ def parse_club_data(raw_data):
         'Website URL': 'WebsiteURL', 'Facebook URL': 'FacebookURL', 'Instagram URL': 'InstagramURL',
         'Notes': 'Notes', 'Notes FR': 'NotesFR',
         'RRULE': 'RRULE'
-        # This map should be comprehensive for all columns that need to be mapped to conceptual keys.
     }
 
     parsed_events = []
-    # Process data rows starting from the second row (index 1)
-    for row_idx, row_data in enumerate(raw_data['table']['rows'][1:], start=1):
-        if not row_data or 'c' not in row_data:
-            print(f"Warning: Skipping empty or invalid data row {row_idx}.")
+    # Iterate directly through the list of dictionaries
+    for idx, event_from_json in enumerate(raw_data_list_of_dicts):
+        if not isinstance(event_from_json, dict):
+            print(f"Warning: Skipping item at index {idx} as it's not a dictionary: {event_from_json}")
             continue
 
         event = {}
-        cells = row_data['c']
+        has_any_data_in_row = False # Re-evaluate based on values from this event_from_json
 
-        has_any_data_in_row = False
-        for col_idx, cell_obj in enumerate(cells):
-            if col_idx < len(sheet_headers):
-                raw_header_name = sheet_headers[col_idx]
-                # Ensure cell_value_str is an empty string if cell_obj is None or 'v' is not present
-                cell_value_str = str(cell_obj.get('v', '') if cell_obj else '').strip()
+        for raw_header_name, cell_value in event_from_json.items():
+            cell_value_str = str(cell_value if cell_value is not None else '').strip()
 
-                if cell_value_str: # Check if there's actual data
-                    has_any_data_in_row = True
+            if cell_value_str: # Check if there's actual data
+                has_any_data_in_row = True
 
-                # Store raw value by its sheet header name (e.g., event["Club Name"] = "Some Club")
-                # This ensures all data from sheet is available in event if needed by original header name
-                event[raw_header_name] = cell_value_str
+            # Store raw value by its sheet header name (e.g., event["Club Name"] = "Some Club")
+            event[raw_header_name] = cell_value_str
 
-                # Map to conceptual key if this header is in our map
-                conceptual_key = header_map.get(raw_header_name)
-                if conceptual_key:
-                    event[conceptual_key] = cell_value_str
+            # Map to conceptual key if this header is in our map
+            conceptual_key = header_map.get(raw_header_name)
+            if conceptual_key:
+                event[conceptual_key] = cell_value_str
 
         if has_any_data_in_row:
             # Ensure essential conceptual keys for fingerprinting and other logic exist,
@@ -121,11 +97,11 @@ def parse_club_data(raw_data):
                 'FacebookURL', 'InstagramURL', 'Notes', 'NotesFR', 'RRULE'
             ]
             for key in expected_conceptual_keys:
-                if key not in event: # If it wasn't set via header_map from this row's data
+                if key not in event:
                     event[key] = ""
             parsed_events.append(event)
         # else:
-            # print(f"Row {row_idx+1} contained no actual data across its cells. Skipping.")
+            # print(f"Event data at index {idx} contained no actual values after processing. Skipping.")
 
     return parsed_events
 
