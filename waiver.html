@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUGA Membership Waiver - Canadian Underwater Games Association</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T2BEK56YJ1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-T2BEK56YJ1');
+    </script>
+    <meta name="description" content="CUGA Membership Application and Waiver Form.">
+    <meta name="keywords" content="CUGA, waiver, membership, application, underwater sports, Canada, Canadian Underwater Games Association">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-blue-700 text-white">
+    <header class="bg-[#386DC0] text-white py-8 text-center shadow-lg">
+        <img src="assets/logos/CUGA/Horizontal/EN/FullColor/CUGA-logo-h-en-fullColor-rgb.svg" alt="CUGA Logo" class="h-12 mx-auto">
+        <p class="mt-1 text-md md:text-lg italic">CUGA Membership Waiver</p>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+        <div class="bg-white text-gray-800 rounded-xl shadow-xl p-8 md:p-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-800">Membership Application and Waiver</h1>
+            <form id="waiverForm">
+                <!-- Personal Information Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Personal Information</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <input type="text" name="fullName" id="fullName" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                            <input type="email" name="email" id="email" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="dob" class="block text-sm font-medium text-gray-700">Date of Birth</label>
+                            <input type="date" name="dob" id="dob" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                            <input type="tel" name="phone" id="phone" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label for="address" class="block text-sm font-medium text-gray-700">Street Address</label>
+                        <input type="text" name="address" id="address" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                            <input type="text" name="city" id="city" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="province" class="block text-sm font-medium text-gray-700">Province/Territory</label>
+                            <input type="text" name="province" id="province" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="postalCode" class="block text-sm font-medium text-gray-700">Postal Code</label>
+                            <input type="text" name="postalCode" id="postalCode" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div>
+                            <label for="emergencyContactName" class="block text-sm font-medium text-gray-700">Emergency Contact Name</label>
+                            <input type="text" name="emergencyContactName" id="emergencyContactName" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="emergencyContactPhone" class="block text-sm font-medium text-gray-700">Emergency Contact Phone</label>
+                            <input type="tel" name="emergencyContactPhone" id="emergencyContactPhone" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Membership Type Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Membership Type</h2>
+                    <div>
+                        <label for="membershipType" class="block text-sm font-medium text-gray-700">Select Membership Category</label>
+                        <select id="membershipType" name="membershipType" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value="">--Please choose an option--</option>
+                            <option value="adult">Adult</option>
+                            <option value="youth_u18">Youth (<18 years)</option>
+                            <option value="youth_18_24">Youth (18-24 years)</option>
+                            <option value="new_player">New Player (First Year)</option>
+                        </select>
+                    </div>
+                    <div id="calculatedFee" class="mt-4 text-xl font-semibold text-gray-800">Calculated Fee: $0.00</div>
+                </div>
+
+                <!-- Agreements Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Agreements and Waivers</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="agreeCodeOfConduct" name="agreeCodeOfConduct" type="checkbox" required class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="agreeCodeOfConduct" class="font-medium text-gray-700">I have read and agree to the <a href="join.html#code-of-conduct" target="_blank" class="text-blue-600 hover:underline">CUGA Code of Conduct</a>.</label>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="agreeWaiverTerms" name="agreeWaiverTerms" type="checkbox" required class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="agreeWaiverTerms" class="font-medium text-gray-700">I have read and agree to the terms of the applicable CUGA Waiver.</label>
+                            </div>
+                        </div>
+                        <div class="pl-8 space-y-1">
+                             <p class="text-sm text-gray-600">Please review the relevant waiver documents:</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li><a href="join.html#adult-waiver" target="_blank" class="text-blue-600 hover:underline">Adult Waiver (View/Download)</a></li>
+                                <li><a href="join.html#minor-waiver" target="_blank" class="text-blue-600 hover:underline">Minor Waiver (View/Download)</a> - For participants under 18.</li>
+                                 <li><a href="join.html#printable-waivers" target="_blank" class="text-blue-600 hover:underline">All Printable Waivers (Combined PDF)</a></li>
+                            </ul>
+                            <p class="text-xs text-gray-500 mt-1">Note: For members under 18, a parent or guardian must also consent to the terms and sign the Minor Waiver.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Signature for Adult or Guardian -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-semibold text-blue-700 mb-4">Digital Signature</h2>
+                     <p class="text-sm text-gray-600 mb-2">By typing your full name below, you acknowledge and agree to all terms and conditions outlined in this application and the associated waivers.</p>
+                    <p class="text-sm text-gray-600 mb-4"><strong>For members under 18:</strong> This section must be completed by a parent or legal guardian.</p>
+                    <div>
+                        <label for="digitalSignature" class="block text-sm font-medium text-gray-700">Full Name of Applicant (or Parent/Guardian if under 18)</label>
+                        <input type="text" name="digitalSignature" id="digitalSignature" required placeholder="Type your full name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                     <div class="mt-4">
+                        <label for="signatureDate" class="block text-sm font-medium text-gray-700">Date</label>
+                        <input type="date" name="signatureDate" id="signatureDate" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+
+                <button type="button" id="googlePayButton" class="mt-6 w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" class="mr-2"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm-1 14H5c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1z" fill="#fff"/><path d="M10.94 15.26c.14.44.54.74 1.06.74.62 0 1.08-.44 1.08-1.03 0-.66-.5-1.03-1.27-1.03h-.6v-1.36h.57c.58 0 .98-.34.98-.87 0-.52-.4-.84-.96-.84-.47 0-.83.28-.98.64l-1.27-.52c.25-.76.92-1.37 1.99-1.37.93 0 1.84.57 1.84 1.57 0 .6-.34 1.05-.84 1.32v.07c.57.17.98.67.98 1.41 0 1.06-.89 1.8-2.12 1.8-.94 0-1.66-.53-1.93-1.33l1.25-.5zM20.57 10h-2.48V9.18h2.48V10zm0 1.48h-2.48v2.71c0 .76-.54 1.08-1.18 1.08-.6 0-1.04-.31-1.04-.97V11.48H13.4v3.61c0 1.21.79 1.93 1.93 1.93.87 0 1.44-.39 1.72-.71h.07v.6h1.38V11.48zM7.36 13.16c0-.5.34-.76.76-.76s.76.26.76.76v3.12h1.43V12.4c0-1.08-.78-1.64-1.93-1.64s-1.94.56-1.94 1.64v3.88h1.43v-3.12z" fill="#fff"/></svg>
+                    Pay with Google Pay
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 CUGA. All rights reserved.</p>
+            <p class="mt-4">
+                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Privacy Policy</a> |
+                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Terms of Use</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({
+                duration: 1000,
+                once: true,
+            });
+
+            const membershipTypeSelect = document.getElementById('membershipType');
+            const calculatedFeeDiv = document.getElementById('calculatedFee');
+            const googlePayButton = document.getElementById('googlePayButton');
+            const waiverForm = document.getElementById('waiverForm');
+
+            let currentFee = 0;
+
+            const fees = {
+                adult: { early: 45, regular: 90 },
+                youth_u18: { early: 0, regular: 0 },
+                youth_18_24: { early: 15, regular: 30 },
+                new_player: { early: 0, regular: 0 }
+            };
+
+            const earlyBirdCutoff = new Date(new Date().getFullYear(), 2, 1); // March 1st
+
+            function calculateFee() {
+                const selectedType = membershipTypeSelect.value;
+                const currentDate = new Date();
+                let fee = 0;
+
+                if (selectedType && fees[selectedType]) {
+                    const isEarlyBird = currentDate < earlyBirdCutoff;
+                    if (isEarlyBird) {
+                        fee = fees[selectedType].early;
+                    } else {
+                        fee = fees[selectedType].regular;
+                    }
+                }
+                currentFee = fee; // Update global currentFee
+                calculatedFeeDiv.textContent = `Calculated Fee: $${currentFee.toFixed(2)}`;
+                return currentFee; // Return the fee for direct use if needed
+            }
+
+            function handleFormSubmission() {
+                const formData = new FormData(waiverForm);
+                const data = {};
+                for (const [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                data['calculatedFee'] = currentFee.toFixed(2); // Add calculated fee to the data
+
+                console.log("Simulating data submission to Google Drive:", data);
+                alert("Membership application submitted successfully (Simulation)! Data logged to console.");
+
+                waiverForm.reset(); // Reset the form fields
+                calculateFee(); // Recalculate fee to reset the display (should go to $0.00 if default option is empty)
+            }
+
+            if (membershipTypeSelect && calculatedFeeDiv && googlePayButton) {
+                membershipTypeSelect.addEventListener('change', calculateFee);
+                calculateFee(); // Initial calculation
+
+                googlePayButton.addEventListener('click', () => {
+                    calculateFee(); // Recalculate fee just in case
+
+                    // Form validation check
+                    if (!waiverForm.checkValidity()) {
+                        // If the form is invalid, trigger browser's validation UI
+                        // You might want to display a more user-friendly message or highlight invalid fields
+                        alert("Please fill out all required fields before proceeding.");
+                        waiverForm.reportValidity(); // Shows browser's validation messages
+                        return;
+                    }
+
+                    if (currentFee === 0) {
+                        console.log("Membership fee is $0. Proceeding with registration.");
+                        alert("Membership fee is $0. Registration will now be completed (simulation)!");
+                        handleFormSubmission();
+                    } else {
+                        console.log(`Simulating Google Pay for fee: $${currentFee.toFixed(2)}`);
+                        // Simulate Google Pay process
+                        alert(`Simulating Google Pay...\nPayment of $${currentFee.toFixed(2)} successful (simulation)!`);
+                        // After simulated successful payment
+                        handleFormSubmission();
+                    }
+                });
+
+            } else {
+                console.error("Required elements for Google Pay simulation or fee calculation not found.");
+            }
+        });
+    </script>
+</body>
+</html>
