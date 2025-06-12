@@ -196,58 +196,59 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} # Corrected: github-token
           script: |
-            const currentPRNumber = context.payload.pull_request.number;
-            // Default to empty array string if env var is missing or empty
-            const prsInfoString = process.env.PRS_INFO_JSON || '[]';
+            async function run() {
+              const currentPRNumber = context.payload.pull_request.number;
+              const prsInfoJson = process.env.PRS_INFO_JSON || '[]';
 
-            let allPRs = [];
-            try {
-              allPRs = JSON.parse(prsInfoString);
-              if (!Array.isArray(allPRs)) {
-                core.warning('Parsed PRS_INFO_JSON was not an array. Defaulting to empty array. Input was: ' + prsInfoString);
+              let allPRs = [];
+              try {
+                allPRs = JSON.parse(prsInfoJson);
+                if (!Array.isArray(allPRs)) {
+                  core.warning(`Parsed PRS_INFO_JSON was not an array. Input: "${prsInfoJson}". Defaulting to empty array.`);
+                  allPRs = [];
+                }
+              } catch (e) {
+                core.warning(`Could not parse PRS_INFO_JSON. Error: "${e.message}". Input: "${prsInfoJson}". Defaulting to empty array.`);
                 allPRs = [];
               }
-            } catch (e) {
-              core.warning("Could not parse PRS_INFO_JSON to list other PRs in comment: " + e.message + ". Input was: " + prsInfoString);
-              allPRs = [];
+
+              const otherPRNumbers = allPRs
+                .map(pr => pr.number)
+                .filter(num => num !== currentPRNumber);
+
+              const cnameDomain = process.env.CNAME_DOMAIN;
+              let previewUrlRoot = '';
+
+              if (cnameDomain && cnameDomain.trim() !== '') {
+                previewUrlRoot = `https://${cnameDomain.trim()}`;
+              } else {
+                previewUrlRoot = `https://${context.repo.owner}.github.io/${context.repo.repo}`;
+                core.warning('CNAME_DOMAIN environment variable not found or empty. Using default GitHub Pages URL for PR comment.');
+              }
+
+              const prPreviewPath = `/previews/${currentPRNumber}/`;
+              const specificPreviewUrl = `${previewUrlRoot}${prPreviewPath}`;
+
+              let messageBody = `🎉 Preview for this PR (#${currentPRNumber}) deployed at: [View Preview](${specificPreviewUrl})\n\n`;
+              messageBody += `The base site content is from the \`main\` branch. A global \`version.json\` at [${previewUrlRoot}/version.json](${previewUrlRoot}/version.json) lists all included PRs and the base \`main\` commit SHA.\n`;
+              messageBody += `Each PR's preview directory also contains a specific \`version.json\` for that PR's content.\n\n`;
+
+              if (otherPRNumbers.length > 0) {
+                messageBody += `This deployment also contains previews for other active PRs: ${otherPRNumbers.map(num => `#${num}`).join(', ')}.`;
+              } else {
+                messageBody += `This deployment does not include previews for any other active PRs at this time.`;
+              }
+
+              try {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: currentPRNumber,
+                  body: messageBody
+                });
+                console.log(`Comment posted on PR #${currentPRNumber}.`);
+              } catch (error) {
+                core.setFailed(`Failed to post comment on PR #${currentPRNumber}: ${error.message}`);
+              }
             }
-
-            // allPRs is now guaranteed to be an array, so direct map/filter is safe.
-            let otherPRNumbers = allPRs.map(pr => pr.number).filter(num => num !== currentPRNumber);
-
-            const cnameDomain = process.env.CNAME_DOMAIN;
-            let previewUrlRoot = '';
-
-            if (cnameDomain && cnameDomain.trim() !== '') {
-              previewUrlRoot = `https://${cnameDomain}`;
-            } else {
-              previewUrlRoot = `https://${context.repo.owner}.github.io/${context.repo.repo}`;
-              core.warning('CNAME_DOMAIN environment variable not found or empty. Using default GitHub Pages URL structure for PR comment.');
-            }
-
-            const prPreviewPath = `/previews/${currentPRNumber}/`;
-            const specificPreviewUrl = `${previewUrlRoot}${prPreviewPath}`;
-            const globalVersionJsonUrl = `${previewUrlRoot}/version.json`;
-
-            let messageBody = `🎉 Preview for this PR (#${currentPRNumber}) deployed at: [View Preview](${specificPreviewUrl})\n\n`;
-            messageBody += `The base site content is from the \`main\` branch. A global \`version.json\` at [${globalVersionJsonUrl}](${globalVersionJsonUrl}) lists all included PRs and the base \`main\` commit SHA.\n`;
-            messageBody += `Each PR's preview directory (including this one) also contains a specific \`version.json\` detailing its content (commit SHA, branch, PR number).\n\n`;
-
-            if (otherPRNumbers.length > 0) {
-              messageBody += `This deployment also contains previews for other active PRs: ${otherPRNumbers.map(num => \`#\${num}\`).join(', ')}.`;
-            } else {
-              messageBody += `This deployment does not include previews for any other active PRs at this time.`;
-            }
-
-            try {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: currentPRNumber,
-                body: messageBody
-              });
-              console.log(`Comment posted on PR #${currentPRNumber} with details of other included PRs and global version.json.`);
-            } catch (error) {
-              // Log the error and fail the step if commenting is critical
-              core.setFailed(`Failed to post comment on PR #${currentPRNumber}: ${error.message}`);
-            }
+            return run();
