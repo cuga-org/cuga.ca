@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-T2BEK56YJ1"></script>
@@ -13,298 +13,264 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CUGA Clubs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({
+                duration: 1000, // Durée de l'animation en millisecondes
+                once: true, // Animation uniquement lors du premier défilement
+            });
+        });
+    </script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-        }
-
-        /* Ensure h1 is not too far from controls if it was the only thing with large margin */
-        body > h1 {
-            margin-bottom: 20px;
-        }
-
-        #language-selection, #filter-controls {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        #language-selection button,
-        #filter-controls select,
-        #filter-controls label {
-            padding: 8px 12px;
-            margin-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #fff;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        #language-selection button:hover,
-        #filter-controls select:hover {
-            background-color: #e9e9e9;
-        }
-
-        #filter-controls label {
-            border: none; /* Labels shouldn't look like buttons */
-            cursor: default;
-            padding-left: 0;
-        }
-
-
-        #clubs-container table {
+        .bubbles {
+            position: fixed;
+            bottom: 0;
+            left: 0;
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
         }
 
-        #clubs-container th, #clubs-container td {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            text-align: left;
-            vertical-align: top;
+        .bubble {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: rise 10s infinite ease-in;
         }
 
-        #clubs-container th {
-            background-color: #2c3e50;
-            color: #fff;
-            font-weight: bold;
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(100px);
+            }
+            100% {
+                bottom: 1080px;
+                transform: translateX(-100px);
+                opacity: 0;
+            }
         }
-
-        #clubs-container tr:hover {
-            background-color: #f0f0f0;
+        .hidden {
+            display: none;
         }
-
-        #clubs-container td.no-clubs-message { /* For the "No clubs match..." message */
-            text-align: center;
-            font-style: italic;
-            padding: 20px;
-            background-color: #fff; /* Keep consistent with table background */
-        }
-
-        #clubs-container .ics-button {
-            padding: 5px 8px; /* Adjusted padding for icon */
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 18px; /* Adjusted font size for icon */
-            line-height: 1; /* Ensure icon aligns well */
-            min-width: 30px; /* Ensure button has a decent tap target size */
-            text-align: center;
-            margin-right: 8px; /* Consistent spacing with other link items */
-            margin-bottom: 4px; /* For better spacing if wrapped */
-            vertical-align: middle; /* Align with link icons */
-        }
-
-        #clubs-container .ics-button:disabled {
-            background-color: #bdc3c7;
-            cursor: not-allowed;
-        }
-
-        #clubs-container .ics-button:hover:not(:disabled) {
-            background-color: #229954;
-        }
-
-        .link-icon {
-            vertical-align: middle; /* Aligns the span (and thus icon) within the anchor */
-            /* margin-right is removed from here and applied to the anchor */
-        }
-
-        .link-icon i {
-            color: inherit; /* Icon inherits color from parent <a> tag */
-            font-size: 18px; /* Target size to match .ics-button icon */
-            vertical-align: middle; /* Explicitly align icon if needed */
-        }
-
-        a.link-icon-anchor {
-            display: inline-block;
-            text-decoration: none;
-            color: #337ab7; /* Standard link blue */
-            margin-right: 8px; /* Spacing between icon links/buttons */
-            margin-bottom: 4px; /* Spacing if wrapped */
-            padding: 2px; /* Small padding to increase clickable area slightly */
-        }
-
-        a.link-icon-anchor:hover {
-            color: #23527c; /* Darker blue on hover */
-        }
-        /* Ensure .ics-button also has similar bottom margin for wrapped consistency if not already present */
-        /* .ics-button already has margin-right: 8px and margin-bottom: 4px from previous steps */
     </style>
 </head>
-<body>
-    <h1>CUGA (Canadian Underwater Games Association) Clubs</h1>
-
-    <div id="language-selection">
-        <button id="lang-en">English</button>
-        <button id="lang-fr">Français</button>
+<body class="bg-blue-700 text-white">
+    <div class="bubbles">
     </div>
 
-    <div id="filter-controls">
+    <div class="text-center py-4 bg-gray-200">
+        <button class="lang-button px-4 py-2 mr-2 rounded bg-blue-500 text-white" data-lang="fr">
+            <i class="fa fa-fleur-de-lis"></i> Français
+        </button>
+        <button class="lang-button px-4 py-2 rounded bg-gray-400 text-gray-800" data-lang="en">
+            <i class="fa fa-canadian-maple-leaf"></i> English
+        </button>
+    </div>
+
+    <div id="experimental-banner-container" class="text-center py-3 bg-yellow-300 text-black text-sm">
+        <div id="lang-en-banner">
+            This is an experimental website for CUGA. The official CUGA website can be found at <a href="https://cuga.org/" target="_blank" rel="noopener noreferrer" class="underline font-semibold hover:text-blue-700">https://cuga.org/</a>.
+        </div>
+        <div id="lang-fr-banner" class="hidden">
+            Ceci est un site web expérimental pour CUGA. Le site officiel de CUGA se trouve à <a href="https://cuga.org/" target="_blank" rel="noopener noreferrer" class="underline font-semibold hover:text-blue-700">https://cuga.org/</a>.
+        </div>
+    </div>
+
+    <header class="bg-[#386DC0] text-white py-8 text-center shadow-lg">
+        <img id="cugaLogo" src="assets/logos/CUGA/Horizontal/FR/FullColor/CUGA-logo-h-fr-fullColor-rgb.svg" alt="CUGA Logo" class="h-12 mx-auto">
+        <p id="cugaSubtitle" class="mt-1 text-md md:text-lg italic">Association Canadienne des Jeux Subaquatiques</p>
+        <p id="cugaTagline" class="mt-1 text-md md:text-lg italic">Plongez dans l'action avec le Hockey et le Rugby Subaquatique !</p>
+    </header>
+
+    <div id="filter-controls" class="container mx-auto px-4 py-5 text-black">
         <!-- Filter controls will be added here -->
     </div>
 
-    <div id="clubs-container">
+    <div id="clubs-container" class="container mx-auto px-4 py-5 text-black">
         <!-- Club listings will be displayed here -->
     </div>
+
+    <footer id="footer-fr" class="bg-gray-900 text-gray-400 py-8 text-center">
+        <div class="container mx-auto px-4">
+            <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
+                <span>
+                    <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
+                    <a href="https://cuga.org/fr/" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        Association Canadienne des Jeux Sous-Marins
+                    </a>
+                </span>
+                <span class="mx-2">|</span>
+                <span>
+                    <i class="fa fa-globe text-green-200 mr-1"></i>
+                    <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        CMAS Hockey subaquatique
+                    </a>
+                </span>
+                <span class="mx-2">|</span>
+                <span>
+                    <i class="fa fa-globe text-green-200 mr-1"></i>
+                    <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        CMAS Rugby subaquatique
+                    </a>
+                </span>
+            </p>
+        </div>
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 CUGA. Tous droits réservés.</p>
+            <p class="mt-4">
+                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Politique de Confidentialité</a> |
+                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Conditions d'Utilisation</a>
+            </p>
+        </div>
+    </footer>
+    <footer id="footer-en" class="bg-gray-900 text-gray-400 py-8 text-center hidden">
+        <div class="container mx-auto px-4">
+            <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
+                <span>
+                    <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
+                    <a href="https://cuga.org/en/" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        CUGA (Canadian Underwater Games Association)
+                    </a>
+                </span>
+                <span class="mx-2">|</span>
+                <span>
+                    <i class="fa fa-globe text-green-200 mr-1"></i>
+                    <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        CMAS Underwater Hockey
+                    </a>
+                </span>
+                <span class="mx-2">|</span>
+                <span>
+                    <i class="fa fa-globe text-green-200 mr-1"></i>
+                    <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        CMAS Underwater Rugby
+                    </a>
+                </span>
+            </p>
+        </div>
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 CUGA. All rights reserved.</p>
+            <p class="mt-4">
+                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Privacy Policy</a> |
+                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Terms of Use</a>
+            </p>
+        </div>
+    </footer>
+
 
     <script>
         // --- App Logging Configuration (with defaults, will be updated from config.json) ---
         let AppLoggerConfig = {
-            enabled: false, // Default to false or a less verbose state like 'warn'
+            enabled: false,
             logLevel: 'warn',
         };
 
-        /**
-         * Application logging function.
-         * Must be defined after the initial AppLoggerConfig.
-         * Logs messages to the console if AppLoggerConfig.enabled is true and the message's
-         * level is at or above AppLoggerConfig.logLevel.
-         * @param {string} level - The log level (e.g., 'debug', 'info', 'warn', 'error').
-         * @param {...any} args - Messages or objects to log.
-         */
         function appLog(level, ...args) {
             if (!AppLoggerConfig.enabled) {
                 return;
             }
-
             const levels = ['debug', 'info', 'warn', 'error'];
             const configLevelIndex = levels.indexOf(AppLoggerConfig.logLevel.toLowerCase());
             const messageLevelIndex = levels.indexOf(level.toLowerCase());
-
-            // If the level is not recognized, or if the message level is below the config level, don't log.
             if (messageLevelIndex === -1 || messageLevelIndex < configLevelIndex) {
                 return;
             }
-
             const timestamp = new Date().toISOString();
-            let consoleMethod = console.log; // Default to console.log
-
-            // Use specific console methods if they exist (e.g., console.error, console.warn)
-            // This also helps them appear with different styling in some browser consoles.
+            let consoleMethod = console.log;
             if (console[level.toLowerCase()] && typeof console[level.toLowerCase()] === 'function') {
                 consoleMethod = console[level.toLowerCase()];
             }
-
-            // Prepend timestamp and level to the log arguments
-            consoleMethod(`[\${timestamp}] [\${level.toUpperCase()}]`, ...args); // Corrected to use backticks
+            consoleMethod(`[${timestamp}] [${level.toUpperCase()}]`, ...args);
         }
-        // --- End App Logging ---
 
         async function loadAppConfig() {
             try {
-                const response = await fetch('config.json'); // Assuming config.json is in the same directory or accessible via this path
+                const response = await fetch('config.json');
                 if (!response.ok) {
                     console.error('Failed to fetch config.json. Status:', response.status, 'Using default AppLoggerConfig.');
                     return;
                 }
                 const fetchedConfig = await response.json();
-
-                // Update AppLoggerConfig, merging fetched settings with defaults
                 if (fetchedConfig.logging) {
                     AppLoggerConfig.enabled = typeof fetchedConfig.logging.enabled === 'boolean' ? fetchedConfig.logging.enabled : AppLoggerConfig.enabled;
                     AppLoggerConfig.logLevel = fetchedConfig.logging.logLevel || AppLoggerConfig.logLevel;
                 }
-
-                // Example for other settings (if any were defined in AppLoggerConfig defaults or elsewhere)
-                // if (fetchedConfig.otherSettings) { ... }
-
-                // Use console.log here for reliable feedback on what config was loaded,
-                // as appLog's behavior depends on this loaded config.
                 console.log("AppLoggerConfig after attempting to load config.json:", JSON.parse(JSON.stringify(AppLoggerConfig)));
-
             } catch (error) {
                 console.error('Error loading or parsing config.json:', error, 'Using default AppLoggerConfig.');
             }
         }
 
         let allClubs = [];
-        let currentLanguage = 'en'; // Default language
+        let currentLanguage = 'fr';
         let selectedSport = 'All';
         let selectedProvince = 'All';
 
         const provinceTimezones = {
-            "Alberta": "America/Edmonton",
-            "British Columbia": "America/Vancouver",
-            "Manitoba": "America/Winnipeg",
-            "New Brunswick": "America/Moncton",
-            "Newfoundland and Labrador": "America/St_Johns",
-            "Nova Scotia": "America/Halifax",
-            "Ontario": "America/Toronto",
-            "Prince Edward Island": "America/Halifax",
-            "Quebec": "America/Montreal",
-            "Saskatchewan": "America/Regina",
-            "Northwest Territories": "America/Yellowknife",
-            "Nunavut": "America/Iqaluit", // Note: Nunavut has multiple timezones
+            "Alberta": "America/Edmonton", "British Columbia": "America/Vancouver", "Manitoba": "America/Winnipeg",
+            "New Brunswick": "America/Moncton", "Newfoundland and Labrador": "America/St_Johns", "Nova Scotia": "America/Halifax",
+            "Ontario": "America/Toronto", "Prince Edward Island": "America/Halifax", "Quebec": "America/Montreal",
+            "Saskatchewan": "America/Regina", "Northwest Territories": "America/Yellowknife", "Nunavut": "America/Iqaluit",
             "Yukon": "America/Whitehorse"
         };
         const defaultTimezone = "America/Toronto";
 
         const headersMap = {
             'en': {
-                sportType: "Sport Type",
-                clubName: "Club Name",
-                city: "City",
-                practiceTimes: "Practice Times",
-                practiceLocationColumn: "Practice Location", // Added this
-                linksColumn: "Links",
-                filterSportTypeLabel: "Filter by Sport Type:",
-                filterProvinceLabel: "Filter by Province:",
-                allOption: "All",
-                AriaDownloadICS: "Download schedule as ICS",
-                AriaEmailLink: "Email",
-                AriaWebsiteLink: "Visit website",
-                AriaFacebookLink: "Visit Facebook page",
-                AriaInstagramLink: "Visit Instagram page",
-                NotesPrefix: "Notes:"
+                sportType: "Sport Type", clubName: "Club Name", city: "City", practiceTimes: "Practice Times",
+                practiceLocationColumn: "Practice Location", linksColumn: "Links",
+                filterSportTypeLabel: "Filter by Sport Type:", filterProvinceLabel: "Filter by Province:", allOption: "All",
+                AriaDownloadICS: "Download schedule as ICS", AriaEmailLink: "Email", AriaWebsiteLink: "Visit website",
+                AriaFacebookLink: "Visit Facebook page", AriaInstagramLink: "Visit Instagram page", NotesPrefix: "Notes:",
+                noClubsMatch: "No clubs match the current filters.", noClubData: "No club data available.",
+                noRRule: "No valid recurrence rule found for this club (RRULE is empty or NA).",
+                noEventsGenerated: "Could not generate any valid events for this club's schedule (no valid VEVENTs created).",
+                noIndividualRRules: "No valid individual recurrence rules could be parsed for this club."
             },
             'fr': {
-                sportType: "Type de sport",
-                clubName: "Nom du club",
-                city: "Ville",
-                practiceTimes: "Heures de pratique",
-                linksColumn: "Liens",
-                filterSportTypeLabel: "Filtrer par type de sport :",
-                filterProvinceLabel: "Filtrer par province :",
-                allOption: "Tous",
-                AriaDownloadICS: "Télécharger l'horaire en ICS",
-                AriaEmailLink: "Courriel",
-                AriaWebsiteLink: "Visiter le site web",
-                AriaFacebookLink: "Visiter la page Facebook",
-                AriaInstagramLink: "Visiter la page Instagram",
-                NotesPrefix: "Remarques:"
+                sportType: "Type de sport", clubName: "Nom du club", city: "Ville", practiceTimes: "Heures de pratique",
+                linksColumn: "Liens", practiceLocationColumn: "Lieu de pratique",
+                filterSportTypeLabel: "Filtrer par type de sport :", filterProvinceLabel: "Filtrer par province :", allOption: "Tous",
+                AriaDownloadICS: "Télécharger l'horaire en ICS", AriaEmailLink: "Courriel", AriaWebsiteLink: "Visiter le site web",
+                AriaFacebookLink: "Visiter la page Facebook", AriaInstagramLink: "Visiter la page Instagram", NotesPrefix: "Remarques:",
+                noClubsMatch: "Aucun club ne correspond aux filtres actuels.", noClubData: "Aucune donnée de club disponible.",
+                noRRule: "Aucune règle de récurrence valide trouvée pour ce club (RRULE est vide ou NA).",
+                noEventsGenerated: "Impossible de générer des événements valides pour l'horaire de ce club (aucun VEVENT valide créé).",
+                noIndividualRRules: "Aucune règle de récurrence individuelle valide n'a pu être analysée pour ce club."
+            }
+        };
+
+        const siteContent = {
+            header: {
+                fr: {
+                    logo: "assets/logos/CUGA/Horizontal/FR/FullColor/CUGA-logo-h-fr-fullColor-rgb.svg",
+                    subtitle: "Association Canadienne des Jeux Subaquatiques",
+                    tagline: "Plongez dans l'action avec le Hockey et le Rugby Subaquatique !"
+                },
+                en: {
+                    logo: "assets/logos/CUGA/Horizontal/EN/FullColor/CUGA-logo-h-en-fullColor-rgb.svg",
+                    subtitle: "Canadian Underwater Games Association",
+                    tagline: "Dive into the action with Underwater Hockey and Underwater Rugby!"
+                }
             }
         };
 
         function populateFilterDropdowns(language) {
             const filterControlsContainer = document.getElementById('filter-controls');
-            if (!filterControlsContainer) {
-                console.error('Filter controls container not found!');
-                return;
-            }
-            filterControlsContainer.innerHTML = ''; // Clear existing filters to prevent duplication
+            if (!filterControlsContainer) { console.error('Filter controls container not found!'); return; }
+            filterControlsContainer.innerHTML = '';
 
             const langStrings = headersMap[language];
 
-            // Sport Type Filter
             const sportTypeLabel = document.createElement('label');
             sportTypeLabel.setAttribute('for', 'sport-type-filter');
             sportTypeLabel.textContent = langStrings.filterSportTypeLabel + ' ';
@@ -312,10 +278,7 @@
 
             const sportTypeFilter = document.createElement('select');
             sportTypeFilter.id = 'sport-type-filter';
-
-            const sportTypes = ['All', ...new Set(allClubs.map(club => club.SportType).filter(st => st))].sort();
-
-            sportTypeFilter.innerHTML = '';
+            sportTypeFilter.classList.add("text-black", "p-2", "border", "rounded", "mr-4");
 
             const defaultSportOption = document.createElement('option');
             defaultSportOption.value = 'All';
@@ -323,7 +286,6 @@
             sportTypeFilter.appendChild(defaultSportOption);
 
             let uniqueSportTypes = [...new Set(allClubs.map(club => club.SportType).filter(st => st))].sort();
-
             uniqueSportTypes.forEach(sportType => {
                 const option = document.createElement('option');
                 option.value = sportType;
@@ -337,9 +299,7 @@
                 displayClubs(currentLanguage);
             });
             filterControlsContainer.appendChild(sportTypeFilter);
-            filterControlsContainer.appendChild(document.createTextNode(' '));
 
-            // Province Filter
             const provinceLabel = document.createElement('label');
             provinceLabel.setAttribute('for', 'province-filter');
             provinceLabel.textContent = langStrings.filterProvinceLabel + ' ';
@@ -347,7 +307,7 @@
 
             const provinceFilter = document.createElement('select');
             provinceFilter.id = 'province-filter';
-            provinceFilter.innerHTML = '';
+            provinceFilter.classList.add("text-black", "p-2", "border", "rounded");
 
             const defaultProvinceOption = document.createElement('option');
             defaultProvinceOption.value = 'All';
@@ -355,7 +315,6 @@
             provinceFilter.appendChild(defaultProvinceOption);
 
             let uniqueProvinces = [...new Set(allClubs.map(club => club.Province).filter(p => p))].sort();
-
             uniqueProvinces.forEach(province => {
                 const option = document.createElement('option');
                 option.value = province;
@@ -375,18 +334,11 @@
             const url = 'https://docs.google.com/spreadsheets/d/1Lk8Lq5gu-nI1dwZjWZqYM05-x4E-5kD_huPsW-28AMo/gviz/tq';
             try {
                 const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
                 const text = await response.text();
                 const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
                 let parsedData;
-                try {
-                    parsedData = JSON.parse(jsonString);
-                } catch (e) {
-                    console.error("Error parsing JSON:", e);
-                    return;
-                }
+                try { parsedData = JSON.parse(jsonString); } catch (e) { console.error("Error parsing JSON:", e); return; }
 
                 const actualHeaders = parsedData.table.rows[0].c.map(cell => (cell && cell.v) ? cell.v : '');
                 const headerKeyToIndex = {};
@@ -399,10 +351,10 @@
                     if (header === 'Club Name FR') headerKeyToIndex['ClubNameFR'] = index;
                     if (header === 'City') headerKeyToIndex['City'] = index;
                     if (header === 'City FR') headerKeyToIndex['CityFR'] = index;
-                    // Ensure 'Practice Location' and 'Practice Location FR' are explicitly mapped
                     if (header === 'Practice Location') headerKeyToIndex['PracticeLocation'] = index;
                     if (header === 'Practice Location FR') headerKeyToIndex['PracticeLocationFR'] = index;
                     if (header === 'Practice Times') headerKeyToIndex['PracticeTimes'] = index;
+                    if (header === 'Practice Times FR') headerKeyToIndex['PracticeTimesFR'] = index;
                     if (header === 'Contact Email') headerKeyToIndex['ContactEmail'] = index;
                     if (header === 'Website URL') headerKeyToIndex['WebsiteURL'] = index;
                     if (header === 'Facebook URL') headerKeyToIndex['FacebookURL'] = index;
@@ -410,7 +362,6 @@
                     if (header === 'Notes') headerKeyToIndex['Notes'] = index;
                     if (header === 'Notes FR') headerKeyToIndex['NotesFR'] = index;
                     if (header === 'RRULE') headerKeyToIndex['RRULE'] = index;
-                    if (header === 'Practice Times FR') headerKeyToIndex['PracticeTimesFR'] = index; // Added this line
                 });
 
                 allClubs = parsedData.table.rows.slice(1).map(row => {
@@ -418,26 +369,21 @@
                     if (!row || !row.c) return null;
                     for (const key in headerKeyToIndex) {
                         const cell = row.c[headerKeyToIndex[key]];
-                        club[key] = (cell && cell.v !== null && cell.v !== undefined) ? cell.v : "";
+                        club[key] = (cell && cell.v !== null && cell.v !== undefined) ? String(cell.v) : ""; // Ensure all values are strings
                     }
                     return club;
                 }).filter(club => club !== null);
-
-                console.log("Processed club data:", allClubs);
-                displayClubs(currentLanguage);
-
+                appLog('debug', "Processed club data:", allClubs);
             } catch (error) {
                 console.error("Error fetching club data:", error);
                 const clubsContainer = document.getElementById('clubs-container');
-                if (clubsContainer) clubsContainer.innerHTML = '<p>Error loading club data. Please try again later.</p>';
+                if (clubsContainer) clubsContainer.innerHTML = `<p>${headersMap[currentLanguage].noClubData}</p>`;
                 const filterControlsContainer = document.getElementById('filter-controls');
-                if (filterControlsContainer) filterControlsContainer.innerHTML = '<p>Could not load filters due to data error.</p>';
+                if (filterControlsContainer) filterControlsContainer.innerHTML = `<p>${headersMap[currentLanguage].noClubData}</p>`;
             }
         }
 
         function displayClubs(language) {
-            currentLanguage = language;
-
             if (allClubs.length > 0) {
                 populateFilterDropdowns(language);
             } else if (document.getElementById('filter-controls')) {
@@ -445,31 +391,27 @@
             }
 
             const clubsContainer = document.getElementById('clubs-container');
-            if (!clubsContainer) {
-                console.error('Clubs container not found!');
-                return;
-            }
+            if (!clubsContainer) { console.error('Clubs container not found!'); return; }
             clubsContainer.innerHTML = '';
 
             const langHeaders = headersMap[language];
-
             const table = document.createElement('table');
+            table.classList.add("min-w-full", "divide-y", "divide-gray-200", "shadow", "overflow-hidden", "border-b", "border-gray-200", "sm:rounded-lg");
             table.innerHTML = `
-                <thead>
+                <thead class="bg-gray-50">
                     <tr>
-                        <th>${langHeaders.clubName}</th>
-                        <th>${langHeaders.sportType}</th>
-                        <th>${langHeaders.city}</th>
-                        <th>${langHeaders.practiceTimes}</th>
-                        <th>${langHeaders.practiceLocationColumn}</th>
-                        <th>${langHeaders.linksColumn}</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${langHeaders.clubName}</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${langHeaders.sportType}</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${langHeaders.city}</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${langHeaders.practiceTimes}</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${langHeaders.practiceLocationColumn}</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">${langHeaders.linksColumn}</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bg-white divide-y divide-gray-200">
                 </tbody>
             `;
             const tbody = table.querySelector('tbody');
-
             let filteredClubs = allClubs;
             if (selectedSport !== 'All') {
                 filteredClubs = filteredClubs.filter(club => club.SportType === selectedSport);
@@ -480,118 +422,82 @@
 
             if (filteredClubs.length === 0) {
                 const colspanCount = table.querySelector('thead tr').children.length;
-                tbody.innerHTML = `<tr><td colspan="${colspanCount}" class="no-clubs-message">No clubs match the current filters.</td></tr>`;
-                 if (allClubs.length === 0 && !document.getElementById('filter-controls').innerHTML.includes('Could not load filters')) {
-                    tbody.innerHTML = `<tr><td colspan="${colspanCount}" class="no-clubs-message">No club data available.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${colspanCount}" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">${langHeaders.noClubsMatch}</td></tr>`;
+                 if (allClubs.length === 0 && !document.getElementById('filter-controls').innerHTML.includes(langHeaders.noClubData)) { // check this condition
+                    tbody.innerHTML = `<tr><td colspan="${colspanCount}" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">${langHeaders.noClubData}</td></tr>`;
                 }
             } else {
                 filteredClubs.forEach(club => {
                     const tr = document.createElement('tr');
+                    tr.classList.add("hover:bg-gray-100");
 
-                    const clubName = language === 'fr' ? (club.ClubNameFR || club.ClubName) : club.ClubName;
-                    const sportType = language === 'fr' ? (club.SportTypeFR || club.SportType) : club.SportType;
-                    const city = language === 'fr' ? (club.CityFR || club.City) : club.City;
-                    const practiceTimes = club.PracticeTimes;
+                    const clubName = language === 'fr' && club.ClubNameFR ? club.ClubNameFR : club.ClubName;
+                    const sportType = language === 'fr' && club.SportTypeFR ? club.SportTypeFR : club.SportType;
+                    const city = language === 'fr' && club.CityFR ? club.CityFR : club.City;
 
                     tr.insertCell().textContent = clubName;
                     tr.insertCell().textContent = sportType;
                     tr.insertCell().textContent = city;
 
-                    // Determine Practice Times content based on language
                     const practiceTimesCell = tr.insertCell();
-                    let practiceTimeText = club.PracticeTimes; // Default to English version
-                    if (language === 'fr' && club.PracticeTimesFR && club.PracticeTimesFR.trim() !== "" && club.PracticeTimesFR.toLowerCase() !== 'na') {
-                        practiceTimeText = club.PracticeTimesFR;
-                    } else if (!practiceTimeText || practiceTimeText.trim() === "" || practiceTimeText.toLowerCase() === 'na') {
-                        practiceTimeText = "NA";
-                    }
-                    practiceTimesCell.textContent = practiceTimeText;
+                    let practiceTimeText = (language === 'fr' && club.PracticeTimesFR && club.PracticeTimesFR.toLowerCase() !== 'na' && club.PracticeTimesFR.trim() !== "") ? club.PracticeTimesFR : club.PracticeTimes;
+                    practiceTimesCell.textContent = (!practiceTimeText || practiceTimeText.trim() === "" || practiceTimeText.toLowerCase() === 'na') ? "NA" : practiceTimeText;
 
-                    // Determine Practice Location content based on language
                     const practiceLocationCell = tr.insertCell();
-                    let locationContent = club.PracticeLocation; // Default to English or NA
-                    if (language === 'fr' && club.PracticeLocationFR && club.PracticeLocationFR.trim() !== "" && club.PracticeLocationFR.toLowerCase() !== 'na') {
-                        locationContent = club.PracticeLocationFR;
-                    } else if (!locationContent || locationContent.trim() === "" || locationContent.toLowerCase() === 'na') {
-                        locationContent = "NA";
-                    }
-                    practiceLocationCell.innerHTML = locationContent; // Use innerHTML in case of special chars, though textContent is safer if not needed. Given data, textContent is fine.
+                    let locationContent = (language === 'fr' && club.PracticeLocationFR && club.PracticeLocationFR.toLowerCase() !== 'na' && club.PracticeLocationFR.trim() !== "") ? club.PracticeLocationFR : club.PracticeLocation;
+                    practiceLocationCell.innerHTML = (!locationContent || locationContent.trim() === "" || locationContent.toLowerCase() === 'na') ? "NA" : locationContent;
 
                     const linksCell = tr.insertCell();
-                    const langHeaders = headersMap[currentLanguage]; // Ensure langHeaders is accessible
+                    linksCell.classList.add("px-6", "py-4", "whitespace-nowrap", "text-sm", "text-gray-500");
+                    const linksLangHeaders = headersMap[language];
 
-                    // Helper function to create icon links
                     const createIconLink = (href, ariaLabelKey, iconClass, isMailto = false) => {
                         const anchor = document.createElement('a');
-                        anchor.className = 'link-icon-anchor';
-                        if (!isMailto) {
-                            anchor.target = '_blank';
-                            anchor.rel = 'noopener noreferrer';
-                        }
+                        anchor.className = 'link-icon-anchor inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500';
+                        if (!isMailto) { anchor.target = '_blank'; anchor.rel = 'noopener noreferrer'; }
                         anchor.href = href;
-                        const ariaLabelText = langHeaders[ariaLabelKey] || ""; // Get base ARIA label
-                        // Append actual href for context, ensuring it's not undefined/null
+                        const ariaLabelText = linksLangHeaders[ariaLabelKey] || "";
                         const fullAriaLabel = href ? `${ariaLabelText} ${href}` : ariaLabelText;
                         anchor.setAttribute('aria-label', fullAriaLabel);
-
                         const span = document.createElement('span');
                         span.className = 'link-icon';
-                        const iconTag = document.createElement('i'); // Changed variable name from 'icon' to 'iconTag'
-                        iconTag.className = `fa ${iconClass}`; // e.g., fa-envelope
+                        const iconTag = document.createElement('i');
+                        iconTag.className = `fa ${iconClass} fa-lg`;
                         iconTag.setAttribute('aria-hidden', 'true');
                         span.appendChild(iconTag);
                         anchor.appendChild(span);
                         return anchor;
                     };
 
-                    if (club.ContactEmail && club.ContactEmail !== "NA") {
-                        linksCell.appendChild(createIconLink(`mailto:${club.ContactEmail}`, 'AriaEmailLink', 'fa-envelope', true));
-                    }
-                    if (club.WebsiteURL && club.WebsiteURL !== "NA") {
-                        linksCell.appendChild(createIconLink(club.WebsiteURL, 'AriaWebsiteLink', 'fa-globe'));
-                    }
-                    if (club.FacebookURL && club.FacebookURL !== "NA") {
-                        linksCell.appendChild(createIconLink(club.FacebookURL, 'AriaFacebookLink', 'fa-facebook-square'));
-                    }
-                    if (club.InstagramURL && club.InstagramURL !== "NA") {
-                        linksCell.appendChild(createIconLink(club.InstagramURL, 'AriaInstagramLink', 'fa-instagram'));
-                    }
+                    if (club.ContactEmail && club.ContactEmail !== "NA") { linksCell.appendChild(createIconLink(`mailto:${club.ContactEmail}`, 'AriaEmailLink', 'fa-envelope', true));}
+                    if (club.WebsiteURL && club.WebsiteURL !== "NA") { linksCell.appendChild(createIconLink(club.WebsiteURL, 'AriaWebsiteLink', 'fa-globe'));}
+                    if (club.FacebookURL && club.FacebookURL !== "NA") { linksCell.appendChild(createIconLink(club.FacebookURL, 'AriaFacebookLink', 'fa-facebook-square'));}
+                    if (club.InstagramURL && club.InstagramURL !== "NA") { linksCell.appendChild(createIconLink(club.InstagramURL, 'AriaInstagramLink', 'fa-instagram'));}
 
-                    // Create and append the ICS button
                     const scheduleButton = document.createElement('button');
-                    scheduleButton.className = 'ics-button';
-                    scheduleButton.innerHTML = '<i class="fa fa-calendar" aria-hidden="true"></i>';
-                    const ariaLabelICS = langHeaders.AriaDownloadICS || "Download schedule as ICS";
+                    scheduleButton.className = 'ics-button inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500';
+                    scheduleButton.innerHTML = '<i class="fa fa-calendar fa-lg" aria-hidden="true"></i>';
+                    const ariaLabelICS = linksLangHeaders.AriaDownloadICS || "Download schedule as ICS";
                     scheduleButton.setAttribute('aria-label', ariaLabelICS);
 
                     if (!club.RRULE || club.RRULE.trim() === "" || club.RRULE.toLowerCase() === "na (contact for times)") {
                         scheduleButton.disabled = true;
-                        appLog('debug', `ICS button disabled for club: ${club.ClubName || 'Unnamed Club'} due to missing/invalid RRULE.`);
+                        scheduleButton.classList.add("opacity-50", "cursor-not-allowed");
                     } else {
                         scheduleButton.disabled = false;
-                        const currentClub = club; // Capture club for the closure
-
-                        scheduleButton.addEventListener("click", () => {
-                            appLog('debug', 'ICS button clicked for club (via addEventListener):', currentClub.ClubName);
-                            generateICS(currentClub);
-                        });
-
-                        appLog('debug', `Attached generateICS listener via addEventListener for club: ${currentClub.ClubName || 'Unnamed Club'}`);
+                        const currentClub = club;
+                        scheduleButton.addEventListener("click", () => { generateICS(currentClub); });
                     }
                     linksCell.appendChild(scheduleButton);
-
-                    // If linksCell is empty (no links, and ICS button also not added if it were conditional), add "NA"
-                    if (linksCell.children.length === 0) {
-                        linksCell.textContent = "NA";
-                    }
-
+                    if (linksCell.children.length === 0) { linksCell.textContent = "NA"; }
+                    Array.from(tr.children).forEach(td => { td.classList.add("px-6", "py-4", "whitespace-nowrap", "text-sm", "text-gray-900"); });
                     tbody.appendChild(tr);
                 });
             }
             clubsContainer.appendChild(table);
         }
 
-        function formatUTCDate(date) {
+        function formatUTCDate(date) { /* ... unchanged ... */
             return date.getUTCFullYear() +
                 ('0' + (date.getUTCMonth() + 1)).slice(-2) +
                 ('0' + date.getUTCDate()).slice(-2) + 'T' +
@@ -600,14 +506,11 @@
                 ('0' + date.getUTCSeconds()).slice(-2) + 'Z';
         }
 
-        function calculateNextDtFromRrule(rruleString, clubPracticeTimeString) {
+        function calculateNextDtFromRrule(rruleString, clubPracticeTimeString) { /* ... unchanged ... */
             const now = new Date();
             let eventDate = new Date(now);
-
             const dayMap = { 'SU': 0, 'MO': 1, 'TU': 2, 'WE': 3, 'TH': 4, 'FR': 5, 'SA': 6 };
-
             let targetDay = -1, targetHour = -1, targetMinute = -1;
-
             const rruleParts = rruleString.split(';');
             rruleParts.forEach(part => {
                 const [key, value] = part.split('=');
@@ -615,7 +518,6 @@
                 if (key === 'BYHOUR') targetHour = parseInt(value, 10);
                 if (key === 'BYMINUTE') targetMinute = parseInt(value, 10);
             });
-
             if (targetDay === -1 || targetHour === -1 || targetMinute === -1) {
                 if (clubPracticeTimeString) {
                     const timeMatch = clubPracticeTimeString.match(/(\d{1,2})[:h](\d{2})?/i);
@@ -629,26 +531,16 @@
                             }
                         }
                          if (targetDay === -1) targetDay = now.getDay();
-                    } else {
-                         return null;
-                    }
-                } else {
-                    return null;
-                }
+                    } else { return null; }
+                } else { return null; }
             }
-
             eventDate.setHours(targetHour, targetMinute, 0, 0);
-
             let daysToAdd = (targetDay - eventDate.getDay() + 7) % 7;
-            if (daysToAdd === 0 && eventDate.getTime() < now.getTime()) {
-                daysToAdd = 7;
-            }
+            if (daysToAdd === 0 && eventDate.getTime() < now.getTime()) { daysToAdd = 7; }
             eventDate.setDate(eventDate.getDate() + daysToAdd);
-
             const dtstart = new Date(eventDate);
             const dtend = new Date(eventDate);
             dtend.setHours(dtend.getHours() + 1);
-
             const formatDateForICS = (d) => {
                 return d.getFullYear() +
                        ('0' + (d.getMonth() + 1)).slice(-2) +
@@ -657,171 +549,146 @@
                        ('0' + d.getMinutes()).slice(-2) +
                        ('0' + d.getSeconds()).slice(-2);
             };
-
-            return {
-                dtstart: formatDateForICS(dtstart),
-                dtend: formatDateForICS(dtend)
-            };
+            return { dtstart: formatDateForICS(dtstart), dtend: formatDateForICS(dtend) };
         }
 
-
         function generateICS(club) {
-            appLog('debug', 'generateICS called for club:', club);
-            const lang = currentLanguage; // Used for summary components
-            const clubName = lang === 'fr' ? (club.ClubNameFR || club.ClubName) : club.ClubName;
-            const sportType = lang === 'fr' ? (club.SportTypeFR || club.SportType) : club.SportType;
+            const lang = currentLanguage;
+            const langAlerts = headersMap[lang];
+            const clubName = lang === 'fr' && club.ClubNameFR ? club.ClubNameFR : club.ClubName;
+            const sportType = lang === 'fr' && club.SportTypeFR ? club.SportTypeFR : club.SportType;
 
-            // Determine localized location for ICS
-            let locationForICS = club.PracticeLocation || "";
-            if (currentLanguage === 'fr' && club.PracticeLocationFR && club.PracticeLocationFR.trim() !== "" && club.PracticeLocationFR.toLowerCase() !== "na") {
-                locationForICS = club.PracticeLocationFR;
-            } else if (!locationForICS || locationForICS.trim() === "" || locationForICS.toLowerCase() === "na") {
-                locationForICS = ""; // If English/default is also NA or empty, make location empty for ICS
-            }
+            let locationForICS = (lang === 'fr' && club.PracticeLocationFR && club.PracticeLocationFR.toLowerCase() !== "na" && club.PracticeLocationFR.trim() !== "") ? club.PracticeLocationFR : club.PracticeLocation;
+            locationForICS = (!locationForICS || locationForICS.trim() === "" || locationForICS.toLowerCase() === "na") ? "" : locationForICS;
 
-            // Determine localized practice times and notes for description
-            let practiceTimesForDesc = club.PracticeTimes || "";
-            if (currentLanguage === 'fr' && club.PracticeTimesFR && club.PracticeTimesFR.trim() !== "" && club.PracticeTimesFR.toLowerCase() !== "na") {
-                practiceTimesForDesc = club.PracticeTimesFR;
-            }
+            let practiceTimesForDesc = (lang === 'fr' && club.PracticeTimesFR && club.PracticeTimesFR.toLowerCase() !== "na" && club.PracticeTimesFR.trim() !== "") ? club.PracticeTimesFR : club.PracticeTimes;
+            practiceTimesForDesc = (!practiceTimesForDesc || practiceTimesForDesc.trim() === "" || practiceTimesForDesc.toLowerCase() === 'na') ? "" : practiceTimesForDesc;
 
-            let notesForDesc = club.Notes || "";
-            if (currentLanguage === 'fr' && club.NotesFR && club.NotesFR.trim() !== "" && club.NotesFR.toLowerCase() !== "na") {
-                notesForDesc = club.NotesFR;
-            }
+            let notesForDesc = (lang === 'fr' && club.NotesFR && club.NotesFR.toLowerCase() !== "na" && club.NotesFR.trim() !== "") ? club.NotesFR : club.Notes;
+            notesForDesc = (!notesForDesc || notesForDesc.trim() === "" || notesForDesc.toLowerCase() === 'na') ? "" : notesForDesc;
 
-            const langHeaders = headersMap[currentLanguage];
             let description = practiceTimesForDesc.replace(/\r\n|\r|\n/g, "\\n");
             if (notesForDesc) {
-                description += `\\n\\n${langHeaders.NotesPrefix} ${notesForDesc.replace(/\r\n|\r|\n/g, "\\n")}`;
+                description += `\\n\\n${langAlerts.NotesPrefix} ${notesForDesc.replace(/\r\n|\r|\n/g, "\\n")}`;
             }
-
             const summary = `${clubName} - ${sportType}`;
-
             const rruleString = club.RRULE || "";
+
             if (!rruleString.trim() || rruleString.toLowerCase() === "na (contact for times)") {
-                appLog('debug', 'No RRULE found or RRULE is "NA (contact for times)" for club:', clubName);
-                alert("No valid recurrence rule found for this club (RRULE is empty or NA).");
-                return;
+                alert(langAlerts.noRRule); return;
             }
-            const individualRrules = rruleString
-                .replace(/<br\s*\/?>|&lt;br\s*\/?>/gi, '|')
-                .split('|')                                 // Split by |
-                .map(rule => rule.trim())                   // Trim whitespace
-                .filter(rule => rule.length > 0);           // Remove empty rules
-
+            const individualRrules = rruleString.replace(/<br\s*\/?>|&lt;br\s*\/?>/gi, '|').split('|').map(rule => rule.trim()).filter(rule => rule.length > 0);
             if (individualRrules.length === 0) {
-                appLog('debug', 'No valid individual RRULEs found after parsing for club:', clubName, 'Original RRULE:', club.RRULE);
-                alert("No valid individual recurrence rules could be parsed for this club.");
-                return;
+                alert(langAlerts.noIndividualRRules); return;
             }
-            appLog('debug', 'About to process individual RRULEs. Count:', individualRrules.length, 'Rules:', individualRrules);
-
 
             let icsEvents = [];
             const dtstamp = formatUTCDate(new Date());
-
             let resolvedTzid = defaultTimezone;
-            if (club.Province && provinceTimezones[club.Province]) {
-                resolvedTzid = provinceTimezones[club.Province];
-            } else if (club.Province) {
-                console.warn(`No specific timezone mapping for province: ${club.Province}. Using default: ${defaultTimezone}`);
-            }
-            // If club.Province is empty/null, it will just use defaultTimezone without a warning.
+            if (club.Province && provinceTimezones[club.Province]) { resolvedTzid = provinceTimezones[club.Province];}
+            else if (club.Province) { console.warn(`No specific timezone mapping for province: ${club.Province}. Using default: ${defaultTimezone}`);}
 
             for (const rrule of individualRrules) {
                 if (rrule.toLowerCase() === "na (contact for times)") continue;
-
-                const dtTimes = calculateNextDtFromRrule(rrule, club.PracticeTimes);
-                if (!dtTimes) {
-                    console.warn(`Could not calculate DTSTART/DTEND for RRULE: ${rrule}. Skipping this event.`);
-                    continue;
-                }
-
+                const dtTimes = calculateNextDtFromRrule(rrule, club.PracticeTimes); // PracticeTimes (original) is used for parsing time for RRULE
+                if (!dtTimes) { console.warn(`Could not calculate DTSTART/DTEND for RRULE: ${rrule}. Skipping this event.`); continue; }
                 const uid = `${club.ClubName.replace(/[^a-zA-Z0-9]/g, "")}${Date.now()}${Math.random().toString(36).substring(2,5)}@cuga.ca`;
-
                 let eventStr = [
-                    'BEGIN:VEVENT',
-                    `UID:${uid}`,
-                    `DTSTAMP:${dtstamp}`,
-                    `SUMMARY:${summary}`,
-                    `LOCATION:${locationForICS.replace(/([,;\\])/g, '\\$1').replace(/\r\n|\r|\n/g, "\\n")}`, // Added ICS escaping
-                    `DESCRIPTION:${description}`,
-                    `RRULE:${rrule}`,
-                    `DTSTART;TZID=${resolvedTzid}:${dtTimes.dtstart}`,
-                    `DTEND;TZID=${resolvedTzid}:${dtTimes.dtend}`,
+                    'BEGIN:VEVENT', `UID:${uid}`, `DTSTAMP:${dtstamp}`, `SUMMARY:${summary}`,
+                    `LOCATION:${locationForICS.replace(/([,;\\])/g, '\\$1').replace(/\r\n|\r|\n/g, "\\n")}`,
+                    `DESCRIPTION:${description}`, `RRULE:${rrule}`,
+                    `DTSTART;TZID=${resolvedTzid}:${dtTimes.dtstart}`, `DTEND;TZID=${resolvedTzid}:${dtTimes.dtend}`,
                     'END:VEVENT'
                 ].join('\r\n');
                 icsEvents.push(eventStr);
             }
 
-            if (icsEvents.length === 0) {
-                appLog('debug', 'No VEVENTs were created for club:', clubName);
-                alert("Could not generate any valid events for this club's schedule (no valid VEVENTs created).");
-                return;
-            }
-
-            const icsContent = [
-                'BEGIN:VCALENDAR',
-                'VERSION:2.0',
-                'PRODID:-//CUGA//ClubSchedule//EN',
-                ...icsEvents,
-                'END:VCALENDAR'
-            ].join('\r\n');
-
+            if (icsEvents.length === 0) { alert(langAlerts.noEventsGenerated); return; }
+            const icsContent = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//CUGA//ClubSchedule//EN', ...icsEvents, 'END:VCALENDAR'].join('\r\n');
             const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8;' });
-            appLog('debug', 'Blob created:', blob);
             const objectURL = URL.createObjectURL(blob);
-            appLog('debug', 'Object URL created:', objectURL);
-
             const link = document.createElement("a");
             link.href = objectURL;
             const fileName = `${clubName.replace(/[^a-zA-Z0-9]/g, "_")}_schedule.ics`;
             link.setAttribute("download", fileName);
-
             document.body.appendChild(link);
-            appLog('debug', 'Link appended to body. About to click download link. Href:', link.href, 'Download attr:', link.download);
             link.click();
-
-            setTimeout(() => {
-                appLog('debug', 'link.click() executed for file:', fileName);
-                document.body.removeChild(link);
-                URL.revokeObjectURL(objectURL);
-                appLog('debug', 'Cleanup: Removed temporary link and revoked object URL for club:', clubName);
-            }, 100);
+            setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(objectURL); }, 100);
         }
 
-        document.addEventListener('DOMContentLoaded', async () => { // Make the callback async
-            try {
-                await loadAppConfig(); // Wait for config to be loaded
-                appLog('info', 'Application configuration loaded successfully.'); // Log using appLog
-            } catch (error) {
-                // This catch is for unexpected errors if loadAppConfig itself threw an unhandled exception
-                console.error("Critical error during app configuration loading sequence:", error);
-                // AppLoggerConfig will have defaults, appLog might still work with those defaults.
-                appLog('error', 'Critical error during app configuration loading sequence. Proceeding with default logging.', error);
-            }
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadAppConfig();
+            appLog('info', 'Application configuration loaded successfully.');
+            await fetchClubData();
 
-            // Proceed to fetch data regardless of config load outcome (loadAppConfig handles its own errors and defaults)
-            fetchClubData();
+            const langButtons = document.querySelectorAll('.lang-button');
+            const cugaLogo = document.getElementById('cugaLogo');
+            const cugaSubtitle = document.getElementById('cugaSubtitle');
+            const cugaTagline = document.getElementById('cugaTagline');
+            const footerFr = document.getElementById('footer-fr');
+            const footerEn = document.getElementById('footer-en');
+            const bannerFr = document.getElementById('lang-fr-banner');
+            const bannerEn = document.getElementById('lang-en-banner');
 
-            const langEnButton = document.getElementById('lang-en');
-            const langFrButton = document.getElementById('lang-fr');
+            const setLanguage = (lang) => {
+                currentLanguage = lang;
+                selectedSport = 'All';
+                selectedProvince = 'All';
 
-            if (langEnButton) {
-                langEnButton.addEventListener('click', () => {
-                    selectedSport = 'All';
-                    selectedProvince = 'All';
-                    displayClubs('en');
+                if (siteContent.header[lang]) {
+                    cugaLogo.src = siteContent.header[lang].logo;
+                    cugaSubtitle.textContent = siteContent.header[lang].subtitle;
+                    cugaTagline.textContent = siteContent.header[lang].tagline;
+                }
+
+                if (lang === 'fr') {
+                    footerFr.classList.remove('hidden');
+                    footerEn.classList.add('hidden');
+                    bannerFr.classList.remove('hidden');
+                    bannerEn.classList.add('hidden');
+                } else {
+                    footerEn.classList.remove('hidden');
+                    footerFr.classList.add('hidden');
+                    bannerEn.classList.remove('hidden');
+                    bannerFr.classList.add('hidden');
+                }
+
+                langButtons.forEach(button => {
+                    button.classList.toggle('bg-blue-600', button.dataset.lang === lang);
+                    button.classList.toggle('text-white', button.dataset.lang === lang);
+                    button.classList.toggle('bg-gray-400', button.dataset.lang !== lang);
+                    button.classList.toggle('text-gray-800', button.dataset.lang !== lang);
                 });
+
+                document.documentElement.lang = lang;
+                displayClubs(lang);
+            };
+
+            const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+            const initialLang = (browserLang === 'en' || browserLang === 'fr') ? browserLang : 'fr';
+            setLanguage(initialLang);
+
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => setLanguage(button.dataset.lang));
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => { /* Bubble script unchanged */
+            const bubblesContainer = document.querySelector('.bubbles');
+            function createBubble() {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                const size = Math.random() * 40 + 10;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}%`;
+                const animationDuration = Math.random() * 10 + 5;
+                bubble.style.animationDuration = `${animationDuration}s`;
+                bubblesContainer.appendChild(bubble);
+                setTimeout(() => { bubble.remove(); }, animationDuration * 1000);
             }
-            if (langFrButton) {
-                langFrButton.addEventListener('click', () => {
-                    selectedSport = 'All';
-                    selectedProvince = 'All';
-                    displayClubs('fr');
-                });
-            }
+            setInterval(createBubble, 500);
         });
     </script>
 </body>
