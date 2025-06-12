@@ -401,6 +401,11 @@
             const htmlTag = document.documentElement;
 
             function updateDisplayedLanguage(lang) {
+                try {
+                    localStorage.setItem('preferredLanguage', lang);
+                } catch (e) {
+                    console.warn("Could not save language preference to localStorage:", e);
+                }
                 htmlTag.lang = lang;
                 document.querySelectorAll('.lang-fr, .lang-en, .lang-fr-inline, .lang-en-inline').forEach(el => {
                     if (el.classList.contains(`lang-${lang}`) || el.classList.contains(`lang-${lang}-inline`)) {
@@ -426,9 +431,21 @@
                 }
             }
 
-            const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
-            const initialLang = browserLang === 'en' ? 'en' : 'fr';
-            updateDisplayedLanguage(initialLang);
+            // Initial Language Determination Logic
+            let preferredLang = null;
+            try {
+                preferredLang = localStorage.getItem('preferredLanguage');
+            } catch (e) {
+                console.warn("Could not retrieve language preference from localStorage:", e);
+            }
+
+            if (preferredLang && (preferredLang === 'en' || preferredLang === 'fr')) {
+                updateDisplayedLanguage(preferredLang);
+            } else {
+                const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+                const initialDefaultLang = browserLang === 'en' ? 'en' : 'fr';
+                updateDisplayedLanguage(initialDefaultLang); // This will also store it
+            }
 
             langButtons.forEach(button => {
                 button.addEventListener('click', () => updateDisplayedLanguage(button.dataset.lang));
