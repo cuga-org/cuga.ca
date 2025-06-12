@@ -91,11 +91,11 @@
         <p id="cugaTagline" class="mt-1 text-md md:text-lg italic">Plongez dans l'action avec le Hockey et le Rugby Subaquatique !</p>
     </header>
 
-    <div id="filter-controls" class="container mx-auto px-4 py-8 bg-gray-100 text-gray-800 rounded-lg shadow-md">
+    <div id="filter-controls" class="w-full px-4 py-8 bg-gray-100 text-gray-800 rounded-lg shadow-md">
         <!-- Filter controls will be added here -->
     </div>
 
-    <div id="clubs-container" class="container mx-auto px-4 py-8 overflow-x-auto text-gray-800">
+    <div id="clubs-container" class="w-full px-4 py-8 overflow-x-auto text-gray-800">
         <!-- Club listings will be displayed here -->
     </div>
 
@@ -490,7 +490,14 @@
                     }
                     linksCell.appendChild(scheduleButton);
                     if (linksCell.children.length === 0) { linksCell.textContent = "NA"; }
-                    Array.from(tr.children).forEach(td => { td.classList.add("px-6", "py-4", "whitespace-nowrap", "text-sm", "text-gray-900"); });
+                    Array.from(tr.children).forEach((td, index) => {
+                        td.classList.add("px-6", "py-4", "text-sm", "text-gray-900");
+                        if (index === 3) { // Assuming Practice Times is the 4th column (index 3)
+                            td.classList.add("whitespace-normal");
+                        } else {
+                            td.classList.add("whitespace-nowrap");
+                        }
+                    });
                     tbody.appendChild(tr);
                 });
             }
