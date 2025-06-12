@@ -234,11 +234,6 @@
             const langSections = document.querySelectorAll('.lang-fr, .lang-en'); // Affects all elements with these classes
 
             const setLanguage = (lang) => {
-                try {
-                    localStorage.setItem('preferredLanguage', lang);
-                } catch (e) {
-                    console.warn("Could not save language preference to localStorage:", e);
-                }
                 // Update HTML lang attribute
                 document.documentElement.lang = lang;
 
@@ -260,25 +255,12 @@
                 });
             };
 
-            // Initial Language Determination Logic
-            let preferredLang = null;
-            try {
-                preferredLang = localStorage.getItem('preferredLanguage');
-            } catch (e)
-                console.warn("Could not retrieve language preference from localStorage:", e);
-            }
+            // Auto-detect browser language
+            const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+            // Set initial language: 'en' if browser is English, otherwise default to 'fr'
+            const initialLang = browserLang === 'en' ? 'en' : 'fr';
+            setLanguage(initialLang);
 
-            if (preferredLang && (preferredLang === 'en' || preferredLang === 'fr')) {
-                setLanguage(preferredLang);
-            } else {
-                const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
-                // Set initial language: 'en' if browser is English, otherwise default to 'fr'
-                if (browserLang === 'en') {
-                    setLanguage('en'); // This will also store it for next time
-                } else {
-                    setLanguage('fr'); // This will also store it for next time
-                }
-            }
 
             langButtons.forEach(button => {
                 button.addEventListener('click', () => setLanguage(button.dataset.lang));
