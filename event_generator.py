@@ -10,7 +10,8 @@ import google.generativeai as genai # Added for actual Gemini API calls
 
 SHEET_URL = 'https://docs.google.com/spreadsheets/d/1Lk8Lq5gu-nI1dwZjWZqYM05-x4E-5kD_huPsW-28AMo/gviz/tq'
 PROCESSED_PROMPTS_FILE = 'processed_prompts.txt'
-OUTPUT_ICS_FILE = 'generated_events.ics'
+OUTPUT_ICS_FILE = 'generated_events.ics' # Will be phased out for individual files
+CLUB_SCHEDULES_DIR = 'club_schedules'
 PROVINCE_TIMEZONES = {
     "Alberta": "America/Edmonton", "British Columbia": "America/Vancouver", "Manitoba": "America/Winnipeg",
     "New Brunswick": "America/Moncton", "Newfoundland and Labrador": "America/St_Johns", "Nova Scotia": "America/Halifax",
@@ -151,6 +152,13 @@ def get_event_fingerprint(event_data):
 
     fingerprint_str = f"{club_name}|{rrule}|{practice_times}|{location}|{notes}|{notes_fr}"
     return hashlib.sha256(fingerprint_str.encode('utf-8')).hexdigest()
+
+def sanitize_filename(name):
+    # Remove characters that are not alphanumeric, underscore, or hyphen
+    name = re.sub(r'[^\w\s-]', '', name).strip()
+    # Replace spaces and multiple hyphens with a single underscore
+    name = re.sub(r'[-\s]+', '_', name)
+    return name if name else "unnamed_club"
 
 def generate_gemini_prompt(event_data):
     club_name = event_data.get('ClubName', event_data.get('Club Name', 'N/A'))
@@ -319,13 +327,17 @@ def call_gemini_api(prompt, api_key):
              error_details += f" (HTTP status: {e.response.status_code})"
         return f"Error: An unexpected error occurred with the Gemini API: {error_details}"
 
-def create_ics_file(vevent_strings, output_filepath):
+def write_ics_file_from_vevents(list_of_vevent_strings, output_filepath):
+    if not list_of_vevent_strings:
+        print(f"No VEVENTs provided for {output_filepath}. Skipping file creation.")
+        return
+
     cal = Calendar()
     cal.add('prodid', '-//CUGA Event Generator Script//cuga.org//')
     cal.add('version', '2.0')
 
     added_events_count = 0
-    for vevent_str in vevent_strings:
+    for vevent_str in list_of_vevent_strings: # Changed variable name
         if isinstance(vevent_str, str) and "BEGIN:VEVENT" in vevent_str and "END:VEVENT" in vevent_str:
             # The icalendar library's Event.from_ical expects a full calendar string,
             # not just a VEVENT snippet directly for robust parsing of individual components.
@@ -391,7 +403,10 @@ def main():
     processed_event_fingerprints = load_processed_prompts(PROCESSED_PROMPTS_FILE)
     print(f"Info: Loaded {len(processed_event_fingerprints)} previously processed event fingerprints.")
 
-    all_generated_vevents_strings = []
+    club_specific_vevents = [] # Changed from all_generated_vevents_strings
+
+    if not os.path.exists(CLUB_SCHEDULES_DIR):
+        os.makedirs(CLUB_SCHEDULES_DIR)
 
     for idx, event_data in enumerate(club_events):
         # Basic check for enough data to form a prompt
@@ -410,34 +425,123 @@ def main():
         print(f"Processing new event: {club_name_for_log} (FP: {fingerprint[:8]})")
 
         gemini_prompt = generate_gemini_prompt(event_data)
-        # print(f"Generated Gemini Prompt for {club_name_for_log}:\n{gemini_prompt[:250]}...") # Log snippet
+        # print(f"Generated Gemini Prompt for {club_name_for_log}:\n{gemini_prompt[:250]}...") # Log snippet for debugging
 
         vevent_output_from_gemini = call_gemini_api(gemini_prompt, gemini_api_key)
 
-        if vevent_output_from_gemini:
-            if "Error:" in vevent_output_from_gemini:
-                print(f"Warning: Gemini indicated an error for '{club_name_for_log}': {vevent_output_from_gemini}")
+        current_club_name = event_data.get('ClubName', event_data.get('Club Name', 'UnknownClub'))
+
+        if vevent_output_from_gemini and "Error:" not in str(vevent_output_from_gemini) and "blocked" not in str(vevent_output_from_gemini).lower():
+            raw_vevents_from_gemini = vevent_output_from_gemini.split("BEGIN:VEVENT")
+            parsed_vevents_for_this_entry = []
+            valid_vevent_found_for_entry = False
+            for vevent_part in raw_vevents_from_gemini:
+                if vevent_part.strip():
+                    full_vevent_str = "BEGIN:VEVENT" + vevent_part
+                    # Basic validation of VEVENT structure
+                    if "END:VEVENT" in full_vevent_str and "UID:" in full_vevent_str and "DTSTAMP:" in full_vevent_str:
+                        parsed_vevents_for_this_entry.append(full_vevent_str)
+                        valid_vevent_found_for_entry = True
+                    else:
+                        print(f"Warning: Invalid VEVENT structure received from Gemini for '{club_name_for_log}': {full_vevent_str[:200]}...")
+
+            if valid_vevent_found_for_entry:
+                club_specific_vevents.append({
+                    "club_name": current_club_name,
+                    "original_event_data": event_data,
+                    "vevents": parsed_vevents_for_this_entry
+                })
+                print(f"Success: Gemini API call for '{club_name_for_log}' (entry {idx+1}) returned valid VEVENT(s).")
             else:
-                # Assuming Gemini might return multiple VEVENT blocks as one string, separated by BEGIN:VEVENT
-                # Split them carefully
-                raw_vevents = vevent_output_from_gemini.split("BEGIN:VEVENT")
-                for vevent_part in raw_vevents:
-                    if vevent_part.strip(): # If not empty after split
-                        full_vevent_str = "BEGIN:VEVENT" + vevent_part
-                        all_generated_vevents_strings.append(full_vevent_str)
-                print(f"Success: Mock Gemini call for '{club_name_for_log}' returned VEVENT(s).")
-            save_processed_prompt(PROCESSED_PROMPTS_FILE, fingerprint) # Save fingerprint even if Gemini reports error, to avoid retrying bad data
-        else:
-            print(f"Warning: Mock Gemini call returned no output for: {club_name_for_log}")
+                print(f"Warning: No valid VEVENTs found in Gemini output for '{club_name_for_log}' (entry {idx+1}). Output: {vevent_output_from_gemini[:200]}...")
+            save_processed_prompt(PROCESSED_PROMPTS_FILE, fingerprint)
+
+        elif "Error:" in str(vevent_output_from_gemini) or "blocked" in str(vevent_output_from_gemini).lower():
+            print(f"Warning: Gemini API call for '{club_name_for_log}' (entry {idx+1}) resulted in an error or was blocked: {vevent_output_from_gemini}")
+            save_processed_prompt(PROCESSED_PROMPTS_FILE, fingerprint) # Save fingerprint even if Gemini reports error
+        else: # No output or empty string
+            print(f"Warning: Gemini API call returned no output or empty string for: {club_name_for_log} (entry {idx+1})")
             # Optionally, save fingerprint here too to prevent retries on events that consistently fail at Gemini stage
-            # save_processed_prompt(PROCESSED_PROMPTS_FILE, fingerprint)
+            save_processed_prompt(PROCESSED_PROMPTS_FILE, fingerprint)
 
+    # After the main event processing loop
+    print(f"Collected {len(club_specific_vevents)} items for ICS generation, potentially multiple per club.")
 
-    if all_generated_vevents_strings:
-        create_ics_file(all_generated_vevents_strings, OUTPUT_ICS_FILE)
+    # --- Aggregate events by club name ---
+    aggregated_events_by_club = {}
+    all_master_vevents = [] # For the master ICS file
+
+    for item in club_specific_vevents:
+        club_name = item['club_name']
+        vevents = item['vevents']
+
+        if club_name not in aggregated_events_by_club:
+            aggregated_events_by_club[club_name] = {
+                "vevents": [],
+                "original_event_data_for_json": item['original_event_data']
+            }
+        aggregated_events_by_club[club_name]['vevents'].extend(vevents)
+        all_master_vevents.extend(vevents)
+
+    print(f"Aggregated events for {len(aggregated_events_by_club)} unique clubs.")
+
+    # --- Generate Per-Club ICS Files ---
+    processed_club_data_for_json = [] # To store data for cuga_club_data.json
+
+    for club_name, data in aggregated_events_by_club.items():
+        club_vevents = data['vevents']
+        original_data = data['original_event_data_for_json']
+
+        club_info_for_json = {
+            'ClubName': original_data.get('ClubName', original_data.get('Club Name', club_name)),
+            'ClubNameFR': original_data.get('ClubNameFR', original_data.get('Club Name FR', '')),
+            'Province': original_data.get('Province', original_data.get('Province', '')),
+            'City': original_data.get('City', original_data.get('City', '')),
+            'PracticeLocation': original_data.get('PracticeLocation', original_data.get('Practice Location', '')),
+            'PracticeLocationFR': original_data.get('PracticeLocationFR', original_data.get('Practice Location FR', '')),
+            'PracticeTimes': original_data.get('PracticeTimes', original_data.get('Practice Times', '')),
+            'PracticeTimesFR': original_data.get('PracticeTimesFR', original_data.get('Practice Times FR', '')),
+            'Notes': original_data.get('Notes', original_data.get('Notes', '')),
+            'NotesFR': original_data.get('NotesFR', original_data.get('Notes FR', '')),
+            'SportType': original_data.get('SportType', original_data.get('Sport Type', '')),
+            'ContactEmail': original_data.get('ContactEmail', ''),
+            'WebsiteURL': original_data.get('WebsiteURL', ''),
+            'FacebookURL': original_data.get('FacebookURL', ''),
+            'InstagramURL': original_data.get('InstagramURL', ''),
+            'ics_file_path': None
+        }
+
+        if not club_vevents:
+            print(f"No VEVENTs generated for club: {club_name}. Skipping ICS file.")
+            processed_club_data_for_json.append(club_info_for_json)
+            continue
+
+        sanitized_club_name_for_file = sanitize_filename(club_name)
+        club_ics_filename = f"{sanitized_club_name_for_file}.ics"
+        club_ics_filepath = os.path.join(CLUB_SCHEDULES_DIR, club_ics_filename)
+
+        write_ics_file_from_vevents(club_vevents, club_ics_filepath)
+        club_info_for_json['ics_file_path'] = club_ics_filepath
+        processed_club_data_for_json.append(club_info_for_json)
+
+    # --- Generate Master ICS File ---
+    master_ics_filepath = 'master_cuga_schedule.ics'
+    if all_master_vevents:
+        write_ics_file_from_vevents(all_master_vevents, master_ics_filepath)
     else:
-        print("Info: No new VEVENTs were generated to create an ICS file. Writing a placeholder file.")
-        create_ics_file([], OUTPUT_ICS_FILE) # Create placeholder if no events
+        print("No VEVENTs available to generate a master schedule. Master file will not be created.")
+        # write_ics_file_from_vevents([], master_ics_filepath) # This would do nothing as per current func def
+
+    # --- Generate cuga_club_data.json ---
+    cuga_club_data_filepath = 'cuga_club_data.json'
+    try:
+        # Sort by province, then by club name for consistent output
+        processed_club_data_for_json.sort(key=lambda x: (x.get('Province', '').lower(), x.get('ClubName', '').lower()))
+        with open(cuga_club_data_filepath, 'w', encoding='utf-8') as f:
+            json.dump(processed_club_data_for_json, f, ensure_ascii=False, indent=4)
+        print(f"Successfully wrote club data to {cuga_club_data_filepath}")
+    except IOError as e:
+        print(f"Error writing club data JSON file: {e}")
 
     print("Script finished.")
 
