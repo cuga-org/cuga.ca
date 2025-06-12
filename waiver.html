@@ -397,8 +397,112 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        let allClubsWaiver = []; // Holds data from cuga_club_data.json
+
+        async function fetchWaiverClubData() {
+            try {
+                const response = await fetch('cuga_club_data.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                allClubsWaiver = await response.json();
+                console.log("Successfully fetched and parsed cuga_club_data.json:", allClubsWaiver);
+            } catch (error) {
+                console.error("Error fetching or parsing cuga_club_data.json:", error);
+                allClubsWaiver = []; // Ensure it's an empty array on error
+            }
+        }
+
+        function populateClubDropdown(lang) {
+            const clubNameInput = document.getElementById('clubName');
+            if (!clubNameInput) {
+                console.error("Club name input/select field not found.");
+                return;
+            }
+
+            const parentDiv = clubNameInput.parentElement;
+            if (!parentDiv) {
+                console.error("Parent of club name input/select not found.");
+                return;
+            }
+
+            // Clear existing input or select for club name if it exists and is a child
+            if (clubNameInput && clubNameInput.parentElement === parentDiv) {
+                parentDiv.removeChild(clubNameInput);
+            }
+
+            // Remove old otherClubNameInput if it exists
+            const oldOtherClubInput = document.getElementById('otherClubNameInput');
+            if (oldOtherClubInput && oldOtherClubInput.parentElement === parentDiv) {
+                parentDiv.removeChild(oldOtherClubInput);
+            }
+
+            const selectElement = document.createElement('select');
+            selectElement.id = 'clubName';
+            selectElement.name = 'clubName'; // This will be the primary source for club name unless "Other" is chosen
+            selectElement.className = 'mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm';
+
+            // Add placeholder option
+            const placeholderOption = document.createElement('option');
+            placeholderOption.value = "";
+            placeholderOption.textContent = lang === 'fr' ? "-- Sélectionnez un club --" : "-- Select a club --";
+            selectElement.appendChild(placeholderOption);
+
+            // Populate with clubs from allClubsWaiver
+            if (allClubsWaiver && allClubsWaiver.length > 0) {
+                allClubsWaiver.forEach(club => {
+                    const option = document.createElement('option');
+                    option.value = club.ClubName; // Use English name as value for consistency
+                    option.textContent = (lang === 'fr' && club.ClubNameFR) ? club.ClubNameFR : club.ClubName;
+                    selectElement.appendChild(option);
+                });
+            } else {
+                console.warn("allClubsWaiver is empty or not loaded, dropdown will have limited options.");
+            }
+
+            // Add "Other" option
+            const otherOption = document.createElement('option');
+            otherOption.value = "_OTHER_";
+            otherOption.textContent = lang === 'fr' ? "Autre" : "Other";
+            selectElement.appendChild(otherOption);
+
+            parentDiv.appendChild(selectElement);
+
+            // Add the 'Other Club Name' text input dynamically
+            let otherClubNameInputElement = document.getElementById('otherClubNameInput');
+            if (!otherClubNameInputElement) {
+                otherClubNameInputElement = document.createElement('input');
+                otherClubNameInputElement.type = 'text';
+                otherClubNameInputElement.id = 'otherClubNameInput';
+                otherClubNameInputElement.name = 'otherClubName'; // Auxiliary field
+                otherClubNameInputElement.className = 'mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm hidden'; // Initially hidden
+                otherClubNameInputElement.setAttribute('data-placeholder-fr', 'Autre nom de club');
+                otherClubNameInputElement.setAttribute('data-placeholder-en', 'Other club name');
+                parentDiv.appendChild(otherClubNameInputElement);
+            }
+
+            // Set placeholder for otherClubNameInput based on language
+            otherClubNameInputElement.placeholder = lang === 'fr' ? otherClubNameInputElement.getAttribute('data-placeholder-fr') : otherClubNameInputElement.getAttribute('data-placeholder-en');
+
+            // Event listener for clubName select
+            selectElement.addEventListener('change', function() {
+                if (this.value === '_OTHER_') {
+                    otherClubNameInputElement.classList.remove('hidden');
+                    otherClubNameInputElement.focus();
+                } else {
+                    otherClubNameInputElement.classList.add('hidden');
+                    otherClubNameInputElement.value = ''; // Clear value when hidden
+                }
+            });
+
+            // Trigger change handler to set initial state
+            selectElement.dispatchEvent(new Event('change'));
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => { // Make this async
             AOS.init({ duration: 1000, once: true });
+
+            await fetchWaiverClubData(); // Fetch data first
 
             function fillWithTestData() {
                 console.log("Attempting to fill form with test data...");
@@ -435,7 +539,14 @@
                 if (emergencyContactPhoneEl) emergencyContactPhoneEl.value = "555-987-6543";
 
                 const clubNameEl = document.getElementById('clubName');
-                if (clubNameEl) clubNameEl.value = "Test Club Aqua";
+                if (clubNameEl) {
+                    clubNameEl.value = "Test Club Aqua"; // This might need adjustment if "Test Club Aqua" is not a direct value
+                    // If testing "Other", you'd do:
+                    // clubNameEl.value = "_OTHER_";
+                    // clubNameEl.dispatchEvent(new Event('change')); // to show the other input
+                    // const otherClubNameInputEl = document.getElementById('otherClubNameInput');
+                    // if (otherClubNameInputEl) otherClubNameInputEl.value = "My Custom Test Club";
+                }
 
                 const waiverInitialsEl = document.getElementById('waiverInitials');
                 if (waiverInitialsEl) waiverInitialsEl.value = "JDT";
@@ -515,18 +626,23 @@
                 if (waiverInitialsInput) {
                     waiverInitialsInput.placeholder = lang === 'fr' ? waiverInitialsInput.getAttribute('placeholder-lang-fr') : waiverInitialsInput.getAttribute('placeholder-lang-en');
                 }
+                populateClubDropdown(lang); // Update dropdown on language change
                 localStorage.setItem('language', lang); // Store language choice
             }
 
+            // Language initialization logic remains, but populateClubDropdown will be called after data fetch
+            // The initial call to updateDisplayedLanguage will also trigger populateClubDropdown
+
             const storedLang = localStorage.getItem('language');
+            let initialLangToSet;
             if (storedLang) {
-                updateDisplayedLanguage(storedLang);
+                initialLangToSet = storedLang;
             } else {
-                // Original browser language detection and initial updateDisplayedLanguage call
                 const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
-                const initialLang = browserLang === 'en' ? 'en' : 'fr';
-                updateDisplayedLanguage(initialLang);
+                initialLangToSet = browserLang === 'en' ? 'en' : 'fr';
             }
+            // Initial language update and dropdown population will be handled after data fetching.
+            // updateDisplayedLanguage(initialLangToSet); // This call will be done after fetching club data
 
             langButtons.forEach(button => {
                 button.addEventListener('click', () => updateDisplayedLanguage(button.dataset.lang));
@@ -561,6 +677,10 @@
             window.mySignaturePad = null;
 
             let currentFee = 0;
+
+            // Moved from above, to be called after fetchWaiverClubData
+            updateDisplayedLanguage(initialLangToSet);
+            // populateClubDropdown(initialLangToSet); // This is now called within updateDisplayedLanguage
 
             const fees = {
                 adult: { early: 45, regular: 90 },
@@ -624,11 +744,22 @@
                 data['sportsPlayed'] = sportsPlayed.join(', ');
 
                 formData.forEach((value, key) => {
-                    if (key !== 'sportsPlayed') {
+                    if (key !== 'sportsPlayed' && key !== 'otherClubName') { // Exclude otherClubName from initial capture
                        data[key] = value;
                     }
                 });
                 if(sportsPlayed.length > 0 && !data['sportsPlayed']) data['sportsPlayed'] = sportsPlayed.join(', ');
+
+                // Handle clubName specifically
+                const selectedClubValue = waiverForm.elements.clubName.value;
+                if (selectedClubValue === '_OTHER_') {
+                    data['clubName'] = waiverForm.elements.otherClubNameInput.value.trim();
+                } else {
+                    data['clubName'] = selectedClubValue;
+                }
+                // Ensure otherClubName is not in the final data object if it was somehow added
+                delete data['otherClubName'];
+
 
                 data['calculatedFee'] = currentFee.toFixed(2);
                 data['timestamp'] = new Date().toISOString();
@@ -668,7 +799,15 @@
 
                 waiverForm.reset();
                 if(window.mySignaturePad) window.mySignaturePad.clear();
-                calculateFee();
+                // The populateClubDropdown called by updateDisplayedLanguage will reset the select
+                // and its change handler should hide the 'other' input.
+                // Explicitly hide and clear otherClubNameInput as a safeguard.
+                const otherClubInput = document.getElementById('otherClubNameInput');
+                if (otherClubInput) { // Check if otherClubInput actually exists
+                    otherClubInput.classList.add('hidden');
+                    otherClubInput.value = '';
+                }
+                calculateFee(); // This will also call updateDisplayedLanguage -> populateClubDropdown
             }
 
             if (typeof SignaturePad !== 'undefined' && canvas) {
@@ -764,8 +903,18 @@
                     if(window.mySignaturePad) window.mySignaturePad.clear();
                     else if (document.getElementById('typedSignature')) document.getElementById('typedSignature').value = '';
 
-                    calculateFee();
-                    updateDisplayedLanguage(htmlTag.lang || 'fr');
+                    // Explicitly hide and clear the "Other Club Name" input on form reset.
+                    const otherClubNameInputOnReset = document.getElementById('otherClubNameInput');
+                    if (otherClubNameInputOnReset) {
+                        otherClubNameInputOnReset.classList.add('hidden');
+                        otherClubNameInputOnReset.value = '';
+                    }
+
+                    calculateFee(); // This will call updateDisplayedLanguage -> populateClubDropdown
+                                    // which will also ensure the club dropdown and other input are in correct initial state.
+                    // updateDisplayedLanguage(htmlTag.lang || 'fr'); // Already called by calculateFee if it calls updateLanguage
+                    // If calculateFee doesn't reliably call updateDisplayedLanguage, uncomment the above.
+                    // For now, assume populateClubDropdown within updateDisplayedLanguage handles the reset state.
                 });
             } else {
                 console.error("Required elements for waiver form, fee calculation, or submission process not found.");
