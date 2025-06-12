@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CUGA Event Generator Script//cuga.org//
+BEGIN:VEVENT
+SUMMARY:NOVA Underwater Hockey
+DTSTART;TZID=America/Vancouver:20240305T190000
+DTEND;TZID=America/Vancouver:20240305T210000
+DTSTAMP:20250612T071739Z
+UID:a299b9e3-4e75-4026-8196-d4541e64a81e
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU
+DESCRIPTION:EN: Times: Tuesdays 7:00 pm - 9:00 pm (Rookies welcome)\; Thur
+ sdays 7:30 pm - 9:00 pm. Notes: Rookies welcome
+FR: Horaires: Mardis 19h00 - 21h00 (Recrues bienvenues) \; Jeudis 19h30 - 
+ 21h00. Remarques: Débutants bienvenus
+LOCATION:Vancouver Aquatic Centre
+END:VEVENT
+END:VCALENDAR

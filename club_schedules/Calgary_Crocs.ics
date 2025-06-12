@@ -1,0 +1,84 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CUGA Event Generator Script//cuga.org//
+BEGIN:VEVENT
+SUMMARY:Calgary Crocs
+DTSTART;TZID=America/Edmonton:20240303T090000
+DTEND;TZID=America/Edmonton:20240303T103000
+DTSTAMP:20240229T161706Z
+UID:a035e68c-6a98-45a9-b048-71f38444a3c8
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SU
+DESCRIPTION:EN: Times: Sundays 9:00-10:30 am (Youth)\; Sundays 7:30-9:00 p
+ m (Youth)\; Monday 9:00-10:00 pm\; Thursdays 8:00-9:30 pm (experienced)\; 
+ Friday 8:30-9:30 pm. Notes: Youth Practice\; Experienced Players
+FR: Horaires: Dimanche 9h00 - 10h30 (Jeunes) \; Dimanche 19h30 - 21h00 (Je
+ unes) \; Lundi 21h00 - 22h00 \; Jeudis 20h00 - 21h30 (Expérimentés) \; V
+ endredi 20h30 - 21h30. Remarques: Pratique jeunesse\; Joueurs expériment
+ és
+LOCATION:MNP Community and Sport Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Calgary Crocs
+DTSTART;TZID=America/Edmonton:20240303T193000
+DTEND;TZID=America/Edmonton:20240303T210000
+DTSTAMP:20240229T161706Z
+UID:e8c09c6b-8d11-485f-a900-95f552b77f6f
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SU
+DESCRIPTION:EN: Times: Sundays 9:00-10:30 am (Youth)\; Sundays 7:30-9:00 p
+ m (Youth)\; Monday 9:00-10:00 pm\; Thursdays 8:00-9:30 pm (experienced)\; 
+ Friday 8:30-9:30 pm. Notes: Youth Practice\; Experienced Players
+FR: Horaires: Dimanche 9h00 - 10h30 (Jeunes) \; Dimanche 19h30 - 21h00 (Je
+ unes) \; Lundi 21h00 - 22h00 \; Jeudis 20h00 - 21h30 (Expérimentés) \; V
+ endredi 20h30 - 21h30. Remarques: Pratique jeunesse\; Joueurs expériment
+ és
+LOCATION:MNP Community and Sport Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Calgary Crocs
+DTSTART;TZID=America/Edmonton:20240304T210000
+DTEND;TZID=America/Edmonton:20240304T220000
+DTSTAMP:20240229T161706Z
+UID:1e9f1737-f43e-4085-a2b5-338a110d760c
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Sundays 9:00-10:30 am (Youth)\; Sundays 7:30-9:00 p
+ m (Youth)\; Monday 9:00-10:00 pm\; Thursdays 8:00-9:30 pm (experienced)\; 
+ Friday 8:30-9:30 pm. Notes: Youth Practice\; Experienced Players
+FR: Horaires: Dimanche 9h00 - 10h30 (Jeunes) \; Dimanche 19h30 - 21h00 (Je
+ unes) \; Lundi 21h00 - 22h00 \; Jeudis 20h00 - 21h30 (Expérimentés) \; V
+ endredi 20h30 - 21h30. Remarques: Pratique jeunesse\; Joueurs expériment
+ és
+LOCATION:MNP Community and Sport Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Calgary Crocs
+DTSTART;TZID=America/Edmonton:20240307T200000
+DTEND;TZID=America/Edmonton:20240307T213000
+DTSTAMP:20240229T161706Z
+UID:577e7f42-6242-49c3-b924-28f802e4883d
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Sundays 9:00-10:30 am (Youth)\; Sundays 7:30-9:00 p
+ m (Youth)\; Monday 9:00-10:00 pm\; Thursdays 8:00-9:30 pm (experienced)\; 
+ Friday 8:30-9:30 pm. Notes: Youth Practice\; Experienced Players
+FR: Horaires: Dimanche 9h00 - 10h30 (Jeunes) \; Dimanche 19h30 - 21h00 (Je
+ unes) \; Lundi 21h00 - 22h00 \; Jeudis 20h00 - 21h30 (Expérimentés) \; V
+ endredi 20h30 - 21h30. Remarques: Pratique jeunesse\; Joueurs expériment
+ és
+LOCATION:MNP Community and Sport Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Calgary Crocs
+DTSTART;TZID=America/Edmonton:20240301T203000
+DTEND;TZID=America/Edmonton:20240301T213000
+DTSTAMP:20240229T161706Z
+UID:a2e7f337-216c-4955-b00c-f1f61b269985
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=FR
+DESCRIPTION:EN: Times: Sundays 9:00-10:30 am (Youth)\; Sundays 7:30-9:00 p
+ m (Youth)\; Monday 9:00-10:00 pm\; Thursdays 8:00-9:30 pm (experienced)\; 
+ Friday 8:30-9:30 pm. Notes: Youth Practice\; Experienced Players
+FR: Horaires: Dimanche 9h00 - 10h30 (Jeunes) \; Dimanche 19h30 - 21h00 (Je
+ unes) \; Lundi 21h00 - 22h00 \; Jeudis 20h00 - 21h30 (Expérimentés) \; V
+ endredi 20h30 - 21h30. Remarques: Pratique jeunesse\; Joueurs expériment
+ és
+LOCATION:MNP Community and Sport Centre
+END:VEVENT
+END:VCALENDAR

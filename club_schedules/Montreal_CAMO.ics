@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CUGA Event Generator Script//cuga.org//
+BEGIN:VEVENT
+SUMMARY:Montreal - CAMO
+DTSTART;TZID=America/Montreal:20240305T203000
+DTEND;TZID=America/Montreal:20240305T223000
+DTSTAMP:20250612T071739Z
+UID:b20e5711-809f-4478-a7f8-6d531287c335
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU
+DESCRIPTION:EN: Times: Tuesdays 8:30-10:30 pm (Beginner)\; Fridays 8:00-10
+ :30 pm (Intermediate/Advanced). Notes: Beginner\, Intermediate/Advanced
+FR: Horaires: Mardi 20h30-22h30 (Débutant) \; Vendredi 20h00-22h30 (Inte
+ rmédiaire/Avancé). Remarques: Débutant\, Intermédiaire/Avancé
+LOCATION:Piscine Joseph-Charbonneau
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Montreal - CAMO
+DTSTART;TZID=America/Montreal:20240301T200000
+DTEND;TZID=America/Montreal:20240301T223000
+DTSTAMP:20250612T071739Z
+UID:b885323c-32b6-4286-a474-7a2019573a8d
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=FR
+DESCRIPTION:EN: Times: Tuesdays 8:30-10:30 pm (Beginner)\; Fridays 8:00-10
+ :30 pm (Intermediate/Advanced). Notes: Beginner\, Intermediate/Advanced
+FR: Horaires: Mardi 20h30-22h30 (Débutant) \; Vendredi 20h00-22h30 (Inte
+ rmédiaire/Avancé). Remarques: Débutant\, Intermédiaire/Avancé
+LOCATION:Piscine Joseph-Charbonneau
+END:VEVENT
+END:VCALENDAR

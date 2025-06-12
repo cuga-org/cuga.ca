@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CUGA Event Generator Script//cuga.org//
+BEGIN:VEVENT
+SUMMARY:Saskatoon Seals
+DTSTART;TZID=America/Regina:20240304T200000
+DTEND;TZID=America/Regina:20240304T210000
+DTSTAMP:20240229T173339Z
+UID:6c8d3545-a160-478d-87c1-2123c7ff3a42
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Mondays 8:00-9:00 pm\; Fridays 8:00-9:00 pm\; Summe
+ rs - Fridays 7:30-8:30 pm. Notes: Summer practice times
+FR: Horaires: Lundi 20h00-21h00 \; Vendredi 20h00-21h00 \; Été : Vend
+ redi 19h30-20h30. Remarques: Heures de pratique estivales
+LOCATION:YMCA Saskatoon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Saskatoon Seals
+DTSTART;TZID=America/Regina:20240301T200000
+DTEND;TZID=America/Regina:20240301T210000
+DTSTAMP:20240229T173339Z
+UID:12e98666-544a-4459-8281-3750f8440e38
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=FR
+DESCRIPTION:EN: Times: Mondays 8:00-9:00 pm\; Fridays 8:00-9:00 pm\; Summe
+ rs - Fridays 7:30-8:30 pm. Notes: Summer practice times
+FR: Horaires: Lundi 20h00-21h00 \; Vendredi 20h00-21h00 \; Été : Vend
+ redi 19h30-20h30. Remarques: Heures de pratique estivales
+LOCATION:YMCA Saskatoon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Saskatoon Seals - Summer
+DTSTART;TZID=America/Regina:20240621T193000
+DTEND;TZID=America/Regina:20240621T203000
+DTSTAMP:20240229T173339Z
+UID:e5b16990-f3a6-450c-88e1-23788c0248b7
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=FR
+DESCRIPTION:EN: Times: Mondays 8:00-9:00 pm\; Fridays 8:00-9:00 pm\; Summe
+ rs - Fridays 7:30-8:30 pm. Notes: Summer practice times
+FR: Horaires: Lundi 20h00-21h00 \; Vendredi 20h00-21h00 \; Été : Vend
+ redi 19h30-20h30. Remarques: Heures de pratique estivales
+LOCATION:YMCA Saskatoon
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CUGA Event Generator Script//cuga.org//
+BEGIN:VEVENT
+SUMMARY:Sault Tridents
+DTSTAMP:20250612T071739Z
+UID:74f10d66-f1e1-48f7-924d-707976504c90
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Monday 7:30 pm\; Thursday 9:00 pm
+FR: Horaires: Lundis 19 h 30\; Jeudi 21 h
+LOCATION:YMCA of Sault Ste. Marie\; John Rhodes Community Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Sault Tridents
+DTSTAMP:20250612T071739Z
+UID:2955ff1e-80d5-412e-a384-10c101710895
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Monday 7:30 pm\; Thursday 9:00 pm
+FR: Horaires: Lundis 19 h 30\; Jeudi 21 h
+LOCATION:YMCA of Sault Ste. Marie\; John Rhodes Community Centre
+END:VEVENT
+END:VCALENDAR
