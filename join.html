@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr"> <!-- Set default language to French -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join CUGA - Canadian Underwater Games Association</title>
+    <title>Adhésion CUGA / CUGA Membership - Association Canadienne des Jeux Subaquatiques</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -16,25 +16,51 @@
 
       gtag('config', 'G-T2BEK56YJ1');
     </script>
-    <meta name="description" content="Join CUGA and become a part of the Canadian underwater sports community. Learn about membership, fees, and benefits.">
-    <meta name="keywords" content="CUGA, join CUGA, underwater sports, membership, Canada, hockey subaquatique, rugby subaquatique, Canadian Underwater Games Association">
+    <meta name="description" content="Rejoignez CUGA et devenez membre de la communauté canadienne des sports subaquatiques. Apprenez-en plus sur l'adhésion, les frais et les avantages. Join CUGA and become a part of the Canadian underwater sports community. Learn about membership, fees, and benefits.">
+    <meta name="keywords" content="CUGA, rejoindre CUGA, adhésion CUGA, sports subaquatiques, Canada, hockey subaquatique, rugby subaquatique, Association Canadienne des Jeux Subaquatiques, join CUGA, underwater sports, membership">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+        }
+        /* French content shown by default (as per html[lang=fr]). English content hidden initially. JS manages language switching. */
+        .lang-en {
+            display: none; /* Hide English content by default */
         }
     </style>
 </head>
 <body class="bg-blue-700 text-white">
     <header class="bg-[#386DC0] text-white py-8 text-center shadow-lg">
-        <img src="assets/logos/CUGA/Horizontal/EN/FullColor/CUGA-logo-h-en-fullColor-rgb.svg" alt="CUGA Logo" class="h-12 mx-auto">
-        <p class="mt-1 text-md md:text-lg italic">Canadian Underwater Games Association</p>
+        <img src="assets/logos/CUGA/Horizontal/EN/FullColor/CUGA-logo-h-en-fullColor-rgb.svg" alt="CUGA Logo" class="h-12 mx-auto"> <!-- Universal Logo -->
+        <div class="lang-fr">
+            <p class="mt-1 text-md md:text-lg italic">Adhésion à CUGA</p>
+        </div>
+        <div class="lang-en" style="display: none;">
+            <p class="mt-1 text-md md:text-lg italic">CUGA Membership</p>
+        </div>
     </header>
 
+    <div class="text-center py-4 bg-gray-200">
+        <button class="lang-button px-4 py-2 mr-2 rounded bg-blue-500 text-white" data-lang="fr">
+            <i class="fa fa-fleur-de-lis"></i> Français
+        </button>
+        <button class="lang-button px-4 py-2 rounded bg-gray-400 text-gray-800" data-lang="en">
+            <i class="fa fa-canadian-maple-leaf"></i> English
+        </button>
+    </div>
+
     <main class="container mx-auto px-4 py-16">
-        <div class="bg-white text-gray-800 rounded-xl shadow-xl p-8 md:p-12">
+        <!-- English Content -->
+        <div class="lang-en bg-white text-gray-800 rounded-xl shadow-xl p-8 md:p-12">
             <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-800">Join CUGA</h1>
 
             <p class="mb-6 text-lg">CUGA is the national sport organization for underwater hockey, underwater rugby and underwater football in Canada. Membership runs from September 1st to August 31st annually.</p>
+            <p class="mb-6 text-lg">By becoming a member, you support the development of these sports across the country and gain access to various benefits.</p>
+
+            <div class="text-center my-8">
+                <a href="waiver.html" class="inline-block bg-yellow-500 text-gray-900 px-10 py-4 rounded-full font-bold text-xl hover:bg-yellow-600 transition duration-300 shadow-lg">
+                    Apply for Membership / Sign Waiver
+                </a>
+            </div>
 
             <section class="mb-8">
                 <h2 class="text-2xl font-semibold text-blue-700 mb-4">Membership Benefits</h2>
@@ -49,60 +75,143 @@
             </section>
 
             <section class="mb-8">
-                <h2 class="text-2xl font-semibold text-blue-700 mb-4">Membership Fees</h2>
-                <p class="text-gray-700 mb-4">Fees are collected annually and help support the operational costs of CUGA, development programs, and national team support.</p>
-                <ul class="list-disc pl-6 space-y-2 text-gray-700">
-                    <li><strong>Adult Membership:</strong> $50 CAD</li>
-                    <li><strong>Junior Membership (Under 18):</strong> $25 CAD</li>
-                </ul>
-                <p class="mt-4 text-gray-700">Payment can be made via PayPal. Please ensure you select the correct membership type.</p>
-                <button class="mt-4 bg-yellow-500 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-600 transition duration-300 shadow-md">
-                    PayPal (to be implemented)
-                </button>
-            </section>
-
-            <section class="mb-8">
-                <h2 class="text-2xl font-semibold text-blue-700 mb-4">How to Join</h2>
+                <h2 class="text-2xl font-semibold text-blue-700 mb-4">Membership Fees & Process</h2>
+                <p class="text-gray-700 mb-4">Fees are determined annually and contribute to CUGA's operational costs, development programs, and national team support. Current fees are visible on the application form.</p>
+                <p class="text-gray-700 mb-4">To join or renew your membership:</p>
                 <ol class="list-decimal pl-6 space-y-3 text-gray-700">
                     <li>
-                        <strong>Complete Waivers:</strong> All members must complete the necessary waivers.
-                        <ul class="list-disc pl-6 mt-2 space-y-1">
-                            <li><a href="#adult-waiver" class="text-blue-600 hover:underline">Adult Waiver (18+)</a></li>
-                            <li><a href="#minor-waiver" class="text-blue-600 hover:underline">Minor Waiver (Under 18)</a> - Must be signed by a parent/guardian.</li>
-                        </ul>
-                        <p class="mt-1 text-sm">Please download, complete, and email the signed waiver to <a href="mailto:info@cuga.org" class="text-blue-600 hover:underline">info@cuga.org</a>.</p>
+                        <strong>Complete the Application and Waiver Form:</strong> Click the button above to access the online form. You will be asked to provide your details, select your membership type, and agree to the terms.
                     </li>
                     <li>
-                        <strong>Pay Membership Fee:</strong> Use the PayPal button above to pay your annual membership fee. Ensure your name in the payment matches the name on your waiver.
+                        <strong>Fee Payment:</strong> The form will calculate your applicable fee. Payment instructions (simulated for now) will be provided as part of the form process.
                     </li>
                     <li>
-                        <strong>Confirmation:</strong> Once your waiver and payment are received and processed, you will receive a confirmation email and be added to the membership list.
+                        <strong>Confirmation:</strong> Once your application and simulated payment are complete, you'll receive a confirmation (simulated), and you'll be considered a member.
                     </li>
                 </ol>
             </section>
 
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold text-blue-700 mb-4">FAQ - Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-700">What are the different membership categories?</h3>
+                        <p class="text-gray-600">CUGA typically offers Adult, Youth (split into age categories like <18 and 18-24), and sometimes New Player or introductory memberships. Specific categories and fees are on the application form.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-700">How is the membership fee determined?</h3>
+                        <p class="text-gray-600">Fees are set by the CUGA board. There's often an early-bird rate before a certain date (e.g., March 1st) and a regular rate afterwards. Youth and new player memberships are often discounted.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-700">Are there any prerequisites to join?</h3>
+                        <p class="text-gray-600">Generally, an interest in underwater sports! Specific skill levels are not usually required for general membership, but participation in some events or clubs might have their own prerequisites. All members must agree to the Code of Conduct and sign the relevant waiver.</p>
+                    </div>
+                </div>
+            </section>
+
             <section>
                 <h2 class="text-2xl font-semibold text-blue-700 mb-4">Important Documents</h2>
-                <ul class="list-disc pl-6 space-y-2">
-                    <li><a href="#code-of-conduct" class="text-blue-600 hover:underline">CUGA Code of Conduct</a></li>
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li><a href="#code-of-conduct" id="code-of-conduct-link-en" class="text-blue-600 hover:underline">CUGA Code of Conduct</a> (Referenced in waiver form)</li>
+                    <li><a href="#adult-waiver" id="adult-waiver-link-en" class="text-blue-600 hover:underline">CUGA Adult Waiver Example</a> (Referenced in waiver form)</li>
+                    <li><a href="#minor-waiver" id="minor-waiver-link-en" class="text-blue-600 hover:underline">CUGA Minor Waiver Example</a> (Referenced in waiver form)</li>
                     <li><a href="privacy-policy.html" class="text-blue-600 hover:underline">CUGA Privacy Policy</a></li>
                     <li><a href="terms-of-use.html" class="text-blue-600 hover:underline">CUGA Terms of Use</a></li>
                 </ul>
-                <p class="mt-4 text-gray-700">All members are expected to abide by the <a href="#code-of-conduct" class="text-blue-600 hover:underline strong">CUGA Code of Conduct</a>.</p>
+                <p class="mt-4 text-gray-700">All members are expected to abide by the CUGA Code of Conduct.</p>
             </section>
 
             <p class="mt-10 text-center text-lg">
                 For any questions regarding membership, please contact <a href="mailto:info@cuga.org" class="text-blue-600 hover:underline">info@cuga.org</a>.
             </p>
         </div>
+
+        <!-- French Content -->
+        <div class="lang-fr bg-white text-gray-800 rounded-xl shadow-xl p-8 md:p-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-800">Rejoindre CUGA</h1>
+
+            <p class="mb-6 text-lg">CUGA est l'organisation sportive nationale pour le hockey subaquatique, le rugby subaquatique et le football subaquatique au Canada. L'adhésion est valable du 1er septembre au 31 août chaque année.</p>
+            <p class="mb-6 text-lg">En devenant membre, vous soutenez le développement de ces sports à travers le pays et accédez à divers avantages.</p>
+
+            <div class="text-center my-8">
+                <a href="waiver.html" class="inline-block bg-yellow-500 text-gray-900 px-10 py-4 rounded-full font-bold text-xl hover:bg-yellow-600 transition duration-300 shadow-lg">
+                    Faire une demande d'adhésion / Signer la décharge
+                </a>
+            </div>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold text-blue-700 mb-4">Avantages de l'adhésion</h2>
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>Droits de vote à l'Assemblée Générale Annuelle (AGA) de CUGA pour les membres de 18 ans et plus.</li>
+                    <li>Admissibilité à participer aux événements sanctionnés par CUGA, y compris les Championnats Nationaux.</li>
+                    <li>Accès aux camps de sélection de l'Équipe Nationale et possibilité de représenter le Canada à l'international (sous réserve de sélection).</li>
+                    <li>Couverture par la police d'assurance responsabilité civile générale de CUGA lors des activités sanctionnées.</li>
+                    <li>Soutien au développement des clubs et accès aux ressources.</li>
+                    <li>Mises à jour régulières et bulletins d'information sur les sports subaquatiques au Canada.</li>
+                </ul>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold text-blue-700 mb-4">Frais d'adhésion et processus</h2>
+                <p class="text-gray-700 mb-4">Les frais sont déterminés annuellement et contribuent aux coûts opérationnels de CUGA, aux programmes de développement et au soutien de l'équipe nationale. Les frais actuels sont visibles sur le formulaire de demande.</p>
+                <p class="text-gray-700 mb-4">Pour adhérer ou renouveler votre adhésion :</p>
+                <ol class="list-decimal pl-6 space-y-3 text-gray-700">
+                    <li>
+                        <strong>Remplir le formulaire de demande et de décharge :</strong> Cliquez sur le bouton ci-dessus pour accéder au formulaire en ligne. Il vous sera demandé de fournir vos coordonnées, de sélectionner votre type d'adhésion et d'accepter les conditions.
+                    </li>
+                    <li>
+                        <strong>Paiement des frais :</strong> Le formulaire calculera les frais applicables. Les instructions de paiement (simulées pour l'instant) seront fournies dans le cadre du processus de formulaire.
+                    </li>
+                    <li>
+                        <strong>Confirmation :</strong> Une fois votre demande et votre paiement simulé complétés, vous recevrez une confirmation (simulée) et vous serez considéré comme membre.
+                    </li>
+                </ol>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold text-blue-700 mb-4">FAQ - Questions fréquentes</h2>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-700">Quelles sont les différentes catégories d'adhésion ?</h3>
+                        <p class="text-gray-600">CUGA propose généralement des adhésions pour Adultes, Jeunes (répartis en catégories d'âge comme <18 ans et 18-24 ans), et parfois des adhésions pour Nouveaux Joueurs ou d'introduction. Les catégories spécifiques et les frais sont indiqués sur le formulaire de demande.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-700">Comment les frais d'adhésion sont-ils déterminés ?</h3>
+                        <p class="text-gray-600">Les frais sont fixés par le conseil d'administration de CUGA. Il y a souvent un tarif préférentiel ("early bird") avant une certaine date (par exemple, le 1er mars) et un tarif régulier par la suite. Les adhésions pour les jeunes et les nouveaux joueurs bénéficient souvent d'une réduction.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-700">Y a-t-il des prérequis pour adhérer ?</h3>
+                        <p class="text-gray-600">Généralement, un intérêt pour les sports subaquatiques ! Des niveaux de compétence spécifiques ne sont habituellement pas requis pour l'adhésion générale, mais la participation à certains événements ou clubs peut avoir ses propres prérequis. Tous les membres doivent accepter le Code de Conduite et signer la décharge appropriée.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-semibold text-blue-700 mb-4">Documents Importants</h2>
+                <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                    <li><a href="#code-of-conduct" id="code-of-conduct-link-fr" class="text-blue-600 hover:underline">Code de Conduite de CUGA</a> (Référencé dans le formulaire de décharge)</li>
+                    <li><a href="#adult-waiver" id="adult-waiver-link-fr" class="text-blue-600 hover:underline">Exemple de Décharge Adulte CUGA</a> (Référencé dans le formulaire de décharge)</li>
+                    <li><a href="#minor-waiver" id="minor-waiver-link-fr" class="text-blue-600 hover:underline">Exemple de Décharge Mineur CUGA</a> (Référencé dans le formulaire de décharge)</li>
+                    <li><a href="privacy-policy.html" class="text-blue-600 hover:underline">Politique de Confidentialité de CUGA</a></li>
+                    <li><a href="terms-of-use.html" class="text-blue-600 hover:underline">Conditions d'Utilisation de CUGA</a></li>
+                </ul>
+                <p class="mt-4 text-gray-700">Tous les membres sont tenus de respecter le Code de Conduite de CUGA.</p>
+            </section>
+
+            <p class="mt-10 text-center text-lg">
+                Pour toute question concernant l'adhésion, veuillez contacter <a href="mailto:info@cuga.org" class="text-blue-600 hover:underline">info@cuga.org</a>.
+            </p>
+        </div>
     </main>
 
     <footer class="bg-gray-900 text-gray-400 py-8 text-center">
         <div class="container mx-auto px-4">
-            <p>&copy; 2025 CUGA. All rights reserved.</p>
+            <p>&copy; 2025 CUGA. All rights reserved. / Tous droits réservés.</p>
             <p class="mt-4">
-                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Privacy Policy</a> |
-                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Terms of Use</a>
+                <a href="privacy-policy.html" class="text-blue-400 hover:underline lang-en">Privacy Policy</a>
+                <a href="privacy-policy.html" class="text-blue-400 hover:underline lang-fr" style="display:none;">Politique de Confidentialité</a> |
+                <a href="terms-of-use.html" class="text-blue-400 hover:underline lang-en">Terms of Use</a>
+                <a href="terms-of-use.html" class="text-blue-400 hover:underline lang-fr" style="display:none;">Conditions d'Utilisation</a>
             </p>
         </div>
     </footer>
@@ -113,6 +222,42 @@
             AOS.init({
                 duration: 1000,
                 once: true,
+            });
+
+            const langButtons = document.querySelectorAll('.lang-button');
+            const langSections = document.querySelectorAll('.lang-fr, .lang-en'); // Affects all elements with these classes
+
+            const setLanguage = (lang) => {
+                // Update HTML lang attribute
+                document.documentElement.lang = lang;
+
+                // Show/hide sections based on selected language
+                langSections.forEach(section => {
+                    if (section.classList.contains(`lang-${lang}`)) {
+                        section.style.display = 'block'; // Or 'flex', 'grid', etc., depending on element type
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+
+                // Update button styles
+                langButtons.forEach(button => {
+                    button.classList.toggle('bg-blue-600', button.dataset.lang === lang); // Active language button
+                    button.classList.toggle('text-white', button.dataset.lang === lang);
+                    button.classList.toggle('bg-gray-400', button.dataset.lang !== lang); // Inactive language button
+                    button.classList.toggle('text-gray-800', button.dataset.lang !== lang);
+                });
+            };
+
+            // Auto-detect browser language
+            const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+            // Set initial language: 'en' if browser is English, otherwise default to 'fr'
+            const initialLang = browserLang === 'en' ? 'en' : 'fr';
+            setLanguage(initialLang);
+
+
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => setLanguage(button.dataset.lang));
             });
         });
     </script>
