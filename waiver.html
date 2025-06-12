@@ -626,6 +626,28 @@
                 if (waiverInitialsInput) {
                     waiverInitialsInput.placeholder = lang === 'fr' ? waiverInitialsInput.getAttribute('placeholder-lang-fr') : waiverInitialsInput.getAttribute('placeholder-lang-en');
                 }
+
+                // Update membershipType dropdown options
+                const membershipTypeSelect = document.getElementById('membershipType');
+                if (membershipTypeSelect) {
+                    for (let option of membershipTypeSelect.options) {
+                        const langSpan = option.querySelector(`span.lang-${lang}`);
+                        if (langSpan) {
+                            // For regular options, directly set textContent from the span
+                            option.textContent = langSpan.textContent;
+                        } else if (option.value === "") {
+                            // Handle default option: "-- <span class_fr>Veuillez choisir</span><span class_en>Please choose</span> --"
+                            const frSpan = option.querySelector('span.lang-fr');
+                            const enSpan = option.querySelector('span.lang-en');
+                            if (lang === 'fr' && frSpan) {
+                                option.textContent = `-- ${frSpan.textContent} --`;
+                            } else if (lang === 'en' && enSpan) {
+                                option.textContent = `-- ${enSpan.textContent} --`;
+                            }
+                        }
+                    }
+                }
+
                 populateClubDropdown(lang); // Update dropdown on language change
                 localStorage.setItem('language', lang); // Store language choice
             }
@@ -730,6 +752,27 @@
                 calculatedFeeDiv.innerHTML = `<span class="lang-${lang}-inline">${feeText}</span> $${currentFee.toFixed(2)}`;
                 document.querySelectorAll('#calculatedFee .lang-fr-inline, #calculatedFee .lang-en-inline').forEach(el => el.style.display = 'none');
                 document.querySelector(`#calculatedFee .lang-${lang}-inline`).style.display = 'inline';
+
+                const googlePayButtonElement = document.getElementById('googlePayButton');
+                if (googlePayButtonElement) {
+                    const svgIcon = googlePayButtonElement.querySelector('svg');
+                    const frSpan = googlePayButtonElement.querySelector('span.lang-fr');
+                    const enSpan = googlePayButtonElement.querySelector('span.lang-en');
+
+                    if (currentFee === 0) {
+                        if (frSpan) frSpan.textContent = "Soumettre la décharge";
+                        if (enSpan) enSpan.textContent = "Submit Waiver";
+                        if (svgIcon) svgIcon.style.display = 'none';
+                        googlePayButtonElement.classList.remove('bg-black', 'hover:bg-gray-800');
+                        googlePayButtonElement.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                    } else {
+                        if (frSpan) frSpan.textContent = "Payer avec Google Pay";
+                        if (enSpan) enSpan.textContent = "Pay with Google Pay";
+                        if (svgIcon) svgIcon.style.display = 'inline'; // Or 'block' or '' depending on original
+                        googlePayButtonElement.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                        googlePayButtonElement.classList.add('bg-black', 'hover:bg-gray-800');
+                    }
+                }
                 return currentFee;
             }
 
