@@ -1,0 +1,65 @@
+name: Generate CUGA Calendar ICS
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Run daily at midnight UTC
+  workflow_dispatch: # Allows manual triggering
+  push:
+    paths:
+      - 'event_generator.py'
+      - '.github/workflows/generate_calendar.yml'
+      - 'requirements.txt'
+
+jobs:
+  build_and_commit_calendar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Allow workflow to commit to the repository
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' # Specify Python version
+          cache: 'pip' # Cache pip dependencies
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run event generator script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python event_generator.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          # Define files and directories to check and commit
+          # Note: processed_prompts.txt is still relevant
+          # master_cuga_schedule.ics is the new master calendar
+          # cuga_club_data.json is the new data file for cuga.html
+          # club_schedules/ is the directory for per-club ICS files
+
+          # Check for changes in any of the relevant files or the directory
+          # Using 'git status --porcelain' is a reliable way to see if there are changes to be committed.
+          # We are interested in changes to processed_prompts.txt, master_cuga_schedule.ics,
+          # cuga_club_data.json, and anything within club_schedules/
+
+          # Add all new/modified files of interest.
+          # This will stage them if they changed, or do nothing if they didn't.
+          git add processed_prompts.txt master_cuga_schedule.ics cuga_club_data.json club_schedules/
+
+          # Check if there are any staged changes
+          if ! git diff --cached --quiet; then
+            echo "Changes detected in generated files."
+            git commit -m "Automated: Update generated club schedules, master schedule, data, and prompts"
+            git push
+            echo "Changes committed and pushed."
+          else
+            echo "No changes to commit."
+          fi

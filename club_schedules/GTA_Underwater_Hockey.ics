@@ -1,0 +1,36 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CUGA Event Generator Script//cuga.org//
+BEGIN:VEVENT
+SUMMARY:GTA Underwater Hockey
+DTSTART;TZID=America/Toronto:20240305T200000
+DTEND;TZID=America/Toronto:20240305T213000
+DTSTAMP:20250612T071739Z
+UID:a0f9e34a-e271-46a1-9a1a-19760a5902a3
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU
+DESCRIPTION:EN: Times: Tuesdays 8:00-9:30 pm (advanced)\; Thursdays 8:30-9
+ :30 pm (Beginners and advanced)\; Saturdays 4:30-6:00 pm (Children and beg
+ inners). Notes: Advanced\, Beginners\, Children welcome
+FR: Horaires: Mardis 20 h-21 h 30 (avancés)\; Jeudis 20 h 30-21 h 30 (dé
+ butants et avancés)\; Samedis 16 h 30-18 h (enfants et débutants). Remar
+ ques: Avancés\, Débutants\, Enfants bienvenus
+LOCATION:Norman Pinky Lewis Recreation Centre\; York Memorial Collegiate I
+ nstitute\; Sherwood Community Center
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:GTA Underwater Hockey
+DTSTART;TZID=America/Toronto:20240307T203000
+DTEND;TZID=America/Toronto:20240307T213000
+DTSTAMP:20250612T071739Z
+UID:8f6f5a66-772c-4e7f-8b3a-8c995f834908
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Tuesdays 8:00-9:30 pm (advanced)\; Thursdays 8:30-9
+ :30 pm (Beginners and advanced)\; Saturdays 4:30-6:00 pm (Children and beg
+ inners). Notes: Advanced\, Beginners\, Children welcome
+FR: Horaires: Mardis 20 h-21 h 30 (avancés)\; Jeudis 20 h 30-21 h 30 (dé
+ butants et avancés)\; Samedis 16 h 30-18 h (enfants et débutants). Remar
+ ques: Avancés\, Débutants\, Enfants bienvenus
+LOCATION:Norman Pinky Lewis Recreation Centre\; York Memorial Collegiate I
+ nstitute\; Sherwood Community Center
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,404 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CUGA Event Generator Script//cuga.org//
+BEGIN:VEVENT
+SUMMARY:Manitoba Underwater Football Club (MUFC)
+DTSTAMP:20250612T071739Z
+UID:c5f6f1a1-4a69-48d5-995f-8a7b6425b8c1
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Mondays 8:00 pm - 9:00 pm\; Thursdays 8:30 pm - 9:3
+ 0 pm
+FR: Horaires: Lundi 20h00 - 21h00 \; jeudi 20h30 - 21h30
+LOCATION:EK Pool\; 7 Oaks Pool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Manitoba Underwater Football Club (MUFC)
+DTSTAMP:20250612T071739Z
+UID:b9c9e0e8-7b42-4346-904a-7b21c93273f4
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Mondays 8:00 pm - 9:00 pm\; Thursdays 8:30 pm - 9:3
+ 0 pm
+FR: Horaires: Lundi 20h00 - 21h00 \; jeudi 20h30 - 21h30
+LOCATION:EK Pool\; 7 Oaks Pool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Calgary Crocs
+DTSTART;TZID=America/Edmonton:20240303T090000
+DTEND;TZID=America/Edmonton:20240303T103000
+DTSTAMP:20240229T161706Z
+UID:a035e68c-6a98-45a9-b048-71f38444a3c8
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SU
+DESCRIPTION:EN: Times: Sundays 9:00-10:30 am (Youth)\; Sundays 7:30-9:00 p
+ m (Youth)\; Monday 9:00-10:00 pm\; Thursdays 8:00-9:30 pm (experienced)\; 
+ Friday 8:30-9:30 pm. Notes: Youth Practice\; Experienced Players
+FR: Horaires: Dimanche 9h00 - 10h30 (Jeunes) \; Dimanche 19h30 - 21h00 (Je
+ unes) \; Lundi 21h00 - 22h00 \; Jeudis 20h00 - 21h30 (Expérimentés) \; V
+ endredi 20h30 - 21h30. Remarques: Pratique jeunesse\; Joueurs expériment
+ és
+LOCATION:MNP Community and Sport Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Calgary Crocs
+DTSTART;TZID=America/Edmonton:20240303T193000
+DTEND;TZID=America/Edmonton:20240303T210000
+DTSTAMP:20240229T161706Z
+UID:e8c09c6b-8d11-485f-a900-95f552b77f6f
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SU
+DESCRIPTION:EN: Times: Sundays 9:00-10:30 am (Youth)\; Sundays 7:30-9:00 p
+ m (Youth)\; Monday 9:00-10:00 pm\; Thursdays 8:00-9:30 pm (experienced)\; 
+ Friday 8:30-9:30 pm. Notes: Youth Practice\; Experienced Players
+FR: Horaires: Dimanche 9h00 - 10h30 (Jeunes) \; Dimanche 19h30 - 21h00 (Je
+ unes) \; Lundi 21h00 - 22h00 \; Jeudis 20h00 - 21h30 (Expérimentés) \; V
+ endredi 20h30 - 21h30. Remarques: Pratique jeunesse\; Joueurs expériment
+ és
+LOCATION:MNP Community and Sport Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Calgary Crocs
+DTSTART;TZID=America/Edmonton:20240304T210000
+DTEND;TZID=America/Edmonton:20240304T220000
+DTSTAMP:20240229T161706Z
+UID:1e9f1737-f43e-4085-a2b5-338a110d760c
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Sundays 9:00-10:30 am (Youth)\; Sundays 7:30-9:00 p
+ m (Youth)\; Monday 9:00-10:00 pm\; Thursdays 8:00-9:30 pm (experienced)\; 
+ Friday 8:30-9:30 pm. Notes: Youth Practice\; Experienced Players
+FR: Horaires: Dimanche 9h00 - 10h30 (Jeunes) \; Dimanche 19h30 - 21h00 (Je
+ unes) \; Lundi 21h00 - 22h00 \; Jeudis 20h00 - 21h30 (Expérimentés) \; V
+ endredi 20h30 - 21h30. Remarques: Pratique jeunesse\; Joueurs expériment
+ és
+LOCATION:MNP Community and Sport Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Calgary Crocs
+DTSTART;TZID=America/Edmonton:20240307T200000
+DTEND;TZID=America/Edmonton:20240307T213000
+DTSTAMP:20240229T161706Z
+UID:577e7f42-6242-49c3-b924-28f802e4883d
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Sundays 9:00-10:30 am (Youth)\; Sundays 7:30-9:00 p
+ m (Youth)\; Monday 9:00-10:00 pm\; Thursdays 8:00-9:30 pm (experienced)\; 
+ Friday 8:30-9:30 pm. Notes: Youth Practice\; Experienced Players
+FR: Horaires: Dimanche 9h00 - 10h30 (Jeunes) \; Dimanche 19h30 - 21h00 (Je
+ unes) \; Lundi 21h00 - 22h00 \; Jeudis 20h00 - 21h30 (Expérimentés) \; V
+ endredi 20h30 - 21h30. Remarques: Pratique jeunesse\; Joueurs expériment
+ és
+LOCATION:MNP Community and Sport Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Calgary Crocs
+DTSTART;TZID=America/Edmonton:20240301T203000
+DTEND;TZID=America/Edmonton:20240301T213000
+DTSTAMP:20240229T161706Z
+UID:a2e7f337-216c-4955-b00c-f1f61b269985
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=FR
+DESCRIPTION:EN: Times: Sundays 9:00-10:30 am (Youth)\; Sundays 7:30-9:00 p
+ m (Youth)\; Monday 9:00-10:00 pm\; Thursdays 8:00-9:30 pm (experienced)\; 
+ Friday 8:30-9:30 pm. Notes: Youth Practice\; Experienced Players
+FR: Horaires: Dimanche 9h00 - 10h30 (Jeunes) \; Dimanche 19h30 - 21h00 (Je
+ unes) \; Lundi 21h00 - 22h00 \; Jeudis 20h00 - 21h30 (Expérimentés) \; V
+ endredi 20h30 - 21h30. Remarques: Pratique jeunesse\; Joueurs expériment
+ és
+LOCATION:MNP Community and Sport Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Edmonton Underwater Hockey Association
+DTSTART;TZID=America/Edmonton:20240304T204500
+DTEND;TZID=America/Edmonton:20240304T214500
+DTSTAMP:20240229T173314Z
+UID:b64136d3-2373-4a77-887e-062e54e29556
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Mondays 8:45-9:45 pm
+FR: Horaires: Lundis 20h45 - 21h45
+LOCATION:Millennium Place
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Rumblefish Underwater Hockey
+DTSTART;TZID=America/Vancouver:20240305T200000
+DTEND;TZID=America/Vancouver:20240305T213000
+DTSTAMP:20250612T071739Z
+UID:05e843e2-23c3-450e-979b-5455e81b790f
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU
+DESCRIPTION:EN: Times: Tuesdays 8:00-9:30 PM (practice and development gam
+ e)\; Thursdays 8:00-9:30 PM (experienced game). Notes: Registration requir
+ ed at all training sessions
+FR: Horaires: Mardis 20h00 - 21h30 (Entraînement et match de perfectionne
+ ment) \; Jeudis 20h00 - 21h30 (Expérimentés). Remarques: Inscription obl
+ igatoire à toutes les séances d'entraînement
+LOCATION:təməsew̓txʷ Aquatic and Community Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Rumblefish Underwater Hockey
+DTSTART;TZID=America/Vancouver:20240307T200000
+DTEND;TZID=America/Vancouver:20240307T213000
+DTSTAMP:20250612T071739Z
+UID:a9c41610-2456-4a51-9841-8594d51a0444
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Tuesdays 8:00-9:30 PM (practice and development gam
+ e)\; Thursdays 8:00-9:30 PM (experienced game). Notes: Registration requir
+ ed at all training sessions
+FR: Horaires: Mardis 20h00 - 21h30 (Entraînement et match de perfectionne
+ ment) \; Jeudis 20h00 - 21h30 (Expérimentés). Remarques: Inscription obl
+ igatoire à toutes les séances d'entraînement
+LOCATION:təməsew̓txʷ Aquatic and Community Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:NOVA Underwater Hockey
+DTSTART;TZID=America/Vancouver:20240305T190000
+DTEND;TZID=America/Vancouver:20240305T210000
+DTSTAMP:20250612T071739Z
+UID:a299b9e3-4e75-4026-8196-d4541e64a81e
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU
+DESCRIPTION:EN: Times: Tuesdays 7:00 pm - 9:00 pm (Rookies welcome)\; Thur
+ sdays 7:30 pm - 9:00 pm. Notes: Rookies welcome
+FR: Horaires: Mardis 19h00 - 21h00 (Recrues bienvenues) \; Jeudis 19h30 - 
+ 21h00. Remarques: Débutants bienvenus
+LOCATION:Vancouver Aquatic Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:UNBC Timberwhales Underwater Hockey
+DTSTAMP:20250612T071739Z
+UID:e8c93449-b815-44a1-9d63-9f5e4511788c
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=WE
+DESCRIPTION:EN: Times: Wednesdays 8:30-9:30 pm\; Sundays 6:30-7:30 pm
+FR: Horaires: Mercredis 20h30 - 21h30 Dimanches 18 h 30-19 h 30
+LOCATION:Prince George Aquatic Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:UNBC Timberwhales Underwater Hockey
+DTSTAMP:20250612T071739Z
+UID:a3209132-5f2c-4f72-8f0b-a411217a90f2
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SU
+DESCRIPTION:EN: Times: Wednesdays 8:30-9:30 pm\; Sundays 6:30-7:30 pm
+FR: Horaires: Mercredis 20h30 - 21h30 Dimanches 18 h 30-19 h 30
+LOCATION:Prince George Aquatic Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Victoria Underwater Hockey
+DTSTAMP:20250612T071739Z
+UID:65ed042d-4129-4a63-a182-4252412a7816
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=FR
+DESCRIPTION:EN: Times: Fridays 7:30-8:30 pm
+FR: Horaires: Vendredis 19 h 30-20 h 30
+LOCATION:Saanich Commonwealth Place
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:NA
+DTSTART;TZID=America/Halifax:20240307T210000
+DTEND;TZID=America/Halifax:20240307T220000
+DTSTAMP:20240229T182405Z
+UID:8061b36b-61e5-4635-8707-25b405637375
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Thursdays 9:00-10:00 pm
+FR: Horaires: Jeudis 21 h-22 h
+LOCATION:Canada Game Centre Pool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Cornwall Underwater Hockey
+DTSTART;TZID=America/Toronto:20240304T203000
+DTEND;TZID=America/Toronto:20240304T215500
+DTSTAMP:20250612T071739Z
+UID:006a7136-d2ae-44b5-a29e-c19f9e596c0e
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Mondays 8:30-9:55 pm\; Thursdays 8:30-9:55 pm
+FR: Horaires: Lundis 20 h 30-21 h 55\; Jeudis 20 h 30-21 h 55
+LOCATION:Cornwall Aquatic Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Cornwall Underwater Hockey
+DTSTART;TZID=America/Toronto:20240229T203000
+DTEND;TZID=America/Toronto:20240229T215500
+DTSTAMP:20250612T071739Z
+UID:748d3648-b38d-414d-9712-7535894b7841
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Mondays 8:30-9:55 pm\; Thursdays 8:30-9:55 pm
+FR: Horaires: Lundis 20 h 30-21 h 55\; Jeudis 20 h 30-21 h 55
+LOCATION:Cornwall Aquatic Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:GTA Underwater Hockey
+DTSTART;TZID=America/Toronto:20240305T200000
+DTEND;TZID=America/Toronto:20240305T213000
+DTSTAMP:20250612T071739Z
+UID:a0f9e34a-e271-46a1-9a1a-19760a5902a3
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU
+DESCRIPTION:EN: Times: Tuesdays 8:00-9:30 pm (advanced)\; Thursdays 8:30-9
+ :30 pm (Beginners and advanced)\; Saturdays 4:30-6:00 pm (Children and beg
+ inners). Notes: Advanced\, Beginners\, Children welcome
+FR: Horaires: Mardis 20 h-21 h 30 (avancés)\; Jeudis 20 h 30-21 h 30 (dé
+ butants et avancés)\; Samedis 16 h 30-18 h (enfants et débutants). Remar
+ ques: Avancés\, Débutants\, Enfants bienvenus
+LOCATION:Norman Pinky Lewis Recreation Centre\; York Memorial Collegiate I
+ nstitute\; Sherwood Community Center
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:GTA Underwater Hockey
+DTSTART;TZID=America/Toronto:20240307T203000
+DTEND;TZID=America/Toronto:20240307T213000
+DTSTAMP:20250612T071739Z
+UID:8f6f5a66-772c-4e7f-8b3a-8c995f834908
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Tuesdays 8:00-9:30 pm (advanced)\; Thursdays 8:30-9
+ :30 pm (Beginners and advanced)\; Saturdays 4:30-6:00 pm (Children and beg
+ inners). Notes: Advanced\, Beginners\, Children welcome
+FR: Horaires: Mardis 20 h-21 h 30 (avancés)\; Jeudis 20 h 30-21 h 30 (dé
+ butants et avancés)\; Samedis 16 h 30-18 h (enfants et débutants). Remar
+ ques: Avancés\, Débutants\, Enfants bienvenus
+LOCATION:Norman Pinky Lewis Recreation Centre\; York Memorial Collegiate I
+ nstitute\; Sherwood Community Center
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Sault Tridents
+DTSTAMP:20250612T071739Z
+UID:74f10d66-f1e1-48f7-924d-707976504c90
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Monday 7:30 pm\; Thursday 9:00 pm
+FR: Horaires: Lundis 19 h 30\; Jeudi 21 h
+LOCATION:YMCA of Sault Ste. Marie\; John Rhodes Community Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Sault Tridents
+DTSTAMP:20250612T071739Z
+UID:2955ff1e-80d5-412e-a384-10c101710895
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Monday 7:30 pm\; Thursday 9:00 pm
+FR: Horaires: Lundis 19 h 30\; Jeudi 21 h
+LOCATION:YMCA of Sault Ste. Marie\; John Rhodes Community Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Thunder Bay Underwater Hockey
+DTSTAMP:20250612T071739Z
+UID:e291c2c0-9e67-401c-a2d4-67a74759d89e
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Thursdays 8:15 pm - 9:15 pm
+FR: Horaires: Jeudis 20 h 15-21 h 15
+LOCATION:Lakehead University Pool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:University of Guelph Underwater Hockey
+DTSTAMP:20250612T071739Z
+UID:81e872b1-e678-4435-9c4c-a4f7d5b0a137
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Mondays 10:00-11:00 pm\; Thursdays 8:30-9:30 pm
+FR: Horaires: Lundis 22 h-23 h\; Jeudi 20h30-21h30
+LOCATION:University of Guelph Athletic Centre Gold pool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:University of Guelph Underwater Hockey
+DTSTAMP:20250612T071739Z
+UID:770f2802-930b-42fa-b4f0-3593d37a8f1c
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Mondays 10:00-11:00 pm\; Thursdays 8:30-9:30 pm
+FR: Horaires: Lundis 22 h-23 h\; Jeudi 20h30-21h30
+LOCATION:University of Guelph Athletic Centre Gold pool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:University of Waterloo Underwater Hockey Club
+DTSTART;TZID=America/Toronto:20240301T210000
+DTEND;TZID=America/Toronto:20240301T220000
+DTSTAMP:20250612T071739Z
+UID:f074944b-5d34-4490-89d3-3e2459e63039
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=FR
+DESCRIPTION:EN: Times: Mondays and Fridays\, 9:00-10:00 pm
+FR: Horaires: Lundi et vendredi 21h00-22h00
+LOCATION:University of Waterloo PAC Pool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:University of Waterloo Underwater Hockey Club
+DTSTART;TZID=America/Toronto:20240304T210000
+DTEND;TZID=America/Toronto:20240304T220000
+DTSTAMP:20250612T071739Z
+UID:14b16c4a-6117-4f2c-9e3b-c27f6b044f04
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Mondays and Fridays\, 9:00-10:00 pm
+FR: Horaires: Lundi et vendredi 21h00-22h00
+LOCATION:University of Waterloo PAC Pool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Montreal - CAMO
+DTSTART;TZID=America/Montreal:20240305T203000
+DTEND;TZID=America/Montreal:20240305T223000
+DTSTAMP:20250612T071739Z
+UID:b20e5711-809f-4478-a7f8-6d531287c335
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU
+DESCRIPTION:EN: Times: Tuesdays 8:30-10:30 pm (Beginner)\; Fridays 8:00-10
+ :30 pm (Intermediate/Advanced). Notes: Beginner\, Intermediate/Advanced
+FR: Horaires: Mardi 20h30-22h30 (Débutant) \; Vendredi 20h00-22h30 (Inte
+ rmédiaire/Avancé). Remarques: Débutant\, Intermédiaire/Avancé
+LOCATION:Piscine Joseph-Charbonneau
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Montreal - CAMO
+DTSTART;TZID=America/Montreal:20240301T200000
+DTEND;TZID=America/Montreal:20240301T223000
+DTSTAMP:20250612T071739Z
+UID:b885323c-32b6-4286-a474-7a2019573a8d
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=FR
+DESCRIPTION:EN: Times: Tuesdays 8:30-10:30 pm (Beginner)\; Fridays 8:00-10
+ :30 pm (Intermediate/Advanced). Notes: Beginner\, Intermediate/Advanced
+FR: Horaires: Mardi 20h30-22h30 (Débutant) \; Vendredi 20h00-22h30 (Inte
+ rmédiaire/Avancé). Remarques: Débutant\, Intermédiaire/Avancé
+LOCATION:Piscine Joseph-Charbonneau
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Quebec City
+DTSTART;TZID=America/Montreal:20240305T203000
+DTEND;TZID=America/Montreal:20240305T220000
+DTSTAMP:20250612T071739Z
+UID:41fd6348-7c3e-4426-9a02-4a768c6e69bb
+RRULE:FREQ=WEEKLY;BYDAY=TU
+DESCRIPTION:EN: Times: Tuesdays 8:30-10:00 pm\; Thursday 8:00-10:00 pm
+FR: Horaires: Mardi 20h30-22h00 \; Jeudi 20h00-22h00
+LOCATION:Peps de l’Université Laval
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Quebec City
+DTSTART;TZID=America/Montreal:20240307T200000
+DTEND;TZID=America/Montreal:20240307T220000
+DTSTAMP:20250612T071739Z
+UID:777a7564-a980-4983-82c6-67032b8010e8
+RRULE:FREQ=WEEKLY;BYDAY=TH
+DESCRIPTION:EN: Times: Tuesdays 8:30-10:00 pm\; Thursday 8:00-10:00 pm
+FR: Horaires: Mardi 20h30-22h00 \; Jeudi 20h00-22h00
+LOCATION:Peps de l’Université Laval
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Saskatoon Seals
+DTSTART;TZID=America/Regina:20240304T200000
+DTEND;TZID=America/Regina:20240304T210000
+DTSTAMP:20240229T173339Z
+UID:6c8d3545-a160-478d-87c1-2123c7ff3a42
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Mondays 8:00-9:00 pm\; Fridays 8:00-9:00 pm\; Summe
+ rs - Fridays 7:30-8:30 pm. Notes: Summer practice times
+FR: Horaires: Lundi 20h00-21h00 \; Vendredi 20h00-21h00 \; Été : Vend
+ redi 19h30-20h30. Remarques: Heures de pratique estivales
+LOCATION:YMCA Saskatoon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Saskatoon Seals
+DTSTART;TZID=America/Regina:20240301T200000
+DTEND;TZID=America/Regina:20240301T210000
+DTSTAMP:20240229T173339Z
+UID:12e98666-544a-4459-8281-3750f8440e38
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=FR
+DESCRIPTION:EN: Times: Mondays 8:00-9:00 pm\; Fridays 8:00-9:00 pm\; Summe
+ rs - Fridays 7:30-8:30 pm. Notes: Summer practice times
+FR: Horaires: Lundi 20h00-21h00 \; Vendredi 20h00-21h00 \; Été : Vend
+ redi 19h30-20h30. Remarques: Heures de pratique estivales
+LOCATION:YMCA Saskatoon
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Saskatoon Seals - Summer
+DTSTART;TZID=America/Regina:20240621T193000
+DTEND;TZID=America/Regina:20240621T203000
+DTSTAMP:20240229T173339Z
+UID:e5b16990-f3a6-450c-88e1-23788c0248b7
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=FR
+DESCRIPTION:EN: Times: Mondays 8:00-9:00 pm\; Fridays 8:00-9:00 pm\; Summe
+ rs - Fridays 7:30-8:30 pm. Notes: Summer practice times
+FR: Horaires: Lundi 20h00-21h00 \; Vendredi 20h00-21h00 \; Été : Vend
+ redi 19h30-20h30. Remarques: Heures de pratique estivales
+LOCATION:YMCA Saskatoon
+END:VEVENT
+END:VCALENDAR

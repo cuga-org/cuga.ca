@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CUGA Event Generator Script//cuga.org//
+BEGIN:VEVENT
+SUMMARY:University of Guelph Underwater Hockey
+DTSTAMP:20250612T071739Z
+UID:81e872b1-e678-4435-9c4c-a4f7d5b0a137
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Mondays 10:00-11:00 pm\; Thursdays 8:30-9:30 pm
+FR: Horaires: Lundis 22 h-23 h\; Jeudi 20h30-21h30
+LOCATION:University of Guelph Athletic Centre Gold pool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:University of Guelph Underwater Hockey
+DTSTAMP:20250612T071739Z
+UID:770f2802-930b-42fa-b4f0-3593d37a8f1c
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Mondays 10:00-11:00 pm\; Thursdays 8:30-9:30 pm
+FR: Horaires: Lundis 22 h-23 h\; Jeudi 20h30-21h30
+LOCATION:University of Guelph Athletic Centre Gold pool
+END:VEVENT
+END:VCALENDAR

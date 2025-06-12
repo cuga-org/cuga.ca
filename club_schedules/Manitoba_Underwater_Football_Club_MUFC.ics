@@ -1,0 +1,24 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CUGA Event Generator Script//cuga.org//
+BEGIN:VEVENT
+SUMMARY:Manitoba Underwater Football Club (MUFC)
+DTSTAMP:20250612T071739Z
+UID:c5f6f1a1-4a69-48d5-995f-8a7b6425b8c1
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO
+DESCRIPTION:EN: Times: Mondays 8:00 pm - 9:00 pm\; Thursdays 8:30 pm - 9:3
+ 0 pm
+FR: Horaires: Lundi 20h00 - 21h00 \; jeudi 20h30 - 21h30
+LOCATION:EK Pool\; 7 Oaks Pool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Manitoba Underwater Football Club (MUFC)
+DTSTAMP:20250612T071739Z
+UID:b9c9e0e8-7b42-4346-904a-7b21c93273f4
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Mondays 8:00 pm - 9:00 pm\; Thursdays 8:30 pm - 9:3
+ 0 pm
+FR: Horaires: Lundi 20h00 - 21h00 \; jeudi 20h30 - 21h30
+LOCATION:EK Pool\; 7 Oaks Pool
+END:VEVENT
+END:VCALENDAR

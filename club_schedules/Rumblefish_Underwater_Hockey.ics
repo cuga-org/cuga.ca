@@ -1,0 +1,34 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CUGA Event Generator Script//cuga.org//
+BEGIN:VEVENT
+SUMMARY:Rumblefish Underwater Hockey
+DTSTART;TZID=America/Vancouver:20240305T200000
+DTEND;TZID=America/Vancouver:20240305T213000
+DTSTAMP:20250612T071739Z
+UID:05e843e2-23c3-450e-979b-5455e81b790f
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU
+DESCRIPTION:EN: Times: Tuesdays 8:00-9:30 PM (practice and development gam
+ e)\; Thursdays 8:00-9:30 PM (experienced game). Notes: Registration requir
+ ed at all training sessions
+FR: Horaires: Mardis 20h00 - 21h30 (Entraînement et match de perfectionne
+ ment) \; Jeudis 20h00 - 21h30 (Expérimentés). Remarques: Inscription obl
+ igatoire à toutes les séances d'entraînement
+LOCATION:təməsew̓txʷ Aquatic and Community Centre
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Rumblefish Underwater Hockey
+DTSTART;TZID=America/Vancouver:20240307T200000
+DTEND;TZID=America/Vancouver:20240307T213000
+DTSTAMP:20250612T071739Z
+UID:a9c41610-2456-4a51-9841-8594d51a0444
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TH
+DESCRIPTION:EN: Times: Tuesdays 8:00-9:30 PM (practice and development gam
+ e)\; Thursdays 8:00-9:30 PM (experienced game). Notes: Registration requir
+ ed at all training sessions
+FR: Horaires: Mardis 20h00 - 21h30 (Entraînement et match de perfectionne
+ ment) \; Jeudis 20h00 - 21h30 (Expérimentés). Remarques: Inscription obl
+ igatoire à toutes les séances d'entraînement
+LOCATION:təməsew̓txʷ Aquatic and Community Centre
+END:VEVENT
+END:VCALENDAR

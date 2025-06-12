@@ -331,55 +331,33 @@
         }
 
         async function fetchClubData() {
-            const url = 'https://docs.google.com/spreadsheets/d/1Lk8Lq5gu-nI1dwZjWZqYM05-x4E-5kD_huPsW-28AMo/gviz/tq';
+            const url = 'cuga_club_data.json'; // Changed URL
             try {
                 const response = await fetch(url);
-                if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
-                const text = await response.text();
-                const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
-                let parsedData;
-                try { parsedData = JSON.parse(jsonString); } catch (e) { console.error("Error parsing JSON:", e); return; }
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} while fetching ${url}`);
+                }
+                allClubs = await response.json(); // Directly parse JSON array
+                appLog('debug', "Processed club data from local JSON:", allClubs);
 
-                const actualHeaders = parsedData.table.rows[0].c.map(cell => (cell && cell.v) ? cell.v : '');
-                const headerKeyToIndex = {};
-                actualHeaders.forEach((header, index) => {
-                    if (header === 'Sport Type') headerKeyToIndex['SportType'] = index;
-                    if (header === 'Sport Type FR') headerKeyToIndex['SportTypeFR'] = index;
-                    if (header === 'Province') headerKeyToIndex['Province'] = index;
-                    if (header === 'Province FR') headerKeyToIndex['ProvinceFR'] = index;
-                    if (header === 'Club Name') headerKeyToIndex['ClubName'] = index;
-                    if (header === 'Club Name FR') headerKeyToIndex['ClubNameFR'] = index;
-                    if (header === 'City') headerKeyToIndex['City'] = index;
-                    if (header === 'City FR') headerKeyToIndex['CityFR'] = index;
-                    if (header === 'Practice Location') headerKeyToIndex['PracticeLocation'] = index;
-                    if (header === 'Practice Location FR') headerKeyToIndex['PracticeLocationFR'] = index;
-                    if (header === 'Practice Times') headerKeyToIndex['PracticeTimes'] = index;
-                    if (header === 'Practice Times FR') headerKeyToIndex['PracticeTimesFR'] = index;
-                    if (header === 'Contact Email') headerKeyToIndex['ContactEmail'] = index;
-                    if (header === 'Website URL') headerKeyToIndex['WebsiteURL'] = index;
-                    if (header === 'Facebook URL') headerKeyToIndex['FacebookURL'] = index;
-                    if (header === 'Instagram URL') headerKeyToIndex['InstagramURL'] = index;
-                    if (header === 'Notes') headerKeyToIndex['Notes'] = index;
-                    if (header === 'Notes FR') headerKeyToIndex['NotesFR'] = index;
-                    if (header === 'RRULE') headerKeyToIndex['RRULE'] = index;
-                });
+                if (!Array.isArray(allClubs)) {
+                    console.error("Error: Fetched club data is not an array.", allClubs);
+                    allClubs = []; // Reset to empty array on error
+                    // Display error to user in the clubs container
+                    const clubsContainer = document.getElementById('clubs-container');
+                    if (clubsContainer) clubsContainer.innerHTML = `<p>${headersMap[currentLanguage]?.noClubData || 'No club data available (error loading data).'}</p>`;
+                    const filterControlsContainer = document.getElementById('filter-controls');
+                    if (filterControlsContainer) filterControlsContainer.innerHTML = ''; // Clear filters
+                    return; // Stop further processing
+                }
 
-                allClubs = parsedData.table.rows.slice(1).map(row => {
-                    const club = {};
-                    if (!row || !row.c) return null;
-                    for (const key in headerKeyToIndex) {
-                        const cell = row.c[headerKeyToIndex[key]];
-                        club[key] = (cell && cell.v !== null && cell.v !== undefined) ? String(cell.v) : ""; // Ensure all values are strings
-                    }
-                    return club;
-                }).filter(club => club !== null);
-                appLog('debug', "Processed club data:", allClubs);
             } catch (error) {
-                console.error("Error fetching club data:", error);
+                console.error("Error fetching or parsing local club data:", error);
+                allClubs = []; // Ensure allClubs is empty on error
                 const clubsContainer = document.getElementById('clubs-container');
-                if (clubsContainer) clubsContainer.innerHTML = `<p>${headersMap[currentLanguage].noClubData}</p>`;
+                if (clubsContainer) clubsContainer.innerHTML = `<p>${headersMap[currentLanguage]?.noClubData || 'No club data available (error fetching data).'}</p>`;
                 const filterControlsContainer = document.getElementById('filter-controls');
-                if (filterControlsContainer) filterControlsContainer.innerHTML = `<p>${headersMap[currentLanguage].noClubData}</p>`;
+                if (filterControlsContainer) filterControlsContainer.innerHTML = ''; // Clear filters
             }
         }
 
@@ -474,21 +452,24 @@
                     if (club.FacebookURL && club.FacebookURL !== "NA") { linksCell.appendChild(createIconLink(club.FacebookURL, 'AriaFacebookLink', 'fa-facebook-square'));}
                     if (club.InstagramURL && club.InstagramURL !== "NA") { linksCell.appendChild(createIconLink(club.InstagramURL, 'AriaInstagramLink', 'fa-instagram'));}
 
-                    const scheduleButton = document.createElement('button');
-                    scheduleButton.className = 'ics-button inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500';
-                    scheduleButton.innerHTML = '<i class="fa fa-calendar fa-lg" aria-hidden="true"></i>';
+                    const scheduleLink = document.createElement('a');
+                    scheduleLink.className = 'ics-button inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500';
+                    scheduleLink.innerHTML = '<i class="fa fa-calendar fa-lg" aria-hidden="true"></i>';
                     const ariaLabelICS = linksLangHeaders.AriaDownloadICS || "Download schedule as ICS";
-                    scheduleButton.setAttribute('aria-label', ariaLabelICS);
+                    scheduleLink.setAttribute('aria-label', ariaLabelICS);
 
-                    if (!club.RRULE || club.RRULE.trim() === "" || club.RRULE.toLowerCase() === "na (contact for times)") {
-                        scheduleButton.disabled = true;
-                        scheduleButton.classList.add("opacity-50", "cursor-not-allowed");
+                    if (club.ics_file_path && club.ics_file_path.trim() !== "") {
+                        scheduleLink.href = club.ics_file_path;
+                        scheduleLink.setAttribute('download', ''); // Optional: Suggests filename from href path
                     } else {
-                        scheduleButton.disabled = false;
-                        const currentClub = club;
-                        scheduleButton.addEventListener("click", () => { generateICS(currentClub); });
+                        scheduleLink.classList.add("opacity-50", "cursor-not-allowed");
+                        scheduleLink.setAttribute('aria-disabled', 'true'); // For accessibility
+                        scheduleLink.removeAttribute('href'); // No link if no file
+                        // Optionally, add a title to explain why it's disabled
+                        scheduleLink.setAttribute('title', headersMap[language]?.noEventsGenerated || 'No schedule file available.');
                     }
-                    linksCell.appendChild(scheduleButton);
+                    linksCell.appendChild(scheduleLink);
+
                     if (linksCell.children.length === 0) { linksCell.textContent = "NA"; }
                     Array.from(tr.children).forEach((td, index) => {
                         td.classList.add("px-6", "py-4", "text-sm", "text-gray-900");
@@ -505,124 +486,9 @@
             clubsContainer.appendChild(table);
         }
 
-        function formatUTCDate(date) { /* ... unchanged ... */
-            return date.getUTCFullYear() +
-                ('0' + (date.getUTCMonth() + 1)).slice(-2) +
-                ('0' + date.getUTCDate()).slice(-2) + 'T' +
-                ('0' + date.getUTCHours()).slice(-2) +
-                ('0' + date.getUTCMinutes()).slice(-2) +
-                ('0' + date.getUTCSeconds()).slice(-2) + 'Z';
-        }
-
-        function calculateNextDtFromRrule(rruleString, clubPracticeTimeString) { /* ... unchanged ... */
-            const now = new Date();
-            let eventDate = new Date(now);
-            const dayMap = { 'SU': 0, 'MO': 1, 'TU': 2, 'WE': 3, 'TH': 4, 'FR': 5, 'SA': 6 };
-            let targetDay = -1, targetHour = -1, targetMinute = -1;
-            const rruleParts = rruleString.split(';');
-            rruleParts.forEach(part => {
-                const [key, value] = part.split('=');
-                if (key === 'BYDAY' && value.length === 2) targetDay = dayMap[value];
-                if (key === 'BYHOUR') targetHour = parseInt(value, 10);
-                if (key === 'BYMINUTE') targetMinute = parseInt(value, 10);
-            });
-            if (targetDay === -1 || targetHour === -1 || targetMinute === -1) {
-                if (clubPracticeTimeString) {
-                    const timeMatch = clubPracticeTimeString.match(/(\d{1,2})[:h](\d{2})?/i);
-                    if (timeMatch) {
-                        targetHour = parseInt(timeMatch[1], 10);
-                        targetMinute = timeMatch[2] ? parseInt(timeMatch[2], 10) : 0;
-                        for (const dayKey in dayMap) {
-                            if (clubPracticeTimeString.toLowerCase().includes(dayKey.toLowerCase())) {
-                                targetDay = dayMap[dayKey];
-                                break;
-                            }
-                        }
-                         if (targetDay === -1) targetDay = now.getDay();
-                    } else { return null; }
-                } else { return null; }
-            }
-            eventDate.setHours(targetHour, targetMinute, 0, 0);
-            let daysToAdd = (targetDay - eventDate.getDay() + 7) % 7;
-            if (daysToAdd === 0 && eventDate.getTime() < now.getTime()) { daysToAdd = 7; }
-            eventDate.setDate(eventDate.getDate() + daysToAdd);
-            const dtstart = new Date(eventDate);
-            const dtend = new Date(eventDate);
-            dtend.setHours(dtend.getHours() + 1);
-            const formatDateForICS = (d) => {
-                return d.getFullYear() +
-                       ('0' + (d.getMonth() + 1)).slice(-2) +
-                       ('0' + d.getDate()).slice(-2) + 'T' +
-                       ('0' + d.getHours()).slice(-2) +
-                       ('0' + d.getMinutes()).slice(-2) +
-                       ('0' + d.getSeconds()).slice(-2);
-            };
-            return { dtstart: formatDateForICS(dtstart), dtend: formatDateForICS(dtend) };
-        }
-
-        function generateICS(club) {
-            const lang = currentLanguage;
-            const langAlerts = headersMap[lang];
-            const clubName = lang === 'fr' && club.ClubNameFR ? club.ClubNameFR : club.ClubName;
-            const sportType = lang === 'fr' && club.SportTypeFR ? club.SportTypeFR : club.SportType;
-
-            let locationForICS = (lang === 'fr' && club.PracticeLocationFR && club.PracticeLocationFR.toLowerCase() !== "na" && club.PracticeLocationFR.trim() !== "") ? club.PracticeLocationFR : club.PracticeLocation;
-            locationForICS = (!locationForICS || locationForICS.trim() === "" || locationForICS.toLowerCase() === "na") ? "" : locationForICS;
-
-            let practiceTimesForDesc = (lang === 'fr' && club.PracticeTimesFR && club.PracticeTimesFR.toLowerCase() !== "na" && club.PracticeTimesFR.trim() !== "") ? club.PracticeTimesFR : club.PracticeTimes;
-            practiceTimesForDesc = (!practiceTimesForDesc || practiceTimesForDesc.trim() === "" || practiceTimesForDesc.toLowerCase() === 'na') ? "" : practiceTimesForDesc;
-
-            let notesForDesc = (lang === 'fr' && club.NotesFR && club.NotesFR.toLowerCase() !== "na" && club.NotesFR.trim() !== "") ? club.NotesFR : club.Notes;
-            notesForDesc = (!notesForDesc || notesForDesc.trim() === "" || notesForDesc.toLowerCase() === 'na') ? "" : notesForDesc;
-
-            let description = practiceTimesForDesc.replace(/\r\n|\r|\n/g, "\\n");
-            if (notesForDesc) {
-                description += `\\n\\n${langAlerts.NotesPrefix} ${notesForDesc.replace(/\r\n|\r|\n/g, "\\n")}`;
-            }
-            const summary = `${clubName} - ${sportType}`;
-            const rruleString = club.RRULE || "";
-
-            if (!rruleString.trim() || rruleString.toLowerCase() === "na (contact for times)") {
-                alert(langAlerts.noRRule); return;
-            }
-            const individualRrules = rruleString.replace(/<br\s*\/?>|&lt;br\s*\/?>/gi, '|').split('|').map(rule => rule.trim()).filter(rule => rule.length > 0);
-            if (individualRrules.length === 0) {
-                alert(langAlerts.noIndividualRRules); return;
-            }
-
-            let icsEvents = [];
-            const dtstamp = formatUTCDate(new Date());
-            let resolvedTzid = defaultTimezone;
-            if (club.Province && provinceTimezones[club.Province]) { resolvedTzid = provinceTimezones[club.Province];}
-            else if (club.Province) { console.warn(`No specific timezone mapping for province: ${club.Province}. Using default: ${defaultTimezone}`);}
-
-            for (const rrule of individualRrules) {
-                if (rrule.toLowerCase() === "na (contact for times)") continue;
-                const dtTimes = calculateNextDtFromRrule(rrule, club.PracticeTimes); // PracticeTimes (original) is used for parsing time for RRULE
-                if (!dtTimes) { console.warn(`Could not calculate DTSTART/DTEND for RRULE: ${rrule}. Skipping this event.`); continue; }
-                const uid = `${club.ClubName.replace(/[^a-zA-Z0-9]/g, "")}${Date.now()}${Math.random().toString(36).substring(2,5)}@cuga.ca`;
-                let eventStr = [
-                    'BEGIN:VEVENT', `UID:${uid}`, `DTSTAMP:${dtstamp}`, `SUMMARY:${summary}`,
-                    `LOCATION:${locationForICS.replace(/([,;\\])/g, '\\$1').replace(/\r\n|\r|\n/g, "\\n")}`,
-                    `DESCRIPTION:${description}`, `RRULE:${rrule}`,
-                    `DTSTART;TZID=${resolvedTzid}:${dtTimes.dtstart}`, `DTEND;TZID=${resolvedTzid}:${dtTimes.dtend}`,
-                    'END:VEVENT'
-                ].join('\r\n');
-                icsEvents.push(eventStr);
-            }
-
-            if (icsEvents.length === 0) { alert(langAlerts.noEventsGenerated); return; }
-            const icsContent = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//CUGA//ClubSchedule//EN', ...icsEvents, 'END:VCALENDAR'].join('\r\n');
-            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8;' });
-            const objectURL = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.href = objectURL;
-            const fileName = `${clubName.replace(/[^a-zA-Z0-9]/g, "_")}_schedule.ics`;
-            link.setAttribute("download", fileName);
-            document.body.appendChild(link);
-            link.click();
-            setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(objectURL); }, 100);
-        }
+        // Removed generateICS(club)
+        // Removed calculateNextDtFromRrule(rruleString, clubPracticeTimeString)
+        // Removed formatUTCDate(date)
 
         document.addEventListener('DOMContentLoaded', async () => {
             await loadAppConfig();
