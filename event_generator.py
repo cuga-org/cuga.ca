@@ -1,4 +1,5 @@
 import json
+import re # Added for regex-based JSON extraction
 import requests
 import os
 import hashlib
@@ -24,12 +25,22 @@ def fetch_sheet_data(url):
         response = requests.get(url, timeout=30) # Increased timeout
         response.raise_for_status()
         text = response.text
-        start_index = text.find('{')
-        end_index = text.rfind('}') + 1
-        if start_index == -1 or end_index == 0:
-            print("Error: Could not find JSON object in response.")
-            return None
-        json_string = text[start_index:end_index]
+
+            # Try to match the typical Google Sheets gviz response pattern
+            match = re.search(r"google\.visualization\.Query\.setResponse\s*\((.*)\)\s*;", text, re.DOTALL)
+            if match:
+                json_string = match.group(1)
+            else:
+                # Fallback for simpler JSON responses or if the main pattern isn't found
+                first_brace = text.find('{')
+                last_brace = text.rfind('}')
+                if first_brace != -1 and last_brace != -1 and last_brace > first_brace:
+                    json_string = text[first_brace : last_brace+1]
+                else:
+                    print("Error: Could not find JSON object in response using regex or fallback.")
+                    return None
+
+            json_string = json_string.strip() # Ensure no leading/trailing whitespace
         return json.loads(json_string)
     except requests.exceptions.RequestException as e:
         print(f"Error fetching sheet data: {e}")
