@@ -52,17 +52,22 @@ def fetch_sheet_data(url):
         return None
 
 def parse_club_data(raw_data):
-    if not raw_data or 'table' not in raw_data or 'cols' not in raw_data['table'] or 'rows' not in raw_data['table']:
-        print("Error: Invalid raw data structure for parsing.")
+    if not raw_data or 'table' not in raw_data or 'rows' not in raw_data['table']['rows'] or not raw_data['table']['rows']:
+        print("Error: Invalid raw data structure or no rows found for parsing.")
         return []
 
-    headers = []
-    # Ensure 'label' exists and is a string, provide a default unique name if not
-    for i, col_def in enumerate(raw_data['table']['cols']):
-        headers.append(col_def.get('label', f'col_{i}').strip())
+    # Extract actual headers from the first row
+    first_row_cells = raw_data['table']['rows'][0].get('c', [])
+    sheet_headers = []
+    for cell in first_row_cells:
+        # Ensure that cell is not None before calling get, and default to empty string
+        sheet_headers.append(str(cell.get('v', '') if cell else '').strip())
 
+    if not sheet_headers or all(not h for h in sheet_headers): # Check if all headers are empty
+        print("Error: Extracted headers are empty or missing from the first row.")
+        return []
 
-    # This mapping helps standardize some common names, but all columns will be preserved with original names too
+    # header_map definition (maps sheet headers like "Club Name" to conceptual keys like "ClubName")
     header_map = {
         'Sport Type': 'SportType', 'Sport Type FR': 'SportTypeFR',
         'Province': 'Province', 'Province FR': 'ProvinceFR',
@@ -74,44 +79,53 @@ def parse_club_data(raw_data):
         'Website URL': 'WebsiteURL', 'Facebook URL': 'FacebookURL', 'Instagram URL': 'InstagramURL',
         'Notes': 'Notes', 'Notes FR': 'NotesFR',
         'RRULE': 'RRULE'
+        # This map should be comprehensive for all columns that need to be mapped to conceptual keys.
     }
 
     parsed_events = []
-    for row_idx, row_data in enumerate(raw_data['table']['rows']):
+    # Process data rows starting from the second row (index 1)
+    for row_idx, row_data in enumerate(raw_data['table']['rows'][1:], start=1):
         if not row_data or 'c' not in row_data:
-            print(f"Warning: Skipping empty or invalid row {row_idx}.")
+            print(f"Warning: Skipping empty or invalid data row {row_idx}.")
             continue
 
         event = {}
         cells = row_data['c']
 
-        for i, cell in enumerate(cells):
-            if i < len(headers):
-                header_name = headers[i]
-                cell_value = cell.get('v', None) if cell else None
+        has_any_data_in_row = False
+        for col_idx, cell_obj in enumerate(cells):
+            if col_idx < len(sheet_headers):
+                raw_header_name = sheet_headers[col_idx]
+                # Ensure cell_value_str is an empty string if cell_obj is None or 'v' is not present
+                cell_value_str = str(cell_obj.get('v', '') if cell_obj else '').strip()
 
-                # Store all values based on actual header names from the sheet
-                event[header_name] = str(cell_value) if cell_value is not None else ""
+                if cell_value_str: # Check if there's actual data
+                    has_any_data_in_row = True
 
-                # Also map to simplified/standardized keys if they exist in header_map
-                if header_name in header_map:
-                    event[header_map[header_name]] = str(cell_value) if cell_value is not None else ""
+                # Store raw value by its sheet header name (e.g., event["Club Name"] = "Some Club")
+                # This ensures all data from sheet is available in event if needed by original header name
+                event[raw_header_name] = cell_value_str
 
-        # Add event if it has at least some data, particularly a Club Name or RRULE
-        if event.get('ClubName') or event.get('RRULE'):
-             # Ensure essential fields for fingerprinting exist, even if empty, to prevent KeyErrors
-            for key_to_check in ['ClubName', 'RRULE', 'PracticeTimes', 'PracticeLocation']:
-                if key_to_check not in event: # Check if the mapped key is missing
-                    # Try to find original header if mapping was the issue, or default to empty
-                    original_header_for_key = next((h for h,m in header_map.items() if m == key_to_check), None)
-                    if original_header_for_key and original_header_for_key in event:
-                         event[key_to_check] = event[original_header_for_key]
-                    else:
-                        event[key_to_check] = "" # Default to empty string
+                # Map to conceptual key if this header is in our map
+                conceptual_key = header_map.get(raw_header_name)
+                if conceptual_key:
+                    event[conceptual_key] = cell_value_str
+
+        if has_any_data_in_row:
+            # Ensure essential conceptual keys for fingerprinting and other logic exist,
+            # defaulting to empty string if not mapped/present from the current row's data.
+            expected_conceptual_keys = [
+                'ClubName', 'ClubNameFR', 'Province', 'ProvinceFR', 'City', 'CityFR',
+                'SportType', 'SportTypeFR', 'PracticeLocation', 'PracticeLocationFR',
+                'PracticeTimes', 'PracticeTimesFR', 'ContactEmail', 'WebsiteURL',
+                'FacebookURL', 'InstagramURL', 'Notes', 'NotesFR', 'RRULE'
+            ]
+            for key in expected_conceptual_keys:
+                if key not in event: # If it wasn't set via header_map from this row's data
+                    event[key] = ""
             parsed_events.append(event)
-        elif cells and any(c.get('v') for c in cells if c): # If cells have values but no ClubName/RRULE
-            # print(f"Warning: Skipping row {row_idx} due to missing Club Name and RRULE, but has data: { {headers[i]: (cells[i].get('v') if cells[i] else None) for i in range(len(cells))} }")
-            pass # Reduce noise for now
+        # else:
+            # print(f"Row {row_idx+1} contained no actual data across its cells. Skipping.")
 
     return parsed_events
 
@@ -411,8 +425,8 @@ def main():
 
     for idx, event_data in enumerate(club_events):
         # Basic check for enough data to form a prompt
-        if not event_data.get('ClubName', event_data.get('Club Name')) and \
-           not event_data.get('PracticeTimes', event_data.get('Practice Times')):
+        if not event_data.get('ClubName', event_data.get('Club Name', '')) and \
+           not event_data.get('PracticeTimes', event_data.get('Practice Times', '')):
             # print(f"Skipping event {idx+1} due to missing key information (Club Name and Practice Times). Data: {event_data}")
             continue
 
