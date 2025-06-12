@@ -424,11 +424,18 @@
                 if (waiverInitialsInput) {
                     waiverInitialsInput.placeholder = lang === 'fr' ? waiverInitialsInput.getAttribute('placeholder-lang-fr') : waiverInitialsInput.getAttribute('placeholder-lang-en');
                 }
+                localStorage.setItem('language', lang); // Store language choice
             }
 
-            const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
-            const initialLang = browserLang === 'en' ? 'en' : 'fr';
-            updateDisplayedLanguage(initialLang);
+            const storedLang = localStorage.getItem('language');
+            if (storedLang) {
+                updateDisplayedLanguage(storedLang);
+            } else {
+                // Original browser language detection and initial updateDisplayedLanguage call
+                const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+                const initialLang = browserLang === 'en' ? 'en' : 'fr';
+                updateDisplayedLanguage(initialLang);
+            }
 
             langButtons.forEach(button => {
                 button.addEventListener('click', () => updateDisplayedLanguage(button.dataset.lang));

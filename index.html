@@ -504,24 +504,26 @@
                     button.classList.toggle('text-gray-800', button.dataset.lang !== lang);
                 });
                 document.documentElement.lang = lang;
+                localStorage.setItem('language', lang); // Store language choice
             };
 
-            // Auto-detect browser language
-            const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
-
-if (browserLang === 'en') {
-    setLanguage('en');
-} else {
-    // Default to French for 'fr' or any other detected language not explicitly handled as 'en'
-    setLanguage('fr');
-}
+            // Language initialization logic
+            const storedLang = localStorage.getItem('language');
+            if (storedLang) {
+                setLanguage(storedLang);
+            } else {
+                // Existing browser language detection logic
+                const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+                if (browserLang === 'en') {
+                    setLanguage('en');
+                } else {
+                    setLanguage('fr'); // Default to French
+                }
+            }
 
             langButtons.forEach(button => {
                 button.addEventListener('click', () => setLanguage(button.dataset.lang));
             });
-
-            // The initial setLanguage call based on default 'fr' is now handled by the auto-detection logic.
-            // If no specific language is detected and matches 'en' or 'fr', it defaults to 'fr'.
         });
     </script>
     <script>

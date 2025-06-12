@@ -670,11 +670,17 @@
 
                 document.documentElement.lang = lang;
                 displayClubs(lang);
+                localStorage.setItem('language', lang); // Store language choice
             };
 
-            const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
-            const initialLang = (browserLang === 'en' || browserLang === 'fr') ? browserLang : 'fr';
-            setLanguage(initialLang);
+            const storedLang = localStorage.getItem('language');
+            if (storedLang) {
+                setLanguage(storedLang);
+            } else {
+                const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
+                const initialLang = (browserLang === 'en' || browserLang === 'fr') ? browserLang : 'fr';
+                setLanguage(initialLang);
+            }
 
             langButtons.forEach(button => {
                 button.addEventListener('click', () => setLanguage(button.dataset.lang));
