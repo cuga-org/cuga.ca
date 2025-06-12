@@ -5,6 +5,7 @@ This repository contains the source code for the Canadian Underwater Games Assoc
 The site provides information about underwater sports in Canada, primarily focusing on:
 *   Underwater Hockey
 *   Underwater Rugby
+*   Underwater Football
 
 It also features a directory of underwater sports clubs across Canada.
 
