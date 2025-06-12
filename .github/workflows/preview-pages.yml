@@ -102,7 +102,7 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const { exec } = require('@actions/exec'); // Available in github-script environment
+            const { exec: runShellCommand } = require('@actions/exec'); // Renamed to avoid conflict
 
             const prsInfoString = '${{ steps.get_open_prs.outputs.prs_info }}';
             let prsInfo = [];
@@ -139,13 +139,13 @@ jobs:
                 console.log(`Processing PR #${pr.number} (branch: ${pr.head_ref})`);
 
                 // Cleanup before clone (in case of re-runs or failures)
-                await exec('rm', ['-rf', prCheckoutPath]);
+                await runShellCommand('rm', ['-rf', prCheckoutPath]);
 
                 console.log(`Cloning PR #${pr.number} branch ${pr.head_ref} into ${prCheckoutPath}`);
                 const repoUrl = `https://x-access-token:${githubToken}@github.com/${githubRepo}.git`;
-                await exec('git', ['clone', '--depth=1', '--branch', pr.head_ref, repoUrl, prCheckoutPath]);
+                await runShellCommand('git', ['clone', '--depth=1', '--branch', pr.head_ref, repoUrl, prCheckoutPath]);
 
-                const headShaCmdOutput = await exec('git', ['rev-parse', 'HEAD'], { cwd: prCheckoutPath });
+                const headShaCmdOutput = await runShellCommand.getExecOutput('git', ['rev-parse', 'HEAD'], { cwd: prCheckoutPath });
                 if (headShaCmdOutput.exitCode !== 0) {
                     throw new Error(`Failed to get HEAD SHA for PR #${pr.number}: ${headShaCmdOutput.stderr}`);
                 }
@@ -160,7 +160,7 @@ jobs:
 
                 console.log(`Copying content from ${prCheckoutPath}/ to ${targetDir}/`);
                 // Adding a trailing slash to source path is important for rsync
-                await exec('rsync', ['-av', '--delete', `${prCheckoutPath}/`, `${targetDir}/`, '--exclude', '.git']);
+                await runShellCommand('rsync', ['-av', '--delete', `${prCheckoutPath}/`, `${targetDir}/`, '--exclude', '.git']);
 
               } catch (error) {
                 console.error(`Failed to process PR #${pr.number} (branch ${pr.head_ref}): ${error.message}`);
@@ -169,7 +169,7 @@ jobs:
                 // core.setFailed(`Failed to process PR #${pr.number}: ${error.message}`); return;
               } finally {
                 console.log(`Cleaning up ${prCheckoutPath} for PR #${pr.number}`);
-                await exec('rm', ['-rf', prCheckoutPath]);
+                await runShellCommand('rm', ['-rf', prCheckoutPath]);
               }
             }
             console.log('Finished populating all PR previews.');
