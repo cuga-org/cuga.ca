@@ -191,28 +191,38 @@ jobs:
 
       - name: Add comment to PR
         uses: actions/github-script@v7
+        env: # Pass prs_info as an environment variable
+          PRS_INFO_JSON: ${{ steps.get_open_prs.outputs.prs_info }}
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }} # Corrected: github-token
           script: |
             const currentPRNumber = context.payload.pull_request.number;
-            const prsInfoString = '${{ steps.get_open_prs.outputs.prs_info }}';
+            // Default to empty array string if env var is missing or empty
+            const prsInfoString = process.env.PRS_INFO_JSON || '[]';
+
             let allPRs = [];
             try {
               allPRs = JSON.parse(prsInfoString);
+              if (!Array.isArray(allPRs)) {
+                core.warning('Parsed PRS_INFO_JSON was not an array. Defaulting to empty array. Input was: ' + prsInfoString);
+                allPRs = [];
+              }
             } catch (e) {
-              // If prs_info is not valid JSON, log warning but proceed with minimal comment.
-              core.warning("Could not parse prs_info to list other PRs in comment: " + e.message + ". Input was: " + prsInfoString);
+              core.warning("Could not parse PRS_INFO_JSON to list other PRs in comment: " + e.message + ". Input was: " + prsInfoString);
+              allPRs = [];
             }
 
+            // allPRs is now guaranteed to be an array, so direct map/filter is safe.
             let otherPRNumbers = allPRs.map(pr => pr.number).filter(num => num !== currentPRNumber);
 
             const cnameDomain = process.env.CNAME_DOMAIN;
             let previewUrlRoot = '';
+
             if (cnameDomain && cnameDomain.trim() !== '') {
               previewUrlRoot = `https://${cnameDomain}`;
             } else {
-              core.warning('CNAME_DOMAIN environment variable not found or empty. Using default GitHub Pages URL structure for PR comment.');
               previewUrlRoot = `https://${context.repo.owner}.github.io/${context.repo.repo}`;
+              core.warning('CNAME_DOMAIN environment variable not found or empty. Using default GitHub Pages URL structure for PR comment.');
             }
 
             const prPreviewPath = `/previews/${currentPRNumber}/`;
@@ -238,7 +248,6 @@ jobs:
               });
               console.log(`Comment posted on PR #${currentPRNumber} with details of other included PRs and global version.json.`);
             } catch (error) {
-              core.error(`Failed to post comment on PR #${currentPRNumber}: ${error.message}`);
-              // Optionally, set action to failed if commenting is critical
-              // core.setFailed(`Failed to post comment on PR #${currentPRNumber}: ${error.message}`);
+              // Log the error and fail the step if commenting is critical
+              core.setFailed(`Failed to post comment on PR #${currentPRNumber}: ${error.message}`);
             }
