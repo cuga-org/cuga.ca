@@ -492,7 +492,8 @@
                     if (linksCell.children.length === 0) { linksCell.textContent = "NA"; }
                     Array.from(tr.children).forEach((td, index) => {
                         td.classList.add("px-6", "py-4", "text-sm", "text-gray-900");
-                        if (index === 3) { // Assuming Practice Times is the 4th column (index 3)
+                        // Index 3 is Practice Times, Index 4 is Practice Location
+                        if (index === 3 || index === 4) {
                             td.classList.add("whitespace-normal");
                         } else {
                             td.classList.add("whitespace-nowrap");
