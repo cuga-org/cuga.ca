@@ -87,12 +87,19 @@
             }
         }
     </style>
+    <style>
+        @media (max-width: 1023.98px) { /* Tailwind's lg breakpoint is 1024px. This targets screens just below it. */
+            .force-hide-mobile {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
 <body class="bg-blue-700 text-white">
     <div class="bubbles">
     </div>
 
-    <nav class="lang-fr fixed top-1/2 right-4 transform -translate-y-1/2 bg-opacity-75 bg-blue-800 text-white p-3 rounded-lg z-50 shadow-md hidden md:block">
+    <nav class="lang-fr fixed top-1/2 right-4 transform -translate-y-1/2 bg-opacity-75 bg-blue-800 text-white p-3 rounded-lg z-50 shadow-md hidden lg:block force-hide-mobile">
         <ul class="flex flex-col space-y-2">
             <li class="py-1"><a href="join.html" class="hover:text-yellow-300">Rejoindre CUGA</a></li>
             <li class="py-1"><a href="#about-us-fr" class="hover:text-yellow-300">À propos</a></li>
@@ -103,7 +110,7 @@
         </ul>
     </nav>
 
-    <nav class="lang-en fixed top-1/2 right-4 transform -translate-y-1/2 bg-opacity-75 bg-blue-800 text-white p-3 rounded-lg z-50 shadow-md hidden md:block">
+    <nav class="lang-en fixed top-1/2 right-4 transform -translate-y-1/2 bg-opacity-75 bg-blue-800 text-white p-3 rounded-lg z-50 shadow-md hidden lg:block force-hide-mobile">
         <ul class="flex flex-col space-y-2">
             <li class="py-1"><a href="join.html" class="hover:text-yellow-300">Join CUGA</a></li>
             <li class="py-1"><a href="#about-us-en" class="hover:text-yellow-300">About Us</a></li>
