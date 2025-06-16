@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Interactive Guide to Nonprofit Financial Governance" data-fr="Guide Interactif de Gouvernance Financière des Organismes à But Non Lucratif">Interactive Guide to Nonprofit Financial Governance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A thematic, single-page dashboard designed for non-linear exploration. The structure uses a sticky top navigation to allow users to jump to key areas of concern: 1) Access Rights (the core question), 2) Legal Framework, 3) Restrictions, 4) Risks, and 5) Best Practices. This is more intuitive than the report's linear chapter format, allowing users to find answers to specific questions quickly. The core interaction revolves around an interactive diagram comparing Financial Statements vs. Accounting Records, clickable cards for detailed information, and a practical checklist. This structure prioritizes user-friendliness and quick comprehension of complex legal topics. -->
+    <!-- Visualization & Content Choices:
+        - Report Info: Table 1 (Access Rights Matrix). Goal: Compare access levels for different records. Viz/Method: Interactive HTML/CSS diagram with icons instead of a standard chart. Interaction: Clicking a record type reveals detailed text. Justification: A custom diagram is more visually explicit and clearer for comparing categories than a bar chart. Method: HTML/CSS/JS.
+        - Report Info: Legal Duties & Legislation. Goal: Organize dense legal concepts. Viz/Method: Accordion-style clickable cards. Interaction: Click to expand/collapse content. Justification: Breaks down complex information into digestible chunks, preventing user overload. Method: HTML/CSS/JS.
+        - Report Info: Risks & Legal Implications. Goal: Warn and inform. Viz/Method: A grid of visually distinct cards with icons. Interaction: Clicking a card scrolls to and reveals a detailed explanation. Justification: High-impact visual summary that draws attention to critical risks. Method: HTML/CSS/JS.
+        - Report Info: Best Practices. Goal: Provide actionable guidance. Viz/Method: Interactive checklist. Interaction: Users can click to check off items. Justification: Transforms a static list into a practical, engaging tool. Method: HTML/CSS/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #4A4A4A;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #5D737E;
+            border-bottom-color: #5D737E;
+        }
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: auto;
+            max-height: 500px;
+        }
+        .checklist-item.completed {
+            text-decoration: line-through;
+            color: #9CA3AF;
+        }
+        .checklist-item.completed .checkbox-icon {
+            background-color: #5D737E;
+            border-color: #5D737E;
+            color: white;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl md:text-2xl font-bold text-[#5D737E]" data-en="Nonprofit Governance Guide" data-fr="Guide de Gouvernance des Organismes à But Non Lucratif">Nonprofit Governance Guide</h1>
+                </div>
+                <nav class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#access-rights" class="nav-link px-3 py-2 text-sm font-medium" data-en="Access Rights" data-fr="Droits d'Accès">Access Rights</a>
+                        <a href="#legal-framework" class="nav-link px-3 py-2 text-sm font-medium" data-en="Legal Framework" data-fr="Cadre Légal">Legal Framework</a>
+                        <a href="#restrictions" class="nav-link px-3 py-2 text-sm font-medium" data-en="Restrictions" data-fr="Restrictions">Restrictions</a>
+                        <a href="#risks" class="nav-link px-3 py-2 text-sm font-medium" data-en="Risks" data-fr="Risques">Risks</a>
+                        <a href="#best-practices" class="nav-link px-3 py-2 text-sm font-medium" data-en="Best Practices" data-fr="Bonnes Pratiques">Best Practices</a>
+                    </div>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <select id="language-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#5D737E] focus:border-[#5D737E] block p-2.5">
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                    </select>
+                    <div class="md:hidden">
+                        <select id="mobile-nav" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#5D737E] focus:border-[#5D737E] block w-full p-2.5">
+                            <option value="#access-rights" data-en="Access Rights" data-fr="Droits d'Accès">Access Rights</option>
+                            <option value="#legal-framework" data-en="Legal Framework" data-fr="Cadre Légal">Legal Framework</option>
+                            <option value="#restrictions" data-en="Restrictions" data-fr="Restrictions">Restrictions</option>
+                            <option value="#risks" data-en="Risks" data-fr="Risques">Risks</option>
+                            <option value="#best-practices" data-en="Best Practices" data-fr="Bonnes Pratiques">Best Practices</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <!-- Introduction Section -->
+        <section class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4" data-en="Balancing Transparency & Privacy" data-fr="Équilibrer Transparence et Confidentialité">Balancing Transparency & Privacy</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600" data-en="For board members of Canadian nonprofits, effective governance requires a delicate balance. You have a right to the financial information needed to fulfill your duties, but you also have a legal and ethical obligation to protect sensitive donor information. This guide helps you navigate that crucial intersection." data-fr="Pour les membres du conseil d'administration des organismes à but non lucratif canadiens, une gouvernance efficace exige un équilibre délicat. Vous avez le droit d'accéder aux informations financières nécessaires pour remplir vos fonctions, mais vous avez également l'obligation légale et éthique de protéger les informations sensibles des donateurs. Ce guide vous aide à naviguer à cette intersection cruciale.">
+                For board members of Canadian nonprofits, effective governance requires a delicate balance. You have a right to the financial information needed to fulfill your duties, but you also have a legal and ethical obligation to protect sensitive donor information. This guide helps you navigate that crucial intersection.
+            </p>
+        </section>
+
+        <!-- Section 1: Access Rights -->
+        <section id="access-rights" class="mb-20 pt-16 -mt-16">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800" data-en="What Information Can a Board Member See?" data-fr="Quelles Informations un Membre du Conseil Peut-il Consulter?">What Information Can a Board Member See?</h3>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto" data-en="A key distinction in law exists between high-level &quot;Financial Statements&quot; and detailed &quot;Accounting Records.&quot; Your access rights differ significantly for each, which is the primary mechanism for balancing oversight with privacy." data-fr="Une distinction clé dans la loi existe entre les « États Financiers » de haut niveau et les « Documents Comptables » détaillés. Vos droits d'accès diffèrent significativement pour chacun, ce qui constitue le principal mécanisme pour équilibrer la supervision et la confidentialité.">A key distinction in law exists between high-level "Financial Statements" and detailed "Accounting Records." Your access rights differ significantly for each, which is the primary mechanism for balancing oversight with privacy.</p>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="chart-container">
+                    <canvas id="accessChart"></canvas>
+                </div>
+                <div class="mt-6 text-center text-sm text-gray-500" data-en="This chart illustrates the fundamental difference in access rights. Click the bars for a detailed explanation." data-fr="Ce graphique illustre la différence fondamentale dans les droits d'accès. Cliquez sur les barres pour une explication détaillée.">
+                    This chart illustrates the fundamental difference in access rights. Click the bars for a detailed explanation.
+                </div>
+                <div id="chart-explanation" class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200 hidden">
+                    <h4 id="explanation-title" class="font-bold text-lg text-[#5D737E] mb-2"></h4>
+                    <p id="explanation-text" class="text-gray-700"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Legal Framework -->
+        <section id="legal-framework" class="mb-20 pt-16 -mt-16">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800" data-en="The Rules of the Road: Your Duties & Key Laws" data-fr="Les Règles du Jeu: Vos Devoirs et Lois Clés">The Rules of the Road: Your Duties & Key Laws</h3>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto" data-en="Your actions as a board member are governed by fundamental duties and a web of federal and provincial legislation. Understanding these is essential to mitigating risk and ensuring compliance. Click each item to learn more." data-fr="Vos actions en tant que membre du conseil sont régies par des devoirs fondamentaux et un ensemble de législations fédérales et provinciales. Comprendre celles-ci est essentiel pour atténuer les risques et assurer la conformité. Cliquez sur chaque élément pour en savoir plus.">Your actions as a board member are governed by fundamental duties and a web of federal and provincial legislation. Understanding these is essential to mitigating risk and ensuring compliance. Click each item to learn more.</p>
+            <div class="space-y-4">
+                <!-- Accordion Item 1 -->
+                <div class="accordion-item bg-white rounded-lg shadow-md">
+                    <button class="accordion-header w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-[#5D737E]">
+                        <span data-en="Fiduciary Duties: The 3 Pillars of Responsibility" data-fr="Devoirs Fiduciaires: Les 3 Piliers de la Responsabilité">Fiduciary Duties: The 3 Pillars of Responsibility</span>
+                        <span class="accordion-icon text-2xl transform transition-transform duration-300">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-5 border-t border-gray-200 text-gray-600 space-y-3">
+                           <p data-en="<strong>1. Duty of Care:</strong> You must act with the diligence and prudence of a reasonable person in similar circumstances. This means being informed, attending meetings, reviewing financial reports, asking questions, and making decisions based on available information. Improperly restricted access to financial data can directly impede your ability to fulfill this duty." data-fr="<strong>1. Devoir de Diligence:</strong> Vous devez agir avec la diligence et la prudence d'une personne raisonnable dans des circonstances similaires. Cela signifie être informé, assister aux réunions, examiner les rapports financiers, poser des questions et prendre des décisions basées sur les informations disponibles. Un accès indûment restreint aux données financières peut directement entraver votre capacité à remplir ce devoir."><strong>1. Duty of Care:</strong> You must act with the diligence and prudence of a reasonable person in similar circumstances. This means being informed, attending meetings, reviewing financial reports, asking questions, and making decisions based on available information. Improperly restricted access to financial data can directly impede your ability to fulfill this duty.</p>
+                           <p data-en="<strong>2. Duty of Loyalty:</strong> You must act honestly, in good faith, and in the best interests of the organization, placing its interests above your own personal or financial interests. This includes avoiding and disclosing any conflicts of interest." data-fr="<strong>2. Devoir de Loyauté:</strong> Vous devez agir honnêtement, de bonne foi et dans le meilleur intérêt de l'organisation, en plaçant ses intérêts au-dessus de vos propres intérêts personnels ou financiers. Cela inclut l'évitement et la divulgation de tout conflit d'intérêts."><strong>2. Duty of Loyalty:</strong> You must act honestly, in good faith, and in the best interests of the organization, placing its interests above your own personal or financial interests. This includes avoiding and disclosing any conflicts of interest.</p>
+                           <p data-en="<strong>3. Duty of Obedience:</strong> You must ensure the organization acts in accordance with its stated mission, bylaws, and all applicable laws and regulations, including those from the Canada Revenue Agency (CRA) and other governing bodies." data-fr="<strong>3. Devoir d'Obéissance:</strong> Vous devez vous assurer que l'organisation agit conformément à sa mission déclarée, à ses règlements intérieurs et à toutes les lois et réglementations applicables, y compris celles de l'Agence du revenu du Canada (ARC) et d'autres organismes de réglementation."><strong>3. Duty of Obedience:</strong> You must ensure the organization acts in accordance with its stated mission, bylaws, and all applicable laws and regulations, including those from the Canada Revenue Agency (CRA) and other governing bodies.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Accordion Item 2 -->
+                <div class="accordion-item bg-white rounded-lg shadow-md">
+                    <button class="accordion-header w-full flex justify-between items-center p-5 text-left font-semibold text-lg text-[#5D737E]">
+                        <span data-en="Key Legislation: Acts & Regulations" data-fr="Législation Clé: Lois et Règlements">Key Legislation: Acts & Regulations</span>
+                        <span class="accordion-icon text-2xl transform transition-transform duration-300">+</span>
+                    </button>
+                    <div class="accordion-content">
+                         <div class="p-5 border-t border-gray-200 text-gray-600 space-y-3">
+                            <p data-en="<strong>Corporate Acts (e.g., CNCA, ONCA):</strong> These federal and provincial laws outline the fundamental governance structure for nonprofits. They grant directors the right to inspect corporate records, mandate proper record-keeping, and set the rules for member and board meetings, director liability, and financial reporting." data-fr="<strong>Lois sur les Sociétés (ex. LCSA, LOBNL):</strong> Ces lois fédérales et provinciales définissent la structure de gouvernance fondamentale des organismes à but non lucratif. Elles accordent aux administrateurs le droit d'inspecter les registres de la société, exigent une tenue de registres appropriée et fixent les règles pour les réunions des membres et du conseil, la responsabilité des administrateurs et les rapports financiers."><strong>Corporate Acts (e.g., CNCA, ONCA):</strong> These federal and provincial laws outline the fundamental governance structure for nonprofits. They grant directors the right to inspect corporate records, mandate proper record-keeping, and set the rules for member and board meetings, director liability, and financial reporting.</p>
+                            <p data-en="<strong>Privacy Laws (PIPEDA, Provincial PIPAs, Quebec's Law 25):</strong> These laws govern how organizations collect, use, and disclose personal information. While routine fundraising may be exempt from PIPEDA, activities like selling donor lists are not. Quebec's Law 25 is stricter, applying to all organizations and all personal data processing, reinforcing the need for explicit consent and strong data security for all donor information." data-fr="<strong>Lois sur la Protection de la Vie Privée (LPRPDE, Lois provinciales sur la protection des renseignements personnels, Loi 25 du Québec):</strong> Ces lois régissent la manière dont les organisations collectent, utilisent et divulguent les informations personnelles. Bien que la collecte de fonds de routine puisse être exemptée de la LPRPDE, les activités telles que la vente de listes de donateurs ne le sont pas. La Loi 25 du Québec est plus stricte, s'appliquant à toutes les organisations et à tout traitement de données personnelles, renforçant la nécessité d'un consentement explicite et d'une sécurité robuste des données pour toutes les informations des donateurs."><strong>Privacy Laws (PIPEDA, Provincial PIPAs, Quebec's Law 25):</strong> These laws govern how organizations collect, use, and disclose personal information. While routine fundraising may be exempt from PIPEDA, activities like selling donor lists are not. Quebec's Law 25 is stricter, applying to all organizations and all personal data processing, reinforcing the need for explicit consent and strong data security for all donor information.</p>
+                            <p data-en="<strong>Income Tax Act & CRA Rules:</strong> This act, enforced by the CRA, dictates the record-keeping requirements for registered charities, including maintaining detailed records to verify donations and expenditures. It also governs the annual T3010 information return, which makes some financial data public." data-fr="<strong>Loi de l'Impôt sur le Revenu et Règles de l'ARC:</strong> Cette loi, appliquée par l'ARC, dicte les exigences de tenue de registres pour les organismes de bienfaisance enregistrés, y compris la tenue de registres détaillés pour vérifier les dons et les dépenses. Elle régit également la déclaration de renseignements annuelle T3010, qui rend certaines données financières publiques."><strong>Income Tax Act & CRA Rules:</strong> This act, enforced by the CRA, dictates the record-keeping requirements for registered charities, including maintaining detailed records to verify donations and expenditures. It also governs the annual T3010 information return, which makes some financial data public.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Restrictions -->
+        <section id="restrictions" class="mb-20 pt-16 -mt-16">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800" data-en="Limiting Access: How & Why It's Done" data-fr="Limiter l'Accès: Comment et Pourquoi">Limiting Access: How & Why It's Done</h3>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto" data-en="While transparency is key, restricting access to sensitive information like individual donor details is not only permissible but a critical part of good governance. This is achieved through three primary mechanisms." data-fr="Bien que la transparence soit essentielle, restreindre l'accès aux informations sensibles comme les détails des donateurs individuels est non seulement permis mais constitue une partie essentielle d'une bonne gouvernance. Ceci est réalisé par trois mécanismes principaux.">While transparency is key, restricting access to sensitive information like individual donor details is not only permissible but a critical part of good governance. This is achieved through three primary mechanisms.</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card bg-white p-6 rounded-lg text-center">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-[#E0E7E9] mb-4">
+                        <span class="text-2xl">📜</span>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2" data-en="Bylaws" data-fr="Règlements Intérieurs">Bylaws</h4>
+                    <p class="text-gray-600" data-en="The organization's bylaws are the most powerful tool. They should explicitly state that access to detailed &quot;accounting records&quot; (containing individual donor names and amounts) is restricted, while access to high-level &quot;financial statements&quot; is not. This creates a clear, legally-grounded policy." data-fr="Les règlements intérieurs de l'organisation sont l'outil le plus puissant. Ils devraient stipuler explicitement que l'accès aux « documents comptables » détaillés (contenant les noms et montants des donateurs individuels) est restreint, tandis que l'accès aux « états financiers » de haut niveau ne l'est pas. Cela crée une politique claire et juridiquement fondée.">The organization's bylaws are the most powerful tool. They should explicitly state that access to detailed "accounting records" (containing individual donor names and amounts) is restricted, while access to high-level "financial statements" is not. This creates a clear, legally-grounded policy.</p>
+                </div>
+                <div class="card bg-white p-6 rounded-lg text-center">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-[#E0E7E9] mb-4">
+                        <span class="text-2xl">🔐</span>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2" data-en="Policies" data-fr="Politiques">Policies</h4>
+                    <p class="text-gray-600" data-en="Internal policies on confidentiality, data security, and record-keeping provide the operational &quot;how-to.&quot; These policies should define roles (who can see what), mandate confidentiality agreements, and set technical safeguards like encryption and password rules to protect donor data." data-fr="Les politiques internes sur la confidentialité, la sécurité des données et la tenue de registres fournissent le « comment faire » opérationnel. Ces politiques devraient définir les rôles (qui peut voir quoi), exiger des accords de confidentialité et établir des mesures de protection techniques comme le chiffrement et les règles de mot de passe pour protéger les données des donateurs.">Internal policies on confidentiality, data security, and record-keeping provide the operational "how-to." These policies should define roles (who can see what), mandate confidentiality agreements, and set technical safeguards like encryption and password rules to protect donor data.</p>
+                </div>
+                 <div class="card bg-white p-6 rounded-lg text-center">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-[#E0E7E9] mb-4">
+                        <span class="text-2xl">⚖️</span>
+                    </div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2" data-en="Conflict of Interest" data-fr="Conflit d'Intérêts">Conflict of Interest</h4>
+                    <p class="text-gray-600" data-en="If a director has a conflict of interest, they must disclose it and recuse themselves from any discussion or vote on that matter. This automatically restricts their access to any sensitive financial or strategic information related to their conflict, protecting the integrity of the board's decisions." data-fr="Si un administrateur a un conflit d'intérêts, il doit le divulguer et se récuser de toute discussion ou vote sur cette question. Cela restreint automatiquement son accès à toute information financière ou stratégique sensible liée à son conflit, protégeant l'intégrité des décisions du conseil.">If a director has a conflict of interest, they must disclose it and recuse themselves from any discussion or vote on that matter. This automatically restricts their access to any sensitive financial or strategic information related to their conflict, protecting the integrity of the board's decisions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Risks & Consequences -->
+        <section id="risks" class="mb-20 pt-16 -mt-16">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800" data-en="Navigating the Minefield: Potential Legal Risks" data-fr="Naviguer dans le Champ de Mines: Risques Légaux Potentiels">Navigating the Minefield: Potential Legal Risks</h3>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto" data-en="Mishandling financial information—either by restricting it too much or not enough—can expose both the organization and its directors to significant legal and reputational harm." data-fr="La mauvaise gestion des informations financières – en les restreignant trop ou pas assez – peut exposer l'organisation et ses administrateurs à des préjudices juridiques et de réputation importants.">Mishandling financial information—either by restricting it too much or not enough—can expose both the organization and its directors to significant legal and reputational harm.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <a href="#risk-detail-1" class="risk-card card block bg-white p-6 rounded-lg text-center border-2 border-transparent hover:border-[#D9A477]">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4"><span class="text-2xl">👤</span></div>
+                    <h4 class="font-semibold text-gray-800" data-en="Breach of Fiduciary Duty" data-fr="Manquement au Devoir Fiduciaire">Breach of Fiduciary Duty</h4>
+                </a>
+                <a href="#risk-detail-2" class="risk-card card block bg-white p-6 rounded-lg text-center border-2 border-transparent hover:border-[#D9A477]">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4"><span class="text-2xl">📉</span></div>
+                    <h4 class="font-semibold text-gray-800" data-en="Loss of Charitable Status" data-fr="Perte du Statut d'Organisme de Bienfaisance">Loss of Charitable Status</h4>
+                </a>
+                <a href="#risk-detail-3" class="risk-card card block bg-white p-6 rounded-lg text-center border-2 border-transparent hover:border-[#D9A477]">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4"><span class="text-2xl">🛡️</span></div>
+                    <h4 class="font-semibold text-gray-800" data-en="Privacy Breach & Lawsuits" data-fr="Violation de la Vie Privée & Poursuites">Privacy Breach & Lawsuits</h4>
+                </a>
+                 <a href="#risk-detail-4" class="risk-card card block bg-white p-6 rounded-lg text-center border-2 border-transparent hover:border-[#D9A477]">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4"><span class="text-2xl">🏛️</span></div>
+                    <h4 class="font-semibold text-gray-800" data-en="Disputes & Court Action" data-fr="Litiges & Actions en Justice">Disputes & Court Action</h4>
+                </a>
+            </div>
+            <div class="mt-8 space-y-6">
+                <div id="risk-detail-1" class="risk-detail p-6 bg-gray-50 rounded-lg border hidden">
+                    <h4 class="font-bold text-lg text-red-700 mb-2" data-en="Breach of Fiduciary Duty & Personal Liability" data-fr="Manquement au Devoir Fiduciaire et Responsabilité Personnelle">Breach of Fiduciary Duty & Personal Liability</h4>
+                    <p class="text-gray-600" data-en="If your access to information is so restricted that you cannot fulfill your duty of care (i.e., you can't properly oversee finances), you could be held personally liable for any resulting mismanagement or non-compliance. Directors can be held accountable for problems they &quot;knew or ought to have known&quot; about." data-fr="Si votre accès à l'information est tellement restreint que vous ne pouvez pas remplir votre devoir de diligence (c'est-à-dire que vous ne pouvez pas superviser correctement les finances), vous pourriez être tenu personnellement responsable de toute mauvaise gestion ou non-conformité qui en découle. Les administrateurs peuvent être tenus responsables des problèmes qu'ils « connaissaient ou auraient dû connaître »." >If your access to information is so restricted that you cannot fulfill your duty of care (i.e., you can't properly oversee finances), you could be held personally liable for any resulting mismanagement or non-compliance. Directors can be held accountable for problems they "knew or ought to have known" about.</p>
+                </div>
+                <div id="risk-detail-2" class="risk-detail p-6 bg-gray-50 rounded-lg border hidden">
+                    <h4 class="font-bold text-lg text-red-700 mb-2" data-en="Non-Compliance & Loss of Status" data-fr="Non-conformité & Perte du Statut">Non-Compliance & Loss of Status</h4>
+                    <p class="text-gray-600" data-en="Failure to maintain proper financial records as required by the CRA and corporate acts can lead to severe penalties, including fines, suspension of receipting privileges, and ultimately, revocation of the organization's nonprofit or charitable status. Directors who knowingly permit such defaults can also be fined." data-fr="Le non-respect de la tenue de registres financiers appropriés, tel qu'exigé par l'ARC et les lois sur les sociétés, peut entraîner de graves pénalités, y compris des amendes, la suspension des privilèges de délivrance de reçus et, en fin de compte, la révocation du statut d'organisme à but non lucratif ou de bienfaisance de l'organisation. Les administrateurs qui autorisent, permettent ou acquiescent sciemment à de tels manquements peuvent également être passibles d'amendes.">Failure to maintain proper financial records as required by the CRA and corporate acts can lead to severe penalties, including fines, suspension of receipting privileges, and ultimately, revocation of the organization's nonprofit or charitable status. Directors who knowingly permit such defaults can also be fined.</p>
+                </div>
+                <div id="risk-detail-3" class="risk-detail p-6 bg-gray-50 rounded-lg border hidden">
+                    <h4 class="font-bold text-lg text-red-700 mb-2" data-en="Privacy Breaches & Legal Action" data-fr="Violations de la Vie Privée & Actions en Justice">Privacy Breaches & Legal Action</h4>
+                    <p class="text-gray-600" data-en="Improperly handling or disclosing donor information, even internally among board members without a clear &quot;need-to-know,&quot; can constitute a privacy breach. This can lead to investigations by the Privacy Commissioner, court action, class-action lawsuits, and severe reputational damage that erodes donor trust." data-fr="La mauvaise gestion ou la divulgation d'informations sur les donateurs, même en interne parmi les membres du conseil sans un « besoin de savoir » clair, peut constituer une violation de la vie privée. Cela peut entraîner des enquêtes du Commissaire à la protection de la vie privée, des actions en justice, des recours collectifs et de graves atteintes à la réputation qui érodent la confiance des donateurs.">Improperly handling or disclosing donor information, even internally among board members without a clear "need-to-know," can constitute a privacy breach. This can lead to investigations by the Privacy Commissioner, court action, class-action lawsuits, and severe reputational damage that erodes donor trust.</p>
+                </div>
+                <div id="risk-detail-4" class="risk-detail p-6 bg-gray-50 rounded-lg border hidden">
+                    <h4 class="font-bold text-lg text-red-700 mb-2" data-en="Disputes & Court Intervention" data-fr="Litiges & Intervention Judiciaire">Disputes & Court Intervention</h4>
+                    <p class="text-gray-600" data-en="When financial transparency is perceived to be lacking, it can lead to internal disputes. Members or even fellow directors can apply to a court for an investigation if they believe the organization is being managed in an oppressive or improper manner, leading to costly and public legal battles." data-fr="Lorsque la transparence financière est perçue comme insuffisante, cela peut entraîner des litiges internes. Les membres ou même d'autres administrateurs peuvent demander à un tribunal une enquête sur la société s'ils estiment que ses activités sont menées dans un but de fraude, ou d'une manière oppressive ou préjudiciable aux membres, ce qui entraîne des batailles juridiques coûteuses et publiques.">When financial transparency is perceived to be lacking, it can lead to internal disputes. Members or even fellow directors can apply to a court for an investigation if they believe the organization is being managed in an oppressive or improper manner, leading to costly and public legal battles.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Best Practices Checklist -->
+        <section id="best-practices" class="pt-16 -mt-16">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800" data-en="A Practical Checklist for Good Governance" data-fr="Une Liste de Vérification Pratique pour une Bonne Gouvernance">A Practical Checklist for Good Governance</h3>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto" data-en="Use this interactive checklist to assess and strengthen your organization's policies and procedures. These actionable steps help mitigate risk and build a strong foundation of trust and accountability." data-fr="Utilisez cette liste de vérification interactive pour évaluer et renforcer les politiques et procédures de votre organisation. Ces étapes concrètes aident à atténuer les risques et à bâtir une base solide de confiance et de responsabilité.">Use this interactive checklist to assess and strengthen your organization's policies and procedures. These actionable steps help mitigate risk and build a strong foundation of trust and accountability.</p>
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+                <div id="checklist" class="grid sm:grid-cols-2 gap-x-8 gap-y-4">
+                    <!-- Checklist items will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-20">
+        <div class="container mx-auto py-6 px-4 text-center text-sm">
+            <p data-en="Generated by Gemini Deep Research, June 2025" data-fr="Généré par Gemini Deep Research, juin 2025">Generated by Gemini Deep Research, June 2025</p>
+            <p class="mt-2 text-gray-400" data-en="Please note: This interactive guide is for informational purposes only and does not constitute legal advice. Nonprofits should consult with qualified legal and accounting professionals." data-fr="Veuillez noter: Ce guide interactif est à titre informatif seulement et ne constitue pas un avis juridique. Les organismes à but non lucratif devraient consulter des professionnels du droit et de la comptabilité qualifiés.">Please note: This interactive guide is for informational purposes only and does not constitute legal advice. Nonprofits should consult with qualified legal and accounting professionals.</p>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                title: "Interactive Guide to Nonprofit Financial Governance",
+                navAccess: "Access Rights",
+                navLegal: "Legal Framework",
+                navRestrictions: "Restrictions",
+                navRisks: "Risks",
+                navPractices: "Best Practices",
+                introH2: "Balancing Transparency & Privacy",
+                introP: "For board members of Canadian nonprofits, effective governance requires a delicate balance. You have a right to the financial information needed to fulfill your duties, but you also have a legal and ethical obligation to protect sensitive donor information. This guide helps you navigate that crucial intersection.",
+                accessH3: "What Information Can a Board Member See?",
+                accessP: "A key distinction in law exists between high-level \"Financial Statements\" and detailed \"Accounting Records.\" Your access rights differ significantly for each, which is the primary mechanism for balancing oversight with privacy.",
+                chartCaption: "This chart illustrates the fundamental difference in access rights. Click the bars for a detailed explanation.",
+                chartLabelDirectors: "Board Director Access",
+                chartLabelMembers: "Member Access",
+                chartFinancialStatements: "Financial Statements",
+                chartAccountingRecords: "Accounting Records",
+                explanationTitleFS: "Financial Statements",
+                explanationTextFS: "These provide a high-level overview of the organization's financial health (e.g., Income Statement, Balance Sheet).<br><br>• <strong>Directors:</strong> Full, unrestricted access is mandatory.<br>• <strong>Members:</strong> Have a statutory right to view and receive copies.<br>• <strong>Public:</strong> Limited access, often via T3010 filings for registered charities.",
+                explanationTitleAR: "Accounting Records",
+                explanationTextAR: "These are the granular, detailed records of every transaction, including bank statements, cheque details, and individual donation receipts with donor names and amounts.<br><br>• <strong>Directors:</strong> General right to access, but this <strong>can and should be restricted by the bylaws</strong> to protect sensitive personal and donor information.<br>• <strong>Members:</strong> Generally have no direct access.<br>• <strong>Public:</strong> No access.",
+                legalH3: "The Rules of the Road: Your Duties & Key Laws",
+                legalP: "Your actions as a board member are governed by fundamental duties and a web of federal and provincial legislation. Understanding these is essential to mitigating risk and ensuring compliance. Click each item to learn more.",
+                fiduciaryTitle: "Fiduciary Duties: The 3 Pillars of Responsibility",
+                fiduciaryDuty1: "<strong>1. Duty of Care:</strong> You must act with the diligence and prudence of a reasonable person in similar circumstances. This means being informed, attending meetings, reviewing financial reports, asking questions, and making decisions based on available information. Improperly restricted access to financial data can directly impede your ability to fulfill this duty.",
+                fiduciaryDuty2: "<strong>2. Duty of Loyalty:</strong> You must act honestly, in good faith, and in the best interests of the organization, placing its interests above your own personal or financial interests. This includes avoiding and disclosing any conflicts of interest.",
+                fiduciaryDuty3: "<strong>3. Duty of Obedience:</strong> You must ensure the organization acts in accordance with its stated mission, bylaws, and all applicable laws and regulations, including those from the Canada Revenue Agency (CRA) and other governing bodies.",
+                legislationTitle: "Key Legislation: Acts & Regulations",
+                legislationCorp: "<strong>Corporate Acts (e.g., CNCA, ONCA):</strong> These federal and provincial laws outline the fundamental governance structure for nonprofits. They grant directors the right to inspect corporate records, mandate proper record-keeping, and set the rules for member and board meetings, director liability, and financial reporting.",
+                legislationPrivacy: "<strong>Privacy Laws (PIPEDA, Provincial PIPAs, Quebec's Law 25):</strong> These laws govern how organizations collect, use, and disclose personal information. While routine fundraising may be exempt from PIPEDA, activities like selling donor lists are not. Quebec's Law 25 is stricter, applying to all organizations and all personal data processing, reinforcing the need for explicit consent and strong data security for all donor information.",
+                legislationTax: "<strong>Income Tax Act & CRA Rules:</strong> This act, enforced by the CRA, dictates the record-keeping requirements for registered charities, including maintaining detailed records to verify donations and expenditures. It also governs the annual T3010 information return, which makes some financial data public.",
+                restrictionsH3: "Limiting Access: How & Why It's Done",
+                restrictionsP: "While transparency is key, restricting access to sensitive information like individual donor details is not only permissible but a critical part of good governance. This is achieved through three primary mechanisms.",
+                bylawsCardTitle: "Bylaws",
+                bylawsCardText: "The organization's bylaws are the most powerful tool. They should explicitly state that access to detailed \"accounting records\" (containing individual donor names and amounts) is restricted, while access to high-level \"financial statements\" is not. This creates a clear, legally-grounded policy.",
+                policiesCardTitle: "Policies",
+                policiesCardText: "Internal policies on confidentiality, data security, and record-keeping provide the operational \"how-to.\" These policies should define roles (who can see what), mandate confidentiality agreements, and set technical safeguards like encryption and password rules to protect donor data.",
+                conflictCardTitle: "Conflict of Interest",
+                conflictCardText: "If a director has a conflict of interest, they must disclose it and recuse themselves from any discussion or vote on that matter. This automatically restricts their access to any sensitive financial or strategic information related to their conflict, protecting the integrity of the board's decisions.",
+                risksH3: "Navigating the Minefield: Potential Legal Risks",
+                risksP: "Mishandling financial information—either by restricting it too much or not enough—can expose both the organization and its directors to significant legal and reputational harm.",
+                riskCard1: "Breach of Fiduciary Duty",
+                riskCard2: "Loss of Charitable Status",
+                riskCard3: "Privacy Breach & Lawsuits",
+                riskCard4: "Disputes & Court Action",
+                riskDetail1Title: "Breach of Fiduciary Duty & Personal Liability",
+                riskDetail1Text: "If your access to information is so restricted that you cannot fulfill your duty of care (i.e., you can't properly oversee finances), you could be held personally liable for any resulting mismanagement or non-compliance. Directors can be held accountable for problems they \"knew or ought to have known\" about.",
+                riskDetail2Title: "Non-Compliance & Loss of Status",
+                riskDetail2Text: "Failure to maintain proper financial records as required by the CRA and corporate acts can lead to severe penalties, including fines, suspension of receipting privileges, and ultimately, revocation of the organization's nonprofit or charitable status. Directors who knowingly permit such defaults can also be fined.",
+                riskDetail3Title: "Privacy Breaches & Legal Action",
+                riskDetail3Text: "Improperly handling or disclosing donor information, even internally among board members without a clear \"need-to-know,\" can constitute a privacy breach. This can lead to investigations by the Privacy Commissioner, court action, class-action lawsuits, and severe reputational damage that erodes donor trust.",
+                riskDetail4Title: "Disputes & Court Intervention",
+                riskDetail4Text: "When financial transparency is perceived to be lacking, it can lead to internal disputes. Members or even fellow directors can apply to a court for an investigation if they believe the organization is being managed in an oppressive or improper manner, leading to costly and public legal battles.",
+                bestPracticesH3: "A Practical Checklist for Good Governance",
+                bestPracticesP: "Use this interactive checklist to assess and strengthen your organization's policies and procedures. These actionable steps help mitigate risk and build a strong foundation of trust and accountability.",
+                checklistItems: [
+                    "Develop clear bylaws distinguishing between Financial Statements and Accounting Records access.",
+                    "Create and enforce a robust Confidentiality Policy for all board, staff, and volunteers.",
+                    "Implement a formal Conflict of Interest policy with clear procedures for disclosure and recusal.",
+                    "Define user roles and permissions for data access on a 'need-to-know' basis.",
+                    "Use technical safeguards: encryption, strong passwords, and multi-factor authentication.",
+                    "Ensure regular, secure data backups are performed.",
+                    "Provide regular training to the board on fiduciary duties and privacy obligations.",
+                    "Prioritize storing Canadian donor data on Canadian servers, especially for Quebec residents.",
+                    "Maintain a clear record-keeping policy that meets CRA's 6-7 year retention requirements.",
+                    "Schedule regular reviews of all governance policies with professional legal/accounting advice.",
+                ],
+                footerGen: "Generated by Gemini Deep Research, June 2025",
+                footerDisclaimer: "Please note: This interactive guide is for informational purposes only and does not constitute legal advice. Nonprofits should consult with qualified legal and accounting professionals."
+            },
+            fr: {
+                title: "Guide Interactif de Gouvernance Financière des Organismes à But Non Lucratif",
+                navAccess: "Droits d'Accès",
+                navLegal: "Cadre Légal",
+                navRestrictions: "Restrictions",
+                navRisks: "Risques",
+                navPractices: "Bonnes Pratiques",
+                introH2: "Équilibrer Transparence et Confidentialité",
+                introP: "Pour les membres du conseil d'administration des organismes à but non lucratif canadiens, une gouvernance efficace exige un équilibre délicat. Vous avez le droit d'accéder aux informations financières nécessaires pour remplir vos fonctions, mais vous avez également l'obligation légale et éthique de protéger les informations sensibles des donateurs. Ce guide vous aide à naviguer à cette intersection cruciale.",
+                accessH3: "Quelles Informations un Membre du Conseil Peut-il Consulter?",
+                accessP: "Une distinction clé dans la loi existe entre les « États Financiers » de haut niveau et les « Documents Comptables » détaillés. Vos droits d'accès diffèrent significativement pour chacun, ce qui constitue le principal mécanisme pour équilibrer la supervision et la confidentialité.",
+                chartCaption: "Ce graphique illustre la différence fondamentale dans les droits d'accès. Cliquez sur les barres pour une explication détaillée.",
+                chartLabelDirectors: "Accès des Administrateurs",
+                chartLabelMembers: "Accès des Membres",
+                chartFinancialStatements: "États Financiers",
+                chartAccountingRecords: "Documents Comptables",
+                explanationTitleFS: "États Financiers",
+                explanationTextFS: "Ceux-ci fournissent un aperçu de haut niveau de la santé financière de l'organisation (par exemple, État des résultats, Bilan).<br><br>• <strong>Administrateurs:</strong> Accès complet et illimité est obligatoire.<br>• <strong>Membres:</strong> Ont un droit statutaire de consulter et de recevoir des copies.<br>• <strong>Public:</strong> Accès limité, souvent via les déclarations T3010 pour les organismes de bienfaisance enregistrés.",
+                explanationTitleAR: "Documents Comptables",
+                explanationTextAR: "Ce sont les registres granulaires et détaillés de chaque transaction, y compris les relevés bancaires, les détails des chèques et les reçus de dons individuels avec les noms et les montants des donateurs.<br><br>• <strong>Administrateurs:</strong> Droit général d'accès, mais cela <strong>peut et devrait être restreint par les règlements intérieurs</strong> pour protéger les informations personnelles et de donateurs sensibles.<br>• <strong>Membres:</strong> N'ont généralement pas d'accès direct.<br>• <strong>Public:</strong> Aucun accès.",
+                legalH3: "Les Règles du Jeu: Vos Devoirs et Lois Clés",
+                legalP: "Vos actions en tant que membre du conseil sont régies par des devoirs fondamentaux et un ensemble de législations fédérales et provinciales. Comprendre celles-ci est essentiel pour atténuer les risques et assurer la conformité. Cliquez sur chaque élément pour en savoir plus.",
+                fiduciaryTitle: "Devoirs Fiduciaires: Les 3 Piliers de la Responsabilité",
+                fiduciaryDuty1: "<strong>1. Devoir de Diligence:</strong> Vous devez agir avec la diligence et la prudence d'une personne raisonnable dans des circonstances similaires. Cela signifie être informé, assister aux réunions, examiner les rapports financiers, poser des questions et prendre des décisions basées sur les informations disponibles. Un accès indûment restreint aux données financières peut directement entraver votre capacité à remplir ce devoir.",
+                fiduciaryDuty2: "<strong>2. Devoir de Loyauté:</strong> Vous devez agir honnêtement, de bonne foi et dans le meilleur intérêt de l'organisation, en plaçant ses intérêts au-dessus de vos propres intérêts personnels ou financiers. Cela inclut l'évitement et la divulgation de tout conflit d'intérêts.",
+                fiduciaryDuty3: "<strong>3. Devoir d'Obéissance:</strong> Vous devez vous assurer que l'organisation agit conformément à sa mission déclarée, à ses règlements intérieurs et à toutes les lois et réglementations applicables, y compris celles de l'Agence du revenu du Canada (ARC) et d'autres organismes de réglementation.",
+                legislationTitle: "Législation Clé: Lois et Règlements",
+                legislationCorp: "<strong>Lois sur les Sociétés (ex. LCSA, LOBNL):</strong> Ces lois fédérales et provinciales définissent la structure de gouvernance fondamentale des organismes à but non lucratif. Elles accordent aux administrateurs le droit d'inspecter les registres de la société, exigent une tenue de registres appropriée et fixent les règles pour les réunions des membres et du conseil, la responsabilité des administrateurs et les rapports financiers.",
+                legislationPrivacy: "<strong>Lois sur la Protection de la Vie Privée (LPRPDE, Lois provinciales sur la protection des renseignements personnels, Loi 25 du Québec):</strong> Ces lois régissent la manière dont les organisations collectent, utilisent et divulguent les informations personnelles. Bien que la collecte de fonds de routine puisse être exemptée de la LPRPDE, les activités telles que la vente de listes de donateurs ne le sont pas. La Loi 25 du Québec est plus stricte, s'appliquant à toutes les organisations et à tout traitement de données personnelles, renforçant la nécessité d'un consentement explicite et d'une sécurité robuste des données pour toutes les informations des donateurs.",
+                legislationTax: "<strong>Loi de l'Impôt sur le Revenu et Règles de l'ARC:</strong> Cette loi, appliquée par l'ARC, dicte les exigences de tenue de registres pour les organismes de bienfaisance enregistrés, y compris la tenue de registres détaillés pour vérifier les dons et les dépenses. Elle régit également la déclaration de renseignements annuelle T3010, qui rend certaines données financières publiques.",
+                restrictionsH3: "Limiter l'Accès: Comment et Pourquoi",
+                restrictionsP: "Bien que la transparence soit essentielle, restreindre l'accès aux informations sensibles comme les détails des donateurs individuels est non seulement permis mais constitue une partie essentielle d'une bonne gouvernance. Ceci est réalisé par trois mécanismes principaux.",
+                bylawsCardTitle: "Règlements Intérieurs",
+                bylawsCardText: "Les règlements intérieurs de l'organisation sont l'outil le plus puissant. Ils devraient stipuler explicitement que l'accès aux « documents comptables » détaillés (contenant les noms et montants des donateurs individuels) est restreint, tandis que l'accès aux « états financiers » de haut niveau ne l'est pas. Cela crée une politique claire et juridiquement fondée.",
+                policiesCardTitle: "Politiques",
+                policiesCardText: "Les politiques internes sur la confidentialité, la sécurité des données et la tenue de registres fournissent le « comment faire » opérationnel. Ces politiques devraient définir les rôles (qui peut voir quoi), exiger des accords de confidentialité et établir des mesures de protection techniques comme le chiffrement et les règles de mot de passe pour protéger les données des donateurs.",
+                conflictCardTitle: "Conflit d'Intérêts",
+                conflictCardText: "Si un administrateur a un conflit d'intérêts, il doit le divulguer et se récuser de toute discussion ou vote sur cette question. Cela restreint automatiquement son accès à toute information financière ou stratégique sensible liée à son conflit, protégeant l'intégrité des décisions du conseil.",
+                risksH3: "Naviguer dans le Champ de Mines: Risques Légaux Potentiels",
+                risksP: "La mauvaise gestion des informations financières – en les restreignant trop ou pas assez – peut exposer l'organisation et ses administrateurs à des préjudices juridiques et de réputation importants.",
+                riskCard1: "Manquement au Devoir Fiduciaire",
+                riskCard2: "Perte du Statut d'Organisme de Bienfaisance",
+                riskCard3: "Violation de la Vie Privée & Poursuites",
+                riskCard4: "Litiges & Actions en Justice",
+                riskDetail1Title: "Manquement au Devoir Fiduciaire et Responsabilité Personnelle",
+                riskDetail1Text: "Si votre accès à l'information est tellement restreint que vous ne pouvez pas remplir votre devoir de diligence (c'est-à-dire que vous ne pouvez pas superviser correctement les finances), vous pourriez être tenu personnellement responsable de toute mauvaise gestion ou non-conformité qui en découle. Les administrateurs peuvent être tenus responsables des problèmes qu'ils « connaissaient ou auraient dû connaître ».",
+                riskDetail2Title: "Non-conformité & Perte du Statut",
+                riskDetail2Text: "Le non-respect de la tenue de registres financiers appropriés, tel qu'exigé par l'ARC et les lois sur les sociétés, peut entraîner de graves pénalités, y compris des amendes, la suspension des privilèges de délivrance de reçus et, en fin de compte, la révocation du statut d'organisme à but non lucratif ou de bienfaisance de l'organisation. Les administrateurs qui autorisent, permettent ou acquiescent sciemment à de tels manquements peuvent également être passibles d'amendes.",
+                riskDetail3Title: "Violations de la Vie Privée & Actions en Justice",
+                riskDetail3Text: "La mauvaise gestion ou la divulgation d'informations sur les donateurs, même en interne parmi les membres du conseil sans un « besoin de savoir » clair, peut constituer une violation de la vie privée. Cela peut entraîner des enquêtes du Commissaire à la protection de la vie privée, des actions en justice, des recours collectifs et de graves atteintes à la réputation qui érodent la confiance des donateurs.",
+                riskDetail4Title: "Litiges & Intervention Judiciaire",
+                riskDetail4Text: "Lorsque la transparence financière est perçue comme insuffisante, cela peut entraîner des litiges internes. Les membres ou même d'autres administrateurs peuvent demander à un tribunal une enquête sur la société s'ils estiment que ses activités sont menées dans un but de fraude, ou d'une manière oppressive ou préjudiciable aux membres, ce qui entraîne des batailles juridiques coûteuses et publiques.",
+                bestPracticesH3: "Une Liste de Vérification Pratique pour une Bonne Gouvernance",
+                bestPracticesP: "Utilisez cette liste de vérification interactive pour évaluer et renforcer les politiques et procédures de votre organisation. Ces étapes concrètes aident à atténuer les risques et à bâtir une base solide de confiance et de responsabilité.",
+                checklistItems: [
+                    "Élaborer des règlements intérieurs clairs distinguant l'accès aux états financiers et aux documents comptables.",
+                    "Créer et faire respecter une politique de confidentialité robuste pour tous les membres du conseil, le personnel et les bénévoles.",
+                    "Mettre en œuvre une politique formelle de conflit d'intérêts avec des procédures claires de divulgation et de récusation.",
+                    "Définir les rôles et les autorisations des utilisateurs pour l'accès aux données sur la base du « besoin de savoir ».",
+                    "Utiliser des mesures de protection techniques: chiffrement, mots de passe forts et authentification multi-facteurs.",
+                    "S'assurer que des sauvegardes régulières et sécurisées des données sont effectuées.",
+                    "Fournir une formation régulière au conseil sur les devoirs fiduciaires et les obligations en matière de confidentialité.",
+                    "Prioriser le stockage des données des donateurs canadiens sur des serveurs canadiens, surtout pour les résidents du Québec.",
+                    "Maintenir une politique claire de tenue de registres qui respecte les exigences de conservation de 6 à 7 ans de l'ARC.",
+                    "Planifier des examens réguliers de toutes les politiques de gouvernance avec des conseils juridiques/comptables professionnels.",
+                ],
+                footerGen: "Généré par Gemini Deep Research, juin 2025",
+                footerDisclaimer: "Veuillez noter: Ce guide interactif est à titre informatif seulement et ne constitue pas un avis juridique. Les organismes à but non lucratif devraient consulter des professionnels du droit et de la comptabilité qualifiés."
+            }
+        };
+
+        let currentLang = 'en'; // Default language
+
+        function updateContent() {
+            const elements = document.querySelectorAll('[data-en], [data-fr]');
+            elements.forEach(el => {
+                if (el.dataset[currentLang]) {
+                    el.innerHTML = el.dataset[currentLang];
+                }
+            });
+
+            // Update title
+            document.title = translations[currentLang].title;
+
+            // Update Chart.js labels
+            if (window.accessChart) {
+                window.accessChart.data.labels = [translations[currentLang].chartFinancialStatements, translations[currentLang].chartAccountingRecords];
+                window.accessChart.data.datasets[0].label = translations[currentLang].chartLabelDirectors;
+                window.accessChart.data.datasets[1].label = translations[currentLang].chartLabelMembers;
+                window.accessChart.update();
+            }
+
+            // Re-render checklist
+            renderChecklist();
+        }
+
+        function renderChecklist() {
+            const checklistContainer = document.getElementById('checklist');
+            checklistContainer.innerHTML = ''; // Clear existing
+            translations[currentLang].checklistItems.forEach(itemText => {
+                const div = document.createElement('div');
+                div.className = 'checklist-item flex items-center cursor-pointer';
+                div.innerHTML = `
+                    <div class="checkbox-icon mr-3 flex-shrink-0 w-5 h-5 border-2 border-gray-300 rounded-sm flex items-center justify-center transition-colors">
+                        <span class="hidden">✓</span>
+                    </div>
+                    <span>${itemText}</span>
+                `;
+                div.addEventListener('click', () => {
+                    div.classList.toggle('completed');
+                    div.querySelector('.checkbox-icon span').classList.toggle('hidden');
+                });
+                checklistContainer.appendChild(div);
+            });
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Language selection
+            const languageSelect = document.getElementById('language-select');
+            languageSelect.addEventListener('change', (e) => {
+                currentLang = e.target.value;
+                updateContent();
+            });
+
+            // Mobile navigation
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.addEventListener('change', (e) => {
+                window.location.hash = e.target.value;
+                // Update mobile nav options text
+                mobileNav.querySelectorAll('option').forEach(option => {
+                    if (option.dataset[currentLang]) {
+                        option.textContent = option.dataset[currentLang];
+                    }
+                });
+            });
+
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        // For risk cards, also trigger the display logic
+                        if (targetId.startsWith('#risk-detail')) {
+                             showRiskDetail(targetId);
+                        }
+                    }
+                });
+            });
+
+            // Active nav link highlighting on scroll
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            window.onscroll = () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = '#' + section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === current) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            // Accordion functionality
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = header.querySelector('.accordion-icon');
+                header.addEventListener('click', () => {
+                    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+                    // Close all other accordions
+                    accordionItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                           otherItem.querySelector('.accordion-content').style.maxHeight = '0px';
+                           otherItem.querySelector('.accordion-icon').classList.remove('rotate-45');
+                        }
+                    });
+
+                    // Toggle current accordion
+                    if (isOpen) {
+                        content.style.maxHeight = '0px';
+                        icon.classList.remove('rotate-45');
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.classList.add('rotate-45');
+                    }
+                });
+            });
+
+            // Risk card functionality
+            const riskCards = document.querySelectorAll('.risk-card');
+            const riskDetails = document.querySelectorAll('.risk-detail');
+
+            function showRiskDetail(targetId) {
+                riskDetails.forEach(detail => {
+                    if ('#' + detail.id === targetId) {
+                        detail.classList.remove('hidden');
+                    } else {
+                        detail.classList.add('hidden');
+                    }
+                });
+            }
+
+            riskCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = card.getAttribute('href');
+                    showRiskDetail(targetId);
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            });
+
+
+            // Chart.js implementation
+            const ctx = document.getElementById('accessChart').getContext('2d');
+            const initialChartData = {
+                labels: [translations[currentLang].chartFinancialStatements, translations[currentLang].chartAccountingRecords],
+                datasets: [
+                    {
+                        label: translations[currentLang].chartLabelDirectors,
+                        data: [100, 80], // 100% for Statements, 80% to represent "can be restricted"
+                        backgroundColor: 'rgba(93, 115, 126, 0.7)',
+                        borderColor: 'rgba(93, 115, 126, 1)',
+                        borderWidth: 1,
+                        barPercentage: 0.6,
+                    },
+                    {
+                        label: translations[currentLang].chartLabelMembers,
+                        data: [100, 10], // 100% for Statements, very low to represent "generally no access"
+                        backgroundColor: 'rgba(217, 164, 119, 0.7)',
+                        borderColor: 'rgba(217, 164, 119, 1)',
+                        borderWidth: 1,
+                        barPercentage: 0.6,
+                    }
+                ]
+            };
+            window.accessChart = new Chart(ctx, {
+                type: 'bar',
+                data: initialChartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            display: false,
+                            max: 100,
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                             ticks: {
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            enabled: false,
+                        },
+                    },
+                    onClick: (e, elements) => {
+                        const explanationBox = document.getElementById('chart-explanation');
+                        const titleEl = document.getElementById('explanation-title');
+                        const textEl = document.getElementById('explanation-text');
+
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            if (index === 0) {
+                                titleEl.textContent = translations[currentLang].explanationTitleFS;
+                                textEl.innerHTML = translations[currentLang].explanationTextFS;
+                            } else if (index === 1) {
+                                titleEl.textContent = translations[currentLang].explanationTitleAR;
+                                textEl.innerHTML = translations[currentLang].explanationTextAR;
+                            }
+                            explanationBox.classList.remove('hidden');
+                        } else {
+                            explanationBox.classList.add('hidden');
+                        }
+                    }
+                }
+            });
+
+            // Initial content update and checklist rendering
+            updateContent();
+        });
+    </script>
+</body>
+</html>
