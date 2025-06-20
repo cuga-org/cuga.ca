@@ -216,7 +216,23 @@
             </div>
 
             <div class="mt-8">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/arUaXDDEz54" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                <!-- Tab Navigation -->
+                <div class="flex justify-center mb-4 space-x-2 video-tabs-fr">
+                    <button data-tab="video-part1-fr" class="tab-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Partie 1</button>
+                    <button data-tab="video-part2-fr" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Partie 2</button>
+                    <button data-tab="video-part3-fr" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Partie 3</button>
+                </div>
+
+                <!-- Tab Content Panes -->
+                <div id="video-part1-fr" class="tab-content" style="display: block;">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/arUaXDDEz54" title="YouTube video player - Part 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                </div>
+                <div id="video-part2-fr" class="tab-content" style="display: none;">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/u5mPmKBfh_A" title="YouTube video player - Part 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                </div>
+                <div id="video-part3-fr" class="tab-content" style="display: none;">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/s1zHylEM89s" title="YouTube video player - Part 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                </div>
             </div>
             <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fcuga.org%2Fposts%2Fpfbid0xnVffaB1ah2U6sc2aSjjnPJhtRfY6fxzuPgzSud35YbKvV22JokdjEC8tGE5o7E9l&show_text=true&width=500" width="500" height="729" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" class="mx-auto mt-8"></iframe>
         </section>
@@ -385,7 +401,23 @@
             </div>
 
             <div class="mt-8">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/arUaXDDEz54" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                <!-- Tab Navigation -->
+                <div class="flex justify-center mb-4 space-x-2 video-tabs-en">
+                    <button data-tab="video-part1-en" class="tab-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Part 1</button>
+                    <button data-tab="video-part2-en" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Part 2</button>
+                    <button data-tab="video-part3-en" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Part 3</button>
+                </div>
+
+                <!-- Tab Content Panes -->
+                <div id="video-part1-en" class="tab-content" style="display: block;">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/arUaXDDEz54" title="YouTube video player - Part 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                </div>
+                <div id="video-part2-en" class="tab-content" style="display: none;">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/u5mPmKBfh_A" title="YouTube video player - Part 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                </div>
+                <div id="video-part3-en" class="tab-content" style="display: none;">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/s1zHylEM89s" title="YouTube video player - Part 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                </div>
             </div>
             <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fcuga.org%2Fposts%2Fpfbid0xnVffaB1ah2U6sc2aSjjnPJhtRfY6fxzuPgzSud35YbKvV22JokdjEC8tGE5o7E9l&show_text=true&width=500" width="500" height="729" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" class="mx-auto mt-8"></iframe>
         </section>
@@ -668,6 +700,46 @@
 
             window.addEventListener('scroll', onScroll);
             onScroll(); // Initial check in case the page loads on a scrolled position
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            function setupVideoTabs(sectionId) {
+                const section = document.getElementById(sectionId);
+                if (!section) return;
+
+                const tabButtons = section.querySelectorAll('.tab-button');
+                const tabContents = section.querySelectorAll('.tab-content');
+
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const targetTab = button.dataset.tab;
+
+                        // Update button styles
+                        tabButtons.forEach(btn => {
+                            if (btn === button) {
+                                btn.classList.remove('bg-gray-300', 'text-gray-700', 'hover:bg-gray-400');
+                                btn.classList.add('bg-blue-500', 'text-white', 'hover:bg-blue-700');
+                            } else {
+                                btn.classList.remove('bg-blue-500', 'text-white', 'hover:bg-blue-700');
+                                btn.classList.add('bg-gray-300', 'text-gray-700', 'hover:bg-gray-400');
+                            }
+                        });
+
+                        // Show/hide tab content
+                        tabContents.forEach(content => {
+                            if (content.id === targetTab) {
+                                content.style.display = 'block';
+                            } else {
+                                content.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            }
+
+            setupVideoTabs('nationals');
+            setupVideoTabs('nationals-en');
         });
     </script>
 </body>
