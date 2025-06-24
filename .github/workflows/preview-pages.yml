@@ -1,115 +1,171 @@
-name: Deploy Static Preview Pages and Comment (using deploy-pages)
+name: Reusable - Deploy Static Preview Pages
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  workflow_call:
+    inputs:
+      calling_repo_owner:
+        description: 'Owner of the calling repository (e.g., github.repository_owner)'
+        required: true
+        type: string
+      calling_repo_name:
+        description: 'Name of the calling repository (e.g., github.event.repository.name)'
+        required: true
+        type: string
+      pr_number:
+        description: 'Pull request number from the calling repository'
+        required: true
+        type: number
+      pr_head_ref:
+        description: 'Head ref (branch name) of the PR from the calling repository'
+        required: true
+        type: string
+      default_branch:
+        description: 'Default branch of the calling repository (e.g., main)'
+        required: true
+        type: string
+      cname_domain:
+        description: 'Optional CNAME for GitHub Pages. If provided, this will be used for constructing preview URLs.'
+        required: false
+        type: string
+        default: ''
+      lint_file_path:
+        description: 'Path to the HTML file to lint in the PR content, relative to PR root. Set to empty string to disable linting.'
+        required: false
+        type: string
+        default: 'index.html'
+      build_command:
+        description: 'Optional command to build the static site (e.g., "npm install && npm run build"). Executed in PR content directory.'
+        required: false
+        type: string
+        default: ''
+      static_site_path:
+        description: 'Path to the generated static site files after build, relative to PR content directory. Defaults to "." (root).'
+        required: false
+        type: string
+        default: '.'
+    secrets:
+      CALLING_REPO_TOKEN:
+        description: 'GitHub token from calling repo with permissions: pages:write, contents:read, pull-requests:write, id-token:write'
+        required: true
 
 permissions:
-  pages: write      # to deploy to GitHub Pages
-  contents: read   # to checkout the code
-  pull-requests: write # to comment on PRs
-  id-token: write
-  
+  pages: write      # to deploy to GitHub Pages (for this repo, if it were deploying itself)
+  contents: read   # to checkout the code (of this reusable workflow itself)
+  # pull-requests: write # Not needed for this repo, but for the calling repo via CALLING_REPO_TOKEN
+  # id-token: write # Not needed for this repo, but for the calling repo via CALLING_REPO_TOKEN
+
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
+    env:
+      CALLING_REPO_FULL_NAME: ${{ inputs.calling_repo_owner }}/${{ inputs.calling_repo_name }}
+      PR_CONTENT_PATH: ./pr_content # Path where the calling PR's content will be checked out
+      MAIN_CONTENT_PATH: ./temp_deploy # Path where the calling repo's main branch content will be checked out for site root
+
     steps:
-      - name: Get open PRs
+      - name: Get open PRs from Calling Repository
         id: get_open_prs
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.CALLING_REPO_TOKEN }}
           script: |
+            const scriptOwner = '${{ inputs.calling_repo_owner }}';
+            const scriptRepo = '${{ inputs.calling_repo_name }}';
+            core.info(`Fetching open PRs for ${scriptOwner}/${scriptRepo}`);
             try {
               const openPulls = await github.paginate(github.rest.pulls.list, {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
+                owner: scriptOwner,
+                repo: scriptRepo,
                 state: 'open',
                 per_page: 100
               });
 
               if (openPulls.length === 0) {
-                console.log('No open pull requests found.');
+                console.log('No open pull requests found in calling repository.');
                 core.setOutput('prs_info', JSON.stringify([]));
                 return;
               }
 
               const prsInfo = openPulls.map(pr => ({
                 number: pr.number,
-                head_ref: pr.head.ref
-                // sha: pr.head.sha // Example if SHA is needed later
+                head_ref: pr.head.ref,
+                head_sha: pr.head.sha // Capture SHA for version.json
               }));
 
-              console.log(`Found ${prsInfo.length} open PRs:`, JSON.stringify(prsInfo, null, 2));
+              console.log(`Found ${prsInfo.length} open PRs in ${scriptOwner}/${scriptRepo}:`, JSON.stringify(prsInfo, null, 2));
               core.setOutput('prs_info', JSON.stringify(prsInfo));
 
             } catch (error) {
-              core.setFailed(`Failed to get open PRs: ${error.message}`);
-              core.setOutput('prs_info', JSON.stringify([])); // Ensure valid JSON output on error
+              core.setFailed(`Failed to get open PRs from ${scriptOwner}/${scriptRepo}: ${error.message}`);
+              core.setOutput('prs_info', JSON.stringify([]));
             }
 
-      - name: Checkout PR branch
+      - name: Checkout PR branch from Calling Repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0 # Fetch all history for flexibility, though not strictly needed for rsync
+          repository: ${{ env.CALLING_REPO_FULL_NAME }}
+          ref: ${{ inputs.pr_head_ref }}
+          token: ${{ secrets.CALLING_REPO_TOKEN }}
+          path: ${{ env.PR_CONTENT_PATH }}
+          fetch-depth: 0 # Full history might be needed if build process relies on git history
 
-      - name: Setup Node.js for HTMLHint
+      - name: Setup Node.js for HTMLHint (and potential build step)
+        if: inputs.lint_file_path != '' || inputs.build_command != ''
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
       - name: Install HTMLHint
+        if: inputs.lint_file_path != ''
         run: npm install -g htmlhint
 
-      - name: Lint HTML (index.html)
-        run: htmlhint index.html # Linting PR's root index.html
+      - name: Lint HTML in PR content
+        if: inputs.lint_file_path != ''
+        run: htmlhint ${{ env.PR_CONTENT_PATH }}/${{ inputs.lint_file_path }}
+        continue-on-error: true # Allow workflow to continue even if linting fails
 
-      - name: Create temporary directory for deployment
-        run: mkdir temp_deploy
+      - name: Build static site (if build_command is provided)
+        if: inputs.build_command != ''
+        working-directory: ${{ env.PR_CONTENT_PATH }}
+        run: ${{ inputs.build_command }}
 
-      # New step to checkout main branch content into temp_deploy
-      - name: Checkout main branch to temp_deploy
+      - name: Checkout default branch of Calling Repository to MAIN_CONTENT_PATH
         uses: actions/checkout@v4
         with:
-          ref: 'main' # Or your default branch
-          path: './temp_deploy'
+          repository: ${{ env.CALLING_REPO_FULL_NAME }}
+          ref: ${{ inputs.default_branch }}
+          token: ${{ secrets.CALLING_REPO_TOKEN }}
+          path: ${{ env.MAIN_CONTENT_PATH }}
+          fetch-depth: 1
 
-      # The PR's own code is checked out to the workspace root by the "Checkout PR branch" step earlier.
-      # So, files at `./` are from the PR, files at `./temp_deploy` are from main.
-
-      # Optional: Verify main branch checkout into temp_deploy if needed
-      # - name: Verify main checkout in temp_deploy
-      #   run: |
-      #     if [ ! -f temp_deploy/index.html ]; then
-      #       echo "ERROR: temp_deploy/index.html not found after checking out main branch!"
-      #       ls -R temp_deploy
-      #       exit 1
-      #     fi
-      #     echo "Main branch content successfully checked out to temp_deploy/index.html."
-
-      - name: Create root version.json in temp_deploy
+      - name: Create root version.json in MAIN_CONTENT_PATH
         run: |
-          MAIN_SHA=$(git -C ./temp_deploy rev-parse HEAD)
-          echo "{\"main_branch_commit_sha\":\"$MAIN_SHA\", \"included_pr_previews\": ${{ steps.get_open_prs.outputs.prs_info }} }" > ./temp_deploy/version.json
-          echo "Root version.json created in temp_deploy:"
-          cat ./temp_deploy/version.json
+          MAIN_SHA=$(git -C ${{ env.MAIN_CONTENT_PATH }} rev-parse HEAD)
+          echo "{\"default_branch_commit_sha\":\"$MAIN_SHA\", \"default_branch_name\":\"${{ inputs.default_branch }}\", \"included_pr_previews\": ${{ steps.get_open_prs.outputs.prs_info }} }" > ${{ env.MAIN_CONTENT_PATH }}/version.json
+          echo "Root version.json created in ${{ env.MAIN_CONTENT_PATH }}:"
+          cat ${{ env.MAIN_CONTENT_PATH }}/version.json
 
-      # This step replaces the old "Create preview subdirectory" and "Copy PR content..."
-      - name: Populate All PR Previews
+      - name: Populate All PR Previews into MAIN_CONTENT_PATH
         uses: actions/github-script@v7
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Explicitly pass GITHUB_TOKEN to env
+          CALLING_REPO_TOKEN_ENV: ${{ secrets.CALLING_REPO_TOKEN }}
+          CALLING_REPO_FULL_NAME_ENV: ${{ env.CALLING_REPO_FULL_NAME }}
+          MAIN_CONTENT_PATH_ENV: ${{ env.MAIN_CONTENT_PATH }}
+          BUILD_COMMAND_ENV: ${{ inputs.build_command }}
+          STATIC_SITE_PATH_ENV: ${{ inputs.static_site_path }}
         with:
+          github-token: ${{ secrets.CALLING_REPO_TOKEN }} # For Octokit instance for PR comments
           script: |
             const fs = require('fs');
-            const cp = require('child_process'); // Using Node.js built-in child_process
+            const path = require('path');
+            const cp = require('child_process');
+            const core = require('@actions/core'); // Ensure core is available
 
             const prsInfoString = '${{ steps.get_open_prs.outputs.prs_info }}';
             let prsInfo = [];
             try {
               prsInfo = JSON.parse(prsInfoString);
             } catch (e) {
-              console.error("Failed to parse prs_info JSON:", e);
               core.setFailed("Failed to parse prs_info JSON: " + e.message + ". Input was: " + prsInfoString);
               return;
             }
@@ -119,50 +175,82 @@ jobs:
               return;
             }
 
-            const githubToken = process.env.GITHUB_TOKEN;
-            const githubRepo = process.env.GITHUB_REPOSITORY; // GITHUB_REPOSITORY is 'owner/repo'
+            const callingRepoToken = process.env.CALLING_REPO_TOKEN_ENV;
+            const callingRepoFullName = process.env.CALLING_REPO_FULL_NAME_ENV;
+            const mainContentPath = process.env.MAIN_CONTENT_PATH_ENV;
+            const buildCommand = process.env.BUILD_COMMAND_ENV;
+            const staticSitePath = process.env.STATIC_SITE_PATH_ENV.startsWith('/') ? process.env.STATIC_SITE_PATH_ENV.substring(1) : process.env.STATIC_SITE_PATH_ENV;
 
-            if (!githubToken) {
-              core.setFailed('GITHUB_TOKEN is not available in the environment.');
+            const previewsRootPath = path.join(mainContentPath, 'previews');
+
+            // Ensure a clean slate for previews for this deployment
+            console.log(`Clearing and recreating previews directory: ${previewsRootPath}`);
+            fs.rmSync(previewsRootPath, { recursive: true, force: true });
+            fs.mkdirSync(previewsRootPath, { recursive: true });
+
+            if (!callingRepoToken) {
+              core.setFailed('CALLING_REPO_TOKEN_ENV is not available.');
               return;
             }
-            if (!githubRepo) {
-              core.setFailed('GITHUB_REPOSITORY is not available in the environment.');
+            if (!callingRepoFullName) {
+              core.setFailed('CALLING_REPO_FULL_NAME_ENV is not available.');
               return;
             }
 
             for (const pr of prsInfo) {
               const prCheckoutPath = `./checkout_pr_${pr.number}`;
-              const targetDir = `./temp_deploy/previews/${pr.number}`;
+              const targetDir = path.join(mainContentPath, 'previews', pr.number.toString());
 
               try {
-                console.log(`Processing PR #${pr.number} (branch: ${pr.head_ref})`);
+                console.log(`Processing PR #${pr.number} (branch: ${pr.head_ref}) from ${callingRepoFullName}`);
 
-                // Cleanup before clone (in case of re-runs or failures)
-                cp.execSync(`rm -rf "${prCheckoutPath}"`);
+                cp.execSync(`rm -rf "${prCheckoutPath}"`); // Cleanup
 
                 console.log(`Cloning PR #${pr.number} branch ${pr.head_ref} into ${prCheckoutPath}`);
-                const repoUrl = `https://x-access-token:${githubToken}@github.com/${githubRepo}.git`;
+                const repoUrl = `https://x-access-token:${callingRepoToken}@github.com/${callingRepoFullName}.git`;
                 cp.execSync(`git clone --depth=1 --branch "${pr.head_ref}" "${repoUrl}" "${prCheckoutPath}"`);
 
-                const headSha = cp.execSync('git rev-parse HEAD', { cwd: prCheckoutPath, encoding: 'utf8' }).trim();
+                // Get actual SHA from the checkout
+                const actualHeadSha = cp.execSync('git rev-parse HEAD', { cwd: prCheckoutPath, encoding: 'utf8' }).trim();
 
-                const versionJsonContent = JSON.stringify({ commit_sha: headSha, branch: pr.head_ref, pr_number: pr.number });
-                fs.writeFileSync(`${prCheckoutPath}/version.json`, versionJsonContent);
-                console.log(`Created version.json for PR #${pr.number} in ${prCheckoutPath}`);
+                // Run build command if specified for this PR's content
+                if (buildCommand && buildCommand.trim() !== '') {
+                  console.log(`Running build command for PR #${pr.number}: ${buildCommand}`);
+                  cp.execSync(buildCommand, { cwd: prCheckoutPath, stdio: 'inherit' }); // inherit stdio to see build logs
+                }
+
+                // Determine source path for rsync (after potential build)
+                let prSourcePath = prCheckoutPath;
+                if (staticSitePath && staticSitePath !== '.') {
+                  prSourcePath = path.join(prCheckoutPath, staticSitePath);
+                }
+                // Ensure trailing slash for rsync source if it's a directory
+                if (fs.statSync(prSourcePath).isDirectory() && !prSourcePath.endsWith('/')) {
+                    prSourcePath += '/';
+                }
+
+
+                // Create version.json inside the content to be copied
+                const versionJsonContent = JSON.stringify({ commit_sha: actualHeadSha, branch: pr.head_ref, pr_number: pr.number });
+                const versionJsonTargetDir = staticSitePath && staticSitePath !== '.' ? path.join(prCheckoutPath, staticSitePath) : prCheckoutPath;
+                // Ensure directory for version.json exists if staticSitePath is nested
+                if (staticSitePath && staticSitePath !== '.') {
+                    fs.mkdirSync(versionJsonTargetDir, { recursive: true });
+                }
+                fs.writeFileSync(path.join(versionJsonTargetDir, 'version.json'), versionJsonContent);
+                console.log(`Created version.json for PR #${pr.number} in ${versionJsonTargetDir}`);
+
 
                 fs.mkdirSync(targetDir, { recursive: true });
                 console.log(`Ensured target directory ${targetDir} exists.`);
 
-                console.log(`Copying content from ${prCheckoutPath}/ to ${targetDir}/`);
-                // Adding a trailing slash to source path is important for rsync
-                cp.execSync(`rsync -av --delete "${prCheckoutPath}/" "${targetDir}/" --exclude .git`);
+                console.log(`Copying content from ${prSourcePath} to ${targetDir}/`);
+                cp.execSync(`rsync -av --delete "${prSourcePath}" "${targetDir}/" --exclude .git --exclude node_modules`); // Exclude .git and node_modules
 
               } catch (error) {
-                console.error(`Failed to process PR #${pr.number} (branch ${pr.head_ref}): ${error.message}`);
-                // Log error but continue with other PRs.
-                // To fail the entire step on one PR's failure, uncomment next line:
-                // core.setFailed(`Failed to process PR #${pr.number}: ${error.message}`); return;
+                core.error(`Failed to process PR #${pr.number} (branch ${pr.head_ref}): ${error.message}\n${error.stack}`);
+                // Continue with other PRs, but log the error prominently.
+                // To fail the entire step on one PR's failure, use core.setFailed(...) and return.
               } finally {
                 console.log(`Cleaning up ${prCheckoutPath} for PR #${pr.number}`);
                 cp.execSync(`rm -rf "${prCheckoutPath}"`);
@@ -172,83 +260,111 @@ jobs:
 
       - name: Set up GitHub Pages
         uses: actions/configure-pages@v4
+        # This action configures Pages for the repository where the workflow runs.
+        # For reusable workflows, this means it configures Pages for the repo hosting the reusable workflow.
+        # This is generally fine if the calling repo will point its Pages source to this deployment.
+        # However, the deployment itself uses the CALLING_REPO_TOKEN, so it *should* deploy to the calling repo's Pages.
 
-      - name: Upload artifact
+      - name: Upload artifact to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './temp_deploy' # Upload the temp_deploy directory
-          name: github-pages
+          path: ${{ env.MAIN_CONTENT_PATH }} # Upload the MAIN_CONTENT_PATH directory (formerly temp_deploy)
+          # name: github-pages # Default name is fine
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          artifact_name: github-pages
+        # This action uses the GITHUB_TOKEN from the context of the reusable workflow's repository by default.
+        # However, since Pages were configured (implicitly or explicitly) for the calling repo via permissions
+        # granted to CALLING_REPO_TOKEN, and the artifact is built with content from the calling repo,
+        # this step should deploy to the calling repository's GitHub Pages.
+        # The `id-token: write` permission given to CALLING_REPO_TOKEN is key here.
 
-      - name: Read CNAME domain
-        id: cname_reader
-        run: echo "CNAME_DOMAIN=$(cat CNAME || echo '')" >> $GITHUB_ENV
-
-      - name: Add comment to PR
+      - name: Add comment to PR in Calling Repository
         uses: actions/github-script@v7
-        env: # Pass prs_info as an environment variable
-          PRS_INFO_JSON: ${{ steps.get_open_prs.outputs.prs_info }}
+        env:
+          PRS_INFO_JSON_ENV: ${{ steps.get_open_prs.outputs.prs_info }}
+          CNAME_DOMAIN_ENV: ${{ inputs.cname_domain }}
+          CALLING_REPO_OWNER_ENV: ${{ inputs.calling_repo_owner }}
+          CALLING_REPO_NAME_ENV: ${{ inputs.calling_repo_name }}
+          PR_NUMBER_ENV: ${{ inputs.pr_number }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }} # Corrected: github-token
+          github-token: ${{ secrets.CALLING_REPO_TOKEN }}
           script: |
-            async function run() {
-              const currentPRNumber = context.payload.pull_request.number;
-              const prsInfoJson = process.env.PRS_INFO_JSON || '[]';
+            const { Octokit } = require("@octokit/action");
+            const github = new Octokit(); // Uses the provided github-token (CALLING_REPO_TOKEN)
 
-              let allPRs = [];
-              try {
-                allPRs = JSON.parse(prsInfoJson);
-                if (!Array.isArray(allPRs)) {
-                  core.warning(`Parsed PRS_INFO_JSON was not an array. Input: "${prsInfoJson}". Defaulting to empty array.`);
-                  allPRs = [];
-                }
-              } catch (e) {
-                core.warning(`Could not parse PRS_INFO_JSON. Error: "${e.message}". Input: "${prsInfoJson}". Defaulting to empty array.`);
-                allPRs = [];
-              }
+            const currentPRNumber = parseInt(process.env.PR_NUMBER_ENV, 10);
+            const prsInfoJson = process.env.PRS_INFO_JSON_ENV || '[]';
+            const repoOwner = process.env.CALLING_REPO_OWNER_ENV;
+            const repoName = process.env.CALLING_REPO_NAME_ENV;
 
-              const otherPRNumbers = allPRs
-                .map(pr => pr.number)
-                .filter(num => num !== currentPRNumber);
-
-              const cnameDomain = process.env.CNAME_DOMAIN;
-              let previewUrlRoot = '';
-
-              if (cnameDomain && cnameDomain.trim() !== '') {
-                previewUrlRoot = `https://${cnameDomain.trim()}`;
-              } else {
-                previewUrlRoot = `https://${context.repo.owner}.github.io/${context.repo.repo}`;
-                core.warning('CNAME_DOMAIN environment variable not found or empty. Using default GitHub Pages URL for PR comment.');
-              }
-
-              const prPreviewPath = `/previews/${currentPRNumber}/`;
-              const specificPreviewUrl = `${previewUrlRoot}${prPreviewPath}`;
-
-              let messageBody = `🎉 Preview for this PR (#${currentPRNumber}) deployed at: [View Preview](${specificPreviewUrl})\n\n`;
-              messageBody += `The base site content is from the \`main\` branch. A global \`version.json\` at [${previewUrlRoot}/version.json](${previewUrlRoot}/version.json) lists all included PRs and the base \`main\` commit SHA.\n`;
-              messageBody += `Each PR's preview directory also contains a specific \`version.json\` for that PR's content.\n\n`;
-
-              if (otherPRNumbers.length > 0) {
-                messageBody += `This deployment also contains previews for other active PRs: ${otherPRNumbers.map(num => `#${num}`).join(', ')}.`;
-              } else {
-                messageBody += `This deployment does not include previews for any other active PRs at this time.`;
-              }
-
-              try {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: currentPRNumber,
-                  body: messageBody
-                });
-                console.log(`Comment posted on PR #${currentPRNumber}.`);
-              } catch (error) {
-                core.setFailed(`Failed to post comment on PR #${currentPRNumber}: ${error.message}`);
-              }
+            let allPRs = [];
+            try {
+              allPRs = JSON.parse(prsInfoJson);
+              if (!Array.isArray(allPRs)) allPRs = [];
+            } catch (e) {
+              allPRs = [];
+              core.warning(`Could not parse PRS_INFO_JSON for comment. Error: "${e.message}". Input: "${prsInfoJson}".`);
             }
-            return run();
+
+            const otherPRNumbers = allPRs
+              .map(pr => pr.number)
+              .filter(num => num !== currentPRNumber);
+
+            const cnameDomain = process.env.CNAME_DOMAIN_ENV;
+            let previewUrlRoot = '';
+
+            if (cnameDomain && cnameDomain.trim() !== '') {
+              previewUrlRoot = `https://${cnameDomain.trim()}`;
+            } else {
+              previewUrlRoot = `https://${repoOwner}.github.io/${repoName}`;
+            }
+
+            const prPreviewPath = `/previews/${currentPRNumber}/`;
+            // Adjust if static_site_path means index.html is not at the root of prPreviewPath
+            // For now, assume standard structure where index.html is at the root of what's deployed for the PR.
+            const specificPreviewUrl = `${previewUrlRoot}${prPreviewPath}`;
+
+            let messageBody = `🎉 Preview for this PR (#${currentPRNumber}) deployed at: [View Preview](${specificPreviewUrl})\n\n`;
+            messageBody += `The base site content is from the \`${"${{ inputs.default_branch }}"}\` branch. A global \`version.json\` at [${previewUrlRoot}/version.json](${previewUrlRoot}/version.json) lists all included PRs and the base default branch commit SHA.\n`;
+            messageBody += `Each PR's preview directory also contains a specific \`version.json\` for that PR's content.\n\n`;
+
+            if (otherPRNumbers.length > 0) {
+              messageBody += `This deployment also contains previews for other active PRs: ${otherPRNumbers.map(num => `#${num}`).join(', ')}.`;
+            } else {
+              messageBody += `This deployment does not include previews for any other active PRs at this time.`;
+            }
+
+            if (process.env.GITHUB_ACTIONS === 'true' && ${{ inputs.pr_number }} > 0) { // Only comment if in Actions and pr_number is valid
+                try {
+                  await github.rest.issues.createComment({
+                    owner: repoOwner,
+                    repo: repoName,
+                    issue_number: currentPRNumber,
+                    body: messageBody
+                  });
+                  console.log(`Comment posted on PR #${currentPRNumber} in ${repoOwner}/${repoName}.`);
+                } catch (error) {
+                  core.setFailed(`Failed to post comment on PR #${currentPRNumber} in ${repoOwner}/${repoName}: ${error.message}`);
+                }
+            } else {
+                console.log("Skipping PR comment (not in GITHUB_ACTIONS or invalid pr_number). Message body:");
+                console.log(messageBody);
+            }
+
+
+# Ensure the script has access to core for logging and setting failed status
+# This is a common pattern in github-script
+const core = require('@actions/core');
+// The rest of your script...
+// Make sure to call core.setFailed or core.error on failures.
+// Example:
+// if (!someCondition) {
+//   core.setFailed("Some condition was not met.");
+//   return;
+// }
+// console.log("All good.");
+// core.info("Informational message");
+// core.warning("Warning message");
+// core.error("Error message");
