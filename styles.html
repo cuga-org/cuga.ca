@@ -68,7 +68,6 @@
     </button>
     -->
     <nav class="nav-menu" id="navMenuDemo" aria-hidden="true">
-        <button class="nav-menu-close" id="navMenuClose" aria-label="Close menu">&times;</button>
         <a href="#colors" class="nav-link">Colors</a>
         <a href="#typography" class="nav-link active">Typography</a>
         <a href="#buttons" class="nav-link">Buttons</a>
@@ -241,7 +240,7 @@
         // Basic hamburger menu toggle for demo purposes
         const newHamburgerToggle = document.getElementById('hamburgerToggleButton'); // Updated ID
         const navMenuDemo = document.getElementById('navMenuDemo');
-        const navMenuClose = document.getElementById('navMenuClose');
+        // const navMenuClose = document.getElementById('navMenuClose'); // Removed
         const navLinks = navMenuDemo.querySelectorAll('.nav-link');
 
         function toggleMenu() {
@@ -249,14 +248,16 @@
             newHamburgerToggle.setAttribute('aria-expanded', isOpen); // Updated reference
             navMenuDemo.setAttribute('aria-hidden', !isOpen);
             if (isOpen) {
-                navMenuClose.focus(); // Focus the close button when opened
+                // navMenuClose.focus(); // Removed as navMenuClose is removed
+                // Optionally, focus the menu itself or the first link
+                // For now, no specific focus is set here when opening, besides default browser behavior.
             } else {
                 newHamburgerToggle.focus(); // Return focus to the toggle button - Updated reference
             }
         }
 
         newHamburgerToggle.addEventListener('click', toggleMenu); // Updated reference
-        navMenuClose.addEventListener('click', toggleMenu);
+        // navMenuClose.addEventListener('click', toggleMenu); // Removed
 
         // Close menu when a nav link is clicked (optional, good for SPA-like behavior)
         navLinks.forEach(link => {

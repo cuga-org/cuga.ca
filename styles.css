@@ -362,20 +362,7 @@ select:focus-visible {
   text-decoration: underline;
 }
 
-.nav-menu-close {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  font-size: 2rem;
-  color: var(--white);
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-.nav-menu-close:hover,
-.nav-menu-close:focus {
-  color: var(--accent-color);
-}
+/* .nav-menu-close rule removed as the element is deleted */
 
 
 /* 6. Cards & Containers */
