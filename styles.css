@@ -45,6 +45,78 @@ body {
   box-sizing: border-box;
 }
 
+/* Site Header */
+.site-header {
+  background-color: var(--primary-color);
+  height: 120px;
+  display: flex; /* For vertical alignment of .header-container if its height is less than 120px */
+  align-items: center;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  /* height: 100%; /* Let content + padding define height within site-header's 120px */
+  padding-left: var(--content-padding-mobile);
+  padding-right: var(--content-padding-mobile);
+}
+
+@media (min-width: 768px) {
+  .header-container {
+    padding-left: var(--content-padding-desktop);
+    padding-right: var(--content-padding-desktop);
+  }
+}
+
+.site-logo-link {
+  display: inline-block; /* Or flex item if other items are beside it directly */
+  line-height: 0; /* Prevent extra space if img is display:inline */
+}
+
+.site-logo {
+  max-width: 350px;
+  max-height: 80px; /* Fits within 120px header with some breathing room */
+  height: auto;   /* Maintain aspect ratio */
+  display: block; /* Remove extra space below if inline */
+}
+
+.hamburger-icon-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 24px;
+  padding: 0;
+  z-index: 1002; /* Ensure it's above other header content if needed, and below menu */
+}
+
+.hamburger-icon-button span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--white);
+  border-radius: 1px;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* For X animation */
+}
+
+/* Optional: Hamburger to X animation */
+.nav-menu.is-open ~ .site-header .hamburger-icon-button span:nth-child(1), /* This selector might need adjustment based on final HTML structure if .site-header is not a sibling of .nav-menu or if button is not a direct child */
+.hamburger-icon-button[aria-expanded="true"] span:nth-child(1) { /* More direct targeting */
+  transform: translateY(10.5px) rotate(45deg); /* (height of button / 2) - (height of span / 2) approximation or exact calc */
+}
+.hamburger-icon-button[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-icon-button[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-10.5px) rotate(-45deg);
+}
+
+
 /* 2. Typography */
 .hero-title, .display-h1 {
   font-size: 3rem; /* 48px */

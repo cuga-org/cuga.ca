@@ -43,6 +43,18 @@
     </style>
 </head>
 <body>
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="/" class="site-logo-link">
+                <img src="assets/logos/CUGA/Horizontal/EN/Reversed/CUGA-logo-h-en-reverse-rgb-sm.png" alt="CUGA Logo" class="site-logo">
+            </a>
+            <button class="hamburger-icon-button" id="hamburgerToggleButton" aria-label="Open menu" aria-expanded="false" aria-controls="navMenuDemo">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
 
     <header class="style-guide-header">
         <div class="container">
@@ -51,10 +63,12 @@
         </div>
     </header>
 
-    <!-- Hamburger Menu Demo -->
+    <!-- Hamburger Menu Demo - This button will be controlled by the new .hamburger-icon-button -->
+    <!--
     <button class="hamburger-toggle" id="hamburgerToggle" aria-expanded="false" aria-controls="navMenuDemo">
         ☰ Menu
     </button>
+    -->
     <nav class="nav-menu" id="navMenuDemo" aria-hidden="true">
         <button class="nav-menu-close" id="navMenuClose" aria-label="Close menu">&times;</button>
         <a href="#colors" class="nav-link">Colors</a>
@@ -227,23 +241,23 @@
 
     <script>
         // Basic hamburger menu toggle for demo purposes
-        const hamburgerToggle = document.getElementById('hamburgerToggle');
+        const newHamburgerToggle = document.getElementById('hamburgerToggleButton'); // Updated ID
         const navMenuDemo = document.getElementById('navMenuDemo');
         const navMenuClose = document.getElementById('navMenuClose');
         const navLinks = navMenuDemo.querySelectorAll('.nav-link');
 
         function toggleMenu() {
             const isOpen = navMenuDemo.classList.toggle('is-open');
-            hamburgerToggle.setAttribute('aria-expanded', isOpen);
+            newHamburgerToggle.setAttribute('aria-expanded', isOpen); // Updated reference
             navMenuDemo.setAttribute('aria-hidden', !isOpen);
             if (isOpen) {
                 navMenuClose.focus(); // Focus the close button when opened
             } else {
-                hamburgerToggle.focus(); // Return focus to the toggle button
+                newHamburgerToggle.focus(); // Return focus to the toggle button - Updated reference
             }
         }
 
-        hamburgerToggle.addEventListener('click', toggleMenu);
+        newHamburgerToggle.addEventListener('click', toggleMenu); // Updated reference
         navMenuClose.addEventListener('click', toggleMenu);
 
         // Close menu when a nav link is clicked (optional, good for SPA-like behavior)
