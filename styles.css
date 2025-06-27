@@ -77,6 +77,7 @@ body {
   /* .hamburger-icon-button { width: 24px; height: 20px; } */
   /* .hamburger-icon-button span { height: 2px; } */
 }
+/* Note: This media query block is moved further down to ensure overrides. */
 
 /* Style Guide Header / Subpage Hero Banner Styling */
 .style-guide-header {
@@ -86,9 +87,9 @@ body {
 }
 
 .style-guide-header h1 {
-  color: var(--primary-color); /* Deep Navy Blue */
+  color: var(--white); /* Changed to white */
 }
-/* Note: p.small-text color is handled inline in styles.html for now to be var(--primary-color) */
+/* Note: p.small-text color is handled inline in styles.html for now to be var(--white) */
 
 @media (min-width: 768px) {
   .style-guide-header {
@@ -148,6 +149,19 @@ body {
 .nav-menu-close {
   /* Styles for .nav-menu-close are defined further down in the .nav-menu section */
   /* This is just a check to ensure no conflicting span-based animations are applied here */
+}
+
+@media (max-width: 767px) {
+  .site-header {
+    height: 64px;
+  }
+  .site-logo {
+    max-width: 220px;
+    max-height: 44px; /* Adjusted for 64px header height with 10px padding top/bottom */
+  }
+  /* Adjust hamburger icon if needed for smaller header */
+  /* .hamburger-icon-button { width: 24px; height: 20px; } */
+  /* .hamburger-icon-button span { height: 2px; } */
 }
 
 /* 2. Typography */
