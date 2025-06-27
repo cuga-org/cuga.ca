@@ -58,14 +58,46 @@ body {
   box-sizing: border-box; /* Include padding in width/height */
 }
 
-/* Removed .header-container rule as its properties are merged into .site-header */
-
 @media (min-width: 768px) {
   .site-header { /* Apply desktop padding to .site-header directly */
     padding-left: var(--content-padding-desktop);
     padding-right: var(--content-padding-desktop);
   }
 }
+
+@media (max-width: 767px) {
+  .site-header {
+    height: 64px;
+  }
+  .site-logo {
+    max-width: 220px;
+    max-height: 44px; /* Adjusted for 64px header height with 10px padding top/bottom */
+  }
+  /* Adjust hamburger icon if needed for smaller header */
+  /* .hamburger-icon-button { width: 24px; height: 20px; } */
+  /* .hamburger-icon-button span { height: 2px; } */
+}
+
+/* Style Guide Header / Subpage Hero Banner Styling */
+.style-guide-header {
+  background-color: var(--secondary-color); /* Sky Blue */
+  padding: 2rem var(--content-padding-mobile);
+  margin-bottom: 2rem;
+}
+
+.style-guide-header h1 {
+  color: var(--primary-color); /* Deep Navy Blue */
+}
+/* Note: p.small-text color is handled inline in styles.html for now to be var(--primary-color) */
+
+@media (min-width: 768px) {
+  .style-guide-header {
+    padding-left: var(--content-padding-desktop);
+    padding-right: var(--content-padding-desktop);
+  }
+}
+
+/* .site-logo-link is defined below, this is just ensuring no duplication from erroneous merge */
 
 .site-logo-link {
   display: inline-block; /* Or flex item if other items are beside it directly */
