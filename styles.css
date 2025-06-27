@@ -180,8 +180,9 @@ p, .p {
 
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: var(--background-light-gray);
-  color: var(--primary-color); /* Ensure text color remains on hover for outlined */
+  background-color: var(--primary-color);
+  color: var(--white);
+  border-color: var(--primary-color); /* Ensure border matches background */
 }
 
 .btn-secondary {
@@ -192,9 +193,9 @@ p, .p {
 
 .btn-secondary:hover,
 .btn-secondary:focus {
-  background-color: #4C9AE0; /* Darker Sky Blue */
-  border-color: #4C9AE0;
-  color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: var(--white);
+  border-color: var(--primary-color); /* Ensure border matches background */
 }
 
 .btn:disabled,
@@ -403,11 +404,12 @@ textarea.form-control {
 .icon-secondary { color: var(--secondary-color); }
 
 
-/* Maple Leaf (Placeholder - SVG would be embedded or as img src) */
+/* Maple Leaf (PNG image) */
 .maple-leaf-decorative {
-  width: 40px; /* Example size */
-  height: auto;
-  color: var(--accent-color); /* For SVG fill/stroke */
+  width: 40px; /* Example size, can be adjusted */
+  height: auto; /* Maintain aspect ratio */
+  vertical-align: middle; /* Better alignment if used inline with text */
+  /* color: var(--accent-color); /* Removed as PNG color is inherent */
 }
 
 /* Dividers */
@@ -427,9 +429,9 @@ textarea.form-control {
 /* 9. Decorative Elements */
 .wave-separator {
   display: block;
-  width: 100px; /* Fixed width as per guideline */
-  height: auto; /* Maintain aspect ratio of SVG */
-  color: var(--primary-color); /* For SVG fill/stroke */
+  width: 100px; /* Fixed width as per guideline, adjust as needed for PNG */
+  height: auto; /* Maintain aspect ratio */
+  /* color: var(--primary-color); /* Removed as PNG color is inherent */
   margin: 16px auto; /* Centered with spacing */
 }
 
