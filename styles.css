@@ -49,22 +49,19 @@ body {
 .site-header {
   background-color: var(--primary-color);
   height: 120px;
-  display: flex; /* For vertical alignment of .header-container if its height is less than 120px */
-  align-items: center;
-}
-
-.header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  /* height: 100%; /* Let content + padding define height within site-header's 120px */
   padding-left: var(--content-padding-mobile);
   padding-right: var(--content-padding-mobile);
+  width: 100%; /* Ensure it spans full width if not default for header element */
+  box-sizing: border-box; /* Include padding in width/height */
 }
 
+/* Removed .header-container rule as its properties are merged into .site-header */
+
 @media (min-width: 768px) {
-  .header-container {
+  .site-header { /* Apply desktop padding to .site-header directly */
     padding-left: var(--content-padding-desktop);
     padding-right: var(--content-padding-desktop);
   }
@@ -104,18 +101,22 @@ body {
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* For X animation */
 }
 
-/* Optional: Hamburger to X animation */
-.nav-menu.is-open ~ .site-header .hamburger-icon-button span:nth-child(1), /* This selector might need adjustment based on final HTML structure if .site-header is not a sibling of .nav-menu or if button is not a direct child */
-.hamburger-icon-button[aria-expanded="true"] span:nth-child(1) { /* More direct targeting */
-  transform: translateY(10.5px) rotate(45deg); /* (height of button / 2) - (height of span / 2) approximation or exact calc */
+/* Hamburger to X animation */
+.hamburger-icon-button[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(10.5px) rotate(45deg); /* Adjust if button height/span height changes */
 }
 .hamburger-icon-button[aria-expanded="true"] span:nth-child(2) {
   opacity: 0;
 }
 .hamburger-icon-button[aria-expanded="true"] span:nth-child(3) {
-  transform: translateY(-10.5px) rotate(-45deg);
+  transform: translateY(-10.5px) rotate(-45deg); /* Adjust if button height/span height changes */
 }
 
+/* Ensure .nav-menu-close is not affected by these span animations */
+.nav-menu-close {
+  /* Styles for .nav-menu-close are defined further down in the .nav-menu section */
+  /* This is just a check to ensure no conflicting span-based animations are applied here */
+}
 
 /* 2. Typography */
 .hero-title, .display-h1 {
