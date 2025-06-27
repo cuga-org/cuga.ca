@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Style Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for the style guide page itself */
+        body { padding-bottom: 100px; }
+        .style-guide-header { background-color: var(--primary-color); color: var(--white); padding: 2rem var(--content-padding-desktop); margin-bottom: 2rem; }
+        .style-guide-header h1 { color: var(--white); }
+        .style-guide-section { margin-bottom: 3rem; padding: 1.5rem; background-color: var(--white); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .style-guide-section h2 { margin-top: 0; border-bottom: 1px solid var(--divider-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        .color-swatch { display: inline-block; width: 100px; height: 100px; margin-right: 10px; margin-bottom:10px; border: 1px solid var(--divider-color); text-align: center; padding-top:40px; font-size:0.8rem; }
+        .color-swatch.dark-bg { color: var(--white); }
+        .button-showcase button, .button-showcase .btn { margin-right: 10px; margin-bottom: 10px; }
+        .typography-showcase > div { margin-bottom: 1.5rem; border: 1px dashed var(--divider-color); padding: 1rem; }
+        .layout-example { background-color: var(--background-light-gray); padding: 1rem; }
+        .layout-example .content-block { padding: 1rem; margin-bottom: 1rem; }
+        .card-showcase .card { margin-bottom: var(--card-margin-bottom); }
+        .icon-placeholder { display: inline-block; width: 24px; height: 24px; background-color: #ccc; border-radius: 3px; text-align:center; line-height:24px; font-size:12px; color:#fff; margin-right: 8px; vertical-align: middle;}
+        .wave-placeholder { width: 100px; height: 20px; background: repeating-linear-gradient( 45deg, #000435, #000435 5px, #fff 5px, #fff 10px ); margin: 16px auto; }
+
+        /* Hamburger Menu Toggle Button for demo */
+        .hamburger-toggle {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.75rem 1rem;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001; /* Above menu */
+        }
+        .hamburger-toggle:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="style-guide-header">
+        <div class="container">
+            <h1>Visual Style Guide</h1>
+            <p class="small-text" style="color: var(--secondary-color);">Kumbh Sans Showcase</p>
+        </div>
+    </header>
+
+    <!-- Hamburger Menu Demo -->
+    <button class="hamburger-toggle" id="hamburgerToggle" aria-expanded="false" aria-controls="navMenuDemo">
+        ☰ Menu
+    </button>
+    <nav class="nav-menu" id="navMenuDemo" aria-hidden="true">
+        <button class="nav-menu-close" id="navMenuClose" aria-label="Close menu">&times;</button>
+        <a href="#colors" class="nav-link">Colors</a>
+        <a href="#typography" class="nav-link active">Typography</a>
+        <a href="#buttons" class="nav-link">Buttons</a>
+        <a href="#links" class="nav-link">Links</a>
+        <a href="#forms" class="nav-link">Forms</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- Colors Section -->
+        <section id="colors" class="style-guide-section">
+            <h2>1. Colors</h2>
+            <div>
+                <div class="color-swatch dark-bg" style="background-color: var(--primary-color);">#000435<br/>Primary</div>
+                <div class="color-swatch dark-bg" style="background-color: var(--secondary-color);">#61B0F6<br/>Secondary</div>
+                <div class="color-swatch dark-bg" style="background-color: var(--accent-color);">#FB2000<br/>Accent</div>
+                <div class="color-swatch" style="background-color: var(--background-light-gray);">#F2F2F2<br/>Bg Light Gray</div>
+                <div class="color-swatch dark-bg" style="background-color: var(--text-charcoal);">#272625<br/>Text Charcoal</div>
+                <div class="color-swatch" style="background-color: var(--white); border: 1px solid #eee;">#FFFFFF<br/>White</div>
+            </div>
+            <p class="small-text">Ensure all combinations meet accessibility contrast ratios.</p>
+        </section>
+
+        <!-- Typography Section -->
+        <section id="typography" class="style-guide-section typography-showcase">
+            <h2>2. Typography</h2>
+            <p>Font Family: 'Kumbh Sans', sans-serif</p>
+
+            <div>
+                <span class="small-text text-secondary">Hero Title / .display-h1</span>
+                <h1 class="hero-title">Hero Title Heading</h1>
+            </div>
+            <div>
+                <span class="small-text text-secondary">H1 / .h1</span>
+                <h1>H1 Heading</h1>
+            </div>
+            <div>
+                <span class="small-text text-secondary">H2 / .h2</span>
+                <h2>H2 Heading</h2>
+            </div>
+            <div>
+                <span class="small-text text-secondary">H3 / .h3</span>
+                <h3>H3 Heading</h3>
+            </div>
+            <div>
+                <span class="small-text text-secondary">Paragraph / .p</span>
+                <p>This is a standard paragraph of text. Kumbh Sans provides clarity, boldness, and a clean visual rhythm. It is used for general body text and should have a max-width of 700px for optimal readability. Line height is set to 1.6.</p>
+            </div>
+            <div>
+                <span class="small-text text-secondary">Small Text / .small-text</span>
+                <p class="small-text">This is small text, typically used for captions or secondary information (14px, 600 weight).</p>
+            </div>
+        </section>
+
+        <!-- Layout Section -->
+        <section id="layout" class="style-guide-section">
+            <h2>3. Layout</h2>
+            <p>Max container width: <code>1280px</code>. Content padding: Mobile <code>1.875rem</code>, Desktop <code>3.75rem</code>. Section padding: Mobile <code>3rem</code>, Desktop <code>5rem</code>.</p>
+            <div class="layout-example">
+                <p class="small-text text-center">This is inside a .container, within a .section</p>
+                <div class="content-block">
+                    <h3 class="h3">Content Block (.content-block)</h3>
+                    <p>This block has a white background and standard padding.</p>
+                </div>
+                <div class="grid grid-cols-1 grid-cols-md-3">
+                    <div class="content-block"><p class="small-text text-center">Column 1</p></div>
+                    <div class="content-block"><p class="small-text text-center">Column 2</p></div>
+                    <div class="content-block"><p class="small-text text-center">Column 3</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buttons Section -->
+        <section id="buttons" class="style-guide-section button-showcase">
+            <h2>4. Buttons</h2>
+            <p>Squared, minimal style with uppercase bold text and no radius.</p>
+            <div>
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-primary btn-icon">Primary Icon</button>
+                <button class="btn btn-primary" disabled>Disabled Primary</button>
+            </div>
+            <div>
+                <button class="btn btn-secondary">Secondary Button</button>
+                <button class="btn btn-secondary btn-icon">Secondary Icon</button>
+                <button class="btn btn-secondary" disabled>Disabled Secondary</button>
+            </div>
+        </section>
+
+        <!-- Links & Interactive Elements Section -->
+        <section id="links" class="style-guide-section">
+            <h2>5. Links & Interactive Elements</h2>
+            <div>
+                <span class="small-text text-secondary">Text Link</span>
+                <p>This is a <a href="#">standard text link</a>. Hover or focus to see the accent color and underline.</p>
+            </div>
+            <div>
+                <span class="small-text text-secondary">Navigation Link Style (example)</span>
+                <p><a href="#" class="nav-link">Nav Link Example</a> (hover/focus for style)</p>
+            </div>
+            <p>Focus styles: <code>outline: 2px solid #61B0F6; outline-offset: 2px;</code> (Try tabbing through elements)</p>
+        </section>
+
+        <!-- Cards & Containers Section -->
+        <section id="cards" class="style-guide-section card-showcase">
+            <h2>6. Cards & Containers</h2>
+            <p>Background: #FFFFFF, No border-radius, no shadow. Padding: Mobile 1.5rem, Desktop 2.5rem.</p>
+            <div class="grid grid-cols-1 grid-cols-md-2">
+                <div class="card">
+                    <h3 class="h3">Standard Card</h3>
+                    <p>This is a standard card with content. It's a clean white block.</p>
+                    <button class="btn btn-secondary">Read More</button>
+                </div>
+                <div class="card card-image-top">
+                    <img src="https://via.placeholder.com/400x200.png?text=Placeholder+Image" alt="Placeholder">
+                    <h3 class="h3">Image Card</h3>
+                    <p>This card has an image at the top. Content is aligned below.</p>
+                </div>
+                <div class="card card-callout">
+                    <h3 class="h3">Callout Block Card</h3>
+                    <p>This card uses the light gray background (<code>#F2F2F2</code>) for emphasis.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forms Section -->
+        <section id="forms" class="style-guide-section">
+            <h2>7. Forms</h2>
+            <form action="#" method="post" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="e.g., Jules Verne">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control is-error" placeholder="you@example.com" value="invalid-email">
+                    <span class="form-error-message">Please enter a valid email address.</span>
+                </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" class="form-control" rows="4" placeholder="Your message..."></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit Form</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Icons & Visual Elements Section -->
+        <section id="icons" class="style-guide-section">
+            <h2>8. Icons & Visual Elements</h2>
+            <p><span class="icon-placeholder">i</span> <span class="icon-text">Icon with text (16-32px, typically stroke). Color context-dependent.</span></p>
+            <p><span class="icon-placeholder" style="background-color:var(--accent-color)">🍁</span> Maple Leaf: Decorative accent, SVG preferred. Color: <code>#FB2000</code>.</p>
+
+            <p class="small-text text-secondary" style="margin-top:1.5rem;">Divider:</p>
+            <hr class="divider">
+            <p class="small-text">Subtle section separation (1px, #DCDCDC).</p>
+        </section>
+
+        <!-- Decorative Elements Section -->
+        <section id="decorative" class="style-guide-section text-center">
+            <h2>9. Decorative Elements</h2>
+            <p>Wave Separator (SVG)</p>
+            <!-- Placeholder for SVG Wave -->
+            <div class="wave-placeholder" aria-hidden="true"></div>
+            <p class="small-text">Color: #000435, Width: ~80-100px, Spacing: 16px above/below.</p>
+        </section>
+
+    </div> <!-- /container -->
+
+    <script>
+        // Basic hamburger menu toggle for demo purposes
+        const hamburgerToggle = document.getElementById('hamburgerToggle');
+        const navMenuDemo = document.getElementById('navMenuDemo');
+        const navMenuClose = document.getElementById('navMenuClose');
+        const navLinks = navMenuDemo.querySelectorAll('.nav-link');
+
+        function toggleMenu() {
+            const isOpen = navMenuDemo.classList.toggle('is-open');
+            hamburgerToggle.setAttribute('aria-expanded', isOpen);
+            navMenuDemo.setAttribute('aria-hidden', !isOpen);
+            if (isOpen) {
+                navMenuClose.focus(); // Focus the close button when opened
+            } else {
+                hamburgerToggle.focus(); // Return focus to the toggle button
+            }
+        }
+
+        hamburgerToggle.addEventListener('click', toggleMenu);
+        navMenuClose.addEventListener('click', toggleMenu);
+
+        // Close menu when a nav link is clicked (optional, good for SPA-like behavior)
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenuDemo.classList.contains('is-open')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Close menu with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && navMenuDemo.classList.contains('is-open')) {
+                toggleMenu();
+            }
+        });
+    </script>
+
+</body>
+</html>
