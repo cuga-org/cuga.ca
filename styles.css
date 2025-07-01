@@ -1,3 +1,49 @@
+/* Responsive sports grid: last card with text beside image if odd number of cards */
+.sports-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 900px) {
+  .sports-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* Affichage "feature" pour la dernière carte seulement si le nombre de cartes est pair (géré côté HTML via une classe JS ou server, ou via :nth-child(even):last-child si besoin) */
+  .sports-grid .card.card-discover-feature.featured-last {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    min-height: 320px;
+  }
+  .sports-grid .card.card-discover-feature.featured-last .image-aspect-ratio-2-1 {
+    grid-column: 1;
+    height: 173px;
+    min-height: unset;
+    border-radius: 0.5rem 0 0 0.5rem;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .sports-grid .card.card-discover-feature.featured-last .image-aspect-ratio-2-1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem 0 0 0.5rem;
+  }
+  .sports-grid .card.card-discover-feature.featured-last .card-content-custom-padding {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0 2.5rem 2.5rem 2.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background: var(--white);
+    box-shadow: none;
+  }
+}
 /* Design System Styles */
 /* Based on design.md */
 
@@ -80,19 +126,38 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for fixed header */
 }
 
+
+/*
+ * Correction : supprimez le max-width et le margin auto pour que .site-header-content occupe toute la largeur,
+ * et que le logo soit collé à gauche et les contrôles à droite, sans marge latérale automatique.
+ */
+/*
+ * Correction : supprimez tout padding horizontal sur .site-header-content pour que le logo et les contrôles collent aux bords.
+ */
 .site-header-content {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
   width: 100%;
-  max-width: var(--max-container-width); /* Align with .container */
-  margin: 0 auto; /* Center content */
-  padding: 0 var(--content-padding-mobile);
+  padding: 0;
 }
 @media (min-width: 768px) {
   .site-header-content {
-    padding: 0 var(--content-padding-desktop);
+    padding: 0;
   }
+}
+
+.site-logo-link {
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+.header-controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 
@@ -183,8 +248,8 @@ body {
 
 .left-sidebar {
   width: 100%; /* Full width on mobile */
-  background-color: var(--primary-color);
-  color: var(--white);
+  background-color: var(--white);
+  color: var(--text-charcoal);
   padding: var(--content-padding-mobile);
   display: flex; /* Flex to center content wrapper */
   flex-direction: column;
@@ -238,21 +303,21 @@ body {
 .sidebar-hero-title {
   /* Based on "WELCOME TO THE HOME..." description: Very Large */
   /* Kumbh Sans, 900 weight, uppercase is in .hero-title / .display-h1 */
-  font-size: 2.5rem; /* Approx 40px, adjust as needed */
+  font-size: 1.9rem; /* Approx 40px, adjust as needed */
   font-weight: 900;
   text-transform: uppercase;
-  color: var(--white); /* Explicitly white for sidebar */
+  color: var(--text-charcoal); /* Noir pour le titre hero */
   line-height: 1.2;
   margin-bottom: 1.5rem;
 }
 @media (min-width: 768px) {
   .sidebar-hero-title {
-    font-size: 3rem; /* Approx 48px for desktop */
+    font-size: 2.5rem; /* Approx 48px for desktop */
   }
 }
 @media (min-width: 1280px) {
   .sidebar-hero-title {
-    font-size: 3.5rem; /* Approx 56px for larger desktops */
+    font-size: 3rem; /* Approx 56px for larger desktops */
   }
 }
 
@@ -321,9 +386,12 @@ body {
 /* Title Block Discover within cards - adjustments if needed */
 .card-discover-feature .title-block-discover .pre-title {
   /* Existing: color, font-size (18px), font-weight, text-transform, margin-bottom */
-  font-size: 1rem; /* 16px, as per "Medium-large" potentially */
-  color: var(--pretitle-accent-color); /* Already defined */
-  font-weight: 700; /* Bolder pre-title */
+  font-size: 1rem; /* 16px, as per "Medium-large" potentiellement */
+  color: var(--pretitle-accent-color); /* Déjà défini */
+  font-weight: 700; /* Plus gras */
+  margin-top: 0; /* Réduit l'espace au-dessus du texte */
+  padding-top: 0; /* Supprime tout padding éventuel */
+  margin-bottom: 0.1rem; /* Garde l'espace sous le texte très compact */
 }
 
 .card-discover-feature .title-block-discover .main-title {
@@ -594,22 +662,17 @@ p, .p {
   font-family: var(--font-family-base);
   font-size: 0.875rem; /* 14px */
   font-weight: 700;
-  text-transform: uppercase;
   padding: 12px 24px;
   letter-spacing: 0.05em;
   border-radius: 0;
   text-decoration: none;
   cursor: pointer;
   display: inline-block;
-  text-align: center;
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
-.btn-icon::after {
-  content: ' →'; /* Optional arrow */
-  display: inline-block;
-  margin-left: 0.5em;
-}
+
+/* Plus de flèche automatique sur les boutons via CSS. Ajoutez la flèche directement dans le HTML. */
 
 .btn-primary {
   color: var(--primary-color);
@@ -733,10 +796,11 @@ select:focus-visible {
   display: block;
   padding: 1rem 1.5rem;
   color: var(--white);
+  background: var(--primary-color);
   text-decoration: none;
-  font-size: 1rem; /* Adjusted from 1.5rem */
-  font-weight: 600; /* Slightly bolder for menu items */
-  transition: background-color 0.2s ease, color 0.2s ease;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .nav-menu .nav-link:hover,
@@ -759,7 +823,9 @@ select:focus-visible {
   list-style: none;
   padding-left: 0; /* Remove default padding */
   margin: 0;
-  background-color: rgba(0,0,0,0.2); /* Slightly darker background for submenu */
+  background-color: var(--white); /* Blanc pour la lisibilité */
+  color: var(--primary-color); /* Texte foncé pour contraste */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06); /* Optionnel: légère ombre pour détacher */
   display: none; /* Hidden by default */
 }
 
@@ -770,6 +836,14 @@ select:focus-visible {
 .nav-menu .submenu .nav-link {
   padding-left: 2.5rem; /* Indent submenu items */
   font-size: 0.9rem;
+  color: var(--primary-color); /* Texte foncé pour sous-menu */
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-menu .submenu .nav-link:hover,
+.nav-menu .submenu .nav-link:focus {
+  background: var(--secondary-color);
+  color: var(--white);
 }
 
 .nav-menu .submenu-toggle {
@@ -780,14 +854,16 @@ select:focus-visible {
 }
 
 .nav-menu .submenu-toggle::after {
-  content: '\\f078'; /* FontAwesome down arrow */
-  font-family: 'FontAwesome';
+  content: '▶'; /* Flèche droite par défaut */
+  font-family: inherit;
   font-size: 0.8em;
+  margin-left: 0.5em;
   transition: transform 0.3s ease;
 }
 
 .nav-menu .submenu-toggle[aria-expanded="true"]::after {
-  transform: rotate(-180deg); /* Rotate arrow when submenu is open */
+  content: '▼'; /* Flèche vers le bas quand ouvert */
+  transform: none;
 }
 
 /* Language switcher and other utilities in menu */
@@ -885,19 +961,20 @@ select:focus-visible {
 
 .image-aspect-ratio-2-1 { /* Renamed from .image-aspect-ratio-16-9 */
   position: relative;
-  padding-bottom: 50%; /* 2:1 ratio */
-  height: 0;
+  height: 173px;
+  width: 100%;
   overflow: hidden;
   background-color: var(--background-light-gray); /* Placeholder bg */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.image-aspect-ratio-2-1 img { /* Renamed from .image-aspect-ratio-16-9 img */
-  position: absolute;
-  top: 0;
-  left: 0;
+ .image-aspect-ratio-2-1 img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Cover the area, cropping if necessary */
+  object-fit: cover;
+  object-position: center;
 }
 
 .card-actions {
@@ -1065,7 +1142,7 @@ textarea.form-control {
 }
 
 .title-block-maple-welcome .welcome-title {
-  font-size: clamp(1.8rem, 2.5vw, 56px); /* Responsive font size: min 1.8rem, ideal 2.5vw, max 56px */
+  font-size: clamp(1.2rem, 2vw, 36px); /* Réduit la taille : min 1.2rem, idéal 2vw, max 36px */
   color: var(--primary-color);
   text-transform: uppercase;
   font-weight: 900;

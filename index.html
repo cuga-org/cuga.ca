@@ -34,44 +34,9 @@
     <meta property="og:url" content="https://www.cuga.ca">
     <meta name="twitter:card" content="summary_large_image">
 
-    <style>
-        body {
-            font-family: 'Kumbh Sans', sans-serif;
-            margin: 0;
-            background-color: #f2f2f2;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .lang-en { display: none; }
-
-        .page-wrapper { display: flex; flex-direction: column; flex-grow: 1; }
-        .top-bar { width: 100%; position: fixed; top: 0; left: 0; z-index: 1000; }
-        .main-layout { display: flex; flex-grow: 1; padding-top: 64px; } /* Initial padding for mobile */
-        @media (min-width: 768px) { .main-layout { padding-top: 120px; } } /* Desktop padding */
-
-        .left-sidebar { background-color: var(--primary-color, #000435); color: var(--white, #FFFFFF); padding: var(--content-padding-desktop, 2rem); }
-        .main-content-area { padding: var(--section-padding-desktop, 2rem); overflow-y: auto; }
-
-        .bubbles { position: fixed; bottom: 0; left: 0; width: 100%; height: 100%; z-index: -10; overflow: hidden; pointer-events: none;}
-        .bubble { position: absolute; background-color: rgba(0, 7, 161, 0.1); border-radius: 50%; opacity: 0.7; animation: rise 20s infinite ease-in; }
-        @keyframes rise { 0% { bottom: -150px; transform: translateX(0) scale(0.5); } 50% { transform: translateX(100px) scale(1.2); } 100% { bottom: 100vh; transform: translateX(-100px) scale(0); opacity: 0; } }
-
-        /* Hero section specific styles from old_index, adapted */
-        .welcome-section { min-height: calc(100vh - 120px); display: flex; align-items: center; justify-content: center; text-align: center; }
-        .welcome-content { background-color: rgba(0, 4, 53, 0.75); padding: 2rem; border-radius: 0.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.3); margin: 1rem; }
-        @media (min-width: 768px) { .welcome-content { padding: 3rem; } }
-        .welcome-content .sidebar-hero-title { /* Re-using sidebar-hero-title for consistency */ color: var(--white); line-height: 1.1; font-size: 2.25rem; } /* Adjusted size */
-        @media (min-width: 768px) { .welcome-content .sidebar-hero-title { font-size: 2.75rem; } }
-        @media (min-width: 1024px) { .welcome-content .sidebar-hero-title { font-size: 3.25rem; } }
-        .welcome-content p { color: #e0e0e0; font-size: 1.1rem; }
-        .hero-actions { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; align-items: center;}
-        @media (min-width: 768px) { .hero-actions { flex-direction: row; justify-content: center; } }
-
-    </style>
+    <!-- All custom styles moved to styles.css. See styles.html for design system examples. -->
 </head>
 <body>
-    <div class="bubbles"></div>
 
     <div class="page-wrapper">
         <header id="top-bar-placeholder" class="site-header top-bar">
@@ -95,7 +60,7 @@
         <div id="nav-menu-placeholder"></div>
 
         <div class="main-layout">
-            <aside class="left-sidebar" data-aos="fade-right" data-aos-duration="1000">
+            <aside class="left-sidebar">
                 <div class="sidebar-content-wrapper">
                     <img src="assets/icons/cuga_symbol.png" alt="Maple Leaf Icon" class="sidebar-maple-leaf">
                     <h1 class="sidebar-hero-title">
@@ -105,54 +70,54 @@
                     <img src="assets/icons/CUGA_wave.png" alt="Decorative wave" class="sidebar-wave">
                 </div>
             </aside>
-            <main class="main-content-area" data-aos="fade-left" data-aos-delay="300" data-aos-duration="1000">
+            <main class="main-content-area" style="padding: 1rem 0.5rem;">
                 <!-- This main content area is for the sports cards -->
                 <div class="sports-grid">
-                    <div class="card card-discover-feature" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card card-discover-feature">
                         <div class="image-aspect-ratio-2-1"><img src="images/hockey.jpg" alt="Underwater Hockey Action"></div>
                         <div class="card-content-custom-padding">
                             <div class="title-block-discover">
                                 <div class="pre-title"><span class="lang-fr">DÉCOUVREZ</span><span class="lang-en" style="display:none;">DISCOVER</span></div>
                                 <h3 class="main-title">
                                     <span class="lang-fr">HOCKEY SUBAQUATIQUE <img src="assets/icons/CUGA_wave.png" alt="" class="title-wave"></span>
-                                    <span class="lang-en" style="display:none;">UNDERWATER HOCKEY <img src="assets/icons/CUGA_wave.png" alt="" class="title-wave"></span>
+                                    <span class="lang-en" style="display:none;">UNDERWATER<br>HOCKEY <img src="assets/icons/CUGA_wave.png" alt="" class="title-wave"></span>
                                 </h3>
                             </div>
                             <div class="card-actions">
-                                <a href="about.html#TODO-link-to-hockey-how-to-play" class="btn btn-primary btn-icon"><span class="lang-fr">Comment jouer</span><span class="lang-en" style="display:none;">How to play</span></a>
-                                <a href="cuga.html#TODO-link-to-hockey-clubs" class="btn btn-primary btn-icon"><span class="lang-fr">Où/Quand</span><span class="lang-en" style="display:none;">Where/When</span></a>
+                                <a href="about.html#TODO-link-to-hockey-how-to-play" class="btn btn-primary"><span class="lang-fr">Comment jouer&nbsp;→</span><span class="lang-en" style="display:none;">How to play&nbsp;→</span></a>
+                                <a href="cuga.html#TODO-link-to-hockey-clubs" class="btn btn-primary"><span class="lang-fr">Où/Quand&nbsp;→</span><span class="lang-en" style="display:none;">Where/When&nbsp;→</span></a>
                             </div>
                         </div>
                     </div>
-                    <div class="card card-discover-feature" data-aos="fade-up" data-aos-delay="500">
+                    <div class="card card-discover-feature">
                         <div class="image-aspect-ratio-2-1"><img src="images/rugby.jpg" alt="Underwater Rugby Action"></div>
                         <div class="card-content-custom-padding">
                             <div class="title-block-discover">
                                 <div class="pre-title"><span class="lang-fr">DÉCOUVREZ</span><span class="lang-en" style="display:none;">DISCOVER</span></div>
                                 <h3 class="main-title">
                                     <span class="lang-fr">RUGBY SUBAQUATIQUE <img src="assets/icons/CUGA_wave.png" alt="" class="title-wave"></span>
-                                    <span class="lang-en" style="display:none;">UNDERWATER RUGBY <img src="assets/icons/CUGA_wave.png" alt="" class="title-wave"></span>
+                                    <span class="lang-en" style="display:none;">UNDERWATER<br>RUGBY <img src="assets/icons/CUGA_wave.png" alt="" class="title-wave"></span>
                                 </h3>
                             </div>
                             <div class="card-actions">
-                                <a href="about.html#TODO-link-to-rugby-how-to-play" class="btn btn-primary btn-icon"><span class="lang-fr">Comment jouer</span><span class="lang-en" style="display:none;">How to play</span></a>
-                                <a href="cuga.html#TODO-link-to-rugby-clubs" class="btn btn-primary btn-icon"><span class="lang-fr">Où/Quand</span><span class="lang-en" style="display:none;">Where/When</span></a>
+                                <a href="about.html#TODO-link-to-rugby-how-to-play" class="btn btn-primary"><span class="lang-fr">Comment jouer&nbsp;→</span><span class="lang-en" style="display:none;">How to play&nbsp;→</span></a>
+                                <a href="cuga.html#TODO-link-to-rugby-clubs" class="btn btn-primary"><span class="lang-fr">Où/Quand&nbsp;→</span><span class="lang-en" style="display:none;">Where/When&nbsp;→</span></a>
                             </div>
                         </div>
                     </div>
-                    <div class="card card-discover-feature" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card card-discover-feature">
                         <div class="image-aspect-ratio-2-1"><img src="images/hockey-drill.jpg" alt="Underwater Football Action"></div>
                         <div class="card-content-custom-padding">
                             <div class="title-block-discover">
                                 <div class="pre-title"><span class="lang-fr">DÉCOUVREZ</span><span class="lang-en" style="display:none;">DISCOVER</span></div>
                                 <h3 class="main-title">
                                     <span class="lang-fr">FOOTBALL SUBAQUATIQUE <img src="assets/icons/CUGA_wave.png" alt="" class="title-wave"></span>
-                                    <span class="lang-en" style="display:none;">UNDERWATER FOOTBALL <img src="assets/icons/CUGA_wave.png" alt="" class="title-wave"></span>
+                                    <span class="lang-en" style="display:none;">UNDERWATER<br>FOOTBALL <img src="assets/icons/CUGA_wave.png" alt="" class="title-wave"></span>
                                 </h3>
                             </div>
                             <div class="card-actions">
-                                <a href="about.html#TODO-link-to-football-how-to-play" class="btn btn-primary btn-icon"><span class="lang-fr">Comment jouer</span><span class="lang-en" style="display:none;">How to play</span></a>
-                                <a href="cuga.html#TODO-link-to-football-clubs" class="btn btn-primary btn-icon"><span class="lang-fr">Où/Quand</span><span class="lang-en" style="display:none;">Where/When</span></a>
+                                <a href="about.html#TODO-link-to-football-how-to-play" class="btn btn-primary"><span class="lang-fr">Comment jouer&nbsp;→</span><span class="lang-en" style="display:none;">How to play&nbsp;→</span></a>
+                                <a href="cuga.html#TODO-link-to-football-clubs" class="btn btn-primary"><span class="lang-fr">Où/Quand&nbsp;→</span><span class="lang-en" style="display:none;">Where/When&nbsp;→</span></a>
                             </div>
                         </div>
                     </div>

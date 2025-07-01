@@ -2,6 +2,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("main.js loaded");
 
+    // --- Sports grid: gestion dynamique de la classe .featured-last pour la dernière carte seule sur une ligne ---
+    function updateFeaturedLastCard() {
+        const sportsGrid = document.querySelector('.sports-grid');
+        if (sportsGrid) {
+            const cards = sportsGrid.querySelectorAll('.card.card-discover-feature');
+            // Retire d'abord toute classe .featured-last
+            cards.forEach(card => card.classList.remove('featured-last'));
+            // Détecte le nombre de colonnes effectif via CSS (en JS, via getComputedStyle)
+            const gridStyles = window.getComputedStyle(sportsGrid);
+            const gridTemplateColumns = gridStyles.getPropertyValue('grid-template-columns');
+            const colCount = gridTemplateColumns.split(' ').filter(x => x.trim() !== '').length;
+            // Correction : la dernière carte doit être feature uniquement si elle est seule sur la dernière ligne,
+            // c'est-à-dire si (nombre de cartes > colCount) && ((nombre de cartes - 1) % colCount === 0)
+            if (
+                cards.length > colCount &&
+                (cards.length - 1) % colCount === 0 &&
+                colCount > 1
+            ) {
+                cards[cards.length - 1].classList.add('featured-last');
+            }
+            // Sinon, aucune carte n'a la classe .featured-last (affichage normal)
+        }
+    }
+    updateFeaturedLastCard();
+    window.addEventListener('resize', updateFeaturedLastCard);
+
     // Language Switcher Logic (adapted from index.html)
     const langButtons = document.querySelectorAll('.lang-button');
     const langSections = document.querySelectorAll('.lang-fr, .lang-en'); // Will target all elements with these classes
@@ -21,10 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         langButtons.forEach(button => {
             const isSelected = button.dataset.lang === lang;
-            button.classList.toggle('bg-blue-600', isSelected); // Tailwind active state
-            button.classList.toggle('text-white', isSelected);
-            button.classList.toggle('bg-gray-400', !isSelected); // Tailwind inactive state
-            button.classList.toggle('text-gray-800', !isSelected);
+            button.classList.toggle('active-lang', isSelected);
+            button.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
         });
         document.documentElement.lang = lang;
         localStorage.setItem('language', lang);

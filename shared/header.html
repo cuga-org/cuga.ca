@@ -1,18 +1,18 @@
-<header class="site-header sticky top-0 z-[1002] bg-[var(--primary-color)]">
-    <div class="container mx-auto flex items-center justify-between">
+<header class="site-header">
+    <div class="container site-header-content">
         <a href="index.html" class="site-logo-link">
             <!-- Logic to switch logo based on language -->
-            <img src="assets/logos/CUGA/Horizontal/EN/Reversed/CUGA-logo-h-en-reverse-rgb-sm.png" alt="CUGA Logo" class="site-logo lang-en-logo h-10 md:h-12 lg:h-16" style="display: none;">
-            <img src="assets/logos/CUGA/Horizontal/FR/Reversed/CUGA-logo-h-fr-reverse-rgb-sm.png" alt="CUGA Logo FR" class="site-logo lang-fr-logo h-10 md:h-12 lg:h-16">
+            <img src="assets/logos/CUGA/Horizontal/EN/Reversed/CUGA-logo-h-en-reverse-rgb-sm.png" alt="CUGA Logo" class="site-logo lang-en-logo" style="display: none;">
+            <img src="assets/logos/CUGA/Horizontal/FR/Reversed/CUGA-logo-h-fr-reverse-rgb-sm.png" alt="CUGA Logo FR" class="site-logo lang-fr-logo">
         </a>
 
-        <div class="flex items-center">
+        <div class="header-controls">
             <!-- Language Switcher (Desktop - outside menu) -->
-            <div class="hidden md:flex items-center mr-4 main-lang-switcher">
-                <button class="lang-button px-3 py-1 text-sm rounded-l-md" data-lang="fr" title="Français">
+            <div class="main-lang-switcher">
+                <button class="lang-button btn btn-small" data-lang="fr" title="Français">
                     <span class="sr-only">Français</span> FR
                 </button>
-                <button class="lang-button px-3 py-1 text-sm rounded-r-md" data-lang="en" title="English">
+                <button class="lang-button btn btn-small" data-lang="en" title="English">
                     <span class="sr-only">English</span> EN
                 </button>
             </div>
