@@ -464,10 +464,11 @@ select:focus-visible {
 }
 .card-discover-feature .title-block-discover .main-title {
   font-size: 28px; /* Slightly smaller main title for card context */
+  overflow-wrap: break-word; /* Ensure long text wraps and doesn't stretch the card */
 }
 
 .card-discover-feature .card-content {
-  padding: 0; /* Remove padding for this specific card's content area */
+  padding: 0 !important; /* Ensure padding is removed for this specific card's content area */
 }
 
 .image-aspect-ratio-2-1 { /* Renamed from .image-aspect-ratio-16-9 */
