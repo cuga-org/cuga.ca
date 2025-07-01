@@ -358,7 +358,6 @@ select:focus-visible {
   outline-offset: 2px;
 }
 
-
 /* Navigation Specific Styles */
 .nav-link {
   font-size: 0.875rem; /* 14px */
@@ -550,9 +549,9 @@ textarea.form-control {
 .title-block-discover .pre-title {
   color: var(--pretitle-accent-color);
   font-size: 21px;
-  font-weight: 700; /* Assuming pre-titles are bold */
+  font-weight: 900; /* Updated font weight */
   text-transform: uppercase;
-  margin-bottom: 0.25rem; /* Space between pre-title and main title */
+  margin-bottom: 0.1rem; /* Reduced space between pre-title and main title */
   display: block; /* Ensure it takes its own line and margin works */
 }
 
@@ -574,6 +573,36 @@ textarea.form-control {
   width: auto;
   margin-left: 0.25em; /* Space between "RUGBY" and wave */
   vertical-align: baseline; /* Align with the text baseline */
+}
+
+.title-block-maple-welcome {
+  text-align: center;
+  margin-bottom: 1rem; /* Space below the entire block */
+  padding: 1rem 0; /* Add some padding for visual separation if needed */
+}
+
+.title-block-maple-welcome .maple-leaf-icon {
+  width: 90px;
+  height: 66px;
+  display: block;
+  margin: 0 auto 1rem auto; /* Centered, with 1rem space below it */
+}
+
+.title-block-maple-welcome .welcome-title {
+  font-size: clamp(1.8rem, 2.5vw, 56px); /* Responsive font size: min 1.8rem, ideal 2.5vw, max 56px */
+  color: var(--primary-color);
+  text-transform: uppercase;
+  font-weight: 900;
+  line-height: 1.2; /* Adjust for multi-line readability */
+  margin: 0 auto 1rem auto; /* Centered, with 1rem space below it */
+  max-width: 800px; /* Prevents text from becoming too wide on large screens */
+}
+
+.title-block-maple-welcome .welcome-wave {
+  display: block;
+  width: 100px; /* As per existing .wave-separator */
+  height: auto; /* Maintain aspect ratio */
+  margin: 1rem auto 0 auto; /* Centered, with 1rem space above it */
 }
 
 
@@ -614,7 +643,7 @@ textarea.form-control {
 .site-footer-bar {
   background-color: var(--primary-color);
   color: var(--white);
-  height: 40px;
+  height: 60px; /* Updated height */
   padding: 0 var(--content-padding-mobile); /* Use existing padding variables */
   display: flex;
   justify-content: space-between;
