@@ -239,11 +239,16 @@ body {
 }
 
 /* Main Layout: Sidebar and Content Area */
+/*
+ * Pour centrer verticalement le contenu du hero (sidebar) par rapport à la hauteur de la sports-grid,
+ * on utilise align-items: stretch sur .main-layout et un flex-grow sur .left-sidebar et .main-content-area.
+ */
 .main-layout {
   display: flex;
-  flex-direction: column; /* Mobile: stack sidebar on top of content */
+  flex-direction: column;
   flex-grow: 1;
-  /* padding-top is handled by body padding for fixed header */
+  align-items: stretch;
+  min-height: 0;
 }
 
 .left-sidebar {
@@ -272,22 +277,39 @@ body {
   flex-grow: 1; /* Takes remaining space */
 }
 
-@media (min-width: 1024px) { /* lg breakpoint, or adjust as needed for sidebar */
+@media (min-width: 1024px) {
   .main-layout {
-    flex-direction: row; /* Sidebar and content side-by-side on desktop */
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 0;
+    height: 100%;
   }
   .left-sidebar {
-    width: 33.333333%; /* One-third of the width */
-    min-height: calc(100vh - 120px); /* Full viewport height minus header height */
+    width: 33.333333%;
+    min-height: 0;
     padding: var(--content-padding-desktop);
-    position: sticky; /* Make sidebar sticky */
-    top: 120px; /* Align below fixed header */
-    height: calc(100vh - 120px); /* Ensure it doesn't overflow viewport if content is short */
-    overflow-y: auto; /* Allow scrolling if content is too tall */
+    position: relative;
+    top: 0;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* S'étire pour matcher la hauteur de la colonne de droite */
+    flex-grow: 1;
   }
   .main-content-area {
-    width: 66.666667%; /* Two-thirds of the width */
+    width: 66.666667%;
     padding: var(--section-padding-desktop);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  /* Pour que la sports-grid prenne toute la hauteur de la colonne droite */
+  .sports-grid {
+    flex-grow: 1;
+    display: grid;
+    align-content: center;
+    height: 100%;
   }
 }
 
