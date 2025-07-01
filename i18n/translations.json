@@ -1,0 +1,16 @@
+{
+    "home": { "en": "Home", "fr": "Accueil" },
+    "sports": { "en": "Sports", "fr": "Sports" },
+    "uwh": { "en": "Underwater Hockey", "fr": "Hockey Subaquatique" },
+    "uwr": { "en": "Underwater Rugby", "fr": "Rugby Subaquatique" },
+    "uwf": { "en": "Underwater Football", "fr": "Football Subaquatique" },
+    "nationals": { "en": "Nationals", "fr": "Championnats" },
+    "about": { "en": "About", "fr": "À Propos" },
+    "aboutUs": { "en": "About CUGA", "fr": "À propos de CUGA" },
+    "executive": { "en": "Executive", "fr": "Exécutif" },
+    "joinCuga": { "en": "Join CUGA", "fr": "Rejoindre CUGA" },
+    "codeOfConduct": { "en": "Code of Conduct", "fr": "Code de Conduite" },
+    "bylaws": { "en": "Constitution & Bylaws", "fr": "Constitution & Règlements"},
+    "contact": { "en": "Contact", "fr": "Contact" },
+    "clubsList": { "en": "Clubs List", "fr": "Liste des Clubs" }
+}

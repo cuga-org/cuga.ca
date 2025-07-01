@@ -86,28 +86,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js"></script>
     <script src="js/menu.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            AOS.init({
-                duration: 1000,
-                once: true,
-            });
-
-            // Load shared header and footer
-            fetch('shared/header.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('header-placeholder').innerHTML = data;
-                    document.dispatchEvent(new CustomEvent('headerLoaded'));
-                });
-
-            fetch('shared/footer.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('footer-placeholder').innerHTML = data;
-                    document.dispatchEvent(new CustomEvent('footerLoaded'));
-                });
-        });
-    </script>
+    <script src="js/page-init.js"></script>
 </body>
 </html>

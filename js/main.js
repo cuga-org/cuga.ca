@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         document.documentElement.lang = lang;
         localStorage.setItem('language', lang);
+
+        // Dispatch custom event
+        console.log(`main.js: dispatching languageChanged event for ${lang}`);
+        document.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: lang } }));
     };
 
     // Initialize language
@@ -97,30 +101,39 @@ document.addEventListener('DOMContentLoaded', () => {
       return versionP;
     }
 
-    fetch('version.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('version.json not found or invalid');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const versionText = `Version: Branch: ${data.branch || 'main'} | Commit: ${data.commit ? data.commit.substring(0, 7) : 'N/A'}`;
-        const versionElement = createVersionElement(versionText, false);
-        const versionContainer = document.getElementById('version-info-container');
-        if (versionContainer) {
-            versionContainer.appendChild(versionElement);
-        }
-      })
-      .catch(error => {
-        console.warn('Could not load version information:', error);
-        const errorText = 'Version info not available';
-        const errorElement = createVersionElement(errorText, true);
-        const versionContainer = document.getElementById('version-info-container');
-        if (versionContainer) {
-            versionContainer.appendChild(errorElement);
-        }
-      });
+    // Version info injection - now waits for footerLoaded event
+    document.addEventListener('footerLoaded', () => {
+        console.log("main.js: footerLoaded event received, attempting to inject version info.");
+        fetch('version.json')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('version.json not found or invalid');
+            }
+            return response.json();
+          })
+          .then(data => {
+            const versionText = `Version: Branch: ${data.branch || 'main'} | Commit: ${data.commit ? data.commit.substring(0, 7) : 'N/A'}`;
+            const versionElement = createVersionElement(versionText, false); // Assuming createVersionElement is defined above
+            const versionContainer = document.getElementById('version-info-container');
+            if (versionContainer) {
+                versionContainer.innerHTML = ''; // Clear previous content if any
+                versionContainer.appendChild(versionElement);
+                console.log("main.js: Version info injected.");
+            } else {
+                console.warn("main.js: version-info-container not found after footerLoaded.");
+            }
+          })
+          .catch(error => {
+            console.warn('Could not load version information:', error);
+            const errorText = 'Version info not available';
+            const errorElement = createVersionElement(errorText, true);
+            const versionContainer = document.getElementById('version-info-container');
+            if (versionContainer) {
+                versionContainer.innerHTML = ''; // Clear previous content
+                versionContainer.appendChild(errorElement);
+            }
+          });
+    });
 
     // BF Cache handling for language
     window.addEventListener('pageshow', function(event) {
