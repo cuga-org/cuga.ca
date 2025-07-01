@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demande d'adhésion et décharge CUGA / CUGA Membership Application and Waiver</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Retain Tailwind -->
     <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
@@ -19,14 +21,36 @@
     <meta name="description" content="Formulaire de demande d'adhésion et de décharge CUGA. CUGA Membership Application and Waiver Form.">
     <meta name="keywords" content="CUGA, waiver, décharge, membership, adhésion, application, demande, underwater sports, sports subaquatiques, Canada, Canadian Underwater Games Association">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        /* body { font-family: 'Inter', sans-serif; } */ /* Replaced by Kumbh Sans */
         .lang-en, .lang-fr-inline { display: none; } /* Hide English by default, and French inline for JS control */
         .hidden { display: none; }
     </style>
 </head>
-<body class="bg-blue-700 text-white">
+<body class="text-white"> <!-- Removed bg-blue-700. styles.css will provide body bg -->
+    <!-- Standard CUGA Site Header -->
+    <header class="site-header">
+        <a href="index.html" class="site-logo-link">
+            <img id="globalCugaLogoWaiver" src="assets/logos/CUGA/Horizontal/FR/Reversed/CUGA-logo-h-fr-reverse-rgb-sm.png" alt="CUGA Logo" class="site-logo"> <!-- Default to FR -->
+        </a>
+        <button class="hamburger-icon-button" id="hamburgerToggleButtonWaiver" aria-label="Open menu" aria-expanded="false" aria-controls="navMenuWaiver">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
 
-    <div class="text-center py-4 bg-gray-200">
+    <!-- Full-screen Navigation Menu -->
+    <nav class="nav-menu" id="navMenuWaiver" aria-hidden="true">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="cuga.html" class="nav-link">Clubs</a>
+        <a href="join.html" class="nav-link">Join CUGA</a>
+        <a href="waiver.html" class="nav-link active">Waiver/Application</a>
+        <a href="docs/financial-governance.html" class="nav-link">Financial Governance</a>
+        <!-- Links for terms, privacy will be in footer -->
+    </nav>
+
+    <!-- Language Toggle Buttons and Test Data Button (Retained) -->
+    <div class="text-center py-4 bg-gray-200"> <!-- Tailwind bg-gray-200 for button bar -->
         <button class="lang-button px-4 py-2 mr-2 rounded bg-blue-500 text-white" data-lang="fr">
             <i class="fa fa-fleur-de-lis"></i> Français
         </button>
@@ -38,20 +62,18 @@
         </button>
     </div>
 
+    <!-- Experimental Banner (Retained) -->
     <div class="text-center py-3 bg-yellow-300 text-black text-sm">
         This is an experimental website for CUGA. The official CUGA website can be found at <a href="https://cuga.org/" target="_blank" rel="noopener noreferrer" class="underline font-semibold hover:text-blue-700">https://cuga.org/</a>.
         <br>
         Ceci est un site web expérimental pour CUGA. Le site officiel de CUGA se trouve à <a href="https://cuga.org/" target="_blank" rel="noopener noreferrer" class="underline font-semibold hover:text-blue-700">https://cuga.org/</a>.
     </div>
 
-    <header class="bg-[#386DC0] text-white py-8 text-center shadow-lg">
-        <img src="assets/logos/CUGA/Horizontal/EN/FullColor/CUGA-logo-h-en-fullColor-rgb.svg" alt="CUGA Logo" class="h-12 mx-auto">
-        <p class="mt-1 text-md md:text-lg italic">
-            <span class="lang-fr">Décharge d'adhésion CUGA</span>
-            <span class="lang-en">CUGA Membership Waiver</span>
-        </p>
-    </header>
-
+    <!-- Page specific title/subtitle, to be shown/hidden by JS lang toggle -->
+    <div id="pageSubtitleContainerWaiver" class="text-center py-4" style="background-color: var(--primary-color); color: var(--white);">
+        <p id="waiverPageSubtitle" class="text-xl md:text-2xl font-bold"></p>
+    </div>
+    <!-- Old header was here, removed by previous step -->
     <main class="container mx-auto px-4 py-16">
         <div class="bg-white text-gray-800 rounded-xl shadow-xl p-8 md:p-12">
             <h1 class="text-3xl md:text-4xl font-bold text-center mb-8 text-blue-800">
@@ -383,20 +405,57 @@
         </div>
     </main>
 
-    <footer class="bg-gray-900 text-gray-400 py-8 text-center">
-        <div class="container mx-auto px-4">
-            <p>&copy; 2025 CUGA. <span class="lang-fr">Tous droits réservés.</span><span class="lang-en">All rights reserved.</span></p>
-            <p class="mt-4">
-                <a href="privacy-policy.html" class="text-blue-400 hover:underline lang-fr">Politique de Confidentialité</a>
-                <a href="privacy-policy.html" class="text-blue-400 hover:underline lang-en">Privacy Policy</a> |
-                <a href="terms-of-use.html" class="text-blue-400 hover:underline lang-fr">Conditions d'Utilisation</a>
-                <a href="terms-of-use.html" class="text-blue-400 hover:underline lang-en">Terms of Use</a>
-            </p>
+    <footer class="site-footer-bar">
+        <div class="footer-copyright">
+            Copyright &copy;<span id="currentYearWaiver"></span> CUGA.CA
+        </div>
+        <div class="footer-links">
+            <a href="terms-of-use.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Hamburger Menu for Waiver Page
+        const hamburgerToggleWaiver = document.getElementById('hamburgerToggleButtonWaiver');
+        const navMenuWaiver = document.getElementById('navMenuWaiver');
+
+        if (hamburgerToggleWaiver && navMenuWaiver) {
+            hamburgerToggleWaiver.addEventListener('click', () => {
+                const isOpen = navMenuWaiver.classList.toggle('is-open');
+                hamburgerToggleWaiver.setAttribute('aria-expanded', isOpen);
+                navMenuWaiver.setAttribute('aria-hidden', !isOpen);
+            });
+            // Close menu with Escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && navMenuWaiver.classList.contains('is-open')) {
+                    navMenuWaiver.classList.remove('is-open');
+                    hamburgerToggleWaiver.setAttribute('aria-expanded', 'false');
+                    navMenuWaiver.setAttribute('aria-hidden', 'true');
+                    hamburgerToggleWaiver.focus();
+                }
+            });
+            // Close menu when a nav link is clicked
+            navMenuWaiver.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenuWaiver.classList.contains('is-open')) {
+                        navMenuWaiver.classList.remove('is-open');
+                        hamburgerToggleWaiver.setAttribute('aria-expanded', 'false');
+                        navMenuWaiver.setAttribute('aria-hidden', 'true');
+                        hamburgerToggleWaiver.focus();
+                    }
+                });
+            });
+        }
+
+        // Dynamic year in footer for Waiver Page
+        const currentYearSpanWaiver = document.getElementById("currentYearWaiver");
+        if (currentYearSpanWaiver) {
+            currentYearSpanWaiver.textContent = new Date().getFullYear();
+        }
+
+        // Existing Waiver Page JS + Language Switching Update
         let allClubsWaiver = []; // Holds data from cuga_club_data.json
 
         async function fetchWaiverClubData() {
@@ -601,16 +660,38 @@
 
             const langButtons = document.querySelectorAll('.lang-button');
             const htmlTag = document.documentElement;
+            const globalLogoWaiver = document.getElementById('globalCugaLogoWaiver');
+            const waiverPageSubtitle = document.getElementById('waiverPageSubtitle');
+            // Note: Footer links for this page are simple and don't need dynamic text from JS,
+            // but logo and subtitle do.
+
+            const pageSpecificContentWaiver = {
+                fr: {
+                    logo: "assets/logos/CUGA/Horizontal/FR/Reversed/CUGA-logo-h-fr-reverse-rgb-sm.png",
+                    subtitle: "Décharge d'adhésion CUGA"
+                },
+                en: {
+                    logo: "assets/logos/CUGA/Horizontal/EN/Reversed/CUGA-logo-h-en-reverse-rgb-sm.png",
+                    subtitle: "CUGA Membership Waiver"
+                }
+            };
 
             function updateDisplayedLanguage(lang) {
                 htmlTag.lang = lang;
-                document.querySelectorAll('.lang-fr, .lang-en, .lang-fr-inline, .lang-en-inline').forEach(el => {
-                    if (el.classList.contains(`lang-${lang}`) || el.classList.contains(`lang-${lang}-inline`)) {
-                        el.style.display = el.classList.contains('lang-fr-inline') || el.classList.contains('lang-en-inline') ? 'inline' : 'block';
-                    } else {
-                        el.style.display = 'none';
-                    }
-                });
+
+                // Toggle content display for elements with lang-fr/lang-en classes
+                document.querySelectorAll('.lang-fr, .lang-fr-inline').forEach(el =>
+                    el.style.display = (lang === 'fr') ? (el.classList.contains('lang-fr-inline') ? 'inline' : 'block') : 'none'
+                );
+                document.querySelectorAll('.lang-en, .lang-en-inline').forEach(el =>
+                    el.style.display = (lang === 'en') ? (el.classList.contains('lang-en-inline') ? 'inline' : 'block') : 'none'
+                );
+
+                // Update global header logo and page subtitle
+                if (globalLogoWaiver) globalLogoWaiver.src = pageSpecificContentWaiver[lang].logo;
+                if (waiverPageSubtitle) waiverPageSubtitle.textContent = pageSpecificContentWaiver[lang].subtitle;
+
+                // Update language toggle buttons styling
                 langButtons.forEach(button => {
                     button.classList.toggle('bg-blue-600', button.dataset.lang === lang);
                     button.classList.toggle('text-white', button.dataset.lang === lang);
@@ -618,6 +699,7 @@
                     button.classList.toggle('text-gray-800', button.dataset.lang !== lang);
                 });
 
+                // Update placeholders for inputs
                 const digitalSignatureInput = document.getElementById('digitalSignature');
                 if (digitalSignatureInput) {
                     digitalSignatureInput.placeholder = lang === 'fr' ? digitalSignatureInput.getAttribute('placeholder-lang-fr') : digitalSignatureInput.getAttribute('placeholder-lang-en');

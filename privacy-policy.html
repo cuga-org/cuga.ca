@@ -3,24 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Politique de Confidentialité | Privacy Policy</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Politique de Confidentialité | Privacy Policy - CUGA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Retain Tailwind for now, for buttons and basic layout if needed -->
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+        /* body { font-family: 'Inter', sans-serif; } */ /* Replaced by Kumbh Sans */
         .lang-en {
             display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-    <div class="text-center py-4 bg-gray-200">
+<body> <!-- Removed Tailwind bg-gray-100, text-gray-800. styles.css will handle body bg and text color -->
+    <!-- Standard CUGA Site Header -->
+    <header class="site-header">
+        <a href="index.html" class="site-logo-link">
+            <img id="globalCugaLogoPP" src="assets/logos/CUGA/Horizontal/FR/Reversed/CUGA-logo-h-fr-reverse-rgb-sm.png" alt="CUGA Logo" class="site-logo">
+        </a>
+        <button class="hamburger-icon-button" id="hamburgerToggleButtonPP" aria-label="Open menu" aria-expanded="false" aria-controls="navMenuPP">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Full-screen Navigation Menu -->
+    <nav class="nav-menu" id="navMenuPP" aria-hidden="true">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="cuga.html" class="nav-link">Clubs</a>
+        <a href="join.html" class="nav-link">Join CUGA</a>
+        <a href="docs/financial-governance.html" class="nav-link">Financial Governance</a>
+        <a href="privacy-policy.html" class="nav-link active">Privacy Policy</a>
+        <a href="terms-of-use.html" class="nav-link">Terms of Use</a>
+    </nav>
+
+    <!-- Language Toggle Buttons (Retained) -->
+    <div class="text-center py-4 bg-gray-200"> <!-- Tailwind bg-gray-200 for button bar -->
         <button class="lang-button px-4 py-2 mr-2 rounded bg-blue-500 text-white" data-lang="fr">Français</button>
         <button class="lang-button px-4 py-2 rounded bg-gray-400 text-gray-800" data-lang="en">English</button>
     </div>
 
-    <div class="lang-fr px-4 py-8">
+    <div class="lang-fr container py-8"> <!-- Added .container for centering and padding -->
         <h1 class="text-3xl font-bold mb-4">Politique de Confidentialité</h1>
         <p class="mb-4">Votre confidentialité est importante pour nous. Cette politique explique comment nous collectons, utilisons et protégeons vos informations personnelles.</p>
         <h2 class="text-2xl font-semibold mb-2">Informations collectées</h2>
@@ -31,7 +54,7 @@
         <p class="mb-4">Nous ne partageons pas vos informations personnelles avec des tiers, sauf si requis par la loi.</p>
     </div>
 
-    <div class="lang-en px-4 py-8">
+    <div class="lang-en container py-8"> <!-- Added .container for centering and padding -->
         <h1 class="text-3xl font-bold mb-4">Privacy Policy</h1>
         <p class="mb-4">Your privacy is important to us. This policy explains how we collect, use, and protect your personal information.</p>
         <h2 class="text-2xl font-semibold mb-2">Information Collected</h2>
@@ -42,15 +65,77 @@
         <p class="mb-4">We do not share your personal information with third parties unless required by law.</p>
     </div>
 
+    <footer class="site-footer-bar">
+        <div class="footer-copyright">
+            Copyright &copy;<span id="currentYearPP"></span> CUGA.CA
+        </div>
+        <div class="footer-links">
+            <a href="terms-of-use.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+        </div>
+    </footer>
+
     <script>
+        // Hamburger Menu for Privacy Policy Page
+        const hamburgerTogglePP = document.getElementById('hamburgerToggleButtonPP');
+        const navMenuPP = document.getElementById('navMenuPP');
+
+        if (hamburgerTogglePP && navMenuPP) {
+            hamburgerTogglePP.addEventListener('click', () => {
+                const isOpen = navMenuPP.classList.toggle('is-open');
+                hamburgerTogglePP.setAttribute('aria-expanded', isOpen);
+                navMenuPP.setAttribute('aria-hidden', !isOpen);
+            });
+            // Close menu with Escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && navMenuPP.classList.contains('is-open')) {
+                    navMenuPP.classList.remove('is-open');
+                    hamburgerTogglePP.setAttribute('aria-expanded', 'false');
+                    navMenuPP.setAttribute('aria-hidden', 'true');
+                    hamburgerTogglePP.focus();
+                }
+            });
+            // Close menu when a nav link is clicked
+            navMenuPP.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenuPP.classList.contains('is-open')) {
+                        navMenuPP.classList.remove('is-open');
+                        hamburgerTogglePP.setAttribute('aria-expanded', 'false');
+                        navMenuPP.setAttribute('aria-hidden', 'true');
+                        hamburgerTogglePP.focus();
+                    }
+                });
+            });
+        }
+
+        // Dynamic year in footer
+        const currentYearSpanPP = document.getElementById("currentYearPP");
+        if (currentYearSpanPP) {
+            currentYearSpanPP.textContent = new Date().getFullYear();
+        }
+
+        // Language Switching Logic
         document.addEventListener('DOMContentLoaded', () => {
             const langButtons = document.querySelectorAll('.lang-button');
             const langSections = document.querySelectorAll('.lang-fr, .lang-en');
+            const globalLogoPP = document.getElementById('globalCugaLogoPP');
+
+            const siteLogos = {
+                fr: "assets/logos/CUGA/Horizontal/FR/Reversed/CUGA-logo-h-fr-reverse-rgb-sm.png",
+                en: "assets/logos/CUGA/Horizontal/EN/Reversed/CUGA-logo-h-en-reverse-rgb-sm.png"
+            };
 
             const setLanguage = (lang) => {
-                langSections.forEach(section => {
-                    section.style.display = section.classList.contains(`lang-${lang}`) ? 'block' : 'none';
-                });
+                // Toggle content display
+                document.querySelectorAll('.lang-fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+                document.querySelectorAll('.lang-en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+
+                // Update global logo
+                if (globalLogoPP) {
+                    globalLogoPP.src = siteLogos[lang];
+                }
+
+                // Update button styles
                 langButtons.forEach(button => {
                     button.classList.toggle('bg-blue-500', button.dataset.lang === lang);
                     button.classList.toggle('text-white', button.dataset.lang === lang);
@@ -58,6 +143,7 @@
                     button.classList.toggle('text-gray-800', button.dataset.lang !== lang);
                 });
                 document.documentElement.lang = lang;
+                // localStorage.setItem('language', lang); // Optional: if you want to persist lang choice across sessions for this page
             };
 
             langButtons.forEach(button => {

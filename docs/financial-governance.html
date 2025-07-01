@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-en="Interactive Guide to Nonprofit Financial Governance" data-fr="Guide Interactif de Gouvernance Financière des Organismes à But Non Lucratif">Interactive Guide to Nonprofit Financial Governance</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title data-en="Interactive Guide to Nonprofit Financial Governance" data-fr="Guide Interactif de Gouvernance Financière des Organismes à But Non Lucratif">Financial Governance - CUGA</title> <!-- Standardized Title a bit -->
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css"> <!-- Link to global styles -->
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Retain Tailwind for existing content -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Using Kumbh Sans from global styles, Inter link can be removed if not specifically needed by Tailwind components here -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet"> -->
     <!-- Chosen Palette: Calm Harmony -->
     <!-- Application Structure Plan: A thematic, single-page dashboard designed for non-linear exploration. The structure uses a sticky top navigation to allow users to jump to key areas of concern: 1) Access Rights (the core question), 2) Legal Framework, 3) Restrictions, 4) Risks, and 5) Best Practices. This is more intuitive than the report's linear chapter format, allowing users to find answers to specific questions quickly. The core interaction revolves around an interactive diagram comparing Financial Statements vs. Accounting Records, clickable cards for detailed information, and a practical checklist. This structure prioritizes user-friendliness and quick comprehension of complex legal topics. -->
     <!-- Visualization & Content Choices:
@@ -62,31 +65,49 @@
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased"> <!-- Retain antialiased if it's important for Tailwind's rendering here -->
 
-    <!-- Header & Navigation -->
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+    <!-- Standard CUGA Site Header -->
+    <header class="site-header">
+        <a href="../index.html" class="site-logo-link"> <!-- Adjusted path for index -->
+            <img src="../assets/logos/CUGA/Horizontal/EN/Reversed/CUGA-logo-h-en-reverse-rgb-sm.png" alt="CUGA Logo" class="site-logo">
+        </a>
+        <button class="hamburger-icon-button" id="hamburgerToggleButtonFinancial" aria-label="Open menu" aria-expanded="false" aria-controls="navMenuFinancial">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Full-screen Navigation Menu (from styles.css) -->
+    <nav class="nav-menu" id="navMenuFinancial" aria-hidden="true">
+        <!-- Site-wide links can be added here if needed, or this can be minimal if page-specific nav is primary -->
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../cuga.html" class="nav-link">Clubs</a>
+        <!-- Add other global links as per other pages -->
+    </nav>
+
+    <!-- Secondary Navigation Bar for In-Page Links and Language Toggle -->
+    <div class="bg-white sticky top-0 z-40 shadow-sm py-2" style="margin-top: 0;"> <!-- Ensure it sits below the main header -->
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0">
-                    <h1 class="text-xl md:text-2xl font-bold text-[#5D737E]" data-en="Nonprofit Governance Guide" data-fr="Guide de Gouvernance des Organismes à But Non Lucratif">Nonprofit Governance Guide</h1>
+            <div class="flex items-center justify-between h-12">
+                 <div class="flex-shrink-0">
+                    <h1 class="text-lg md:text-xl font-bold text-primary-color" data-en="Nonprofit Governance Guide" data-fr="Guide de Gouvernance des Organismes à But Non Lucratif">Nonprofit Governance Guide</h1>
                 </div>
-                <nav class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#access-rights" class="nav-link px-3 py-2 text-sm font-medium" data-en="Access Rights" data-fr="Droits d'Accès">Access Rights</a>
-                        <a href="#legal-framework" class="nav-link px-3 py-2 text-sm font-medium" data-en="Legal Framework" data-fr="Cadre Légal">Legal Framework</a>
-                        <a href="#restrictions" class="nav-link px-3 py-2 text-sm font-medium" data-en="Restrictions" data-fr="Restrictions">Restrictions</a>
-                        <a href="#risks" class="nav-link px-3 py-2 text-sm font-medium" data-en="Risks" data-fr="Risques">Risks</a>
-                        <a href="#best-practices" class="nav-link px-3 py-2 text-sm font-medium" data-en="Best Practices" data-fr="Bonnes Pratiques">Best Practices</a>
-                    </div>
+                <nav class="hidden md:flex items-baseline space-x-3"> <!-- Reduced space a bit -->
+                    <a href="#access-rights" class="nav-link px-2 py-1 text-sm font-medium" data-en="Access Rights" data-fr="Droits d'Accès">Access Rights</a>
+                    <a href="#legal-framework" class="nav-link px-2 py-1 text-sm font-medium" data-en="Legal Framework" data-fr="Cadre Légal">Legal Framework</a>
+                    <a href="#restrictions" class="nav-link px-2 py-1 text-sm font-medium" data-en="Restrictions" data-fr="Restrictions">Restrictions</a>
+                    <a href="#risks" class="nav-link px-2 py-1 text-sm font-medium" data-en="Risks" data-fr="Risques">Risks</a>
+                    <a href="#best-practices" class="nav-link px-2 py-1 text-sm font-medium" data-en="Best Practices" data-fr="Bonnes Pratiques">Best Practices</a>
                 </nav>
                 <div class="flex items-center space-x-4">
-                    <select id="language-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#5D737E] focus:border-[#5D737E] block p-2.5">
+                    <select id="language-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-secondary-color focus:border-secondary-color block p-2"> <!-- Adjusted focus colors -->
                         <option value="en">English</option>
                         <option value="fr">Français</option>
                     </select>
-                    <div class="md:hidden">
-                        <select id="mobile-nav" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#5D737E] focus:border-[#5D737E] block w-full p-2.5">
+                    <div class="md:hidden"> <!-- Mobile dropdown for in-page nav -->
+                        <select id="mobile-nav" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-secondary-color focus:border-secondary-color block w-full p-2">
                             <option value="#access-rights" data-en="Access Rights" data-fr="Droits d'Accès">Access Rights</option>
                             <option value="#legal-framework" data-en="Legal Framework" data-fr="Cadre Légal">Legal Framework</option>
                             <option value="#restrictions" data-en="Restrictions" data-fr="Restrictions">Restrictions</option>
@@ -97,7 +118,7 @@
                 </div>
             </div>
         </div>
-    </header>
+    </div>
 
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
 
@@ -246,10 +267,19 @@
         </section>
     </main>
 
-    <footer class="bg-gray-800 text-white mt-20">
-        <div class="container mx-auto py-6 px-4 text-center text-sm">
-            <p data-en="Generated by Gemini Deep Research, June 2025" data-fr="Généré par Gemini Deep Research, juin 2025">Generated by Gemini Deep Research, June 2025</p>
-            <p class="mt-2 text-gray-400" data-en="Please note: This interactive guide is for informational purposes only and does not constitute legal advice. Nonprofits should consult with qualified legal and accounting professionals." data-fr="Veuillez noter: Ce guide interactif est à titre informatif seulement et ne constitue pas un avis juridique. Les organismes à but non lucratif devraient consulter des professionnels du droit et de la comptabilité qualifiés.">Please note: This interactive guide is for informational purposes only and does not constitute legal advice. Nonprofits should consult with qualified legal and accounting professionals.</p>
+    <footer class="site-footer-bar">
+        <!-- Original content from this page's footer -->
+        <div class="footer-content-wrapper text-center" style="width: 100%; font-size: 0.8rem; padding: 0.5rem 0;"> <!-- Added text-center and some padding -->
+            <p data-en="Generated by Gemini Deep Research, June 2025" data-fr="Généré par Gemini Deep Research, juin 2025" style="margin-bottom: 0.25rem;">Generated by Gemini Deep Research, June 2025</p>
+            <p data-en="Please note: This interactive guide is for informational purposes only and does not constitute legal advice. Nonprofits should consult with qualified legal and accounting professionals." data-fr="Veuillez noter: Ce guide interactif est à titre informatif seulement et ne constitue pas un avis juridique. Les organismes à but non lucratif devraient consulter des professionnels du droit et de la comptabilité qualifiés." style="margin-bottom: 0.5rem;">Please note: This interactive guide is for informational purposes only and does not constitute legal advice. Nonprofits should consult with qualified legal and accounting professionals.</p>
+        </div>
+        <!-- Standard CUGA Footer Content -->
+        <div class="footer-copyright">
+            Copyright &copy;<span id="currentYearFinancialGov"></span> CUGA.CA
+        </div>
+        <div class="footer-links">
+            <a href="../terms-of-use.html">Terms & Conditions</a> <!-- Adjusted path -->
+            <a href="../privacy-policy.html">Privacy Policy</a> <!-- Adjusted path -->
         </div>
     </footer>
 
@@ -641,6 +671,47 @@
             // Initial content update and checklist rendering
             updateContent();
         });
+    </script>
+    <script>
+        // Hamburger Menu for Financial Governance Page
+        const hamburgerToggleFinancial = document.getElementById('hamburgerToggleButtonFinancial');
+        const navMenuFinancial = document.getElementById('navMenuFinancial');
+
+        if (hamburgerToggleFinancial && navMenuFinancial) {
+            hamburgerToggleFinancial.addEventListener('click', () => {
+                const isOpen = navMenuFinancial.classList.toggle('is-open');
+                hamburgerToggleFinancial.setAttribute('aria-expanded', isOpen);
+                navMenuFinancial.setAttribute('aria-hidden', !isOpen);
+            });
+
+            // Close menu with Escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && navMenuFinancial.classList.contains('is-open')) {
+                    navMenuFinancial.classList.remove('is-open');
+                    hamburgerToggleFinancial.setAttribute('aria-expanded', 'false');
+                    navMenuFinancial.setAttribute('aria-hidden', 'true');
+                    hamburgerToggleFinancial.focus();
+                }
+            });
+
+            // Close menu when a nav link is clicked
+            navMenuFinancial.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenuFinancial.classList.contains('is-open')) {
+                        navMenuFinancial.classList.remove('is-open');
+                        hamburgerToggleFinancial.setAttribute('aria-expanded', 'false');
+                        navMenuFinancial.setAttribute('aria-hidden', 'true');
+                        hamburgerToggleFinancial.focus();
+                    }
+                });
+            });
+        }
+
+        // Dynamic year in footer for Financial Governance Page
+        const currentYearSpanFinancialGov = document.getElementById("currentYearFinancialGov");
+        if (currentYearSpanFinancialGov) {
+            currentYearSpanFinancialGov.textContent = new Date().getFullYear();
+        }
     </script>
 </body>
 </html>

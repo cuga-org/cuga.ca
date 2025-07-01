@@ -3,24 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conditions d'Utilisation | Terms of Use</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Conditions d'Utilisation | Terms of Use - CUGA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Retain Tailwind for now -->
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+        /* body { font-family: 'Inter', sans-serif; } */ /* Replaced by Kumbh Sans */
         .lang-en {
             display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-    <div class="text-center py-4 bg-gray-200">
+<body> <!-- Removed Tailwind bg-gray-100, text-gray-800 -->
+    <!-- Standard CUGA Site Header -->
+    <header class="site-header">
+        <a href="index.html" class="site-logo-link">
+            <img id="globalCugaLogoToU" src="assets/logos/CUGA/Horizontal/FR/Reversed/CUGA-logo-h-fr-reverse-rgb-sm.png" alt="CUGA Logo" class="site-logo">
+        </a>
+        <button class="hamburger-icon-button" id="hamburgerToggleButtonToU" aria-label="Open menu" aria-expanded="false" aria-controls="navMenuToU">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Full-screen Navigation Menu -->
+    <nav class="nav-menu" id="navMenuToU" aria-hidden="true">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="cuga.html" class="nav-link">Clubs</a>
+        <a href="join.html" class="nav-link">Join CUGA</a>
+        <a href="docs/financial-governance.html" class="nav-link">Financial Governance</a>
+        <a href="privacy-policy.html" class="nav-link">Privacy Policy</a>
+        <a href="terms-of-use.html" class="nav-link active">Terms of Use</a>
+    </nav>
+
+    <!-- Language Toggle Buttons (Retained) -->
+    <div class="text-center py-4 bg-gray-200"> <!-- Tailwind bg-gray-200 for button bar -->
         <button class="lang-button px-4 py-2 mr-2 rounded bg-blue-500 text-white" data-lang="fr">Français</button>
         <button class="lang-button px-4 py-2 rounded bg-gray-400 text-gray-800" data-lang="en">English</button>
     </div>
 
-    <div class="lang-fr px-4 py-8">
+    <div class="lang-fr container py-8"> <!-- Added .container for centering and padding -->
         <h1 class="text-3xl font-bold mb-4">Conditions d'Utilisation</h1>
         <p class="mb-4">En utilisant ce site, vous acceptez les conditions suivantes :</p>
         <h2 class="text-2xl font-semibold mb-2">Utilisation Acceptable</h2>
@@ -31,7 +54,7 @@
         <p class="mb-4">Nous ne sommes pas responsables des dommages résultant de l'utilisation de ce site.</p>
     </div>
 
-    <div class="lang-en px-4 py-8">
+    <div class="lang-en container py-8"> <!-- Added .container for centering and padding -->
         <h1 class="text-3xl font-bold mb-4">Terms of Use</h1>
         <p class="mb-4">By using this site, you agree to the following terms:</p>
         <h2 class="text-2xl font-semibold mb-2">Acceptable Use</h2>
@@ -42,15 +65,77 @@
         <p class="mb-4">We are not responsible for any damages resulting from the use of this site.</p>
     </div>
 
+    <footer class="site-footer-bar">
+        <div class="footer-copyright">
+            Copyright &copy;<span id="currentYearToU"></span> CUGA.CA
+        </div>
+        <div class="footer-links">
+            <a href="terms-of-use.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+        </div>
+    </footer>
+
     <script>
+        // Hamburger Menu for Terms of Use Page
+        const hamburgerToggleToU = document.getElementById('hamburgerToggleButtonToU');
+        const navMenuToU = document.getElementById('navMenuToU');
+
+        if (hamburgerToggleToU && navMenuToU) {
+            hamburgerToggleToU.addEventListener('click', () => {
+                const isOpen = navMenuToU.classList.toggle('is-open');
+                hamburgerToggleToU.setAttribute('aria-expanded', isOpen);
+                navMenuToU.setAttribute('aria-hidden', !isOpen);
+            });
+            // Close menu with Escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && navMenuToU.classList.contains('is-open')) {
+                    navMenuToU.classList.remove('is-open');
+                    hamburgerToggleToU.setAttribute('aria-expanded', 'false');
+                    navMenuToU.setAttribute('aria-hidden', 'true');
+                    hamburgerToggleToU.focus();
+                }
+            });
+            // Close menu when a nav link is clicked
+            navMenuToU.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenuToU.classList.contains('is-open')) {
+                        navMenuToU.classList.remove('is-open');
+                        hamburgerToggleToU.setAttribute('aria-expanded', 'false');
+                        navMenuToU.setAttribute('aria-hidden', 'true');
+                        hamburgerToggleToU.focus();
+                    }
+                });
+            });
+        }
+
+        // Dynamic year in footer
+        const currentYearSpanToU = document.getElementById("currentYearToU");
+        if (currentYearSpanToU) {
+            currentYearSpanToU.textContent = new Date().getFullYear();
+        }
+
+        // Language Switching Logic
         document.addEventListener('DOMContentLoaded', () => {
             const langButtons = document.querySelectorAll('.lang-button');
             const langSections = document.querySelectorAll('.lang-fr, .lang-en');
+            const globalLogoToU = document.getElementById('globalCugaLogoToU');
+
+            const siteLogos = {
+                fr: "assets/logos/CUGA/Horizontal/FR/Reversed/CUGA-logo-h-fr-reverse-rgb-sm.png",
+                en: "assets/logos/CUGA/Horizontal/EN/Reversed/CUGA-logo-h-en-reverse-rgb-sm.png"
+            };
 
             const setLanguage = (lang) => {
-                langSections.forEach(section => {
-                    section.style.display = section.classList.contains(`lang-${lang}`) ? 'block' : 'none';
-                });
+                // Toggle content display
+                document.querySelectorAll('.lang-fr').forEach(el => el.style.display = lang === 'fr' ? 'block' : 'none');
+                document.querySelectorAll('.lang-en').forEach(el => el.style.display = lang === 'en' ? 'block' : 'none');
+
+                // Update global logo
+                if (globalLogoToU) {
+                    globalLogoToU.src = siteLogos[lang];
+                }
+
+                // Update button styles
                 langButtons.forEach(button => {
                     button.classList.toggle('bg-blue-500', button.dataset.lang === lang);
                     button.classList.toggle('text-white', button.dataset.lang === lang);
@@ -58,6 +143,7 @@
                     button.classList.toggle('text-gray-800', button.dataset.lang !== lang);
                 });
                 document.documentElement.lang = lang;
+                // localStorage.setItem('language', lang); // Optional
             };
 
             langButtons.forEach(button => {

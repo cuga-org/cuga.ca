@@ -12,8 +12,10 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CUGA Clubs</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>CUGA Clubs - Canadian Underwater Games Association</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Retaining Tailwind for existing content -->
     <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -85,11 +87,21 @@
         </div>
     </div>
 
-    <header class="bg-[#386DC0] text-white py-8 text-center shadow-lg">
-        <img id="cugaLogo" src="assets/logos/CUGA/Horizontal/FR/FullColor/CUGA-logo-h-fr-fullColor-rgb.svg" alt="CUGA Logo" class="h-12 mx-auto">
-        <p id="cugaSubtitle" class="mt-1 text-md md:text-lg italic">Association Canadienne des Jeux Subaquatiques</p>
-        <p id="cugaTagline" class="mt-1 text-md md:text-lg italic">Plongez dans l'action avec le Hockey et le Rugby Subaquatique !</p>
+    <!-- Applying .site-header, .site-logo-link, .site-logo -->
+    <header class="site-header">
+        <a href="index.html" class="site-logo-link"> <!-- Assuming index.html is the home page -->
+            <img id="cugaLogo" src="assets/logos/CUGA/Horizontal/FR/FullColor/CUGA-logo-h-fr-fullColor-rgb.svg" alt="CUGA Logo" class="site-logo">
+        </a>
+        <!-- Hamburger menu button will be needed here for consistency if other pages have it -->
+        <!-- For now, leaving it out as this page has its own navigation (language buttons) -->
+        <!-- Note: The text-white, text-center, shadow-lg, py-8 Tailwind classes were removed -->
+        <!-- Subtitle and Tagline are outside the standard .site-header structure, will need custom styling or new classes -->
     </header>
+    <div class="text-center py-4" style="background-color: var(--primary-color); color: var(--white);"> <!-- Replicating old header visual for subtitle/tagline -->
+        <p id="cugaSubtitle" class="text-md md:text-lg italic">Association Canadienne des Jeux Subaquatiques</p>
+        <p id="cugaTagline" class="mt-1 text-md md:text-lg italic">Plongez dans l'action avec le Hockey et le Rugby Subaquatique !</p>
+    </div>
+
 
     <div id="filter-controls" class="w-full px-4 py-8 bg-gray-100 text-gray-800 rounded-lg shadow-md">
         <!-- Filter controls will be added here -->
@@ -99,73 +111,69 @@
         <!-- Club listings will be displayed here -->
     </div>
 
-    <footer id="footer-fr" class="bg-gray-900 text-gray-400 py-8 text-center">
-        <div class="container mx-auto px-4">
-            <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
-                <span>
-                    <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
-                    <a href="https://cuga.org/fr/" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        Association Canadienne des Jeux Sous-Marins
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Hockey subaquatique
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Rugby subaquatique
-                    </a>
-                </span>
-            </p>
-        </div>
-        <div class="container mx-auto px-4">
-            <p>&copy; 2025 CUGA. Tous droits réservés.</p>
-            <p class="mt-4">
-                <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank" class="text-blue-400 hover:underline">Code de Conduite CUGA</a> |
-                <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank" class="text-blue-400 hover:underline">Règlements de la CUGA</a> |
-                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Politique de Confidentialité</a> |
-                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Conditions d'Utilisation</a>
-            </p>
+    <footer id="footer-fr" class="site-footer-bar">
+        <!-- Note: Removed Tailwind classes like bg-gray-900, text-gray-400, py-8, text-center -->
+        <!-- The div.container.mx-auto.px-4 structure is slightly different from site-footer-bar's direct content model -->
+        <!-- For now, will keep internal structure and let site-footer-bar handle overall background/padding -->
+        <div class="footer-content-wrapper" style="width: 100%; display: flex; flex-direction: column; align-items: center;"> <!-- Helper for centering multi-line content -->
+            <div class="external-links py-2"> <!-- py-2 for some spacing, adjust as needed -->
+                 <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
+                    <span>
+                        <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
+                        <a href="https://cuga.org/fr/" target="_blank" rel="noopener noreferrer">Association Canadienne des Jeux Sous-Marins</a>
+                    </span>
+                    <span class="mx-2">|</span>
+                    <span>
+                        <i class="fa fa-globe text-green-200 mr-1"></i>
+                        <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer">CMAS Hockey subaquatique</a>
+                    </span>
+                    <span class="mx-2">|</span>
+                    <span>
+                        <i class="fa fa-globe text-green-200 mr-1"></i>
+                        <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer">CMAS Rugby subaquatique</a>
+                    </span>
+                </p>
+            </div>
+            <div class="footer-copyright">
+                &copy; <span id="currentYearFr">2025</span> CUGA. Tous droits réservés. <!-- Year will be updated by JS -->
+            </div>
+            <div class="footer-links">
+                <!-- Tailwind classes like text-blue-400 hover:underline removed, will rely on site-footer-bar a styles -->
+                <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank">Code de Conduite CUGA</a>
+                <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank">Règlements de la CUGA</a>
+                <a href="privacy-policy.html">Politique de Confidentialité</a>
+                <a href="terms-of-use.html">Conditions d'Utilisation</a>
+            </div>
         </div>
     </footer>
-    <footer id="footer-en" class="bg-gray-900 text-gray-400 py-8 text-center hidden">
-        <div class="container mx-auto px-4">
-            <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
-                <span>
-                    <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
-                    <a href="https://cuga.org/en/" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CUGA (Canadian Underwater Games Association)
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Underwater Hockey
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Underwater Rugby
-                    </a>
-                </span>
-            </p>
-        </div>
-        <div class="container mx-auto px-4">
-            <p>&copy; 2025 CUGA. All rights reserved.</p>
-            <p class="mt-4">
-                <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank" class="text-blue-400 hover:underline">CUGA Code of Conduct</a> |
-                <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank" class="text-blue-400 hover:underline">CUGA Bylaws</a> |
-                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Privacy Policy</a> |
-                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Terms of Use</a>
+    <footer id="footer-en" class="site-footer-bar hidden">
+        <div class="footer-content-wrapper" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <div class="external-links py-2">
+                <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
+                    <span>
+                        <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
+                        <a href="https://cuga.org/en/" target="_blank" rel="noopener noreferrer">CUGA (Canadian Underwater Games Association)</a>
+                    </span>
+                    <span class="mx-2">|</span>
+                    <span>
+                        <i class="fa fa-globe text-green-200 mr-1"></i>
+                        <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer">CMAS Underwater Hockey</a>
+                    </span>
+                    <span class="mx-2">|</span>
+                    <span>
+                        <i class="fa fa-globe text-green-200 mr-1"></i>
+                        <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer">CMAS Underwater Rugby</a>
+                    </span>
+                </p>
+            </div>
+            <div class="footer-copyright">
+                &copy; <span id="currentYearEn">2025</span> CUGA. All rights reserved. <!-- Year will be updated by JS -->
+            </div>
+            <div class="footer-links">
+                <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank">CUGA Code of Conduct</a>
+                <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank">CUGA Bylaws</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-use.html">Terms of Use</a>
             </p>
         </div>
     </footer>
@@ -507,6 +515,14 @@
             const footerEn = document.getElementById('footer-en');
             const bannerFr = document.getElementById('lang-fr-banner');
             const bannerEn = document.getElementById('lang-en-banner');
+
+            // Update copyright year
+            const currentYear = new Date().getFullYear();
+            const currentYearFrSpan = document.getElementById('currentYearFr');
+            if (currentYearFrSpan) currentYearFrSpan.textContent = currentYear;
+            const currentYearEnSpan = document.getElementById('currentYearEn');
+            if (currentYearEnSpan) currentYearEnSpan.textContent = currentYear;
+
 
             const setLanguage = (lang) => {
                 currentLanguage = lang;

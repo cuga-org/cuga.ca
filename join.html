@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adhésion CUGA / CUGA Membership - Association Canadienne des Jeux Subaquatiques</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Retain Tailwind -->
     <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Google tag (gtag.js) -->
@@ -19,16 +21,36 @@
     <meta name="description" content="Rejoignez CUGA et devenez membre de la communauté canadienne des sports subaquatiques. Apprenez-en plus sur l'adhésion, les frais et les avantages. Join CUGA and become a part of the Canadian underwater sports community. Learn about membership, fees, and benefits.">
     <meta name="keywords" content="CUGA, rejoindre CUGA, adhésion CUGA, sports subaquatiques, Canada, hockey subaquatique, rugby subaquatique, Association Canadienne des Jeux Subaquatiques, join CUGA, underwater sports, membership">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+        /* body { font-family: 'Inter', sans-serif; } */ /* Replaced by Kumbh Sans */
         /* French content shown by default (as per html[lang=fr]). English content hidden initially. JS manages language switching. */
         .lang-en {
             display: none; /* Hide English content by default */
         }
     </style>
 </head>
-<body class="bg-blue-700 text-white">
+<body class="text-white"> <!-- Removed bg-blue-700 from body, styles.css will handle body bg -->
+    <!-- Standard CUGA Site Header -->
+    <header class="site-header">
+        <a href="index.html" class="site-logo-link">
+            <img id="globalCugaLogoJoin" src="assets/logos/CUGA/Horizontal/FR/Reversed/CUGA-logo-h-fr-reverse-rgb-sm.png" alt="CUGA Logo" class="site-logo"> <!-- Default to FR -->
+        </a>
+        <button class="hamburger-icon-button" id="hamburgerToggleButtonJoin" aria-label="Open menu" aria-expanded="false" aria-controls="navMenuJoin">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Full-screen Navigation Menu -->
+    <nav class="nav-menu" id="navMenuJoin" aria-hidden="true">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="cuga.html" class="nav-link">Clubs</a>
+        <a href="join.html" class="nav-link active">Join CUGA</a>
+        <a href="docs/financial-governance.html" class="nav-link">Financial Governance</a>
+        <!-- Links for terms, privacy will be in footer -->
+    </nav>
+
+    <!-- Language Toggle Buttons and Experimental Banner (retained) -->
     <div class="text-center py-4 bg-gray-200">
         <button class="lang-button px-4 py-2 mr-2 rounded bg-blue-500 text-white" data-lang="fr">
             <i class="fa fa-fleur-de-lis"></i> Français
@@ -44,16 +66,11 @@
         Ceci est un site web expérimental pour CUGA. Le site officiel de CUGA se trouve à <a href="https://cuga.org/" target="_blank" rel="noopener noreferrer" class="underline font-semibold hover:text-blue-700">https://cuga.org/</a>.
     </div>
 
-    <header class="bg-[#386DC0] text-white py-8 text-center shadow-lg">
-        <img src="assets/logos/CUGA/Horizontal/EN/FullColor/CUGA-logo-h-en-fullColor-rgb.svg" alt="CUGA Logo" class="h-12 mx-auto"> <!-- Universal Logo -->
-        <div class="lang-fr">
-            <p class="mt-1 text-md md:text-lg italic">Adhésion à CUGA</p>
-        </div>
-        <div class="lang-en" style="display: none;">
-            <p class="mt-1 text-md md:text-lg italic">CUGA Membership</p>
-        </div>
-    </header>
-
+    <!-- Page specific title/subtitle, to be shown/hidden by JS lang toggle -->
+    <div id="pageSubtitleContainerJoin" class="text-center py-4" style="background-color: var(--primary-color); color: var(--white);">
+        <p id="joinPageSubtitle" class="text-xl md:text-2xl font-bold"></p> <!-- Adjusted class for prominence -->
+    </div>
+    <!-- Old header was here, it's removed by the previous step where the new header was added and this section was part of the SEARCH block -->
     <main class="container mx-auto px-4 py-16">
         <!-- English Content -->
         <div class="lang-en bg-white text-gray-800 rounded-xl shadow-xl p-8 md:p-12">
@@ -212,79 +229,66 @@
         </div>
     </main>
 
-    <footer id="footer-fr" class="bg-gray-900 text-gray-400 py-8 text-center lang-fr">
-        <div class="container mx-auto px-4">
-            <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
-                <span>
-                    <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
-                    <a href="https://cuga.org/fr/" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        Association Canadienne des Jeux Sous-Marins
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Hockey subaquatique
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Rugby subaquatique
-                    </a>
-                </span>
-            </p>
+    <!-- Global Site Footer Bar (replaces individual lang footers) -->
+    <footer class="site-footer-bar">
+        <div class="footer-copyright">
+            Copyright &copy;<span id="currentYearJoin"></span> CUGA.CA
         </div>
-        <div class="container mx-auto px-4">
-            <p>&copy; 2025 CUGA. Tous droits réservés.</p>
-            <p class="mt-4">
-                <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank" class="text-blue-400 hover:underline">Code de Conduite CUGA</a> |
-                <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank" class="text-blue-400 hover:underline">Règlements de la CUGA</a> |
-                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Politique de Confidentialité</a> |
-                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Conditions d'Utilisation</a>
-            </p>
-        </div>
-    </footer>
-    <footer id="footer-en" class="bg-gray-900 text-gray-400 py-8 text-center lang-en">
-        <div class="container mx-auto px-4">
-            <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
-                <span>
-                    <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
-                    <a href="https://cuga.org/en/" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CUGA (Canadian Underwater Games Association)
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Underwater Hockey
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Underwater Rugby
-                    </a>
-                </span>
-            </p>
-        </div>
-        <div class="container mx-auto px-4">
-            <p>&copy; 2025 CUGA. All rights reserved.</p>
-            <p class="mt-4">
-                <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank" class="text-blue-400 hover:underline">CUGA Code of Conduct</a> |
-                <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank" class="text-blue-400 hover:underline">CUGA Bylaws</a> |
-                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Privacy Policy</a> |
-                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Terms of Use</a>
-            </p>
+        <div class="footer-links">
+            <!-- JS will populate these based on language -->
+            <span id="footerLinksDynamicJoin">
+                <!-- Placeholder for language specific links like cuga.org, cmas -->
+            </span>
+            <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank" class="lang-fr-footer-item">Code de Conduite CUGA</a>
+            <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank" class="lang-fr-footer-item">Règlements de la CUGA</a>
+            <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank" class="lang-en-footer-item" style="display:none;">CUGA Code of Conduct</a>
+            <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank" class="lang-en-footer-item" style="display:none;">CUGA Bylaws</a>
+            <a href="privacy-policy.html">Privacy Policy</a> <!-- Common for both languages -->
+            <a href="terms-of-use.html">Terms of Use</a> <!-- Common for both languages -->
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Hamburger Menu for Join Page
+        const hamburgerToggleJoin = document.getElementById('hamburgerToggleButtonJoin');
+        const navMenuJoin = document.getElementById('navMenuJoin');
+
+        if (hamburgerToggleJoin && navMenuJoin) {
+            hamburgerToggleJoin.addEventListener('click', () => {
+                const isOpen = navMenuJoin.classList.toggle('is-open');
+                hamburgerToggleJoin.setAttribute('aria-expanded', isOpen);
+                navMenuJoin.setAttribute('aria-hidden', !isOpen);
+            });
+             // Close menu with Escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && navMenuJoin.classList.contains('is-open')) {
+                    navMenuJoin.classList.remove('is-open');
+                    hamburgerToggleJoin.setAttribute('aria-expanded', 'false');
+                    navMenuJoin.setAttribute('aria-hidden', 'true');
+                    hamburgerToggleJoin.focus();
+                }
+            });
+            // Close menu when a nav link is clicked
+            navMenuJoin.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenuJoin.classList.contains('is-open')) {
+                        navMenuJoin.classList.remove('is-open');
+                        hamburgerToggleJoin.setAttribute('aria-expanded', 'false');
+                        navMenuJoin.setAttribute('aria-hidden', 'true');
+                        hamburgerToggleJoin.focus();
+                    }
+                });
+            });
+        }
+
+        // Dynamic year in footer for Join Page
+        const currentYearSpanJoin = document.getElementById("currentYearJoin");
+        if (currentYearSpanJoin) {
+            currentYearSpanJoin.textContent = new Date().getFullYear();
+        }
+
+        // AOS and Language Switching Logic
         document.addEventListener('DOMContentLoaded', () => {
             AOS.init({
                 duration: 1000,
@@ -292,29 +296,64 @@
             });
 
             const langButtons = document.querySelectorAll('.lang-button');
-            const langSections = document.querySelectorAll('.lang-fr, .lang-en'); // Affects all elements with these classes
+            const langFrPageContent = document.querySelectorAll('main > .lang-fr'); // Content within main
+            const langEnPageContent = document.querySelectorAll('main > .lang-en'); // Content within main
+            const globalLogoJoin = document.getElementById('globalCugaLogoJoin');
+            const joinPageSubtitle = document.getElementById('joinPageSubtitle');
+            const footerLinksDynamicJoin = document.getElementById('footerLinksDynamicJoin');
+
+            const pageSpecificContent = {
+                fr: {
+                    logo: "assets/logos/CUGA/Horizontal/FR/Reversed/CUGA-logo-h-fr-reverse-rgb-sm.png",
+                    subtitle: "Adhésion à CUGA",
+                    footerHtml: `
+                        <a href="https://cuga.org/fr/" target="_blank" rel="noopener noreferrer">Association Canadienne des Jeux Sous-Marins</a>
+                        <span class="mx-1">|</span>
+                        <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer">CMAS Hockey subaquatique</a>
+                        <span class="mx-1">|</span>
+                        <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer">CMAS Rugby subaquatique</a>
+                    `
+                },
+                en: {
+                    logo: "assets/logos/CUGA/Horizontal/EN/Reversed/CUGA-logo-h-en-reverse-rgb-sm.png",
+                    subtitle: "CUGA Membership",
+                    footerHtml: `
+                        <a href="https://cuga.org/en/" target="_blank" rel="noopener noreferrer">CUGA (Canadian Underwater Games Association)</a>
+                        <span class="mx-1">|</span>
+                        <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer">CMAS Underwater Hockey</a>
+                        <span class="mx-1">|</span>
+                        <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer">CMAS Underwater Rugby</a>
+                    `
+                }
+            };
 
             const setLanguage = (lang) => {
-                // Update HTML lang attribute
                 document.documentElement.lang = lang;
 
-                // Show/hide sections based on selected language
-                langSections.forEach(section => {
-                    if (section.classList.contains(`lang-${lang}`)) {
-                        section.style.display = 'block'; // Or 'flex', 'grid', etc., depending on element type
-                    } else {
-                        section.style.display = 'none';
-                    }
-                });
+                // Toggle main page content sections
+                langFrPageContent.forEach(el => el.style.display = (lang === 'fr') ? 'block' : 'none');
+                langEnPageContent.forEach(el => el.style.display = (lang === 'en') ? 'block' : 'none');
 
-                // Update button styles
+                // Update global header logo and page subtitle
+                if (globalLogoJoin) globalLogoJoin.src = pageSpecificContent[lang].logo;
+                if (joinPageSubtitle) joinPageSubtitle.textContent = pageSpecificContent[lang].subtitle;
+
+                // Update language toggle buttons
                 langButtons.forEach(button => {
-                    button.classList.toggle('bg-blue-600', button.dataset.lang === lang); // Active language button
+                    button.classList.toggle('bg-blue-600', button.dataset.lang === lang);
                     button.classList.toggle('text-white', button.dataset.lang === lang);
-                    button.classList.toggle('bg-gray-400', button.dataset.lang !== lang); // Inactive language button
+                    button.classList.toggle('bg-gray-400', button.dataset.lang !== lang);
                     button.classList.toggle('text-gray-800', button.dataset.lang !== lang);
                 });
-                localStorage.setItem('language', lang); // Store language choice
+
+                // Update footer links
+                if (footerLinksDynamicJoin) {
+                    footerLinksDynamicJoin.innerHTML = pageSpecificContent[lang].footerHtml;
+                }
+                document.querySelectorAll('.lang-fr-footer-item').forEach(item => item.style.display = (lang === 'fr') ? 'inline' : 'none');
+                document.querySelectorAll('.lang-en-footer-item').forEach(item => item.style.display = (lang === 'en') ? 'inline' : 'none');
+
+                localStorage.setItem('language', lang);
             };
 
             // Language initialization logic
