@@ -465,16 +465,19 @@ select:focus-visible {
   font-size: 28px; /* Slightly smaller main title for card context */
 }
 
+.card-discover-feature .card-content {
+  padding: 0; /* Remove padding for this specific card's content area */
+}
 
-.image-aspect-ratio-16-9 {
+.image-aspect-ratio-2-1 { /* Renamed from .image-aspect-ratio-16-9 */
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 ratio */
+  padding-bottom: 50%; /* 2:1 ratio */
   height: 0;
   overflow: hidden;
   background-color: var(--background-light-gray); /* Placeholder bg */
 }
 
-.image-aspect-ratio-16-9 img {
+.image-aspect-ratio-2-1 img { /* Renamed from .image-aspect-ratio-16-9 img */
   position: absolute;
   top: 0;
   left: 0;
@@ -653,6 +656,8 @@ textarea.form-control {
   line-height: 1.2; /* Adjust for multi-line readability */
   margin: 0 0 1rem 0; /* Adjusted for left alignment, space below it */
   max-width: 800px; /* Prevents text from becoming too wide on large screens */
+  border-bottom: none; /* Ensure no border inherited from section styles */
+  padding-bottom: 0; /* Ensure no padding inherited */
 }
 
 .title-block-maple-welcome .welcome-wave {
