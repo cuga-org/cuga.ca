@@ -631,6 +631,7 @@ textarea.form-control {
   width: auto;
   margin-left: 0.25em; /* Space between "RUGBY" and wave */
   vertical-align: baseline; /* Align with the text baseline */
+  object-fit: contain;
 }
 
 .title-block-maple-welcome {
