@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUGA - Championnats Nationaux | Sports Subaquatiques</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T2BEK56YJ1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-T2BEK56YJ1');
+    </script>
+    <meta name="description" content="Informations sur les Championnats Nationaux de la CUGA, incluant résultats et médias.">
+    <meta name="keywords" content="CUGA, championnats nationaux, hockey subaquatique, résultats, Gatineau">
+    <style>
+        /* Basic styles to prevent FOUC and handle language switching */
+        .lang-en { display: none; }
+        body { font-family: 'Inter', sans-serif; padding-top: 64px; } /* Add padding-top for sticky header */
+        @media (min-width: 768px) { body { padding-top: 120px; } }
+
+        /* Bubbles from index.html */
+        .bubbles { position: fixed; bottom: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+        .bubble { position: absolute; background-color: rgba(255, 255, 255, 0.5); border-radius: 50%; opacity: 0.7; animation: rise 10s infinite ease-in; }
+        @keyframes rise { 0% { bottom: -100px; transform: translateX(0); } 50% { transform: translateX(100px); } 100% { bottom: 1080px; transform: translateX(-100px); opacity: 0; } }
+    </style>
+</head>
+<body class="bg-blue-700 text-white">
+    <div class="bubbles"></div>
+
+    <div id="header-placeholder"></div>
+
+    <main class="bg-white text-gray-800"> <!-- Set main background to white for content sections -->
+        <div class="lang-fr">
+            <section id="nationals" class="container mx-auto px-4 py-16 text-center bg-gray-100 rounded-xl my-8" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-900">Les Championnats Canadiens de Hockey Subaquatique 2025 ont eu lieu</h2>
+                <img src="competitions/2025-Canadian-Underwater-Hockey-Nationals.jpeg" alt="Affiche des Championnats Canadiens de Hockey Subaquatique 2025" class="rounded-lg mb-6 mx-auto shadow-xl w-full md:w-2/3 lg:w-1/2">
+                <p class="text-xl text-gray-900 mb-2"><strong>Date :</strong> A eu lieu du Vendredi 13 juin 2025 au Dimanche 15 juin 2025</p>
+                <p class="text-xl text-gray-900 mb-2"><strong>Lieu :</strong> Centre Sportif de Gatineau, 850 Bd de la Gappe, Gatineau, QC J8T 7T7</p>
+                <p class="text-lg text-gray-900 mt-4 leading-relaxed">CUGA était ravi d'organiser les Championnats Canadiens de Hockey Subaquatique 2025 à Gatineau! Merci à tous ceux qui sont venus encourager les meilleures équipes du pays.</p>
+
+                <div class="mt-8">
+                    <p class="text-lg text-gray-900 leading-relaxed">Voici les résultats du championnat :</p>
+                    <ul class="list-disc list-inside text-left inline-block mt-4 text-gray-900">
+                        <li><strong>Or :</strong> Trash Pandas (Toronto)</li>
+                        <li><strong>Argent :</strong> CAMO (Montréal)</li>
+                        <li><strong>Bronze :</strong> Nautilus (Cornwall)</li>
+                    </ul>
+                </div>
+
+                <div class="mt-8">
+                    <!-- Tab Navigation -->
+                    <div class="flex justify-center mb-4 space-x-2 video-tabs-fr">
+                        <button data-tab="video-part1-fr" class="tab-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Partie 1</button>
+                        <button data-tab="video-part2-fr" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Partie 2</button>
+                        <button data-tab="video-part3-fr" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Partie 3</button>
+                    </div>
+
+                    <!-- Tab Content Panes -->
+                    <div id="video-part1-fr" class="tab-content" style="display: block;">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/arUaXDDEz54" title="YouTube video player - Part 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                    </div>
+                    <div id="video-part2-fr" class="tab-content" style="display: none;">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/u5mPmKBfh_A" title="YouTube video player - Part 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                    </div>
+                    <div id="video-part3-fr" class="tab-content" style="display: none;">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/s1zHylEM89s" title="YouTube video player - Part 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                    </div>
+                </div>
+                <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fcuga.org%2Fposts%2Fpfbid0xnVffaB1ah2U6sc2aSjjnPJhtRfY6fxzuPgzSud35YbKvV22JokdjEC8tGE5o7E9l&show_text=true&width=500" width="500" height="729" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" class="mx-auto mt-8"></iframe>
+            </section>
+        </div>
+
+        <div class="lang-en">
+            <section id="nationals-en" class="container mx-auto px-4 py-16 text-center bg-gray-100 rounded-xl my-8" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-900">The 2025 Canadian Underwater Hockey Nationals were held</h2>
+                <img src="competitions/2025-Canadian-Underwater-Hockey-Nationals.jpeg" alt="2025 Canadian Underwater Hockey Nationals Poster" class="rounded-lg mb-6 mx-auto shadow-xl w-full md:w-2/3 lg:w-1/2">
+                <p class="text-xl text-gray-900 mb-2"><strong>Date:</strong> Took place from Friday, June 13, 2025 - Sunday, June 15, 2025</p>
+                <p class="text-xl text-gray-900 mb-2"><strong>Location:</strong> Gatineau Sports Centre, 850 Bd de la Gappe, Gatineau, QC J8T 7T7</p>
+                <p class="text-lg text-gray-900 mt-4 leading-relaxed">CUGA was thrilled to host the 2025 Canadian Underwater Hockey Nationals in Gatineau! Thanks to everyone who came out to support the best teams in the country.</p>
+
+                <div class="mt-8">
+                    <p class="text-lg text-gray-900 leading-relaxed">Here are the championship results:</p>
+                    <ul class="list-disc list-inside text-left inline-block mt-4 text-gray-900">
+                        <li><strong>Gold:</strong> Trash Pandas (Toronto)</li>
+                        <li><strong>Silver:</strong> CAMO (Montréal)</li>
+                        <li><strong>Bronze:</strong> Nautilus (Cornwall)</li>
+                    </ul>
+                </div>
+
+                <div class="mt-8">
+                    <!-- Tab Navigation -->
+                    <div class="flex justify-center mb-4 space-x-2 video-tabs-en">
+                        <button data-tab="video-part1-en" class="tab-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Part 1</button>
+                        <button data-tab="video-part2-en" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Part 2</button>
+                        <button data-tab="video-part3-en" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Part 3</button>
+                    </div>
+
+                    <!-- Tab Content Panes -->
+                    <div id="video-part1-en" class="tab-content" style="display: block;">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/arUaXDDEz54" title="YouTube video player - Part 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                    </div>
+                    <div id="video-part2-en" class="tab-content" style="display: none;">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/u5mPmKBfh_A" title="YouTube video player - Part 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                    </div>
+                    <div id="video-part3-en" class="tab-content" style="display: none;">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/s1zHylEM89s" title="YouTube video player - Part 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
+                    </div>
+                </div>
+                <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fcuga.org%2Fposts%2Fpfbid0xnVffaB1ah2U6sc2aSjjnPJhtRfY6fxzuPgzSud35YbKvV22JokdjEC8tGE5o7E9l&show_text=true&width=500" width="500" height="729" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" class="mx-auto mt-8"></iframe>
+            </section>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/menu.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({
+                duration: 1000,
+                once: true,
+            });
+
+            // Load shared header and footer
+            fetch('shared/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                    document.dispatchEvent(new CustomEvent('headerLoaded'));
+                });
+
+            fetch('shared/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                    document.dispatchEvent(new CustomEvent('footerLoaded'));
+                });
+
+            // Video Tab functionality (from index.html, adapted for this page)
+            function setupVideoTabsForPage(langPrefix) { // langPrefix will be '-fr' or '-en'
+                const tabContainer = document.querySelector('.video-tabs' + langPrefix);
+                if (!tabContainer) return;
+
+                const tabButtons = tabContainer.querySelectorAll('.tab-button');
+                const contentPanes = document.querySelectorAll('#nationals' + langPrefix + ' .tab-content'); // Assumes sections are id="nationals-fr" and id="nationals-en"
+
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const targetTabId = button.dataset.tab;
+
+                        tabButtons.forEach(btn => {
+                            const isClickButton = btn === button;
+                            btn.classList.toggle('bg-blue-500', isClickButton);
+                            btn.classList.toggle('text-white', isClickButton);
+                            btn.classList.toggle('hover:bg-blue-700', isClickButton);
+                            btn.classList.toggle('bg-gray-300', !isClickButton);
+                            btn.classList.toggle('text-gray-700', !isClickButton);
+                            btn.classList.toggle('hover:bg-gray-400', !isClickButton);
+                        });
+
+                        contentPanes.forEach(pane => {
+                            pane.style.display = pane.id === targetTabId ? 'block' : 'none';
+                        });
+                    });
+                });
+            }
+
+            // Initialize for both languages if content is structured with lang-fr/lang-en wrappers
+            // This depends on how main.js handles the display of these wrappers.
+            // We need to ensure this runs *after* the correct language block is made visible.
+            const langObserver = new MutationObserver((mutationsList, observer) => {
+                for(const mutation of mutationsList) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                        // Check if the lang-fr or lang-en block became visible
+                        if (document.querySelector('.lang-fr').style.display === 'block') {
+                            setupVideoTabsForPage('-fr');
+                        }
+                        if (document.querySelector('.lang-en').style.display === 'block') {
+                            setupVideoTabsForPage('-en');
+                        }
+                    }
+                }
+            });
+
+            // Start observing the language blocks for style changes (visibility)
+            // This is a bit complex; simpler if main.js dispatches an event after language is set.
+            // For now, let's try initializing based on current language after header/footer load.
+            document.addEventListener('footerLoaded', () => { // Or headerLoaded, whichever is last relevant
+                 const currentLang = document.documentElement.lang || 'fr';
+                 setupVideoTabsForPage('-' + currentLang);
+
+                 // If main.js directly sets display, the observer might be better.
+                 // This is a fallback.
+                 if (document.querySelector('.lang-fr')) {
+                    langObserver.observe(document.querySelector('.lang-fr'), { attributes: true });
+                 }
+                 if (document.querySelector('.lang-en')) {
+                    langObserver.observe(document.querySelector('.lang-en'), { attributes: true });
+                 }
+            });
+        });
+    </script>
+</body>
+</html>

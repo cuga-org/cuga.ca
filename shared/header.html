@@ -1,0 +1,295 @@
+<header class="site-header sticky top-0 z-[1002] bg-[var(--primary-color)]">
+    <div class="container mx-auto flex items-center justify-between">
+        <a href="index.html" class="site-logo-link">
+            <!-- Logic to switch logo based on language -->
+            <img src="assets/logos/CUGA/Horizontal/EN/Reversed/CUGA-logo-h-en-reverse-rgb-sm.png" alt="CUGA Logo" class="site-logo lang-en-logo h-10 md:h-12 lg:h-16" style="display: none;">
+            <img src="assets/logos/CUGA/Horizontal/FR/Reversed/CUGA-logo-h-fr-reverse-rgb-sm.png" alt="CUGA Logo FR" class="site-logo lang-fr-logo h-10 md:h-12 lg:h-16">
+        </a>
+
+        <div class="flex items-center">
+            <!-- Language Switcher (Desktop - outside menu) -->
+            <div class="hidden md:flex items-center mr-4 main-lang-switcher">
+                <button class="lang-button px-3 py-1 text-sm rounded-l-md" data-lang="fr" title="Français">
+                    <span class="sr-only">Français</span> FR
+                </button>
+                <button class="lang-button px-3 py-1 text-sm rounded-r-md" data-lang="en" title="English">
+                    <span class="sr-only">English</span> EN
+                </button>
+            </div>
+
+            <button class="hamburger-icon-button" id="hamburgerToggleButton" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="nav-menu-overlay" id="navMenuOverlay" aria-hidden="true"></div>
+
+<nav class="nav-menu" id="navMenu" aria-hidden="true">
+    <ul>
+        <li><a href="index.html" class="nav-link" data-lang-key="home">Home / Accueil</a></li>
+        <li>
+            <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-sports" data-lang-key="sports">Sports</button>
+            <ul class="submenu" id="submenu-sports">
+                <li><a href="sports.html#hockey" class="nav-link" data-lang-key="uwh">Underwater Hockey / Hockey Subaquatique</a></li>
+                <li><a href="sports.html#rugby" class="nav-link" data-lang-key="uwr">Underwater Rugby / Rugby Subaquatique</a></li>
+                <li><a href="sports.html#football" class="nav-link" data-lang-key="uwf">Underwater Football / Football Subaquatique</a></li>
+            </ul>
+        </li>
+        <li><a href="nationals.html" class="nav-link" data-lang-key="nationals">Nationals / Championnats</a></li>
+        <li>
+            <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-about" data-lang-key="about">About / À Propos</button>
+            <ul class="submenu" id="submenu-about">
+                <li><a href="about.html#about-us" class="nav-link" data-lang-key="aboutUs">About CUGA / À propos de CUGA</a></li>
+                <li><a href="about.html#executive" class="nav-link" data-lang-key="executive">Executive / Exécutif</a></li>
+                <li><a href="join.html" class="nav-link" data-lang-key="joinCuga">Join CUGA / Rejoindre CUGA</a></li>
+                 <li><a href="docs/CUGA Code of Conduct (June 2022).pdf" target="_blank" class="nav-link" data-lang-key="codeOfConduct">Code of Conduct</a></li>
+                <li><a href="docs/CUGA Constitution & By-laws (2024).pdf" target="_blank" class="nav-link" data-lang-key="bylaws">Constitution & Bylaws</a></li>
+
+            </ul>
+        </li>
+        <li><a href="contact.html" class="nav-link" data-lang-key="contact">Contact</a></li>
+        <li><a href="cuga.html" class="nav-link" data-lang-key="clubsList">Clubs List / Liste des Clubs</a></li>
+
+    </ul>
+    <!-- Language Switcher (Mobile - inside menu) -->
+    <div class="nav-menu-utils md:hidden">
+        <button class="lang-button" data-lang="fr">Français</button>
+        <button class="lang-button" data-lang="en">English</button>
+    </div>
+</nav>
+
+<!-- TailwindCSS classes for .site-header for height consistency with styles.css -->
+<style>
+    .site-header {
+        height: 64px; /* mobile */
+        /* Tailwind's primary-color equivalent is bg-blue-900 if :root --primary-color is #000435,
+           but since it's using var(), we'll stick to that.
+           The Tailwind class bg-[#000435] or similar can be used if Tailwind JIT is enabled.
+           For simplicity, using the var() in CSS is more direct.
+        */
+    }
+    @media (min-width: 768px) { /* md breakpoint */
+        .site-header {
+            height: 120px; /* desktop */
+        }
+    }
+
+    /* Styles for the main language switcher in the header */
+    .main-lang-switcher .lang-button {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .main-lang-switcher .lang-button:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    .main-lang-switcher .lang-button.active-lang { /* JS will add active-lang */
+        background-color: var(--white);
+        color: var(--primary-color);
+        border-color: var(--white);
+    }
+    .main-lang-switcher .lang-button:first-child {
+        border-top-left-radius: 0.375rem; /* rounded-md */
+        border-bottom-left-radius: 0.375rem; /* rounded-md */
+    }
+    .main-lang-switcher .lang-button:last-child {
+        border-top-right-radius: 0.375rem; /* rounded-md */
+        border-bottom-right-radius: 0.375rem; /* rounded-md */
+        border-left-width: 0; /* Avoid double border */
+    }
+
+</style>
+
+<script>
+// This script would ideally be in menu.js, but for a single component file, it can be here.
+// For multi-page, it MUST be in a separate .js file loaded on all pages.
+document.addEventListener('DOMContentLoaded', function () {
+    const hamburgerToggle = document.getElementById('hamburgerToggleButton');
+    const navMenu = document.getElementById('navMenu');
+    const navMenuOverlay = document.getElementById('navMenuOverlay');
+    const submenuToggles = navMenu.querySelectorAll('.submenu-toggle');
+    const siteHeader = document.querySelector('.site-header'); // to get its height
+
+    const langFrLogo = document.querySelector('.lang-fr-logo');
+    const langEnLogo = document.querySelector('.lang-en-logo');
+
+    function toggleMenu() {
+        const isOpen = navMenu.classList.toggle('is-open');
+        hamburgerToggle.setAttribute('aria-expanded', isOpen.toString());
+        navMenu.setAttribute('aria-hidden', (!isOpen).toString());
+        navMenuOverlay.classList.toggle('is-visible', isOpen);
+        navMenuOverlay.setAttribute('aria-hidden', (!isOpen).toString());
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+
+        if (isOpen) {
+            // Optional: Focus the first focusable element in the menu
+            // navMenu.querySelector('a, button').focus();
+        } else {
+            // Return focus to hamburger button if it's visible
+            if (window.getComputedStyle(hamburgerToggle).display !== 'none') {
+                 hamburgerToggle.focus();
+            }
+            // Close all submenus when main menu closes
+            submenuToggles.forEach(subToggle => {
+                const submenu = document.getElementById(subToggle.getAttribute('aria-controls'));
+                if (submenu && submenu.classList.contains('is-open')) {
+                    submenu.classList.remove('is-open');
+                    subToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+    }
+
+    if (hamburgerToggle && navMenu && navMenuOverlay) {
+        hamburgerToggle.addEventListener('click', toggleMenu);
+        navMenuOverlay.addEventListener('click', toggleMenu);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && navMenu.classList.contains('is-open')) {
+                toggleMenu();
+            }
+        });
+
+        // Close menu if a link without a submenu is clicked
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+            if (!link.closest('li').querySelector('.submenu-toggle')) { // if it's not part of a submenu structure itself
+                 link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('is-open')) {
+                        // For actual navigation, the page will reload or view will change.
+                        // If it's an anchor link on the same page, then explicitly close.
+                        if (link.getAttribute('href').startsWith('#')) {
+                            toggleMenu();
+                        }
+                        // For multi-page, the menu will naturally "close" on page load.
+                        // However, to be safe, especially with SPA-like behavior or fast loads:
+                        // toggleMenu(); // Uncomment if menu should always close on any link click
+                    }
+                });
+            }
+        });
+    }
+
+    submenuToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const submenuId = toggle.getAttribute('aria-controls');
+            const submenu = document.getElementById(submenuId);
+            if (submenu) {
+                const isSubmenuOpen = submenu.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', isSubmenuOpen.toString());
+            }
+        });
+    });
+
+    // Function to update active link in menu
+    function updateActiveNavLink() {
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        navMenu.querySelectorAll('.nav-link').forEach(link => {
+            const linkPath = link.getAttribute('href').split('/').pop().split('#')[0];
+            if (linkPath === currentPath || (currentPath === 'index.html' && (linkPath === '' || linkPath === '/'))) {
+                link.classList.add('active');
+                // If active link is in a submenu, open that submenu
+                const parentSubmenuToggle = link.closest('.submenu')?.previousElementSibling;
+                if (parentSubmenuToggle && parentSubmenuToggle.classList.contains('submenu-toggle')) {
+                    parentSubmenuToggle.setAttribute('aria-expanded', 'true');
+                    link.closest('.submenu').classList.add('is-open');
+                }
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+    updateActiveNavLink(); // Call on page load
+
+    // Language specific logo update based on current language
+    function updateLogoForLanguage(lang) {
+        if (lang === 'fr') {
+            if(langFrLogo) langFrLogo.style.display = 'block';
+            if(langEnLogo) langEnLogo.style.display = 'none';
+        } else { // Default to English
+            if(langFrLogo) langFrLogo.style.display = 'none';
+            if(langEnLogo) langEnLogo.style.display = 'block';
+        }
+    }
+
+    // Integrate with existing language switcher logic if it's in main.js
+    // This is a simplified version for the header component itself.
+    const currentLang = localStorage.getItem('language') || (navigator.language || navigator.userLanguage || 'fr').slice(0,2);
+    updateLogoForLanguage(currentLang);
+
+    // Update active state for language buttons in header/menu
+    function updateLangButtonStates(lang) {
+        document.querySelectorAll('.lang-button').forEach(btn => {
+            if (btn.dataset.lang === lang) {
+                btn.classList.add('active-lang'); // General active class for styling
+                 // For main header switcher (Tailwind specific)
+                if (btn.closest('.main-lang-switcher')) {
+                    btn.classList.add('bg-white', 'text-[var(--primary-color)]');
+                    btn.classList.remove('bg-opacity-10', 'text-white');
+                }
+            } else {
+                btn.classList.remove('active-lang');
+                if (btn.closest('.main-lang-switcher')) {
+                    btn.classList.remove('bg-white', 'text-[var(--primary-color)]');
+                    btn.classList.add('bg-opacity-10', 'text-white');
+                }
+            }
+        });
+        updateLogoForLanguage(lang); // Update logo when language changes
+    }
+    updateLangButtonStates(currentLang);
+
+
+    // Event listener for language change to update logo and button states
+    // This assumes the language change event is dispatched or can be listened to
+    // For now, hook into the click on language buttons
+    document.querySelectorAll('.lang-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const selectedLang = this.dataset.lang;
+            // The actual language setting logic (localStorage, html[lang]) should be in main.js
+            // This is just to update the UI elements in the header
+            updateLogoForLanguage(selectedLang);
+            updateLangButtonStates(selectedLang);
+            // Potentially, re-translate menu items if they are dynamic
+            translateMenuItems(selectedLang);
+        });
+    });
+
+    // Menu item translation (basic example)
+    const menuTranslations = {
+        'home': { en: 'Home', fr: 'Accueil' },
+        'sports': { en: 'Sports', fr: 'Sports' },
+        'uwh': { en: 'Underwater Hockey', fr: 'Hockey Subaquatique' },
+        'uwr': { en: 'Underwater Rugby', fr: 'Rugby Subaquatique' },
+        'uwf': { en: 'Underwater Football', fr: 'Football Subaquatique' },
+        'nationals': { en: 'Nationals', fr: 'Championnats' },
+        'about': { en: 'About', fr: 'À Propos' },
+        'aboutUs': { en: 'About CUGA', fr: 'À propos de CUGA' },
+        'executive': { en: 'Executive', fr: 'Exécutif' },
+        'joinCuga': { en: 'Join CUGA', fr: 'Rejoindre CUGA' },
+        'codeOfConduct': { en: 'Code of Conduct', fr: 'Code de Conduite' },
+        'bylaws': { en: 'Constitution & Bylaws', fr: 'Constitution & Règlements'},
+        'contact': { en: 'Contact', fr: 'Contact' },
+        'clubsList': { en: 'Clubs List', fr: 'Liste des Clubs' }
+    };
+
+    function translateMenuItems(lang) {
+        navMenu.querySelectorAll('[data-lang-key]').forEach(el => {
+            const key = el.dataset.langKey;
+            if (menuTranslations[key] && menuTranslations[key][lang]) {
+                el.textContent = menuTranslations[key][lang];
+                 // For submenu toggles, ensure arrow is preserved if textContent wipes it
+                if (el.classList.contains('submenu-toggle')) {
+                    // Re-add arrow if not handled by CSS pseudo-element on the button itself
+                }
+            }
+        });
+    }
+    translateMenuItems(currentLang); // Initial translation
+
+});
+</script>

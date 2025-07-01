@@ -1,0 +1,118 @@
+<footer class="bg-gray-900 text-gray-400 py-8 text-center">
+    <div class="container mx-auto px-4">
+        <!-- Language-specific content for footer links -->
+        <div class="lang-fr">
+            <p class="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-2 items-center">
+                <span>
+                    <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
+                    <a href="https://cuga.org/fr/" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        Association Canadienne des Jeux Sous-Marins
+                    </a>
+                </span>
+                <span class="hidden md:inline mx-2">|</span>
+                <span>
+                    <i class="fa fa-globe text-green-200 mr-1"></i>
+                    <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        CMAS Hockey subaquatique
+                    </a>
+                </span>
+                <span class="hidden md:inline mx-2">|</span>
+                <span>
+                    <i class="fa fa-globe text-green-200 mr-1"></i>
+                    <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        CMAS Rugby subaquatique
+                    </a>
+                </span>
+            </p>
+            <p class="mt-4">&copy; <span class="current-year"></span> CUGA. Tous droits réservés.</p>
+            <p class="mt-4 text-sm">
+                <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank" class="text-blue-400 hover:underline">Code de Conduite CUGA</a> |
+                <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank" class="text-blue-400 hover:underline">Règlements de la CUGA</a> |
+                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Politique de Confidentialité</a> |
+                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Conditions d'Utilisation</a>
+            </p>
+        </div>
+
+        <div class="lang-en" style="display: none;">
+            <p class="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-2 items-center">
+                <span>
+                    <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
+                    <a href="https://cuga.org/en/" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        CUGA (Canadian Underwater Games Association)
+                    </a>
+                </span>
+                <span class="hidden md:inline mx-2">|</span>
+                <span>
+                    <i class="fa fa-globe text-green-200 mr-1"></i>
+                    <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        CMAS Underwater Hockey
+                    </a>
+                </span>
+                <span class="hidden md:inline mx-2">|</span>
+                <span>
+                    <i class="fa fa-globe text-green-200 mr-1"></i>
+                    <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
+                        CMAS Underwater Rugby
+                    </a>
+                </span>
+            </p>
+            <p class="mt-4">&copy; <span class="current-year"></span> CUGA. All rights reserved.</p>
+            <p class="mt-4 text-sm">
+                <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank" class="text-blue-400 hover:underline">CUGA Code of Conduct</a> |
+                <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank" class="text-blue-400 hover:underline">CUGA Bylaws</a> |
+                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Privacy Policy</a> |
+                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Terms of Use</a>
+            </p>
+        </div>
+        <div id="version-info-container" class="mt-4 pt-2 border-t border-gray-600">
+            <!-- Version info will be injected here by main.js -->
+        </div>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Dynamic year in footer
+    document.querySelectorAll(".current-year").forEach(function(span) {
+        span.textContent = new Date().getFullYear();
+    });
+
+    // Language display logic for footer content (relies on main.js for actual language setting)
+    // This ensures the correct footer text shows based on the language set by main.js
+    function showFooterLanguage(lang) {
+        const footerFr = document.querySelector('footer .lang-fr');
+        const footerEn = document.querySelector('footer .lang-en');
+
+        if (lang === 'fr') {
+            if (footerFr) footerFr.style.display = 'block';
+            if (footerEn) footerEn.style.display = 'none';
+        } else {
+            if (footerFr) footerFr.style.display = 'none';
+            if (footerEn) footerEn.style.display = 'block';
+        }
+    }
+
+    const currentLang = localStorage.getItem('language') || (navigator.language || navigator.userLanguage || 'fr').slice(0,2);
+    showFooterLanguage(currentLang);
+
+    // Listen for language changes (e.g., from header switcher) to update footer
+    // This assumes lang-button clicks are the primary way language changes.
+    // A more robust solution might use a custom event dispatched by main.js when language is set.
+    document.querySelectorAll('.lang-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const selectedLang = this.dataset.lang;
+            showFooterLanguage(selectedLang);
+        });
+    });
+
+    // Also update on pageshow for bfcache
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            const lang = localStorage.getItem('language');
+            if (lang) {
+                showFooterLanguage(lang);
+            }
+        }
+    });
+});
+</script>
