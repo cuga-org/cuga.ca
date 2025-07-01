@@ -122,39 +122,44 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/page-init.js"></script>
     <script>
+        // Page-specific script for nationals.html (video tabs)
         document.addEventListener('DOMContentLoaded', () => {
-            AOS.init({
-                duration: 1000,
-                once: true,
-            });
-
-            // Load shared header and footer
-            fetch('shared/header.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('header-placeholder').innerHTML = data;
-                    document.dispatchEvent(new CustomEvent('headerLoaded'));
-                });
-
-            fetch('shared/footer.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('footer-placeholder').innerHTML = data;
-                    document.dispatchEvent(new CustomEvent('footerLoaded'));
-                });
-
-            // Video Tab functionality (from index.html, adapted for this page)
-            function setupVideoTabsForPage(langPrefix) { // langPrefix will be '-fr' or '-en'
-                const tabContainer = document.querySelector('.video-tabs' + langPrefix);
-                if (!tabContainer) return;
+            // Video Tab functionality
+            function setupVideoTabsForPage(lang) {
+                const langSuffix = lang === 'fr' ? '-fr' : '-en';
+                const tabContainer = document.querySelector('.video-tabs' + langSuffix);
+                if (!tabContainer) {
+                    // console.warn(`Video tab container not found for lang: ${lang} (selector: .video-tabs${langSuffix})`);
+                    return;
+                }
 
                 const tabButtons = tabContainer.querySelectorAll('.tab-button');
-                const contentPanes = document.querySelectorAll('#nationals' + langPrefix + ' .tab-content'); // Assumes sections are id="nationals-fr" and id="nationals-en"
+                // Adjust selector for content panes if they are inside a specific language section that might not be visible yet
+                // This assumes the main lang-fr/lang-en containers are handled by main.js for visibility
+                const overallLangSectionSelector = lang === 'fr' ? '.lang-fr' : '.lang-en';
+                const overallLangSection = document.querySelector(overallLangSectionSelector);
+                if (!overallLangSection || overallLangSection.style.display === 'none') {
+                    // console.log(`Video tabs for ${lang} not initialized because language section is not visible.`);
+                    return;
+                }
+
+                // Correctly scope contentPanes to the visible language section for nationals
+                const contentPanes = overallLangSection.querySelectorAll('#nationals' + langSuffix + ' .tab-content, #nationals' + langSuffix + ' .tab-content');
+
+
+                if(tabButtons.length === 0) {
+                    // console.warn(`No tab buttons found in .video-tabs${langSuffix}`);
+                    return;
+                }
+                // console.log(`Setting up video tabs for lang: ${lang}. Buttons found: ${tabButtons.length}. Panes targeted: ${contentPanes.length}`);
+
 
                 tabButtons.forEach(button => {
                     button.addEventListener('click', () => {
                         const targetTabId = button.dataset.tab;
+                        // console.log(`Button clicked: ${targetTabId}`);
 
                         tabButtons.forEach(btn => {
                             const isClickButton = btn === button;
@@ -171,40 +176,35 @@
                         });
                     });
                 });
-            }
 
-            // Initialize for both languages if content is structured with lang-fr/lang-en wrappers
-            // This depends on how main.js handles the display of these wrappers.
-            // We need to ensure this runs *after* the correct language block is made visible.
-            const langObserver = new MutationObserver((mutationsList, observer) => {
-                for(const mutation of mutationsList) {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                        // Check if the lang-fr or lang-en block became visible
-                        if (document.querySelector('.lang-fr').style.display === 'block') {
-                            setupVideoTabsForPage('-fr');
-                        }
-                        if (document.querySelector('.lang-en').style.display === 'block') {
-                            setupVideoTabsForPage('-en');
-                        }
+                // Ensure the first tab is active by default if no other logic handles it
+                if (tabButtons.length > 0 && contentPanes.length > 0) {
+                    let firstTabVisible = false;
+                    contentPanes.forEach(pane => {
+                        if(pane.style.display === 'block') firstTabVisible = true;
+                    });
+                    if (!firstTabVisible) {
+                        tabButtons[0].click(); // Activate the first tab
+                        // console.log(`Video tabs for ${lang}: Activating first tab by default.`);
+                    } else {
+                        // console.log(`Video tabs for ${lang}: A tab is already visible or active.`);
                     }
                 }
+            }
+
+            // Listen for languageChanged custom event (dispatched from main.js)
+            document.addEventListener('languageChanged', (event) => {
+                const newLang = event.detail.lang;
+                // console.log(`nationals.html: languageChanged event to ${newLang}, setting up video tabs.`);
+                setupVideoTabsForPage(newLang);
             });
 
-            // Start observing the language blocks for style changes (visibility)
-            // This is a bit complex; simpler if main.js dispatches an event after language is set.
-            // For now, let's try initializing based on current language after header/footer load.
-            document.addEventListener('footerLoaded', () => { // Or headerLoaded, whichever is last relevant
-                 const currentLang = document.documentElement.lang || 'fr';
-                 setupVideoTabsForPage('-' + currentLang);
-
-                 // If main.js directly sets display, the observer might be better.
-                 // This is a fallback.
-                 if (document.querySelector('.lang-fr')) {
-                    langObserver.observe(document.querySelector('.lang-fr'), { attributes: true });
-                 }
-                 if (document.querySelector('.lang-en')) {
-                    langObserver.observe(document.querySelector('.lang-en'), { attributes: true });
-                 }
+            // Initial setup attempt after footer (and thus main content) is loaded
+            // This helps if the page loads directly in a specific language state
+            document.addEventListener('footerLoaded', () => {
+                const currentLang = document.documentElement.lang || 'fr';
+                // console.log(`nationals.html: footerLoaded, initial lang ${currentLang}, setting up video tabs.`);
+                setupVideoTabsForPage(currentLang);
             });
         });
     </script>
