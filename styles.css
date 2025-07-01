@@ -433,13 +433,7 @@ select:focus-visible {
 
 /* .card .card-content specificity is no longer needed if .card-content is consistently used */
 
-
-.card-image-top img {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin-bottom: 1rem; /* Space between image and content */
-}
+/* Removed .card-image-top img rule as the component example is removed */
 
 .card-callout {
   background-color: var(--background-light-gray); /* Different background for callout */
@@ -455,6 +449,7 @@ select:focus-visible {
 
 /* New Card Styles */
 .card-discover-feature .title-block-discover {
+  margin-top: 1rem; /* Space between image and title block */
   margin-bottom: 1rem; /* Space between title block and buttons */
 }
 
