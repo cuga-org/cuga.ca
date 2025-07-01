@@ -89,6 +89,7 @@ body {
 
 .style-guide-header h1 {
   color: var(--white); /* Changed to white */
+  margin-bottom: 0;
 }
 /* Note: p.small-text color is handled inline in styles.html for now to be var(--white) */
 
@@ -414,10 +415,23 @@ select:focus-visible {
 /* 6. Cards & Containers */
 .card {
   background-color: var(--white);
-  padding: var(--card-padding-mobile);
+  /* padding: var(--card-padding-mobile); -- Removed, will be handled by .card-content */
   margin-bottom: var(--card-margin-bottom);
   /* No border-radius or box-shadow */
 }
+
+.card-content { /* Universal content wrapper for cards */
+  padding: var(--card-padding-mobile);
+}
+
+@media (min-width: 768px) {
+  .card-content { /* Universal content wrapper for cards */
+    padding: var(--card-padding-desktop);
+  }
+}
+
+/* .card .card-content specificity is no longer needed if .card-content is consistently used */
+
 
 .card-image-top img {
   width: 100%;
@@ -428,15 +442,58 @@ select:focus-visible {
 
 .card-callout {
   background-color: var(--background-light-gray); /* Different background for callout */
-  padding: var(--card-padding-mobile);
-  margin-bottom: var(--card-margin-bottom);
+  /* padding: var(--card-padding-mobile); -- Removed, will use .card-content */
+  margin-bottom: var(--card-margin-bottom); /* This is fine as it's on the .card itself */
 }
 
 @media (min-width: 768px) {
-  .card, .card-callout {
-    padding: var(--card-padding-desktop);
-  }
+  /* .card, .card-callout {
+    padding: var(--card-padding-desktop); Removed here, handled by .card-content
+  } */
 }
+
+/* New Card Styles */
+.card-discover-feature .title-block-discover {
+  margin-bottom: 1rem; /* Space between title block and buttons */
+}
+
+/* Ensure title block inside card uses card's content padding, or reset if necessary */
+.card-discover-feature .title-block-discover .pre-title {
+  font-size: 18px; /* Slightly smaller pre-title for card context */
+}
+.card-discover-feature .title-block-discover .main-title {
+  font-size: 28px; /* Slightly smaller main title for card context */
+}
+
+
+.image-aspect-ratio-16-9 {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+  background-color: var(--background-light-gray); /* Placeholder bg */
+}
+
+.image-aspect-ratio-16-9 img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the area, cropping if necessary */
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  gap: 0.75rem; /* Space between buttons */
+}
+
+.card-actions .btn {
+  flex-grow: 1; /* Allow buttons to grow and share space if needed */
+  /* Alternatively, set a specific width or rely on content size */
+}
+
 
 /* 7. Forms */
 .form-group {
@@ -538,7 +595,7 @@ textarea.form-control {
   width: 100px; /* Fixed width as per guideline, adjust as needed for PNG */
   height: auto; /* Maintain aspect ratio */
   /* color: var(--primary-color); /* Removed as PNG color is inherent */
-  margin: 16px auto; /* Centered with spacing */
+  margin: 16px 0; /* Adjusted for left alignment, spacing top/bottom */
 }
 
 /* 9.5. Title Block Styles */
@@ -576,7 +633,7 @@ textarea.form-control {
 }
 
 .title-block-maple-welcome {
-  text-align: center;
+  text-align: left; /* Changed from center to left */
   margin-bottom: 1rem; /* Space below the entire block */
   padding: 1rem 0; /* Add some padding for visual separation if needed */
 }
@@ -585,7 +642,7 @@ textarea.form-control {
   width: 90px;
   height: 66px;
   display: block;
-  margin: 0 auto 1rem auto; /* Centered, with 1rem space below it */
+  margin: 0 0 1rem 0; /* Adjusted for left alignment, space below it */
 }
 
 .title-block-maple-welcome .welcome-title {
@@ -594,7 +651,7 @@ textarea.form-control {
   text-transform: uppercase;
   font-weight: 900;
   line-height: 1.2; /* Adjust for multi-line readability */
-  margin: 0 auto 1rem auto; /* Centered, with 1rem space below it */
+  margin: 0 0 1rem 0; /* Adjusted for left alignment, space below it */
   max-width: 800px; /* Prevents text from becoming too wide on large screens */
 }
 
@@ -602,7 +659,7 @@ textarea.form-control {
   display: block;
   width: 100px; /* As per existing .wave-separator */
   height: auto; /* Maintain aspect ratio */
-  margin: 1rem auto 0 auto; /* Centered, with 1rem space above it */
+  margin: 1rem 0 0 0; /* Adjusted for left alignment, space above it */
 }
 
 
