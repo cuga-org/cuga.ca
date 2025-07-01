@@ -627,6 +627,7 @@ textarea.form-control {
 
 .title-block-discover .title-wave {
   height: 0.8em; /* Scale with font size of "RUGBY" */
+  max-width: 133px;
   width: auto;
   margin-left: 0.25em; /* Space between "RUGBY" and wave */
   vertical-align: baseline; /* Align with the text baseline */
@@ -659,7 +660,7 @@ textarea.form-control {
 
 .title-block-maple-welcome .welcome-wave {
   display: block;
-  width: 100px; /* As per existing .wave-separator */
+  width: 133px; /* As per existing .wave-separator */
   height: auto; /* Maintain aspect ratio */
   margin: 1rem 0 0 0; /* Adjusted for left alignment, space above it */
 }
