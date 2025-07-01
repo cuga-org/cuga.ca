@@ -6,6 +6,7 @@
   --primary-color: #000435; /* Deep Navy Blue */
   --secondary-color: #61B0F6; /* Sky Blue */
   --accent-color: #FB2000; /* Maple Red */
+  --pretitle-accent-color: #0009a1; /* Accent for pre-titles */
   --background-light-gray: #F2F2F2;
   --text-charcoal: #272625;
   --white: #FFFFFF;
@@ -541,6 +542,41 @@ textarea.form-control {
   margin: 16px auto; /* Centered with spacing */
 }
 
+/* 9.5. Title Block Styles */
+.title-block-discover {
+  margin-bottom: 1rem; /* Space below the block */
+}
+
+.title-block-discover .pre-title {
+  color: var(--pretitle-accent-color);
+  font-size: 21px;
+  font-weight: 700; /* Assuming pre-titles are bold */
+  text-transform: uppercase;
+  margin-bottom: 0.25rem; /* Space between pre-title and main title */
+  display: block; /* Ensure it takes its own line and margin works */
+}
+
+.title-block-discover .main-title {
+  font-size: 32px;
+  color: var(--text-charcoal);
+  font-weight: 900; /* Assuming main titles are very bold */
+  text-transform: uppercase; /* As per "Underwater RUGBY" */
+  line-height: 1.1; /* Adjust for tight two-line display */
+  margin: 0; /* Reset margin for precise control */
+}
+
+.title-block-discover .title-line-break {
+  display: block; /* Puts "Rugby" on a new line */
+}
+
+.title-block-discover .title-wave {
+  height: 0.8em; /* Scale with font size of "RUGBY" */
+  width: auto;
+  margin-left: 0.25em; /* Space between "RUGBY" and wave */
+  vertical-align: baseline; /* Align with the text baseline */
+}
+
+
 /* Utility Classes */
 .bg-primary { background-color: var(--primary-color); }
 .bg-secondary { background-color: var(--secondary-color); }
@@ -572,4 +608,60 @@ textarea.form-control {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* 10. Site Footer Bar */
+.site-footer-bar {
+  background-color: var(--primary-color);
+  color: var(--white);
+  height: 40px;
+  padding: 0 var(--content-padding-mobile); /* Use existing padding variables */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.site-footer-bar a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 13px; /* Ensure links also have this font size */
+  font-weight: 400; /* Override generic link hover bolding if not desired */
+}
+
+.site-footer-bar a:hover,
+.site-footer-bar a:focus {
+  text-decoration: underline;
+  color: var(--secondary-color); /* Lighter color on hover for visibility */
+  font-weight: 400; /* Keep font weight consistent */
+}
+
+.footer-links a {
+  margin-left: 1.5rem; /* Space between links */
+}
+
+/* Responsive Footer */
+@media (max-width: 767px) {
+  .site-footer-bar {
+    height: auto; /* Allow height to adjust to content */
+    flex-direction: column;
+    padding-top: 0.75rem; /* 12px */
+    padding-bottom: 0.75rem; /* 12px */
+    text-align: center;
+  }
+  .footer-copyright {
+    margin-bottom: 0.5rem; /* Space between copyright and links */
+  }
+  .footer-links a {
+    margin-left: 0.75rem; /* Reduce space for mobile */
+    margin-right: 0.75rem;
+    display: inline-block; /* Ensure proper spacing */
+  }
+}
+
+@media (min-width: 768px) {
+  .site-footer-bar {
+    padding-left: var(--content-padding-desktop);
+    padding-right: var(--content-padding-desktop);
+  }
 }

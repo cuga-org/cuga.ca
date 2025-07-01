@@ -83,6 +83,7 @@
                 <div class="color-swatch dark-bg" style="background-color: var(--primary-color);">#000435<br/>Primary</div>
                 <div class="color-swatch dark-bg" style="background-color: var(--secondary-color);">#61B0F6<br/>Secondary</div>
                 <div class="color-swatch dark-bg" style="background-color: var(--accent-color);">#FB2000<br/>Accent</div>
+                <div class="color-swatch dark-bg" style="background-color: var(--pretitle-accent-color);">#0009A1<br/>Pre-title Accent</div>
                 <div class="color-swatch" style="background-color: var(--background-light-gray);">#F2F2F2<br/>Bg Light Gray</div>
                 <div class="color-swatch dark-bg" style="background-color: var(--text-charcoal);">#272625<br/>Text Charcoal</div>
                 <div class="color-swatch" style="background-color: var(--white); border: 1px solid #eee;">#FFFFFF<br/>White</div>
@@ -121,9 +122,26 @@
             </div>
         </section>
 
+        <!-- Title Block Showcase Section -->
+        <section id="title-blocks" class="style-guide-section">
+            <h2>3. Title Blocks</h2>
+            <p>Reusable title block layouts.</p>
+            <div class="title-block-discover-wrapper" style="margin-bottom: 2rem; padding: 1.5rem; border: 1px dashed var(--divider-color);">
+                <span class="small-text text-secondary">Title Block Example / .title-block-discover</span>
+                <div class="title-block-discover">
+                    <div class="pre-title">DISCOVER</div>
+                    <h1 class="main-title">
+                        Underwater
+                        <span class="title-line-break">Rugby <img src="assets/icons/CUGA_wave.png" alt="Decorative wave" class="title-wave"></span>
+                    </h1>
+                </div>
+            </div>
+             <p class="small-text">Layout: Pre-title (21px, #0009A1), Main Title (32px, #272625) on two lines with wave image (assets/icons/CUGA_wave.png) on the right of the second line's text.</p>
+        </section>
+
         <!-- Layout Section -->
         <section id="layout" class="style-guide-section">
-            <h2>3. Layout</h2>
+            <h2>4. Layout</h2>
             <p>Max container width: <code>1280px</code>. Content padding: Mobile <code>1.875rem</code>, Desktop <code>3.75rem</code>. Section padding: Mobile <code>3rem</code>, Desktop <code>5rem</code>.</p>
             <div class="layout-example">
                 <p class="small-text text-center">This is inside a .container, within a .section</p>
@@ -141,7 +159,7 @@
 
         <!-- Buttons Section -->
         <section id="buttons" class="style-guide-section button-showcase">
-            <h2>4. Buttons</h2>
+            <h2>5. Buttons</h2>
             <p>Squared, minimal style with uppercase bold text and no radius.</p>
             <div>
                 <button class="btn btn-primary">Primary Button</button>
@@ -157,7 +175,7 @@
 
         <!-- Links & Interactive Elements Section -->
         <section id="links" class="style-guide-section">
-            <h2>5. Links & Interactive Elements</h2>
+            <h2>6. Links & Interactive Elements</h2>
             <div>
                 <span class="small-text text-secondary">Text Link</span>
                 <p>This is a <a href="#">standard text link</a>. Hover or focus to see the accent color and underline.</p>
@@ -171,7 +189,7 @@
 
         <!-- Cards & Containers Section -->
         <section id="cards" class="style-guide-section card-showcase">
-            <h2>6. Cards & Containers</h2>
+            <h2>7. Cards & Containers</h2>
             <p>Background: #FFFFFF, No border-radius, no shadow. Padding: Mobile 1.5rem, Desktop 2.5rem.</p>
             <div class="grid grid-cols-1 grid-cols-md-2">
                 <div class="card">
@@ -193,7 +211,7 @@
 
         <!-- Forms Section -->
         <section id="forms" class="style-guide-section">
-            <h2>7. Forms</h2>
+            <h2>8. Forms</h2>
             <form action="#" method="post" onsubmit="return false;">
                 <div class="form-group">
                     <label for="name" class="form-label">Full Name</label>
@@ -216,7 +234,7 @@
 
         <!-- Icons & Visual Elements Section -->
         <section id="icons" class="style-guide-section">
-            <h2>8. Icons & Visual Elements</h2>
+            <h2>9. Icons & Visual Elements</h2>
             <p><span class="icon-placeholder">i</span> <span class="icon-text">Icon with text (16-32px, typically stroke). Color context-dependent.</span></p>
             <p><img src="assets/icons/cuga_symbol.png" alt="Maple Leaf Icon" class="maple-leaf-decorative" style="width: 40px; height: auto; vertical-align: middle;"> Maple Leaf: Decorative accent. Color: <code>#FB2000</code> (Note: color is inherent to PNG).</p>
 
@@ -227,7 +245,7 @@
 
         <!-- Decorative Elements Section -->
         <section id="decorative" class="style-guide-section text-center">
-            <h2>9. Decorative Elements</h2>
+            <h2>10. Decorative Elements</h2>
             <p>Wave Separator (PNG)</p>
             <img src="assets/icons/CUGA_wave.png" alt="Wave Separator" class="wave-separator">
             <p class="small-text">Original SVG color intent: #000435. Width: ~80-100px, Spacing: 16px above/below. (PNG color is inherent)</p>
@@ -275,5 +293,19 @@
         });
     </script>
 
+    <footer class="site-footer-bar">
+        <div class="footer-copyright">
+            Copyright &copy;<span id="currentYear"></span> CUGA.CA
+        </div>
+        <div class="footer-links">
+            <a href="terms-of-use.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic year in footer
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
