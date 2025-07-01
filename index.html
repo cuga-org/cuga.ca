@@ -31,716 +31,155 @@
     <meta name="twitter:title" content="CUGA - Sports Subaquatiques au Canada">
     <meta name="twitter:description" content="Découvrez les sports subaquatiques avec CUGA au Canada. Hockey et rugby subaquatique pour tous les niveaux.">
     <meta name="twitter:image" content="images/hockey.jpg">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Removed old AOS script, will be in main.js or individual page scripts -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            padding-top: 64px; /* For sticky header */
         }
-        /* French content shown by default (as per html[lang=fr]). English content hidden initially. JS manages language switching. */
+        @media (min-width: 768px) { /* md breakpoint from Tailwind */
+            body {
+                padding-top: 120px; /* For sticky header */
+            }
+        }
         .lang-en {
-            display: none; /* Hide English content by default to prevent flash and provide a no-JS fallback */
+            display: none;
         }
-        .active-nav-link {
-            color: #FACC15; /* Corresponds to Tailwind's yellow-400 */
-            font-weight: bold;
+        /* Removed .active-nav-link as new menu handles active state */
+
+        /* Bubbles CSS */
+        .bubbles { position: fixed; bottom: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;}
+        .bubble { position: absolute; background-color: rgba(255, 255, 255, 0.5); border-radius: 50%; opacity: 0.7; animation: rise 10s infinite ease-in; }
+        @keyframes rise { 0% { bottom: -100px; transform: translateX(0); } 50% { transform: translateX(100px); } 100% { bottom: 1080px; transform: translateX(-100px); opacity: 0; } }
+
+        /* Hide old nav elements */
+        .force-hide-mobile { display: none !important; }
+
+        /* Welcome section specific styles */
+        .welcome-section {
+            min-height: calc(100vh - 120px - 60px); /* Full viewport height minus header and footer */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background: url('images/underwater-bg-blurry.jpg') no-repeat center center; */ /* Optional: if a specific background image is desired */
+            /* background-size: cover; */
         }
+        .welcome-content {
+            background-color: rgba(0, 4, 53, 0.7); /* var(--primary-color) with alpha */
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+         @media (min-width: 768px) {
+            .welcome-content {
+                 padding: 3rem;
+            }
+        }
+
     </style>
+    <!-- Removed old AOS init, will be in main.js or individual page scripts -->
+    <!-- Removed old bubble CSS, styles combined above -->
+    <!-- Removed old force-hide-mobile CSS -->
+</head>
+<body class="bg-blue-700 text-white">
+    <div class="bubbles"></div>
+
+    <div id="header-placeholder"></div>
+
+    <!-- Removed old language switcher and experimental banner, header.html will handle language buttons -->
+    <!-- The old header inside lang-fr and lang-en divs is removed -->
+
+    <main>
+        <div class="lang-fr">
+            <section id="welcome-hero-fr" class="welcome-section container mx-auto px-4 py-16 text-center" data-aos="fade-in" data-aos-duration="1500">
+                <div class="welcome-content">
+                    <img src="assets/icons/cuga_symbol.png" alt="CUGA Maple Leaf Symbol" class="mx-auto mb-6 h-24 w-auto md:h-32">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold uppercase mb-4 title-block-maple-welcome welcome-title" style="color: var(--white); line-height: 1.1;">
+                        Bienvenue au cœur des sports subaquatiques au Canada
+                    </h1>
+                    <img src="assets/icons/CUGA_wave.png" alt="Decorative wave" class="mx-auto my-6 h-8 md:h-10">
+                    <p class="text-lg md:text-xl mb-8 text-gray-200">
+                        Plongez dans l'univers passionnant du Hockey Subaquatique, du Rugby Subaquatique et du Football Subaquatique avec la CUGA.
+                    </p>
+                    <div class="space-y-4 md:space-y-0 md:space-x-4">
+                        <a href="sports.html" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-primary-dark font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 text-lg">
+                            Découvrir nos sports <i class="fa fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="join.html" class="inline-block bg-transparent hover:bg-white hover:text-primary-dark border-2 border-white text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 text-lg">
+                            Rejoindre un Club <i class="fa fa-users ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <!-- "View CUGA Clubs List" button is now part of the hero or in the menu -->
+        </div>
+
+        <div class="lang-en">
+            <section id="welcome-hero-en" class="welcome-section container mx-auto px-4 py-16 text-center" data-aos="fade-in" data-aos-duration="1500">
+                 <div class="welcome-content">
+                    <img src="assets/icons/cuga_symbol.png" alt="CUGA Maple Leaf Symbol" class="mx-auto mb-6 h-24 w-auto md:h-32">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold uppercase mb-4 title-block-maple-welcome welcome-title" style="color: var(--white); line-height: 1.1;">
+                        Welcome to the Home of Underwater Sports in Canada
+                    </h1>
+                    <img src="assets/icons/CUGA_wave.png" alt="Decorative wave" class="mx-auto my-6 h-8 md:h-10">
+                    <p class="text-lg md:text-xl mb-8 text-gray-200">
+                        Dive into the exciting world of Underwater Hockey, Underwater Rugby, and Underwater Football with CUGA.
+                    </p>
+                    <div class="space-y-4 md:space-y-0 md:space-x-4">
+                        <a href="sports.html" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-primary-dark font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 text-lg">
+                            Discover Our Sports <i class="fa fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="join.html" class="inline-block bg-transparent hover:bg-white hover:text-primary-dark border-2 border-white text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 text-lg">
+                            Join a Club <i class="fa fa-users ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- All other sections (sports, nationals, about, executive, contact) have been moved to their respective pages -->
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/menu.js"></script> <!-- For menu interactions -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             AOS.init({
-                duration: 1000, // Durée de l'animation en millisecondes
-                once: true, // Animation uniquement lors du premier défilement
+                duration: 1000,
+                once: true,
             });
-        });
-    </script>
-    <style>
-        .bubbles {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
 
-        .bubble {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: rise 10s infinite ease-in;
-        }
-
-        @keyframes rise {
-            0% {
-                bottom: -100px;
-                transform: translateX(0);
-            }
-            50% {
-                transform: translateX(100px);
-            }
-            100% {
-                bottom: 1080px;
-                transform: translateX(-100px);
-                opacity: 0;
-            }
-        }
-    </style>
-    <style>
-        @media (max-width: 1023.98px) { /* Tailwind's lg breakpoint is 1024px. This targets screens just below it. */
-            .force-hide-mobile {
-                display: none !important;
-            }
-        }
-    </style>
-</head>
-<body class="bg-blue-700 text-white">
-    <div class="bubbles">
-    </div>
-
-    <nav class="lang-fr fixed top-1/2 right-4 transform -translate-y-1/2 bg-opacity-75 bg-blue-800 text-white p-3 rounded-lg z-50 shadow-md hidden lg:block force-hide-mobile">
-        <ul class="flex flex-col space-y-2">
-            <li class="py-1"><a href="join.html" class="hover:text-yellow-300">Rejoindre CUGA</a></li>
-            <li class="py-1"><a href="#about-us-fr" class="hover:text-yellow-300">À propos</a></li>
-            <li class="py-1"><a href="#executive-fr" class="hover:text-yellow-300">Exécutif</a></li>
-            <li class="py-1"><a href="#sports" class="hover:text-yellow-300">Disciplines</a></li>
-            <li class="py-1"><a href="#nationals" class="hover:text-yellow-300">Championnats</a></li>
-            <li class="py-1"><a href="#contact" class="hover:text-yellow-300">Contact</a></li>
-        </ul>
-    </nav>
-
-    <nav class="lang-en fixed top-1/2 right-4 transform -translate-y-1/2 bg-opacity-75 bg-blue-800 text-white p-3 rounded-lg z-50 shadow-md hidden lg:block force-hide-mobile">
-        <ul class="flex flex-col space-y-2">
-            <li class="py-1"><a href="join.html" class="hover:text-yellow-300">Join CUGA</a></li>
-            <li class="py-1"><a href="#about-us-en" class="hover:text-yellow-300">About Us</a></li>
-            <li class="py-1"><a href="#executive-en" class="hover:text-yellow-300">Executive</a></li>
-            <li class="py-1"><a href="#sports-en" class="hover:text-yellow-300">Disciplines</a></li>
-            <li class="py-1"><a href="#nationals-en" class="hover:text-yellow-300">Nationals</a></li>
-            <li class="py-1"><a href="#contact-en" class="hover:text-yellow-300">Contact</a></li>
-        </ul>
-    </nav>
-
-    <div class="text-center py-4 bg-gray-200">
-        <button class="lang-button px-4 py-2 mr-2 rounded bg-blue-500 text-white" data-lang="fr">
-            <i class="fa fa-fleur-de-lis"></i> Français
-        </button>
-        <button class="lang-button px-4 py-2 rounded bg-gray-400 text-gray-800" data-lang="en">
-            <i class="fa fa-canadian-maple-leaf"></i> English
-        </button>
-    </div>
-
-    <div class="text-center py-3 bg-yellow-300 text-black text-sm">
-        This is an experimental website for CUGA. The official CUGA website can be found at <a href="https://cuga.org/" target="_blank" rel="noopener noreferrer" class="underline font-semibold hover:text-blue-700">https://cuga.org/</a>.
-        <br>
-        Ceci est un site web expérimental pour CUGA. Le site officiel de CUGA se trouve à <a href="https://cuga.org/" target="_blank" rel="noopener noreferrer" class="underline font-semibold hover:text-blue-700">https://cuga.org/</a>.
-    </div>
-
-    <div class="lang-fr">
-        <header class="bg-[#386DC0] text-white py-8 text-center shadow-lg">
-            <img src="assets/logos/CUGA/Horizontal/FR/FullColor/CUGA-logo-h-fr-fullColor-rgb.svg" alt="CUGA Logo" class="h-12 mx-auto">
-            <p class="mt-1 text-md md:text-lg italic">Association Canadienne des Jeux Subaquatiques</p>
-            <p class="mt-1 text-md md:text-lg italic">Plongez dans l'action avec le Hockey et le Rugby Subaquatique !</p>
-        </header>
-        <main>
-        <section id="sports" class="container mx-auto px-4 py-16" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">Découvrez Nos Disciplines</h2>
-
-            <div class="flex flex-col md:flex-row gap-10">
-                <div class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/2 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-2xl font-bold mb-4 text-blue-800 flex items-center text-center">
-                        <img src="assets/logos/HOCKEY/SCREEN/FR/FullColor/CUGA-WM-hockey-fr-fullColor-rgb.svg" alt="Hockey Subaquatique Logo" class="h-10 mr-3 inline-block align-middle">Hockey Subaquatique
-                    </h3>
-                    <img src="images/hockey.jpg" alt="Image de joueurs de Hockey Subaquatique" class="rounded-lg mb-6 w-full h-auto object-cover">
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        Le hockey subaquatique est un sport d'équipe non-contact pratiqué au fond d'une piscine. Deux équipes de six joueurs s'affrontent pour pousser un palet lourd à l'aide d'une crosse dans le but adverse. C'est un sport intense qui demande apnée, endurance et stratégie.
-                        <br><br>
-                        Ce sport développe l'apnée, la force physique, l'agilité sous l'eau et la coordination d'équipe. Il est parfait pour ceux qui aiment les défis aquatiques et la collaboration.
-                    </p>
-                    <p class="text-lg font-semibold text-gray-900 mt-4">Des clubs existent à travers le Canada.</p>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/2 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-2xl font-bold mb-4 text-green-800 flex items-center text-center">
-                        <img src="assets/logos/RUGBY/SCREEN/FR/FullColor/CUGA-WM-rugby-fr-fullColor-rgb.svg" alt="Rugby Subaquatique Logo" class="h-10 mr-3 inline-block align-middle">Rugby Subaquatique
-                    </h3>
-                    <img src="images/rugby.jpg" alt="Image de joueurs de Rugby Subaquatique" class="rounded-lg mb-6 w-full h-auto object-cover">
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        Le rugby subaquatique est un sport d'équipe en trois dimensions joué au fond d'une piscine profonde. Deux équipes tentent de placer un ballon rempli d'eau salée (qui coule) dans le panier adverse. Les contacts sont autorisés pour prendre le ballon au porteur.
-                        <br><br>
-                        Ce sport développe l'apnée, la puissance, la tactique spatiale et la capacité à travailler en équipe dans un environnement unique. Il est idéal pour les athlètes cherchant un sport aquatique intense et stratégique.
-                    </p>
-                    <p class="text-lg font-semibold text-gray-900 mt-4">Des clubs existent à travers le Canada.</p>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/2 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="text-2xl font-bold mb-4 text-purple-800 flex items-center text-center">
-                        <img src="assets/logos/FOOTBALL/SCREEN/FR/FullColor/CUGA-WM-football-fr-fullColor-rgb.svg" alt="Football Subaquatique Logo" class="h-10 mr-3 inline-block align-middle">Football Subaquatique
-                    </h3>
-                    <!-- <img src="images/logos/uwf-logo.jpg" alt="Logo Football Subaquatique" class="w-full max-w-xs mx-auto mb-6 rounded bg-white shadow" /> -->
-                    <!-- Placeholder for an action image if available in future -->
-                    <!-- <img src="images/football-action.jpg" alt="Image de joueurs de Football Subaquatique" class="rounded-lg mb-6 w-full h-auto object-cover"> -->
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        Le football subaquatique est un sport subaquatique pratiqué par deux équipes de 5 joueurs. Le football subaquatique partage des règles et des éléments de jeu communs avec le hockey subaquatique et le rugby subaquatique. Comme pour ces jeux, il se pratique dans la partie profonde d’une piscine avec un équipement de snorkeling (masque, tuba et palmes).
-                        <br><br>
-                        Le but du jeu est de marquer un point en plaçant le ballon du côté adverse d’une piscine. Le ballon ne peut être possédé que par des joueurs complètement immergés sous l’eau en apnée. Le ballon doit être passé ou lâché en remontant à la surface pour respirer.
-                    </p>
-                    <p class="text-lg font-semibold text-gray-900 mt-4">Pour en savoir plus :</p>
-                    <a href="https://www.uwfootball.ca/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block bg-purple-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-800 transition duration-300 shadow-lg">
-                        Visitez uwfootball.ca
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <div class="container mx-auto px-4 py-8 text-center" data-aos="fade-up">
-            <a href="cuga.html" class="inline-block bg-yellow-500 text-gray-900 px-10 py-4 rounded-full font-bold text-xl hover:bg-yellow-600 transition duration-300 shadow-lg">
-                Voir la liste des clubs CUGA
-            </a>
-        </div>
-
-        <section id="nationals" class="container mx-auto px-4 py-16 text-center bg-gray-100 rounded-xl mb-16" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-900">Les Championnats Canadiens de Hockey Subaquatique 2025 ont eu lieu</h2>
-            <img src="competitions/2025-Canadian-Underwater-Hockey-Nationals.jpeg" alt="Affiche des Championnats Canadiens de Hockey Subaquatique 2025" class="rounded-lg mb-6 mx-auto shadow-xl w-full md:w-2/3 lg:w-1/2">
-            <p class="text-xl text-gray-900 mb-2"><strong>Date :</strong> A eu lieu du Vendredi 13 juin 2025 au Dimanche 15 juin 2025</p>
-            <p class="text-xl text-gray-900 mb-2"><strong>Lieu :</strong> Centre Sportif de Gatineau, 850 Bd de la Gappe, Gatineau, QC J8T 7T7</p>
-            <p class="text-lg text-gray-900 mt-4 leading-relaxed">CUGA était ravi d'organiser les Championnats Canadiens de Hockey Subaquatique 2025 à Gatineau! Merci à tous ceux qui sont venus encourager les meilleures équipes du pays.</p>
-
-            <div class="mt-8">
-                <p class="text-lg text-gray-900 leading-relaxed">Voici les résultats du championnat :</p>
-                <ul class="list-disc list-inside text-left inline-block mt-4 text-gray-900">
-                    <li><strong>Or :</strong> Trash Pandas (Toronto)</li>
-                    <li><strong>Argent :</strong> CAMO (Montréal)</li>
-                    <li><strong>Bronze :</strong> Nautilus (Cornwall)</li>
-                </ul>
-            </div>
-
-            <div class="mt-8">
-                <!-- Tab Navigation -->
-                <div class="flex justify-center mb-4 space-x-2 video-tabs-fr">
-                    <button data-tab="video-part1-fr" class="tab-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Partie 1</button>
-                    <button data-tab="video-part2-fr" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Partie 2</button>
-                    <button data-tab="video-part3-fr" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Partie 3</button>
-                </div>
-
-                <!-- Tab Content Panes -->
-                <div id="video-part1-fr" class="tab-content" style="display: block;">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/arUaXDDEz54" title="YouTube video player - Part 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
-                </div>
-                <div id="video-part2-fr" class="tab-content" style="display: none;">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/u5mPmKBfh_A" title="YouTube video player - Part 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
-                </div>
-                <div id="video-part3-fr" class="tab-content" style="display: none;">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/s1zHylEM89s" title="YouTube video player - Part 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
-                </div>
-            </div>
-            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fcuga.org%2Fposts%2Fpfbid0xnVffaB1ah2U6sc2aSjjnPJhtRfY6fxzuPgzSud35YbKvV22JokdjEC8tGE5o7E9l&show_text=true&width=500" width="500" height="729" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" class="mx-auto mt-8"></iframe>
-        </section>
-
-        <section id="about-us-fr" class="container mx-auto px-4 py-16" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">À propos de nous</h2>
-            <div class="bg-white rounded-xl shadow-xl p-8 text-gray-700 leading-relaxed">
-                <p class="mb-4">L'Association Canadienne des Jeux Subaquatiques (CUGA) supervise les sports subaquatiques au Canada. CUGA a été fondée en 1984 et est devenue l'unique représentante canadienne pour les sports subaquatiques auprès de la CMAS, l'organisme international régissant les jeux subaquatiques.</p>
-                <p class="mb-4">CUGA est enregistrée comme une association athlétique amateur auprès de Revenu Canada et est strictement une organisation à but non lucratif, gérée par des bénévoles de partout au Canada.</p>
-                <p class="mb-4">CUGA travaille à réglementer et à promouvoir tous les jeux subaquatiques reconnus par la fédération internationale des sports subaquatiques (CMAS) au Canada. Ceux-ci incluent le hockey subaquatique, le rugby/football subaquatique, l'orientation subaquatique, la nage avec palmes et le tir sur cible.</p>
-                <p class="mb-4">Actuellement, le hockey subaquatique et le rugby/football subaquatique sont les seuls sports actifs au Canada avec des équipes participantes en Colombie-Britannique, Alberta, Saskatchewan, Ontario, Québec, Nouvelle-Écosse et au Yukon.</p>
-                <p class="mb-4">L'organisation soutient également les équipes nationales représentatives canadiennes qui participent aux championnats du monde et aux tournois sur invitation. CUGA offre une voix et un vote aux sports subaquatiques canadiens au niveau international pour la CMAS et/ou d'autres organismes internationaux régissant ces sports.</p>
-                <p>La mission de CUGA est de promouvoir et de développer les sports subaquatiques au Canada.</p>
-            </div>
-        </section>
-
-        <section id="executive-fr" class="container mx-auto px-4 py-16" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">Exécutif actuel de CUGA (juin 2025)</h2>
-            <div class="bg-white rounded-xl shadow-xl p-8 text-gray-700 leading-relaxed">
-                <ul class="list-disc pl-5 space-y-2">
-                    <li><strong>Président(e)</strong> (<a href="mailto:president@cuga.org" class="text-blue-600 hover:underline">president@cuga.org</a>): Alita Krickan</li>
-                    <li><strong>Vice-président(e)</strong> (<a href="mailto:vicepresident@cuga.org" class="text-blue-600 hover:underline">vicepresident@cuga.org</a>): Gillian Parker</li>
-                    <li><strong>Trésorier(-ière)</strong> (<a href="mailto:finance@cuga.org" class="text-blue-600 hover:underline">finance@cuga.org</a>): Emmanuel Martin</li>
-                    <li><strong>Secrétaire</strong> (<a href="mailto:info@cuga.org" class="text-blue-600 hover:underline">info@cuga.org</a>): Ben Lee</li>
-                    <li><strong>Membre du conseil - Technologie</strong> (<a href="mailto:tech@cuga.org" class="text-blue-600 hover:underline">tech@cuga.org</a>): Ricky Ng-Adam</li>
-                </ul>
-            </div>
-        </section>
-
-         <section id="contact" class="bg-gray-800 text-white px-4 py-16">
-            <div class="container mx-auto text-center">
-                <h2 class="text-3xl md:text-4xl font-semibold mb-8">Contactez CUGA</h2>
-                <p class="text-lg mb-8">
-                    Pour toute question ou information, n'hésitez pas à nous contacter via les adresses ci-dessous.
-                </p>
-                <div class="flex flex-col items-center space-y-4">
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Info:</span> <a href="mailto:info@cuga.org" class="text-blue-400 hover:underline">info@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Plaintes:</span> <a href="mailto:complaints@cuga.org" class="text-blue-400 hover:underline">complaints@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Finance:</span> <a href="mailto:finance@cuga.org" class="text-blue-400 hover:underline">finance@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Tech:</span> <a href="mailto:tech@cuga.org" class="text-blue-400 hover:underline">tech@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Football Subaquatique:</span> <a href="mailto:uwfootball@cuga.org" class="text-blue-400 hover:underline">uwfootball@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Hockey Subaquatique:</span> <a href="mailto:uwhockey@cuga.org" class="text-blue-400 hover:underline">uwhockey@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Rugby Subaquatique:</span> <a href="mailto:uwrugby@cuga.org" class="text-blue-400 hover:underline">uwrugby@cuga.org</a></p>
-                    <p class="text-xl mt-4"><span class="font-semibold"><i class="fa fa-map-marker"></i> Adresse Postale:</span><br>482 Connaught Drive, Delta BC V4M 3V8</p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-facebook"></i> Facebook :</span> <a href="https://www.facebook.com/cuga.org" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">CUGA.org</a></p>
-                </div>
-            </div>
-        </section>
-
-        </main>
-    <footer id="footer-fr" class="bg-gray-900 text-gray-400 py-8 text-center">
-        <div class="container mx-auto px-4">
-            <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
-                <span>
-                    <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
-                    <a href="https://cuga.org/fr/" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        Association Canadienne des Jeux Sous-Marins
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Hockey subaquatique
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Rugby subaquatique
-                    </a>
-                </span>
-            </p>
-        </div>
-        <div class="container mx-auto px-4">
-            <p>&copy; 2025 CUGA. Tous droits réservés.</p>
-            <p class="mt-4">
-                <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank" class="text-blue-400 hover:underline">Code de Conduite CUGA</a> |
-                <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank" class="text-blue-400 hover:underline">Règlements de la CUGA</a> |
-                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Politique de Confidentialité</a> |
-                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Conditions d'Utilisation</a>
-            </p>
-        </div>
-    </footer>
-    </div>
-
-    <div class="lang-en">
-        <header class="bg-[#386DC0] text-white py-8 text-center shadow-lg">
-            <img src="assets/logos/CUGA/Horizontal/EN/FullColor/CUGA-logo-h-en-fullColor-rgb.svg" alt="CUGA Logo" class="h-12 mx-auto">
-            <p class="mt-1 text-md md:text-lg italic">Canadian Underwater Games Association</p>
-            <p class="mt-1 text-md md:text-lg italic">Dive into the action with Underwater Hockey and Underwater Rugby!</p>
-        </header>
-        <main>
-        <section id="sports-en" class="container mx-auto px-4 py-16" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">Discover Our Disciplines</h2>
-
-            <div class="flex flex-col md:flex-row gap-10">
-
-                <div class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/2 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-2xl font-bold mb-4 text-blue-800 flex items-center">
-                        <img src="assets/logos/HOCKEY/SCREEN/EN/FullColor/CUGA-WM-hockey-en-fullColor-rgb.svg" alt="Underwater Hockey Logo" class="h-10 mr-3 inline-block align-middle">Underwater Hockey
-                    </h3>
-                    <img src="images/hockey.jpg" alt="Image of Underwater Hockey players" class="rounded-lg mb-6 w-full h-auto object-cover">
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        Underwater hockey is a non-contact team sport played on the bottom of a swimming pool. Two teams of six players compete to push a heavy puck using a stick into the opponent's goal. It's an intense sport that requires breath-holding, endurance, and strategy.
-                        <br><br>
-                        This sport develops breath-holding, physical strength, underwater agility, and team coordination. It's perfect for those who enjoy aquatic challenges and collaboration.
-                    </p>
-                    <p class="text-lg font-semibold text-gray-900 mt-4">Clubs exist across Canada.</p>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/2 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-2xl font-bold mb-4 text-green-800 flex items-center">
-                        <img src="assets/logos/RUGBY/SCREEN/EN/FullColor/CUGA-WM-rugby-en-fullColor-rgb.svg" alt="Underwater Rugby Logo" class="h-10 mr-3 inline-block align-middle">Underwater Rugby
-                    </h3>
-                    <img src="images/rugby.jpg" alt="Image of Underwater Rugby players" class="rounded-lg mb-6 w-full h-auto object-cover">
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        Underwater rugby is a three-dimensional team sport played at the bottom of a deep pool. Two teams try to place a saltwater-filled ball (which sinks) into the opponent's basket. Contact is allowed to take the ball from the ball carrier.
-                        <br><br>
-                        This sport develops breath-holding, power, spatial tactics, and the ability to work as a team in a unique environment. It's ideal for athletes seeking an intense and strategic aquatic sport.
-                    </p>
-                    <p class="text-lg font-semibold text-gray-900 mt-4">Clubs exist across Canada.</p>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/2 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="text-2xl font-bold mb-4 text-purple-800 flex items-center">
-                        <img src="assets/logos/FOOTBALL/SCREEN/EN/FullColor/CUGA-WM-football-en-fullColor-rgb.svg" alt="Underwater Football Logo" class="h-10 mr-3 inline-block align-middle">Underwater Football
-                    </h3>
-                    <!-- <img src="images/logos/uwf-logo.jpg" alt="Underwater Football Full Logo" class="w-full max-w-xs mx-auto mb-6 rounded bg-white shadow" /> -->
-                    <!-- Placeholder for an action image if available in future -->
-                    <!-- <img src="images/football-action.jpg" alt="Image of Underwater Football players" class="rounded-lg mb-6 w-full h-auto object-cover"> -->
-                    <p class="text-gray-700 leading-relaxed mb-6">
-                        Underwater football is an underwater sport played with two 5 player teams. Underwater Football shares some common rules and play elements with Underwater Hockey and Underwater rugby. As with those games, it is played in the deep end of a swimming pool with snorkeling equipment (mask, snorkel, and fins).
-                        <br><br>
-                        The goal of the game is to score a point by placing a the ball on the opponents side of a pool. The ball can only be possessed by players who are completely submerged underwater holding their breath. The ball must be passed or dropped when going to the surface for air.
-                    </p>
-                    <p class="text-lg font-semibold text-gray-900 mt-4">To learn more:</p>
-                    <a href="https://www.uwfootball.ca/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block bg-purple-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-800 transition duration-300 shadow-lg">
-                        Visit uwfootball.ca
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <div class="container mx-auto px-4 py-8 text-center" data-aos="fade-up">
-            <a href="cuga.html" class="inline-block bg-yellow-500 text-gray-900 px-10 py-4 rounded-full font-bold text-xl hover:bg-yellow-600 transition duration-300 shadow-lg">
-                View CUGA Clubs List
-            </a>
-        </div>
-
-        <section id="nationals-en" class="container mx-auto px-4 py-16 text-center bg-gray-100 rounded-xl mb-16" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-900">The 2025 Canadian Underwater Hockey Nationals were held</h2>
-            <img src="competitions/2025-Canadian-Underwater-Hockey-Nationals.jpeg" alt="2025 Canadian Underwater Hockey Nationals Poster" class="rounded-lg mb-6 mx-auto shadow-xl w-full md:w-2/3 lg:w-1/2">
-            <p class="text-xl text-gray-900 mb-2"><strong>Date:</strong> Took place from Friday, June 13, 2025 - Sunday, June 15, 2025</p>
-            <p class="text-xl text-gray-900 mb-2"><strong>Location:</strong> Gatineau Sports Centre, 850 Bd de la Gappe, Gatineau, QC J8T 7T7</p>
-            <p class="text-lg text-gray-900 mt-4 leading-relaxed">CUGA was thrilled to host the 2025 Canadian Underwater Hockey Nationals in Gatineau! Thanks to everyone who came out to support the best teams in the country.</p>
-
-            <div class="mt-8">
-                <p class="text-lg text-gray-900 leading-relaxed">Here are the championship results:</p>
-                <ul class="list-disc list-inside text-left inline-block mt-4 text-gray-900">
-                    <li><strong>Gold:</strong> Trash Pandas (Toronto)</li>
-                    <li><strong>Silver:</strong> CAMO (Montréal)</li>
-                    <li><strong>Bronze:</strong> Nautilus (Cornwall)</li>
-                </ul>
-            </div>
-
-            <div class="mt-8">
-                <!-- Tab Navigation -->
-                <div class="flex justify-center mb-4 space-x-2 video-tabs-en">
-                    <button data-tab="video-part1-en" class="tab-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Part 1</button>
-                    <button data-tab="video-part2-en" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Part 2</button>
-                    <button data-tab="video-part3-en" class="tab-button bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400">Part 3</button>
-                </div>
-
-                <!-- Tab Content Panes -->
-                <div id="video-part1-en" class="tab-content" style="display: block;">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/arUaXDDEz54" title="YouTube video player - Part 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
-                </div>
-                <div id="video-part2-en" class="tab-content" style="display: none;">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/u5mPmKBfh_A" title="YouTube video player - Part 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
-                </div>
-                <div id="video-part3-en" class="tab-content" style="display: none;">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/s1zHylEM89s" title="YouTube video player - Part 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="mx-auto rounded-lg shadow-xl"></iframe>
-                </div>
-            </div>
-            <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fcuga.org%2Fposts%2Fpfbid0xnVffaB1ah2U6sc2aSjjnPJhtRfY6fxzuPgzSud35YbKvV22JokdjEC8tGE5o7E9l&show_text=true&width=500" width="500" height="729" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" class="mx-auto mt-8"></iframe>
-        </section>
-
-        <section id="about-us-en" class="container mx-auto px-4 py-16" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">About Us</h2>
-            <div class="bg-white rounded-xl shadow-xl p-8 text-gray-700 leading-relaxed">
-                <p class="mb-4">The Canadian Underwater Games Association (CUGA) oversees underwater sports in Canada. CUGA was founded in 1984 and became the sole Canadian representative for underwater sports to CMAS, the international underwater games governing body.</p>
-                <p class="mb-4">CUGA is registered as an amateur athletic association with Revenue Canada and is strictly a non-profit organization, manned by volunteers from across Canada.</p>
-                <p class="mb-4">CUGA works to regulate and promote all underwater games recognized by the international underwater sport federation(CMAS) in Canada. These include underwater hockey, underwater rugby/football, underwater orienteering, fin swimming and target shooting.</p>
-                <p class="mb-4">At this time underwater hockey and underwater rugby/football are the only active sports in Canada with participating teams in British Columbia, Alberta, Saskatchewan, Ontario, Quebec, Nova Scotia and the Yukon.</p>
-                <p class="mb-4">The organization also supports Canadian national representative teams who compete at the world championships and invitational tournaments. CUGA provides a voice and a vote for Canadian Underwater Sports at the International Level for CMAS and/or other International bodies governing these sports.</p>
-                <p>CUGA’s mission is to promote and grow underwater sports in Canada.</p>
-            </div>
-        </section>
-
-        <section id="executive-en" class="container mx-auto px-4 py-16" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">Current CUGA Executive (June 2025):</h2>
-            <div class="bg-white rounded-xl shadow-xl p-8 text-gray-700 leading-relaxed">
-                <ul class="list-disc pl-5 space-y-2">
-                    <li><strong>President</strong> (<a href="mailto:president@cuga.org" class="text-blue-600 hover:underline">president@cuga.org</a>): Alita Krickan</li>
-                    <li><strong>Vice President</strong> (<a href="mailto:vicepresident@cuga.org" class="text-blue-600 hover:underline">vicepresident@cuga.org</a>): Gillian Parker</li>
-                    <li><strong>Treasurer</strong> (<a href="mailto:finance@cuga.org" class="text-blue-600 hover:underline">finance@cuga.org</a>): Emmanuel Martin</li>
-                    <li><strong>Secretary</strong> (<a href="mailto:info@cuga.org" class="text-blue-600 hover:underline">info@cuga.org</a>): Ben Lee</li>
-                    <li><strong>Board member - Technology</strong> (<a href="mailto:tech@cuga.org" class="text-blue-600 hover:underline">tech@cuga.org</a>): Ricky Ng-Adam</li>
-                </ul>
-            </div>
-        </section>
-
-         <section id="contact-en" class="bg-gray-800 text-white px-4 py-16">
-            <div class="container mx-auto text-center">
-                <h2 class="text-3xl md:text-4xl font-semibold mb-8">Contact CUGA</h2>
-                <p class="text-lg mb-8">
-                    For any questions or information, feel free to contact us using the addresses below.
-                </p>
-                <div class="flex flex-col items-center space-y-4">
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Info:</span> <a href="mailto:info@cuga.org" class="text-blue-400 hover:underline">info@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Complaints:</span> <a href="mailto:complaints@cuga.org" class="text-blue-400 hover:underline">complaints@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Finance:</span> <a href="mailto:finance@cuga.org" class="text-blue-400 hover:underline">finance@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Tech:</span> <a href="mailto:tech@cuga.org" class="text-blue-400 hover:underline">tech@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Underwater Football:</span> <a href="mailto:uwfootball@cuga.org" class="text-blue-400 hover:underline">uwfootball@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Underwater Hockey:</span> <a href="mailto:uwhockey@cuga.org" class="text-blue-400 hover:underline">uwhockey@cuga.org</a></p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Underwater Rugby:</span> <a href="mailto:uwrugby@cuga.org" class="text-blue-400 hover:underline">uwrugby@cuga.org</a></p>
-                    <p class="text-xl mt-4"><span class="font-semibold"><i class="fa fa-map-marker"></i> Mailing Address:</span><br>482 Connaught Drive, Delta BC V4M 3V8</p>
-                    <p class="text-xl"><span class="font-semibold"><i class="fa fa-facebook"></i> Facebook:</span> <a href="https://www.facebook.com/cuga.org" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">CUGA.org</a></p>
-                </div>
-            </div>
-        </section>
-
-        </main>
-    <footer id="footer-en" class="bg-gray-900 text-gray-400 py-8 text-center">
-        <div class="container mx-auto px-4">
-            <p class="mt-2 flex flex-wrap justify-center gap-2 items-center">
-                <span>
-                    <i class="fa fa-canadian-maple-leaf text-red-500 mr-1"></i>
-                    <a href="https://cuga.org/en/" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CUGA (Canadian Underwater Games Association)
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/hockey/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Underwater Hockey
-                    </a>
-                </span>
-                <span class="mx-2">|</span>
-                <span>
-                    <i class="fa fa-globe text-green-200 mr-1"></i>
-                    <a href="https://www.cmas.org/rugby/latest.html" target="_blank" rel="noopener noreferrer" class="underline text-blue-200 hover:text-white font-semibold">
-                        CMAS Underwater Rugby
-                    </a>
-                </span>
-            </p>
-        </div>
-        <div class="container mx-auto px-4">
-            <p>&copy; 2025 CUGA. All rights reserved.</p>
-            <p class="mt-4">
-                <a href="docs/CUGA%20Code%20of%20Conduct%20(June%202022).pdf" target="_blank" class="text-blue-400 hover:underline">CUGA Code of Conduct</a> |
-                <a href="docs/CUGA%20Constitution%20%26%20By-laws%20(2024).pdf" target="_blank" class="text-blue-400 hover:underline">CUGA Bylaws</a> |
-                <a href="privacy-policy.html" class="text-blue-400 hover:underline">Privacy Policy</a> |
-                <a href="terms-of-use.html" class="text-blue-400 hover:underline">Terms of Use</a>
-            </p>
-        </div>
-    </footer>
-    </div>
-
-    <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    function appendVersionInfoToFooters(element) {
-      const selectors = ['.lang-fr footer .container:last-of-type', '.lang-en footer .container:last-of-type'];
-      selectors.forEach(selector => {
-        const footerContainer = document.querySelector(selector);
-        if (footerContainer) {
-          footerContainer.appendChild(element.cloneNode(true));
-        }
-      });
-    }
-
-    function createVersionElement(text, isError) {
-      const versionP = document.createElement('p');
-      // Tailwind classes for styling:
-      // text-xs: font-size: 0.75rem; line-height: 1rem; (close to 0.8em)
-      // text-center: text-align: center;
-      // mt-4: margin-top: 1rem; (16px, close to 15px)
-      // pt-2: padding-top: 0.5rem; (8px, close to 10px)
-      // border-t: border-top-width: 1px;
-      // border-gray-600: border-color: #4A5568; (Tailwind's gray-600)
-      versionP.classList.add('text-xs', 'text-center', 'mt-4', 'pt-2', 'border-t', 'border-gray-600');
-      versionP.textContent = text;
-      if (isError) {
-        // text-red-600: color: #E53E3E; (Tailwind's red-600)
-        versionP.classList.add('text-red-600');
-      } else {
-        // text-gray-500: color: #6B7280; (Tailwind's gray-500, #A0AEC0 is also gray-500 in some palettes or gray-400 in others)
-        // Using text-gray-500 for a common light-ish text on dark footer.
-        versionP.classList.add('text-gray-500');
-      }
-      return versionP;
-    }
-
-    fetch('version.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('version.json not found or invalid');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const versionText = `Version: Branch: ${data.branch || 'main'} | Commit: ${data.commit ? data.commit.substring(0, 7) : 'N/A'}`;
-        const versionElement = createVersionElement(versionText, false);
-        appendVersionInfoToFooters(versionElement);
-      })
-      .catch(error => {
-        console.warn('Could not load version information:', error);
-        const errorText = 'Version info not available';
-        const errorElement = createVersionElement(errorText, true);
-        appendVersionInfoToFooters(errorElement);
-      });
-  });
-</script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const langButtons = document.querySelectorAll('.lang-button');
-            const langSections = document.querySelectorAll('.lang-fr, .lang-en');
-
-            const setLanguage = (lang) => {
-                langSections.forEach(section => {
-                    section.style.display = section.classList.contains(`lang-${lang}`) ? 'block' : 'none';
-                });
-                langButtons.forEach(button => {
-                    button.classList.toggle('bg-blue-600', button.dataset.lang === lang);
-                    button.classList.toggle('text-white', button.dataset.lang === lang);
-                    button.classList.toggle('bg-gray-400', button.dataset.lang !== lang);
-                    button.classList.toggle('text-gray-800', button.dataset.lang !== lang);
-                });
-                document.documentElement.lang = lang;
-                localStorage.setItem('language', lang); // Store language choice
-            };
-
-            // Language initialization logic
-            const storedLang = localStorage.getItem('language');
-            if (storedLang) {
-                setLanguage(storedLang);
-            } else {
-                // Existing browser language detection logic
-                const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
-                if (browserLang === 'en') {
-                    setLanguage('en');
-                } else {
-                    setLanguage('fr'); // Default to French
-                }
-            }
-
-            langButtons.forEach(button => {
-                button.addEventListener('click', () => setLanguage(button.dataset.lang));
-            });
-        });
-
-        window.addEventListener('pageshow', function(event) {
-            if (event.persisted) { // True if page is from bfcache
-                console.log('index.html: Page shown from bfcache'); // Optional: for debugging
-                const storedLang = localStorage.getItem('language');
-                if (storedLang) {
-                    setLanguage(storedLang);
-                } else {
-                    // Fallback logic if no language is in localStorage
-                    // This mirrors the original default logic in DOMContentLoaded
-                    const browserLang = (navigator.language || navigator.userLanguage || 'fr').slice(0, 2);
-                    if (browserLang === 'en') {
-                        setLanguage('en');
-                    } else {
-                        setLanguage('fr'); // Default to French
+            // Load shared header
+            fetch('shared/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                    // Manually trigger language update for header elements if main.js setLanguage runs before header is loaded
+                    const currentLang = localStorage.getItem('language') || (navigator.language || navigator.userLanguage || 'fr').slice(0,2);
+                    if (window.updateHeaderLanguageElements) { // Function defined in header.html script
+                        window.updateHeaderLanguageElements(currentLang);
                     }
-                }
-            }
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const bubblesContainer = document.querySelector('.bubbles');
+                    document.dispatchEvent(new CustomEvent('headerLoaded'));
+                });
 
-            function createBubble() {
-                const bubble = document.createElement('div');
-                bubble.classList.add('bubble');
-
-                const size = Math.random() * 40 + 10; // 10px to 50px
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-
-                bubble.style.left = `${Math.random() * 100}%`;
-
-                const animationDuration = Math.random() * 10 + 5; // 5s to 15s
-                bubble.style.animationDuration = `${animationDuration}s`;
-
-                bubblesContainer.appendChild(bubble);
-
-                setTimeout(() => {
-                    bubble.remove();
-                }, animationDuration * 1000);
-            }
-
-            setInterval(createBubble, 500); // Create a new bubble every 500ms
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sectionsFr = [
-                document.getElementById('about-us-fr'),
-                document.getElementById('executive-fr'),
-                document.getElementById('sports'),
-                document.getElementById('nationals'),
-                document.getElementById('contact')
-            ];
-            const navLinksFr = document.querySelectorAll('nav.lang-fr a[href^="#"]');
-
-            const sectionsEn = [
-                document.getElementById('about-us-en'),
-                document.getElementById('executive-en'),
-                document.getElementById('sports-en'),
-                document.getElementById('nationals-en'),
-                document.getElementById('contact-en')
-            ];
-            const navLinksEn = document.querySelectorAll('nav.lang-en a[href^="#"]');
-
-            const activeLinkClass = 'active-nav-link';
-
-            function onScroll() {
-                let currentSections, currentNavLinks;
-
-                // Determine active language and corresponding elements
-                const frNavIsVisible = window.getComputedStyle(document.querySelector('nav.lang-fr')).display !== 'none';
-                if (frNavIsVisible) {
-                    currentSections = sectionsFr.filter(s => s); // Filter out null if an ID is missing
-                    currentNavLinks = navLinksFr;
-                } else {
-                    currentSections = sectionsEn.filter(s => s); // Filter out null
-                    currentNavLinks = navLinksEn;
-                }
-
-                if (!currentSections || currentSections.length === 0) return;
-
-                let activeSectionId = '';
-                const scrollPosition = window.scrollY + window.innerHeight / 2; // Consider middle of viewport
-
-                currentSections.forEach(section => {
-                    if (section.offsetTop <= scrollPosition && (section.offsetTop + section.offsetHeight) > scrollPosition) {
-                        activeSectionId = section.id;
+            // Load shared footer
+            fetch('shared/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                     // Manually trigger language update for footer elements
+                    const currentLang = localStorage.getItem('language') || (navigator.language || navigator.userLanguage || 'fr').slice(0,2);
+                    if (window.updateFooterLanguageElements) { // Function defined in footer.html script
+                        window.updateFooterLanguageElements(currentLang);
                     }
+                    document.dispatchEvent(new CustomEvent('footerLoaded'));
                 });
 
-                currentNavLinks.forEach(link => {
-                    link.classList.remove(activeLinkClass);
-                    // Ensure the href attribute matches the section ID (e.g., href="#sports" for id="sports")
-                    if (link.getAttribute('href').substring(1) === activeSectionId) {
-                        link.classList.add(activeLinkClass);
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', onScroll);
-            onScroll(); // Initial check in case the page loads on a scrolled position
+            // The old JS for language switcher, bubbles, version info, scroll nav, video tabs
+            // are now expected to be in main.js, menu.js, or within the loaded shared components.
         });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            function setupVideoTabs(sectionId) {
-                const section = document.getElementById(sectionId);
-                if (!section) return;
-
-                const tabButtons = section.querySelectorAll('.tab-button');
-                const tabContents = section.querySelectorAll('.tab-content');
-
-                tabButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const targetTab = button.dataset.tab;
-
-                        // Update button styles
-                        tabButtons.forEach(btn => {
-                            if (btn === button) {
-                                btn.classList.remove('bg-gray-300', 'text-gray-700', 'hover:bg-gray-400');
-                                btn.classList.add('bg-blue-500', 'text-white', 'hover:bg-blue-700');
-                            } else {
-                                btn.classList.remove('bg-blue-500', 'text-white', 'hover:bg-blue-700');
-                                btn.classList.add('bg-gray-300', 'text-gray-700', 'hover:bg-gray-400');
-                            }
-                        });
-
-                        // Show/hide tab content
-                        tabContents.forEach(content => {
-                            if (content.id === targetTab) {
-                                content.style.display = 'block';
-                            } else {
-                                content.style.display = 'none';
-                            }
-                        });
-                    });
-                });
-            }
-
-            setupVideoTabs('nationals');
-            setupVideoTabs('nationals-en');
-        });
-    </script>
 </body>
 </html>

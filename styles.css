@@ -375,41 +375,140 @@ select:focus-visible {
   text-decoration: underline;
 }
 
-/* Hamburger Menu (Placeholder for JS interaction) */
+/* Hamburger Menu */
 .nav-menu {
   position: fixed;
   top: 0;
-  left: -100%; /* Hidden by default */
-  width: 100%;
+  right: -100%; /* Start off-screen to the right */
+  width: 300px; /* Fixed width for the menu */
+  max-width: 80%; /* Max width for smaller screens */
   height: 100vh;
   background-color: var(--primary-color);
   color: var(--white);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: left 0.3s ease-in-out;
-  z-index: 1000;
-  padding: 2rem;
+  transition: right 0.3s ease-in-out;
+  z-index: 1001; /* Below hamburger icon (1002), above content */
+  overflow-y: auto; /* Allow scrolling for many menu items */
+  padding-top: 60px; /* Space for a close button or header within menu */
+  box-shadow: -2px 0 5px rgba(0,0,0,0.2);
 }
 
 .nav-menu.is-open {
-  left: 0;
+  right: 0; /* Slide in from the right */
 }
 
-.nav-menu .nav-link { /* Links inside the full-screen menu */
-  color: var(--white); /* Text color inside menu */
-  padding: 1rem 0;
-  font-size: 1.5rem; /* Larger for touch friendliness */
+.nav-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
+
+.nav-menu ul li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-menu ul li:last-child {
+  border-bottom: none;
+}
+
+.nav-menu .nav-link,
+.nav-menu .submenu-toggle {
+  display: block;
+  padding: 1rem 1.5rem;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 1rem; /* Adjusted from 1.5rem */
+  font-weight: 600; /* Slightly bolder for menu items */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
 .nav-menu .nav-link:hover,
 .nav-menu .nav-link:focus,
-.nav-menu .nav-link.active {
-  color: var(--accent-color); /* Active link color in menu */
-  text-decoration: underline;
+.nav-menu .nav-link.active, /* Style for active page link */
+.nav-menu .submenu-toggle:hover,
+.nav-menu .submenu-toggle:focus {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
-/* .nav-menu-close rule removed as the element is deleted */
+.nav-menu .nav-link.active { /* Specific style for the current page link */
+    background-color: var(--accent-color);
+    color: var(--white);
+}
+
+
+/* Submenu Styles */
+.nav-menu .submenu {
+  list-style: none;
+  padding-left: 0; /* Remove default padding */
+  margin: 0;
+  background-color: rgba(0,0,0,0.2); /* Slightly darker background for submenu */
+  display: none; /* Hidden by default */
+}
+
+.nav-menu .submenu.is-open {
+  display: block;
+}
+
+.nav-menu .submenu .nav-link {
+  padding-left: 2.5rem; /* Indent submenu items */
+  font-size: 0.9rem;
+}
+
+.nav-menu .submenu-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nav-menu .submenu-toggle::after {
+  content: '\\f078'; /* FontAwesome down arrow */
+  font-family: 'FontAwesome';
+  font-size: 0.8em;
+  transition: transform 0.3s ease;
+}
+
+.nav-menu .submenu-toggle[aria-expanded="true"]::after {
+  transform: rotate(-180deg); /* Rotate arrow when submenu is open */
+}
+
+/* Language switcher and other utilities in menu */
+.nav-menu-utils {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1rem;
+}
+
+.nav-menu-utils .lang-button {
+    background-color: transparent;
+    color: var(--white);
+    border: 1px solid var(--white);
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+.nav-menu-utils .lang-button:hover,
+.nav-menu-utils .lang-button.active-lang { /* JS will add active-lang */
+    background-color: var(--white);
+    color: var(--primary-color);
+}
+
+/* Overlay for when menu is open */
+.nav-menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000; /* Below menu, above content */
+}
+
+.nav-menu-overlay.is-visible {
+  display: block;
+}
 
 
 /* 6. Cards & Containers */

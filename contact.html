@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUGA - Contact | Sports Subaquatiques Canada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T2BEK56YJ1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-T2BEK56YJ1');
+    </script>
+    <meta name="description" content="Contactez la CUGA (Association Canadienne des Jeux Subaquatiques) pour toute question ou information.">
+    <meta name="keywords" content="CUGA, contact, information, email, adresse, sports subaquatiques">
+    <style>
+        /* Basic styles to prevent FOUC and handle language switching */
+        .lang-en { display: none; }
+        body { font-family: 'Inter', sans-serif; padding-top: 64px; } /* Add padding-top for sticky header */
+        @media (min-width: 768px) { body { padding-top: 120px; } }
+
+        /* Bubbles from index.html */
+        .bubbles { position: fixed; bottom: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+        .bubble { position: absolute; background-color: rgba(255, 255, 255, 0.5); border-radius: 50%; opacity: 0.7; animation: rise 10s infinite ease-in; }
+        @keyframes rise { 0% { bottom: -100px; transform: translateX(0); } 50% { transform: translateX(100px); } 100% { bottom: 1080px; transform: translateX(-100px); opacity: 0; } }
+    </style>
+</head>
+<body class="bg-blue-700 text-white">
+    <div class="bubbles"></div>
+
+    <div id="header-placeholder"></div>
+
+    <main class="text-gray-800"> <!-- Main content text color -->
+        <div class="lang-fr">
+            <section id="contact" class="bg-gray-800 text-white px-4 py-16">
+                <div class="container mx-auto text-center">
+                    <h2 class="text-3xl md:text-4xl font-semibold mb-8">Contactez CUGA</h2>
+                    <p class="text-lg mb-8">
+                        Pour toute question ou information, n'hésitez pas à nous contacter via les adresses ci-dessous.
+                    </p>
+                    <div class="flex flex-col items-center space-y-4">
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Info:</span> <a href="mailto:info@cuga.org" class="text-blue-400 hover:underline">info@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Plaintes:</span> <a href="mailto:complaints@cuga.org" class="text-blue-400 hover:underline">complaints@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Finance:</span> <a href="mailto:finance@cuga.org" class="text-blue-400 hover:underline">finance@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Tech:</span> <a href="mailto:tech@cuga.org" class="text-blue-400 hover:underline">tech@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Football Subaquatique:</span> <a href="mailto:uwfootball@cuga.org" class="text-blue-400 hover:underline">uwfootball@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Hockey Subaquatique:</span> <a href="mailto:uwhockey@cuga.org" class="text-blue-400 hover:underline">uwhockey@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Rugby Subaquatique:</span> <a href="mailto:uwrugby@cuga.org" class="text-blue-400 hover:underline">uwrugby@cuga.org</a></p>
+                        <p class="text-xl mt-4"><span class="font-semibold"><i class="fa fa-map-marker"></i> Adresse Postale:</span><br>482 Connaught Drive, Delta BC V4M 3V8</p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-facebook"></i> Facebook :</span> <a href="https://www.facebook.com/cuga.org" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">CUGA.org</a></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="lang-en">
+            <section id="contact-en" class="bg-gray-800 text-white px-4 py-16">
+                <div class="container mx-auto text-center">
+                    <h2 class="text-3xl md:text-4xl font-semibold mb-8">Contact CUGA</h2>
+                    <p class="text-lg mb-8">
+                        For any questions or information, feel free to contact us using the addresses below.
+                    </p>
+                    <div class="flex flex-col items-center space-y-4">
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Info:</span> <a href="mailto:info@cuga.org" class="text-blue-400 hover:underline">info@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Complaints:</span> <a href="mailto:complaints@cuga.org" class="text-blue-400 hover:underline">complaints@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Finance:</span> <a href="mailto:finance@cuga.org" class="text-blue-400 hover:underline">finance@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Tech:</span> <a href="mailto:tech@cuga.org" class="text-blue-400 hover:underline">tech@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Underwater Football:</span> <a href="mailto:uwfootball@cuga.org" class="text-blue-400 hover:underline">uwfootball@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Underwater Hockey:</span> <a href="mailto:uwhockey@cuga.org" class="text-blue-400 hover:underline">uwhockey@cuga.org</a></p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-envelope"></i> Underwater Rugby:</span> <a href="mailto:uwrugby@cuga.org" class="text-blue-400 hover:underline">uwrugby@cuga.org</a></p>
+                        <p class="text-xl mt-4"><span class="font-semibold"><i class="fa fa-map-marker"></i> Mailing Address:</span><br>482 Connaught Drive, Delta BC V4M 3V8</p>
+                        <p class="text-xl"><span class="font-semibold"><i class="fa fa-facebook"></i> Facebook:</span> <a href="https://www.facebook.com/cuga.org" class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">CUGA.org</a></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/menu.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({
+                duration: 1000,
+                once: true,
+            });
+
+            // Load shared header and footer
+            fetch('shared/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                    document.dispatchEvent(new CustomEvent('headerLoaded'));
+                });
+
+            fetch('shared/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                    document.dispatchEvent(new CustomEvent('footerLoaded'));
+                });
+        });
+    </script>
+</body>
+</html>
