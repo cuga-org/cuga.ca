@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Style Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles for the style guide page itself */
+        /* body { padding-bottom: 100px; } */ /* Removed bottom padding */
+        /* .style-guide-header rules moved to styles.css */
+        .style-guide-section { margin-bottom: 3rem; padding: 1.5rem; background-color: var(--white); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .style-guide-section > h2 { margin-top: 0; border-bottom: 1px solid var(--divider-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem; } /* Changed to direct child */
+        .color-swatch { display: inline-block; width: 100px; height: 100px; margin-right: 10px; margin-bottom:10px; border: 1px solid var(--divider-color); text-align: center; padding-top:40px; font-size:0.8rem; }
+        .color-swatch.dark-bg { color: var(--white); }
+        .button-showcase button, .button-showcase .btn { margin-right: 10px; margin-bottom: 10px; }
+        .typography-showcase > div { margin-bottom: 1.5rem; border: 1px dashed var(--divider-color); padding: 1rem; }
+        .layout-example { background-color: var(--background-light-gray); padding: 1rem; }
+        .layout-example .content-block { padding: 1rem; margin-bottom: 1rem; }
+        .card-showcase .card { margin-bottom: var(--card-margin-bottom); }
+        .icon-placeholder { display: inline-block; width: 24px; height: 24px; background-color: #ccc; border-radius: 3px; text-align:center; line-height:24px; font-size:12px; color:#fff; margin-right: 8px; vertical-align: middle;}
+        .wave-placeholder { width: 100px; height: 20px; background: repeating-linear-gradient( 45deg, #000435, #000435 5px, #fff 5px, #fff 10px ); margin: 16px auto; }
+
+        /* Hamburger Menu Toggle Button for demo */
+        .hamburger-toggle {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.75rem 1rem;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1001; /* Above menu */
+        }
+        .hamburger-toggle:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a href="/" class="site-logo-link">
+            <img src="assets/logos/CUGA/Horizontal/EN/Reversed/CUGA-logo-h-en-reverse-rgb-sm.png" alt="CUGA Logo" class="site-logo">
+        </a>
+        <button class="hamburger-icon-button" id="hamburgerToggleButton" aria-label="Open menu" aria-expanded="false" aria-controls="navMenuDemo">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <header class="style-guide-header">
+        <div class="container">
+            <h1>Visual Style Guide</h1>
+            <p class="small-text" style="color: var(--white); margin-bottom: 0;">Kumbh Sans Showcase</p> <!-- Changed to white, added margin-bottom: 0 -->
+        </div>
+    </header>
+
+    <!-- Hamburger Menu Demo - This button will be controlled by the new .hamburger-icon-button -->
+    <!--
+    <button class="hamburger-toggle" id="hamburgerToggle" aria-expanded="false" aria-controls="navMenuDemo">
+        ☰ Menu
+    </button>
+    -->
+    <nav class="nav-menu" id="navMenuDemo" aria-hidden="true">
+        <a href="#colors" class="nav-link">Colors</a>
+        <a href="#typography" class="nav-link active">Typography</a>
+        <a href="#buttons" class="nav-link">Buttons</a>
+        <a href="#links" class="nav-link">Links</a>
+        <a href="#forms" class="nav-link">Forms</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- Colors Section -->
+        <section id="colors" class="style-guide-section">
+            <h2>1. Colors</h2>
+            <div>
+                <div class="color-swatch dark-bg" style="background-color: var(--primary-color);">#000435<br/>Primary</div>
+                <div class="color-swatch dark-bg" style="background-color: var(--secondary-color);">#61B0F6<br/>Secondary</div>
+                <div class="color-swatch dark-bg" style="background-color: var(--accent-color);">#FB2000<br/>Accent</div>
+                <div class="color-swatch dark-bg" style="background-color: var(--pretitle-accent-color);">#0009A1<br/>Pre-title Accent</div>
+                <div class="color-swatch" style="background-color: var(--background-light-gray);">#F2F2F2<br/>Bg Light Gray</div>
+                <div class="color-swatch dark-bg" style="background-color: var(--text-charcoal);">#272625<br/>Text Charcoal</div>
+                <div class="color-swatch" style="background-color: var(--white); border: 1px solid #eee;">#FFFFFF<br/>White</div>
+            </div>
+            <p class="small-text">Ensure all combinations meet accessibility contrast ratios.</p>
+        </section>
+
+        <!-- Typography Section -->
+        <section id="typography" class="style-guide-section typography-showcase">
+            <h2>2. Typography</h2>
+            <p>Font Family: 'Kumbh Sans', sans-serif</p>
+
+            <div>
+                <span class="small-text text-secondary">Hero Title / .display-h1</span>
+                <h1 class="hero-title">Hero Title Heading</h1>
+            </div>
+            <div>
+                <span class="small-text text-secondary">H1 / .h1</span>
+                <h1>H1 Heading</h1>
+            </div>
+            <div>
+                <span class="small-text text-secondary">H2 / .h2</span>
+                <h2>H2 Heading</h2>
+            </div>
+            <div>
+                <span class="small-text text-secondary">H3 / .h3</span>
+                <h3>H3 Heading</h3>
+            </div>
+            <div>
+                <span class="small-text text-secondary">Paragraph / .p</span>
+                <p>This is a standard paragraph of text. Kumbh Sans provides clarity, boldness, and a clean visual rhythm. It is used for general body text and should have a max-width of 700px for optimal readability. Line height is set to 1.6.</p>
+            </div>
+            <div>
+                <span class="small-text text-secondary">Small Text / .small-text</span>
+                <p class="small-text">This is small text, typically used for captions or secondary information (14px, 600 weight).</p>
+            </div>
+        </section>
+
+        <!-- Title Block Showcase Section -->
+        <section id="title-blocks" class="style-guide-section">
+            <h2>3. Title Blocks</h2>
+            <p>Reusable title block layouts.</p>
+            <div class="title-block-discover-wrapper" style="margin-bottom: 2rem; padding: 1.5rem; border: 1px dashed var(--divider-color);">
+                <span class="small-text text-secondary">Title Block Example / .title-block-discover</span>
+                <div class="title-block-discover">
+                    <div class="pre-title">DISCOVER</div>
+                    <h1 class="main-title">
+                        Underwater
+                        <span class="title-line-break">Rugby <img src="assets/icons/CUGA_wave.png" alt="Decorative wave" class="title-wave"></span>
+                    </h1>
+                </div>
+            </div>
+             <p class="small-text">Layout: Pre-title (21px, #0009A1), Main Title (32px, #272625) on two lines with wave image (assets/icons/CUGA_wave.png) on the right of the second line's text.</p>
+
+            <div class="title-block-maple-welcome-wrapper" style="margin-top: 2rem; padding: 1.5rem; border: 1px dashed var(--divider-color);">
+                <span class="small-text text-secondary">Title Block Example / .title-block-maple-welcome</span>
+                <div class="title-block-maple-welcome">
+                    <img src="assets/icons/cuga_symbol.png" alt="Maple Leaf Icon" class="maple-leaf-icon">
+                    <h2 class="welcome-title">Welcome to the home of underwater sports in Canada</h2>
+                    <img src="assets/icons/CUGA_wave.png" alt="Decorative wave" class="welcome-wave">
+                </div>
+            </div>
+            <p class="small-text">Layout: Maple leaf icon (90px wide), large uppercase title (2.5vw, capped at 56px, primary color), and wave separator below.</p>
+        </section>
+
+        <!-- Layout Section -->
+        <section id="layout" class="style-guide-section">
+            <h2>4. Layout</h2>
+            <p>Max container width: <code>1280px</code>. Content padding: Mobile <code>1.875rem</code>, Desktop <code>3.75rem</code>. Section padding: Mobile <code>3rem</code>, Desktop <code>5rem</code>.</p>
+            <div class="layout-example">
+                <p class="small-text text-center">This is inside a .container, within a .section</p>
+                <div class="content-block">
+                    <h3 class="h3">Content Block (.content-block)</h3>
+                    <p>This block has a white background and standard padding.</p>
+                </div>
+                <div class="grid grid-cols-1 grid-cols-md-3">
+                    <div class="content-block"><p class="small-text text-center">Column 1</p></div>
+                    <div class="content-block"><p class="small-text text-center">Column 2</p></div>
+                    <div class="content-block"><p class="small-text text-center">Column 3</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buttons Section -->
+        <section id="buttons" class="style-guide-section button-showcase">
+            <h2>5. Buttons</h2>
+            <p>Squared, minimal style with uppercase bold text and no radius.</p>
+            <div>
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-primary btn-icon">Primary Icon</button>
+                <button class="btn btn-primary" disabled>Disabled Primary</button>
+            </div>
+            <div>
+                <button class="btn btn-secondary">Secondary Button</button>
+                <button class="btn btn-secondary btn-icon">Secondary Icon</button>
+                <button class="btn btn-secondary" disabled>Disabled Secondary</button>
+            </div>
+        </section>
+
+        <!-- Links & Interactive Elements Section -->
+        <section id="links" class="style-guide-section">
+            <h2>6. Links & Interactive Elements</h2>
+            <div>
+                <span class="small-text text-secondary">Text Link</span>
+                <p>This is a <a href="#">standard text link</a>. Hover or focus to see the accent color and underline.</p>
+            </div>
+            <div>
+                <span class="small-text text-secondary">Navigation Link Style (example)</span>
+                <p><a href="#" class="nav-link">Nav Link Example</a> (hover/focus for style)</p>
+            </div>
+            <p>Focus styles: <code>outline: 2px solid #61B0F6; outline-offset: 2px;</code> (Try tabbing through elements)</p>
+        </section>
+
+        <!-- Cards & Containers Section -->
+        <section id="cards" class="style-guide-section card-showcase">
+            <h2>7. Cards & Containers</h2>
+            <p>Background: #FFFFFF, No border-radius, no shadow. Padding: Mobile 1.5rem, Desktop 2.5rem.</p>
+            <div class="grid grid-cols-1 grid-cols-md-2">
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="h3">Standard Card</h3>
+                        <p>This is a standard card with content. It's a clean white block.</p>
+                        <button class="btn btn-secondary">Read More</button>
+                    </div>
+                </div>
+                <!-- Removed .card.card-image-top example -->
+                <div class="card card-callout">
+                    <div class="card-content">
+                        <h3 class="h3">Callout Block Card</h3>
+                        <p>This card uses the light gray background (<code>#F2F2F2</code>) for emphasis.</p>
+                    </div>
+                </div>
+
+                <!-- New Card with Discover Title Block -->
+                <div class="card card-discover-feature">
+                    <div class="image-aspect-ratio-2-1"> <!-- Updated class name -->
+                        <img src="images/rugby-drill.jpg" alt="Underwater rugby drill">
+                    </div>
+                    <div class="card-content"> <!-- Wrapper for content, padding will be removed via CSS for this specific card -->
+                        <div class="title-block-discover"> <!-- Copied structure -->
+                            <div class="pre-title">DISCOVER</div>
+                            <h3 class="main-title"> <!-- Adjusted to h3 for card context -->
+                                Underwater
+                                <span class="title-line-break">Rugby <img src="assets/icons/CUGA_wave.png" alt="Decorative wave" class="title-wave"></span>
+                            </h3>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-primary">How to play →</button>
+                            <button class="btn btn-primary">Where and when →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forms Section -->
+        <section id="forms" class="style-guide-section">
+            <h2>8. Forms</h2>
+            <form action="#" method="post" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="e.g., Jules Verne">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control is-error" placeholder="you@example.com" value="invalid-email">
+                    <span class="form-error-message">Please enter a valid email address.</span>
+                </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" class="form-control" rows="4" placeholder="Your message..."></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit Form</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Icons & Visual Elements Section -->
+        <section id="icons" class="style-guide-section">
+            <h2>9. Icons & Visual Elements</h2>
+            <p><span class="icon-placeholder">i</span> <span class="icon-text">Icon with text (16-32px, typically stroke). Color context-dependent.</span></p>
+            <p><img src="assets/icons/cuga_symbol.png" alt="Maple Leaf Icon" class="maple-leaf-decorative" style="width: 40px; height: auto; vertical-align: middle;"> Maple Leaf: Decorative accent. Color: <code>#FB2000</code> (Note: color is inherent to PNG).</p>
+
+            <p class="small-text text-secondary" style="margin-top:1.5rem;">Divider:</p>
+            <hr class="divider">
+            <p class="small-text">Subtle section separation (1px, #DCDCDC).</p>
+        </section>
+
+        <!-- Decorative Elements Section -->
+        <section id="decorative" class="style-guide-section">
+            <h2>10. Decorative Elements</h2>
+            <p>Wave Separator (PNG)</p>
+            <img src="assets/icons/CUGA_wave.png" alt="Wave Separator" class="wave-separator">
+            <p class="small-text">Original SVG color intent: #000435. Width: ~80-100px, Spacing: 16px above/below. (PNG color is inherent)</p>
+        </section>
+
+    </div> <!-- /container -->
+
+    <script>
+        // Basic hamburger menu toggle for demo purposes
+        const newHamburgerToggle = document.getElementById('hamburgerToggleButton'); // Updated ID
+        const navMenuDemo = document.getElementById('navMenuDemo');
+        // const navMenuClose = document.getElementById('navMenuClose'); // Removed
+        const navLinks = navMenuDemo.querySelectorAll('.nav-link');
+
+        function toggleMenu() {
+            const isOpen = navMenuDemo.classList.toggle('is-open');
+            newHamburgerToggle.setAttribute('aria-expanded', isOpen); // Updated reference
+            navMenuDemo.setAttribute('aria-hidden', !isOpen);
+            if (isOpen) {
+                // navMenuClose.focus(); // Removed as navMenuClose is removed
+                // Optionally, focus the menu itself or the first link
+                // For now, no specific focus is set here when opening, besides default browser behavior.
+            } else {
+                newHamburgerToggle.focus(); // Return focus to the toggle button - Updated reference
+            }
+        }
+
+        newHamburgerToggle.addEventListener('click', toggleMenu); // Updated reference
+        // navMenuClose.addEventListener('click', toggleMenu); // Removed
+
+        // Close menu when a nav link is clicked (optional, good for SPA-like behavior)
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenuDemo.classList.contains('is-open')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Close menu with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && navMenuDemo.classList.contains('is-open')) {
+                toggleMenu();
+            }
+        });
+    </script>
+
+    <footer class="site-footer-bar">
+        <div class="footer-copyright">
+            Copyright &copy;<span id="currentYear"></span> CUGA.CA
+        </div>
+        <div class="footer-links">
+            <a href="terms-of-use.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic year in footer
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
