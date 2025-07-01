@@ -1,33 +1,55 @@
 // JavaScript for hamburger menu functionality
-document.addEventListener('headerLoaded', initializeMenu);
-// Fallback if headerLoaded is too late or doesn't fire (e.g. if menu.js loads after header is already in DOM)
-// or if header is not dynamically loaded on a particular page (though current setup does load dynamically)
-if (document.getElementById('hamburgerToggleButton')) {
-    initializeMenu();
+
+// Attempt to initialize right away if elements are already in the static DOM
+// (e.g. for index.html which has its own header)
+if (document.getElementById('hamburgerToggleButton') && document.getElementById('navMenu')) {
+    //This check might be too early if navMenu is from nav-panel.html not yet loaded
+    //initializeMenu();
 }
 
+// Listen for events indicating that parts of the DOM are ready
+document.addEventListener('headerLoaded', () => {
+    console.log("menu.js: headerLoaded event received.");
+    tryInitializeMenu();
+});
+document.addEventListener('navPanelLoaded', () => {
+    console.log("menu.js: navPanelLoaded event received.");
+    tryInitializeMenu();
+});
+// Also try on DOMContentLoaded as a general fallback, especially if header/nav panel are static for some pages
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("menu.js: DOMContentLoaded event received.");
+    tryInitializeMenu();
+});
 
-function initializeMenu() {
-    // Prevent multiple initializations if headerLoaded fires and elements are already there
+
+function tryInitializeMenu() {
     if (window.menuInitialized) {
-        console.log("menu.js: Menu already initialized.");
+        // console.log("menu.js: Menu already initialized via another event.");
         return;
     }
-    console.log("menu.js: Initializing menu...");
-
+    // Check if ALL required elements are now in the DOM
     const hamburgerToggle = document.getElementById('hamburgerToggleButton');
-    const navMenu = document.getElementById('navMenu');
-    const navMenuOverlay = document.getElementById('navMenuOverlay');
+    const navMenu = document.getElementById('navMenu'); // This comes from nav-panel.html
+    const navMenuOverlay = document.getElementById('navMenuOverlay'); // This also comes from nav-panel.html
 
-    // Check if essential menu elements exist
-    if (!hamburgerToggle || !navMenu || !navMenuOverlay) {
-        console.error("menu.js: Essential menu elements not found. Initialization aborted.");
-        return;
+    if (hamburgerToggle && navMenu && navMenuOverlay) {
+        console.log("menu.js: All elements present, proceeding with initialization.");
+        initializeMenu(hamburgerToggle, navMenu, navMenuOverlay);
+        window.menuInitialized = true; // Set flag
+    } else {
+        // console.log("menu.js: Not all elements present yet. Hamburger:", !!hamburgerToggle, "NavMenu:", !!navMenu, "Overlay:", !!navMenuOverlay);
     }
+}
+
+function initializeMenu(hamburgerToggle, navMenu, navMenuOverlay) {
+    console.log("menu.js: Initializing menu event listeners and functions...");
 
     const submenuToggles = navMenu.querySelectorAll('.submenu-toggle');
-    const langFrLogo = document.querySelector('.lang-fr-logo'); // Assumes it's in the loaded header
-    const langEnLogo = document.querySelector('.lang-en-logo'); // Assumes it's in the loaded header
+    // Logo elements might be in a separate header component or specific to index.html
+    // For menu.js, focus on menu panel specific elements first.
+    // const langFrLogo = document.querySelector('.lang-fr-logo');
+    // const langEnLogo = document.querySelector('.lang-en-logo');
 
     function toggleMenu() {
         const isOpen = navMenu.classList.toggle('is-open');

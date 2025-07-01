@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUGA - Canadian Underwater Games Association | Underwater Sports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="preload" as="image" href="images/hockey.jpg">
+    <link rel="preload" as="image" href="images/rugby.jpg">
+    <link rel="preload" as="image" href="images/hockey-drill.jpg">
+    <link rel="preload" as="image" href="images/rugby-drill.jpg">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T2BEK56YJ1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-T2BEK56YJ1');
+    </script>
+    <meta name="description" content="CUGA - Découvrez les sports subaquatiques au Canada, incluant le hockey et le rugby subaquatique. Rejoignez-nous pour des entraînements et des cours d'initiation.">
+    <meta name="keywords" content="CUGA, Canadian Underwater Games Association, sports subaquatiques, hockey subaquatique, rugby subaquatique, Canada, national, cours d'initiation, entraînements, club, natation, snorkeling, sports, hockey sous-marin, rugby sous-marin, sport aquatique, loisir aquatique, sport collectif, apnée, plongée, compétition, équipe, jeunes, adultes, sport santé, activité physique, sport d'équipe, sport de piscine, sport sous l'eau, formation, découverte, sport loisir, sport Québec, sport Canada, underwater hockey, underwater rugby, aquatic sports, underwater club, swimming pool, aquatic training, aquatic fitness, aquatic competition, aquatic team, aquatic club, aquatic activities, aquatic leisure, aquatic challenge, aquatic discipline, aquatic event, aquatic fun, aquatic games, aquatic initiation, aquatic learning, aquatic practice, aquatic recreation, aquatic sport, aquatic team sport, aquatic training, aquatic youth, aquatic adults, aquatic wellness, aquatic workout, aquatic experience, aquatic adventure, aquatic discovery, aquatic Quebec, aquatic Canada, sport jeunesse, sport adulte, sport mixte, sport féminin, sport masculin, sport inclusif, sport récréatif, sport compétitif, sport loisir Québec, sport loisir Canada, club aquatique, club loisir, club compétition, club jeunesse, club adulte, club inclusif, club Québec, club Canada, activité aquatique, activité sportive, activité loisir, activité jeunesse, activité adulte, activité famille, activité Québec, activité Canada, entraînement aquatique, entraînement sportif, entraînement loisir, entraînement jeunesse, entraînement adulte, entraînement Québec, entraînement Canada, underwater sports, underwater hockey, underwater rugby, introductory course, training, club, swimming, aquatic sports, underwater team, team sport, apnea, diving, competition, team, youth, adults, health sport, physical activity, team sport, pool sport, underwater sport, training, discovery, leisure sport, Quebec sport, Canada sport, youth sport, adult sport, mixed sport, women's sport, men's sport, inclusive sport, recreational sport, competitive sport, leisure club, competition club, youth club, adult club, inclusive club, Quebec club, Canada club, aquatic activity, sports activity, leisure activity, youth activity, adult activity, family activity, Quebec activity, Canada activity, aquatic training, sports training, leisure training, youth training, adult training, Quebec training, Canada training">
+    <meta name="author" content="CUGA - Canadian Underwater Games Association">
+    <meta property="og:title" content="CUGA - Sports Subaquatiques au Canada">
+    <meta property="og:description" content="Rejoignez CUGA pour découvrir le hockey et le rugby subaquatique au Canada. Inscrivez-vous à nos cours d'initiation et plongez dans l'action !">
+    <meta property="og:image" content="images/hockey.jpg">
+    <meta property="og:url" content="https://www.cuga.ca">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CUGA - Sports Subaquatiques au Canada">
+    <meta name="twitter:description" content="Découvrez les sports subaquatiques avec CUGA au Canada. Hockey et rugby subaquatique pour tous les niveaux.">
+    <meta name="twitter:image" content="images/hockey.jpg">
+    <!-- Removed old AOS script, will be in main.js or individual page scripts -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            padding-top: 64px; /* For sticky header */
+        }
+        @media (min-width: 768px) { /* md breakpoint from Tailwind */
+            body {
+                padding-top: 120px; /* For sticky header */
+            }
+        }
+        .lang-en {
+            display: none;
+        }
+        /* Removed .active-nav-link as new menu handles active state */
+
+        /* Bubbles CSS */
+        .bubbles { position: fixed; bottom: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;}
+        .bubble { position: absolute; background-color: rgba(255, 255, 255, 0.5); border-radius: 50%; opacity: 0.7; animation: rise 10s infinite ease-in; }
+        @keyframes rise { 0% { bottom: -100px; transform: translateX(0); } 50% { transform: translateX(100px); } 100% { bottom: 1080px; transform: translateX(-100px); opacity: 0; } }
+
+        /* Hide old nav elements */
+        .force-hide-mobile { display: none !important; }
+
+        /* Welcome section specific styles */
+        .welcome-section {
+            min-height: calc(100vh - 120px - 60px); /* Full viewport height minus header and footer */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background: url('images/underwater-bg-blurry.jpg') no-repeat center center; */ /* Optional: if a specific background image is desired */
+            /* background-size: cover; */
+        }
+        .welcome-content {
+            background-color: rgba(0, 4, 53, 0.7); /* var(--primary-color) with alpha */
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+         @media (min-width: 768px) {
+            .welcome-content {
+                 padding: 3rem;
+            }
+        }
+
+    </style>
+    <!-- Removed old AOS init, will be in main.js or individual page scripts -->
+    <!-- Removed old bubble CSS, styles combined above -->
+    <!-- Removed old force-hide-mobile CSS -->
+</head>
+<body class="bg-blue-700 text-white">
+    <div class="bubbles"></div>
+
+    <div id="header-placeholder"></div>
+
+    <!-- Removed old language switcher and experimental banner, header.html will handle language buttons -->
+    <!-- The old header inside lang-fr and lang-en divs is removed -->
+
+    <main class="bg-white text-gray-800"> <!-- Adjusted main bg to white for content sections -->
+        <div class="lang-fr">
+            <section id="welcome-hero-fr" class="welcome-section bg-blue-700 text-white container mx-auto px-4 py-16 text-center" data-aos="fade-in" data-aos-duration="1500">
+                <div class="welcome-content">
+                    <img src="assets/icons/cuga_symbol.png" alt="CUGA Maple Leaf Symbol" class="mx-auto mb-6 h-24 w-auto md:h-32">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold uppercase mb-4 title-block-maple-welcome welcome-title" style="color: var(--white); line-height: 1.1;">
+                        Bienvenue au cœur des sports subaquatiques au Canada
+                    </h1>
+                    <img src="assets/icons/CUGA_wave.png" alt="Decorative wave" class="mx-auto my-6 h-8 md:h-10">
+                    <p class="text-lg md:text-xl mb-8 text-gray-200">
+                        Plongez dans l'univers passionnant du Hockey Subaquatique, du Rugby Subaquatique et du Football Subaquatique avec la CUGA.
+                    </p>
+                    <div class="space-y-4 md:space-y-0 md:space-x-4">
+                        <a href="#sports-section-fr" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-primary-dark font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 text-lg">
+                            Découvrir nos sports <i class="fa fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="join.html" class="inline-block bg-transparent hover:bg-white hover:text-primary-dark border-2 border-white text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 text-lg">
+                            Rejoindre un Club <i class="fa fa-users ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sports-section-fr" class="container mx-auto px-4 py-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">Découvrez Nos Disciplines</h2>
+                <div class="flex flex-col md:flex-row gap-10">
+                    <div id="hockey-fr" class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/3 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-800 flex items-center text-center">
+                            <img src="assets/logos/HOCKEY/SCREEN/FR/FullColor/CUGA-WM-hockey-fr-fullColor-rgb.svg" alt="Hockey Subaquatique Logo" class="h-10 mr-3 inline-block align-middle">Hockey Subaquatique
+                        </h3>
+                        <img src="images/hockey.jpg" alt="Image de joueurs de Hockey Subaquatique" class="rounded-lg mb-6 w-full h-auto object-cover">
+                        <p class="text-gray-700 leading-relaxed mb-6">
+                            Le hockey subaquatique est un sport d'équipe non-contact pratiqué au fond d'une piscine. Deux équipes de six joueurs s'affrontent pour pousser un palet lourd à l'aide d'une crosse dans le but adverse. C'est un sport intense qui demande apnée, endurance et stratégie.
+                            <br><br>
+                            Ce sport développe l'apnée, la force physique, l'agilité sous l'eau et la coordination d'équipe. Il est parfait pour ceux qui aiment les défis aquatiques et la collaboration.
+                        </p>
+                        <p class="text-lg font-semibold text-gray-900 mt-4">Des clubs existent à travers le Canada.</p>
+                    </div>
+                    <div id="rugby-fr" class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/3 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="text-2xl font-bold mb-4 text-green-800 flex items-center text-center">
+                            <img src="assets/logos/RUGBY/SCREEN/FR/FullColor/CUGA-WM-rugby-fr-fullColor-rgb.svg" alt="Rugby Subaquatique Logo" class="h-10 mr-3 inline-block align-middle">Rugby Subaquatique
+                        </h3>
+                        <img src="images/rugby.jpg" alt="Image de joueurs de Rugby Subaquatique" class="rounded-lg mb-6 w-full h-auto object-cover">
+                        <p class="text-gray-700 leading-relaxed mb-6">
+                            Le rugby subaquatique est un sport d'équipe en trois dimensions joué au fond d'une piscine profonde. Deux équipes tentent de placer un ballon rempli d'eau salée (qui coule) dans le panier adverse. Les contacts sont autorisés pour prendre le ballon au porteur.
+                            <br><br>
+                            Ce sport développe l'apnée, la puissance, la tactique spatiale et la capacité à travailler en équipe dans un environnement unique. Il est idéal pour les athlètes cherchant un sport aquatique intense et stratégique.
+                        </p>
+                        <p class="text-lg font-semibold text-gray-900 mt-4">Des clubs existent à travers le Canada.</p>
+                    </div>
+                    <div id="football-fr" class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/3 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="text-2xl font-bold mb-4 text-purple-800 flex items-center text-center">
+                            <img src="assets/logos/FOOTBALL/SCREEN/FR/FullColor/CUGA-WM-football-fr-fullColor-rgb.svg" alt="Football Subaquatique Logo" class="h-10 mr-3 inline-block align-middle">Football Subaquatique
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed mb-6">
+                            Le football subaquatique est un sport subaquatique pratiqué par deux équipes de 5 joueurs. Le football subaquatique partage des règles et des éléments de jeu communs avec le hockey subaquatique et le rugby subaquatique. Comme pour ces jeux, il se pratique dans la partie profonde d’une piscine avec un équipement de snorkeling (masque, tuba et palmes).
+                            <br><br>
+                            Le but du jeu est de marquer un point en plaçant le ballon du côté adverse d’une piscine. Le ballon ne peut être possédé que par des joueurs complètement immergés sous l’eau en apnée. Le ballon doit être passé ou lâché en remontant à la surface pour respirer.
+                        </p>
+                        <p class="text-lg font-semibold text-gray-900 mt-4">Pour en savoir plus :</p>
+                        <a href="https://www.uwfootball.ca/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block bg-purple-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-800 transition duration-300 shadow-lg">
+                            Visitez uwfootball.ca
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="lang-en">
+            <section id="welcome-hero-en" class="welcome-section bg-blue-700 text-white container mx-auto px-4 py-16 text-center" data-aos="fade-in" data-aos-duration="1500">
+                 <div class="welcome-content">
+                    <img src="assets/icons/cuga_symbol.png" alt="CUGA Maple Leaf Symbol" class="mx-auto mb-6 h-24 w-auto md:h-32">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold uppercase mb-4 title-block-maple-welcome welcome-title" style="color: var(--white); line-height: 1.1;">
+                        Welcome to the Home of Underwater Sports in Canada
+                    </h1>
+                    <img src="assets/icons/CUGA_wave.png" alt="Decorative wave" class="mx-auto my-6 h-8 md:h-10">
+                    <p class="text-lg md:text-xl mb-8 text-gray-200">
+                        Dive into the exciting world of Underwater Hockey, Underwater Rugby, and Underwater Football with CUGA.
+                    </p>
+                    <div class="space-y-4 md:space-y-0 md:space-x-4">
+                        <a href="#sports-section-en" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-primary-dark font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 text-lg">
+                            Discover Our Sports <i class="fa fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="join.html" class="inline-block bg-transparent hover:bg-white hover:text-primary-dark border-2 border-white text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition duration-300 text-lg">
+                            Join a Club <i class="fa fa-users ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sports-section-en" class="container mx-auto px-4 py-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-gray-800">Discover Our Disciplines</h2>
+                <div class="flex flex-col md:flex-row gap-10">
+                    <div id="hockey-en" class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/3 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-800 flex items-center">
+                            <img src="assets/logos/HOCKEY/SCREEN/EN/FullColor/CUGA-WM-hockey-en-fullColor-rgb.svg" alt="Underwater Hockey Logo" class="h-10 mr-3 inline-block align-middle">Underwater Hockey
+                        </h3>
+                        <img src="images/hockey.jpg" alt="Image of Underwater Hockey players" class="rounded-lg mb-6 w-full h-auto object-cover">
+                        <p class="text-gray-700 leading-relaxed mb-6">
+                            Underwater hockey is a non-contact team sport played on the bottom of a swimming pool. Two teams of six players compete to push a heavy puck using a stick into the opponent's goal. It's an intense sport that requires breath-holding, endurance, and strategy.
+                            <br><br>
+                            This sport develops breath-holding, physical strength, underwater agility, and team coordination. It's perfect for those who enjoy aquatic challenges and collaboration.
+                        </p>
+                        <p class="text-lg font-semibold text-gray-900 mt-4">Clubs exist across Canada.</p>
+                    </div>
+                    <div id="rugby-en" class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/3 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="text-2xl font-bold mb-4 text-green-800 flex items-center">
+                            <img src="assets/logos/RUGBY/SCREEN/EN/FullColor/CUGA-WM-rugby-en-fullColor-rgb.svg" alt="Underwater Rugby Logo" class="h-10 mr-3 inline-block align-middle">Underwater Rugby
+                        </h3>
+                        <img src="images/rugby.jpg" alt="Image of Underwater Rugby players" class="rounded-lg mb-6 w-full h-auto object-cover">
+                        <p class="text-gray-700 leading-relaxed mb-6">
+                            Underwater rugby is a three-dimensional team sport played at the bottom of a deep pool. Two teams try to place a saltwater-filled ball (which sinks) into the opponent's basket. Contact is allowed to take the ball from the ball carrier.
+                            <br><br>
+                            This sport develops breath-holding, power, spatial tactics, and the ability to work as a team in a unique environment. It's ideal for athletes seeking an intense and strategic aquatic sport.
+                        </p>
+                        <p class="text-lg font-semibold text-gray-900 mt-4">Clubs exist across Canada.</p>
+                    </div>
+                    <div id="football-en" class="bg-white rounded-xl shadow-xl p-8 w-full md:w-1/3 transform transition duration-500 hover:scale-105 hover:shadow-2xl" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="text-2xl font-bold mb-4 text-purple-800 flex items-center">
+                            <img src="assets/logos/FOOTBALL/SCREEN/EN/FullColor/CUGA-WM-football-en-fullColor-rgb.svg" alt="Underwater Football Logo" class="h-10 mr-3 inline-block align-middle">Underwater Football
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed mb-6">
+                            Underwater football is an underwater sport played with two 5 player teams. Underwater Football shares some common rules and play elements with Underwater Hockey and Underwater rugby. As with those games, it is played in the deep end of a swimming pool with snorkeling equipment (mask, snorkel, and fins).
+                            <br><br>
+                            The goal of the game is to score a point by placing a the ball on the opponents side of a pool. The ball can only be possessed by players who are completely submerged underwater holding their breath. The ball must be passed or dropped when going to the surface for air.
+                        </p>
+                        <p class="text-lg font-semibold text-gray-900 mt-4">To learn more:</p>
+                        <a href="https://www.uwfootball.ca/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block bg-purple-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-800 transition duration-300 shadow-lg">
+                            Visit uwfootball.ca
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <!-- AOS library -->
+    <script src="js/main.js"></script> <!-- Main shared logic (language, bubbles, etc.) -->
+    <script src="js/menu.js"></script> <!-- Hamburger menu logic (will listen for headerLoaded) -->
+    <script src="js/page-init.js"></script> <!-- Page initializer (AOS, header/footer loading) -->
+    <!-- Page-specific scripts can go here if needed -->
+</body>
+</html>

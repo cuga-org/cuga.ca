@@ -66,6 +66,324 @@ body {
   }
 }
 
+/* New Styles for index.html layout (Task: CUGA-New-Landing-Page) */
+
+/* Top Bar / Site Header adjustments */
+.site-header {
+  /* Existing: background-color, height, display, justify-content, align-items, padding, width, box-sizing */
+  /* Ensure it's fixed at the top */
+  position: fixed; /* Changed from potentially relative/static */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it's above other content */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for fixed header */
+}
+
+.site-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: var(--max-container-width); /* Align with .container */
+  margin: 0 auto; /* Center content */
+  padding: 0 var(--content-padding-mobile);
+}
+@media (min-width: 768px) {
+  .site-header-content {
+    padding: 0 var(--content-padding-desktop);
+  }
+}
+
+
+.site-logo {
+  /* Existing: max-width, max-height, height: auto, display: block */
+  /* Ensure it doesn't shrink too much */
+  flex-shrink: 0;
+}
+/* Optional: if site-logo-text is used */
+.site-logo-text {
+    color: var(--white);
+    font-size: 0.6rem; /* Very small */
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: none; /* Hidden by default, shown on larger screens */
+}
+@media (min-width: 768px) {
+    .site-logo-text {
+        display: inline; /* Or block if it needs its own line */
+    }
+}
+
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Space between lang switcher and hamburger */
+}
+
+/* Language switcher in header */
+.main-lang-switcher {
+  display: flex;
+}
+.main-lang-switcher .lang-button {
+  /* Using .btn .btn-small from existing styles.css for base */
+  /* .btn: font-size: 0.875rem (14px), font-weight: 700, text-transform: uppercase, padding: 12px 24px */
+  /* .btn-small might not exist, so we might need to define it or override padding */
+  padding: 6px 10px; /* Smaller padding for header buttons */
+  font-size: 0.75rem; /* 12px */
+  background-color: transparent;
+  color: var(--white);
+  border: 1px solid var(--white);
+  line-height: 1; /* Ensure text is centered */
+}
+.main-lang-switcher .lang-button:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-right-width: 0.5px; /* Create separation */
+}
+.main-lang-switcher .lang-button:last-child {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-left-width: 0.5px;
+}
+.main-lang-switcher .lang-button:hover,
+.main-lang-switcher .lang-button:focus {
+  background-color: var(--white);
+  color: var(--primary-color);
+}
+.main-lang-switcher .lang-button.active-lang { /* JS will add .active-lang */
+  background-color: var(--white);
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+
+/* Body padding to offset fixed header */
+body {
+  /* This padding is already applied via inline styles in each HTML file,
+     but it's good to have it here as a reference or primary source if inline styles are removed.
+     Ensure this matches the .site-header height. */
+  padding-top: 64px; /* Mobile header height */
+}
+@media (min-width: 768px) {
+  body {
+    padding-top: 120px; /* Desktop header height */
+  }
+}
+
+/* Main Layout: Sidebar and Content Area */
+.main-layout {
+  display: flex;
+  flex-direction: column; /* Mobile: stack sidebar on top of content */
+  flex-grow: 1;
+  /* padding-top is handled by body padding for fixed header */
+}
+
+.left-sidebar {
+  width: 100%; /* Full width on mobile */
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: var(--content-padding-mobile);
+  display: flex; /* Flex to center content wrapper */
+  flex-direction: column;
+  justify-content: center; /* Vertically center content if sidebar has fixed height or enough content */
+  align-items: flex-start; /* Align content to the start (left) */
+  min-height: 300px; /* Minimum height for visual appeal on mobile */
+}
+
+.sidebar-content-wrapper {
+  width: 100%;
+  max-width: 500px; /* Max width for sidebar text content */
+  text-align: left; /* Ensure text is left-aligned */
+}
+
+.main-content-area {
+  width: 100%; /* Full width on mobile */
+  background-color: var(--white); /* Main content usually has a light background */
+  color: var(--text-charcoal);
+  padding: var(--section-padding-mobile);
+  flex-grow: 1; /* Takes remaining space */
+}
+
+@media (min-width: 1024px) { /* lg breakpoint, or adjust as needed for sidebar */
+  .main-layout {
+    flex-direction: row; /* Sidebar and content side-by-side on desktop */
+  }
+  .left-sidebar {
+    width: 33.333333%; /* One-third of the width */
+    min-height: calc(100vh - 120px); /* Full viewport height minus header height */
+    padding: var(--content-padding-desktop);
+    position: sticky; /* Make sidebar sticky */
+    top: 120px; /* Align below fixed header */
+    height: calc(100vh - 120px); /* Ensure it doesn't overflow viewport if content is short */
+    overflow-y: auto; /* Allow scrolling if content is too tall */
+  }
+  .main-content-area {
+    width: 66.666667%; /* Two-thirds of the width */
+    padding: var(--section-padding-desktop);
+  }
+}
+
+/* Sidebar Elements */
+.sidebar-maple-leaf {
+  width: 70px; /* Adjust as needed */
+  height: auto;
+  margin-bottom: 1.5rem;
+  /* The image is red, if it needs to be programmatically colored red and it's an SVG:
+     fill: var(--accent-color); */
+}
+
+.sidebar-hero-title {
+  /* Based on "WELCOME TO THE HOME..." description: Very Large */
+  /* Kumbh Sans, 900 weight, uppercase is in .hero-title / .display-h1 */
+  font-size: 2.5rem; /* Approx 40px, adjust as needed */
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--white); /* Explicitly white for sidebar */
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+  .sidebar-hero-title {
+    font-size: 3rem; /* Approx 48px for desktop */
+  }
+}
+@media (min-width: 1280px) {
+  .sidebar-hero-title {
+    font-size: 3.5rem; /* Approx 56px for larger desktops */
+  }
+}
+
+
+.sidebar-wave {
+  width: 100px; /* Match .wave-separator if desired */
+  height: auto;
+  margin-top: 1rem;
+  /* If it's an SVG and needs to be primary color:
+     fill: var(--primary-color); but on primary bg, this might not be visible.
+     It's likely a white or accent color wave on primary bg.
+     Assuming CUGA_wave.png is suitable as is, or a white version is needed.
+     For now, no color change via CSS.
+  */
+}
+
+/* Main Content Area - Sports Grid */
+.sports-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column on mobile */
+  gap: var(--grid-gutter, 1.5rem);
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+  .sports-grid {
+    /* Two columns on tablet, or keep single if design prefers stacking until wider */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  }
+}
+
+@media (min-width: 1024px) { /* lg breakpoint for 3 columns if sidebar is active */
+  /* If sidebar takes 1/3, main content is 2/3. 3 cards in 2/3 might be tight.
+     Let's aim for 2 cards if sidebar is present and main content is narrower,
+     or let auto-fit handle it. If fixed 3 columns are needed:
+  .sports-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  */
+}
+
+
+/* Sports Card (.card-discover-feature) adjustments */
+.card-discover-feature {
+  /* Existing: .card styles (bg, margin-bottom, overflow) */
+  /* New: Add shadow or border if desired for this specific context, default card has none */
+   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+   border-radius: 8px; /* Optional: slight rounding for modern feel */
+}
+
+.card-discover-feature .image-aspect-ratio-2-1 img {
+    border-top-left-radius: 8px; /* Match card radius */
+    border-top-right-radius: 8px; /* Match card radius */
+}
+
+
+/* Custom padding for card content in the new index.html sports cards */
+.card-content-custom-padding {
+  padding: var(--card-padding-mobile); /* Use existing card padding variables */
+}
+@media (min-width: 768px) {
+  .card-content-custom-padding {
+    padding: 1.5rem; /* Slightly less than var(--card-padding-desktop) for a denser look if needed */
+  }
+}
+
+/* Title Block Discover within cards - adjustments if needed */
+.card-discover-feature .title-block-discover .pre-title {
+  /* Existing: color, font-size (18px), font-weight, text-transform, margin-bottom */
+  font-size: 1rem; /* 16px, as per "Medium-large" potentially */
+  color: var(--pretitle-accent-color); /* Already defined */
+  font-weight: 700; /* Bolder pre-title */
+}
+
+.card-discover-feature .title-block-discover .main-title {
+  /* Existing: font-size (28px), color, font-weight, text-transform, line-height, margin */
+  /* "Similar size to DISCOVER, perhaps slightly larger or the same, bolded" */
+  font-size: 1.5rem; /* 24px, adjust as needed */
+  font-weight: 900; /* Keep very bold */
+  color: var(--text-charcoal); /* Ensure it's not primary color like h1/h2/h3 by default */
+  line-height: 1.2;
+}
+.card-discover-feature .title-block-discover .main-title .title-wave {
+    height: 0.7em; /* Scale with new font size */
+}
+
+
+/* Card Actions within sports cards */
+.card-discover-feature .card-actions {
+  /* Existing: display:flex, flex-wrap, gap */
+  margin-top: 1rem; /* Space above buttons */
+}
+.card-discover-feature .card-actions .btn {
+  /* Existing: .btn properties, .btn-primary properties */
+  /* "Small to medium, button text, likely ~14pt or ~16pt" */
+  /* .btn is 14px. This is fine. */
+  width: 100%; /* Make buttons full width of their flex item */
+}
+@media (min-width: 480px) { /* Small screen, allow buttons side-by-side */
+    .card-discover-feature .card-actions .btn {
+        width: auto; /* Revert to content width */
+        flex-grow: 1; /* Allow them to share space */
+    }
+}
+
+
+/* Ensure hamburger icon button is styled correctly */
+/* .hamburger-icon-button is already styled in general section */
+
+/* Nav Menu Placeholder - for the actual slide-out menu */
+#nav-menu-placeholder {
+  /* This div itself doesn't need style; .nav-menu inside it is styled */
+}
+
+/* Ensure bubbles are behind everything */
+.bubbles {
+    z-index: -1; /* Ensure it's behind page content */
+}
+
+/* General page wrapper to help with sticky footer if needed */
+/* body is already display:flex, flex-direction:column, min-height:100vh */
+/* .page-wrapper is display:flex, flex-direction:column, flex-grow:1 */
+/* This setup should make footer (if any) stick to bottom. */
+
+/* Ensure .site-header doesn't get Tailwind background if Tailwind is removed later */
+.site-header {
+    background-color: var(--primary-color) !important;
+}
+
+/* Override for nav-link color inside the main nav menu if it was different from general .nav-link */
+/* .nav-menu .nav-link is already white in existing rules, this is fine */
+
 @media (max-width: 767px) {
   .site-header {
     height: 64px;
@@ -831,7 +1149,7 @@ textarea.form-control {
 
 /* Responsive Footer */
 @media (max-width: 767px) {
-  .site-footer-bar {
+  .site-footer-bar { /* This seems to be for a different footer, .site-footer-bar, not the main page footer */
     height: auto; /* Allow height to adjust to content */
     flex-direction: column;
     padding-top: 0.75rem; /* 12px */
