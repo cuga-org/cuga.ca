@@ -202,30 +202,37 @@
             <h2>7. Cards & Containers</h2>
             <p>Background: #FFFFFF, No border-radius, no shadow. Padding: Mobile 1.5rem, Desktop 2.5rem.</p>
             <div class="grid grid-cols-1 grid-cols-md-2">
-                <div class="card">
-                    <div class="card-content">
-                        <h3 class="h3">Standard Card</h3>
+                <div>
+                    <span class="small-text text-secondary">Standard Card / .card .card-content</span>
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="h3">Standard Card</h3>
                         <p>This is a standard card with content. It's a clean white block.</p>
                         <button class="btn btn-secondary">Read More</button>
                     </div>
                 </div>
                 <!-- Removed .card.card-image-top example -->
-                <div class="card card-callout">
-                    <div class="card-content">
-                        <h3 class="h3">Callout Block Card</h3>
-                        <p>This card uses the light gray background (<code>#F2F2F2</code>) for emphasis.</p>
+                <div>
+                    <span class="small-text text-secondary">Callout Block Card / .card .card-callout .card-content</span>
+                    <div class="card card-callout">
+                        <div class="card-content">
+                            <h3 class="h3">Callout Block Card</h3>
+                            <p>This card uses the light gray background (<code>#F2F2F2</code>) for emphasis.</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- New Card with Discover Title Block -->
-                <div class="card card-discover-feature">
-                    <div class="image-aspect-ratio-2-1"> <!-- Updated class name -->
-                        <img src="images/rugby-drill.jpg" alt="Underwater rugby drill">
-                    </div>
-                    <div class="card-content"> <!-- Wrapper for content, padding will be removed via CSS for this specific card -->
-                        <div class="title-block-discover"> <!-- Copied structure -->
-                            <div class="pre-title">DISCOVER</div>
-                            <h3 class="main-title"> <!-- Adjusted to h3 for card context -->
+                <div>
+                    <span class="small-text text-secondary">Discover Feature Card / .card .card-discover-feature .image-aspect-ratio-2-1 .card-content .title-block-discover</span>
+                    <div class="card card-discover-feature">
+                        <div class="image-aspect-ratio-2-1"> <!-- Updated class name -->
+                            <img src="images/rugby-drill.jpg" alt="Underwater rugby drill">
+                        </div>
+                        <div class="card-content"> <!-- Wrapper for content, padding will be removed via CSS for this specific card -->
+                            <div class="title-block-discover"> <!-- Copied structure -->
+                                <div class="pre-title">DISCOVER</div>
+                                <h3 class="main-title"> <!-- Adjusted to h3 for card context -->
                                 Underwater
                                 <span class="title-line-break">Rugby <img src="assets/icons/CUGA_wave.png" alt="Decorative wave" class="title-wave"></span>
                             </h3>
