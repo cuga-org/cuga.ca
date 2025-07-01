@@ -92,6 +92,18 @@ body {
   box-sizing: border-box;
 }
 
+/* Sticky Footer Implementation */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main { /* Assuming <main> is the primary content wrapper */
+  flex-grow: 1;
+}
+/* End Sticky Footer Implementation */
+
 /* Site Header */
 .site-header {
   background-color: var(--primary-color);
@@ -462,8 +474,11 @@ body {
 }
 
 /* General page wrapper to help with sticky footer if needed */
-/* body is already display:flex, flex-direction:column, min-height:100vh */
-/* .page-wrapper is display:flex, flex-direction:column, flex-grow:1 */
+.page-wrapper { /* Used in index.html */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 /* This setup should make footer (if any) stick to bottom. */
 
 /* Ensure .site-header doesn't get Tailwind background if Tailwind is removed later */
